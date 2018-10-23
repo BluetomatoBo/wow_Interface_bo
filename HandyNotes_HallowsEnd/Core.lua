@@ -16,6 +16,8 @@ HallowsEnd.points = {}
 local db
 local defaults = { profile = { completed = false, icon_scale = 1.4, icon_alpha = 0.8 } }
 
+local standingWithAldor, standingWithScryers
+
 local continents = {
 	[12]  = true, -- Kalimdor
 	[13]  = true, -- Eastern Kingdoms
@@ -28,6 +30,15 @@ local continents = {
 	[876] = true, -- Kul Tiras
 }
 
+local notes = {
+	[12340] = "If Sentinel Hill is on fire, the bucket will be in the tower. If not, it will be in the inn.",
+	[12349] = "Speak to Zidormi if you can't find the bucket.", -- Theramore Isle, Alliance
+	[12380] = "Speak to Zidormi if you can't find the bucket.", -- Hammerfall, Horde
+	[28954] = "Speak to Zidormi if you can't find the bucket.", -- Refuge Pointe, Alliance
+	[28959] = "Speak to Zidormi if you can't find the bucket.", -- Dreadmaul Hold, Horde
+	[28960] = "Speak to Zidormi if you can't find the bucket.", -- Nethergarde Keep, Alliance
+	[39657] = "Requires a Tier 3 Garrison.", -- Frostwall/Lunarfall Garrison
+}
 
 -- upvalues
 local _G = getfenv(0)
@@ -35,6 +46,7 @@ local _G = getfenv(0)
 local C_Timer_NewTicker = _G.C_Timer.NewTicker
 local C_Calendar = _G.C_Calendar
 local GameTooltip = _G.GameTooltip
+local GetFactionInfoByID = _G.GetFactionInfoByID
 local GetGameTime = _G.GetGameTime
 local GetQuestsCompleted = _G.GetQuestsCompleted
 local gsub = _G.string.gsub
@@ -54,8 +66,6 @@ local points = HallowsEnd.points
 
 -- plugin handler for HandyNotes
 function HallowsEnd:OnEnter(mapFile, coord)
-	mapFile = gsub(mapFile, "_terrain%d+$", "")
-
 	local point = points[mapFile] and points[mapFile][coord]
 	local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
 
@@ -65,12 +75,11 @@ function HallowsEnd:OnEnter(mapFile, coord)
 		tooltip:SetOwner(self, "ANCHOR_RIGHT")
 	end
 
-	if point == "Zidormi" then
-		tooltip:SetText("Zidormi")
-		tooltip:AddLine("Talk to the Time Keeper to travel back in time if you can't find the bucket.", 1, 1, 1)
+	tooltip:SetText("Candy Bucket")
+
+	if notes[point] then
+		tooltip:AddLine(notes[point])
 		tooltip:AddLine(" ")
-	else
-		tooltip:SetText("Candy Bucket")
 	end
 
 	if TomTom then
@@ -97,14 +106,13 @@ end
 
 local function createAllWaypoints()
 	for mapID, coords in next, points do
-		if type(mapID) == "string" then HandyNotes:Print(mapID, "needs to be changed to the new format.") else
 		for coord, questID in next, coords do
-			if coord and questID ~= "Zidormi" and (db.completed or not completedQuests[questID]) then
+			if coord and (db.completed or not completedQuests[questID]) then
 				createWaypoint(mapID, coord)
 			end
 		end
-		end
 	end
+	TomTom:SetClosestWaypoint()
 end
 
 function HallowsEnd:OnClick(button, down, mapFile, coord)
@@ -127,11 +135,7 @@ do
 		local coord, v = next(t, prev)
 		while coord do
 			if v and (db.completed or not completedQuests[v]) then
-				if v == "Zidormi" then
-					return coord, nil, "interface\\icons\\spell_holy_borrowedtime", db.icon_scale, db.icon_alpha
-				else
-					return coord, nil, "interface\\icons\\achievement_halloween_candy_01", db.icon_scale, db.icon_alpha
-				end
+				return coord, nil, "interface\\icons\\achievement_halloween_candy_01", db.icon_scale, db.icon_alpha
 			end
 
 			coord, v = next(t, coord)
@@ -221,6 +225,11 @@ local function CheckEventActive()
 	if setEnabled and not HallowsEnd.isEnabled then
 		completedQuests = GetQuestsCompleted(completedQuests)
 
+		-- special treatment for Westfall
+		if UnitFactionGroup("player") == "Alliance" and completedQuests[26322] then
+			points[52] = { [56824732] = 12340 } -- if Sentinel Hill is on fire, the bucket is in the tower instead of the inn
+		end
+
 		HallowsEnd.isEnabled = true
 		HallowsEnd:Refresh()
 		HallowsEnd:RegisterEvent("QUEST_TURNED_IN", "Refresh")
@@ -240,19 +249,26 @@ end
 function HallowsEnd:OnEnable()
 	self.isEnabled = false
 
-	-- special treatment for Westfall
-	if UnitFactionGroup("player") == "Alliance" then
-		if completedQuests[26322] then
-			points[52] = { [56824732] = 12340 } -- Sentinel Hill is on fire, the bucket is in the tower
-		else
-			points[52] = { [52915374] = 12340 } -- Sentinel Hill is not on fire, the bucket is in the inn
-		end
-	end
-
 	local HereBeDragons = LibStub("HereBeDragons-2.0", true)
 	if not HereBeDragons then
 		HandyNotes:Print("Your installed copy of HandyNotes is out of date and the Hallow's End plug-in will not work correctly.  Please update HandyNotes to version 1.5.0 or newer.")
 		return
+	end
+
+	-- special treatment for Aldor/Scryers
+	_, _, standingWithAldor = GetFactionInfoByID(932)
+	_, _, standingWithScryers = GetFactionInfoByID(934)
+
+	-- hated by Aldor
+	if standingWithAldor <= 4 then
+		points[104][56305980] = 12409 -- Sanctum of the Stars
+		points[111][56208180] = 12404 -- Scryer's Tier
+	end
+
+	-- hated by Scryers
+	if standingWithScryers <= 4 then
+		points[104][61002820] = 12409 -- Altar of Sha'tar
+		points[111][28104900] = 12404 -- Aldor Rise
 	end
 
 	for continentMapID in next, continents do

@@ -20,7 +20,6 @@ points[15] = { -- "Badlands"
 }
 
 points[17] = { -- "BlastedLands"
-	[48160728] = "Zidormi",
 	[60691407] = 28960, -- Nethergarde Keep
 	[44348759] = 28961, -- Surwich
 }
@@ -38,7 +37,7 @@ points[23] = { -- "EasternPlaguelands"
 	[75575230] = 12402, -- Light's Hope Chapel
 }
 
-points[38] = { -- "Elwynn"
+points[37] = { -- "Elwynn"
 	[43746590] = 12286, -- Goldshire
 	[24894013] = 12336, -- Trade District, Stormwind City
 }
@@ -91,6 +90,10 @@ points[22] = { -- "WesternPlaguelands"
 	[43418439] = 28988, -- Chillwind Camp
 }
 
+points[52] = { -- Westfall
+	[52915374] = 12340, -- Sentinel Hill
+}
+
 points[56] = { -- "Wetlands"
 	[10816095] = 12343, -- Menethil Harbour
 	[26092597] = 28990, -- Swiftgear Station
@@ -132,7 +135,6 @@ points[66] = { -- "Desolace"
 }
 
 points[70] = { -- "Dustwallow"
-	[55804960] = "Zidormi",
 	[66604528] = 12349, -- Theramore Isle
 	[41867409] = 12398, -- Mudsprocket
 }
@@ -212,13 +214,9 @@ points[109] = { -- "Netherstorm"
 
 points[104] = { -- "ShadowmoonValley"
 	[37105820] = 12360, -- Wildhammer Stronghold
-	[61002820] = 12409, -- Altar of Sha'tar
-	[56305980] = 12409, -- Sanctum of the Stars
 }
 
-points[111] = { -- "ShattrathCity"
-	[28104900] = 12404, -- Aldor Rise
-	[56208180] = 12404, -- Scryer's Tier
+points[111] = { -- ShattrathCity"
 }
 
 points[108] = { -- "TerokkarForest"
