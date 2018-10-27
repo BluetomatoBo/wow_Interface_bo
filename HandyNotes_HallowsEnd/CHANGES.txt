@@ -1,90 +1,32 @@
-tag 8d2b6dbcede03a5c3cff14f3f7e0676fc95f0129 v1.4.1
+tag 8297e6444f15c3bed02109fa141fd7a4b25a6bc2 v1.4.2
 Author:	Ethan Centaurai <ethancentaurai@outlook.com>
-Date:	Mon Oct 22 18:13:18 2018 +0100
+Date:	Tue Oct 23 20:30:23 2018 +0100
 
-Tagging as v1.4.1.
+Tagging as v1.4.2.
 
-commit 40738857fdc5ebd6165ac0cfefcc1ae3a1a719e5
+commit 25ed8f97677226fddad1519c3c76adba64dc48e9
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sun Oct 21 18:23:30 2018 +0100
+Date:   Tue Oct 23 20:06:47 2018 +0100
 
-    Fixed the buckets in Elwynn Forest.
+    Updated Shrine of Two Moons bucket.
+    
+    Also grammar fixes. Because reasons.
 
-commit 93205c9581fba135492d7cf3ffcbc9bd4fa7a8bb
+commit 1292a6a9c2cbf749009866ac3cd6d251ca3db2f9
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sat Oct 20 22:30:28 2018 +0100
+Date:   Tue Oct 23 18:25:47 2018 +0100
 
-    Added notes to the buckets in Arathi Highlands.
+    Further tweaks.
 
-commit 484846c2339b81cf3dea7bf3951d3004e47c6ea7
+commit 6b830b32677dca73c29cbf58bbdccd766a95ff8e
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sat Oct 20 22:24:56 2018 +0100
+Date:   Tue Oct 23 18:19:48 2018 +0100
 
-    Use empty arrays and populate them on load.
+    Tweaked the coordinates of the Underbelly buckets.
 
-commit 956de984f642fb068a01a58bdef3f4149478f9c6
+commit 530342d0bfd70e9f2e4df31d020011661c6699cd
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sat Oct 20 22:12:25 2018 +0100
+Date:   Tue Oct 23 18:18:08 2018 +0100
 
-    Move faction handling code into Core.lua.
-
-commit be0c0e4547617443680e04e2f8bdaf5daa3f4938
-Author: Kathryn Newbould <kathrynrnewbould@gmail.com>
-Date:   Sat Oct 20 21:39:33 2018 +0200
-
-    Whitespace
-
-commit 0337b62549a7de0f9157a5b852fd5a596c168ab2
-Author: Kathryn Newbould <kathrynrnewbould@gmail.com>
-Date:   Sat Oct 20 21:38:43 2018 +0200
-
-    Remove Scryer/Aldor pumpkins if hated
-
-commit 6f0255f369e0a37277683c87919c1e2881ccba1a
-Author: Kathryn Newbould <kathrynrnewbould@gmail.com>
-Date:   Sat Oct 20 14:57:34 2018 +0200
-
-    Included Shattrath points in rep if/else blocks
-
-commit 9b58d1a9a768911965292b380ba6d40b35889930
-Author: Kathryn Newbould <kathrynrnewbould@gmail.com>
-Date:   Sat Oct 20 14:47:13 2018 +0200
-
-    Update Alliance.lua
-
-commit 5bd2d842fce1cea0e2fb550291864532e1801a84
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sat Oct 20 10:38:13 2018 +0100
-
-    Fixed Westfall bucket and added a note to the tooltip.
-
-commit e8b25044284135f6e496544ae57b66a4517f32d0
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Fri Oct 19 21:10:57 2018 +0100
-
-    Small cleanup.
-
-commit 96f9b178aaccf9cb4c14db94998e6327aef897d6
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Fri Oct 19 21:09:56 2018 +0100
-
-    Add notes to tooltips where appropriate.
-
-commit 89c9bfa371b51f205e77248f6cf2f0414276bb70
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Fri Oct 19 20:32:45 2018 +0100
-
-    Removed Zidormi icons.
-
-commit d88fbd180a34ecd0d9ebcedc2fc8a7d2b7587d1b
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Fri Oct 19 20:19:34 2018 +0100
-
-    Removed debug.
-
-commit e00b8b101116d6e05b74d4c249ec5857e8fd5093
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Fri Oct 19 20:11:19 2018 +0100
-
-    Set the closest waypoint arrow. Fixes #2.
+    Added a note to the bucket in the Underbelly Tavern. Closes #4.
 
