@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 17997 $"):sub(12, -3)),
-	DisplayVersion = "8.0.13", -- the string that is shown as version
-	ReleaseRevision = 17997 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 18052 $"):sub(12, -3)),
+	DisplayVersion = "8.0.14", -- the string that is shown as version
+	ReleaseRevision = 18052 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -62,7 +62,7 @@ end
 -- dual profile setup
 local _, playerClass = UnitClass("player")
 DBM_UseDualProfile = true
-if playerClass == "MAGE" or playerClass == "WARLOCK" and playerClass == "ROGUE" then
+if playerClass == "MAGE" or playerClass == "WARLOCK" or playerClass == "ROGUE" then
 	DBM_UseDualProfile = false
 end
 DBM_CharSavedRevision = 2
@@ -412,7 +412,7 @@ local delayedFunction
 local dataBroker
 local voiceSessionDisabled = false
 
-local fakeBWVersion, fakeBWHash = 121, "36816da"
+local fakeBWVersion, fakeBWHash = 121, "fe1a1bd"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -7519,15 +7519,15 @@ end
 
 --Skip param is used when CheckInterruptFilter is actually being used for a simpe target/focus check and nothing more.
 --checkCooldown should never be passed with skip or COUNT interrupt warnings. It should be passed with any other interrupt filter
-function bossModPrototype:CheckInterruptFilter(sourceGUID, skip, checkCooldown, ignoreTandF)
-	if DBM.Options.FilterInterrupt2 == "None" and not skip then return true end--use doesn't want to use interrupt filter, always return true
+function bossModPrototype:CheckInterruptFilter(sourceGUID, force, checkCooldown, ignoreTandF)
+	if DBM.Options.FilterInterrupt2 == "None" and not force then return true end--user doesn't want to use interrupt filter, always return true
 	--Pummel, Mind Freeze, Counterspell, Kick, Skull Bash, Rebuke, Silence, Wind Shear, Disrupt, Solar Beam
 	local InterruptAvailable = true
 	local requireCooldown = checkCooldown
 	if (DBM.Options.FilterInterrupt2 == "onlyTandF") or self.isTrashMod and (DBM.Options.FilterInterrupt2 == "TandFandBossCooldown") then
 		requireCooldown = false
 	end
-	if requireCooldown and ((GetSpellCooldown(6552)) ~= 0 or (GetSpellCooldown(47528)) ~= 0 or (GetSpellCooldown(2139)) ~= 0 or (GetSpellCooldown(1766)) ~= 0 or (GetSpellCooldown(106839)) ~= 0 or (GetSpellCooldown(96231)) ~= 0 or (GetSpellCooldown(15487)) ~= 0 or (GetSpellCooldown(57994)) ~= 0 or (GetSpellCooldown(183752)) ~= 0 or (GetSpellCooldown(78675)) ~= 0) then
+	if requireCooldown and ((GetSpellCooldown(6552)) ~= 0 or (GetSpellCooldown(47528)) ~= 0 or (GetSpellCooldown(282151)) ~= 0 or (GetSpellCooldown(2139)) ~= 0 or (GetSpellCooldown(1766)) ~= 0 or (GetSpellCooldown(106839)) ~= 0 or (GetSpellCooldown(96231)) ~= 0 or (GetSpellCooldown(15487)) ~= 0 or (GetSpellCooldown(57994)) ~= 0 or (GetSpellCooldown(183752)) ~= 0 or (GetSpellCooldown(78675)) ~= 0) then
 		InterruptAvailable = false--checkCooldown check requested and player has no spell that can interrupt available
 	end
 	if InterruptAvailable and (ignoreTandF or UnitGUID("target") == sourceGUID or UnitGUID("focus") == sourceGUID) then
@@ -7851,7 +7851,7 @@ do
 			end
 		else
 			local cidOrGuid = cidOrGuid or self.creatureId--GetBossTarget supports GUID or CID and it will automatically return correct values with EITHER ONE
-			local distance = distance or 40
+			local distance = distance or 43
 			local uId
 			local _, fallbackuId, mobuId = self:GetBossTarget(cidOrGuid)
 			if mobuId then--Have a valid mob unit ID
@@ -9719,7 +9719,7 @@ do
 			local argTable = {...}
 			-- add a default parameter for move away warnings
 			if self.announceType == "gtfo" then
-				if DBM:UnitDebuff("player", 27827) then return end--Don't tell a priest in spirit of redemption form to GTFO, they can't, and they don't take damage from it anyhow
+				if DBM:UnitBuff("player", 27827) then return end--Don't tell a priest in spirit of redemption form to GTFO, they can't, and they don't take damage from it anyhow
 				if #argTable == 0 then
 					argTable[1] = DBM_CORE_BAD
 				end
@@ -9981,7 +9981,7 @@ do
 			if announceType == "target" or announceType == "targetcount" or announceType == "close" or announceType == "reflect" then
 				catType = "announceother"
 			--Directly affects you
-			elseif announceType == "you" or announceType == "youcount" or announceType == "youpos" or announceType == "move" or announceType == "dodge" or announceType == "dodgecount" or announceType == "moveaway" or announceType == "moveawaycount" or announceType == "keepmove" or announceType == "stopmove" or announceType == "run" or announceType == "stack" or announceType == "moveto" or announceType == "soakpos" then
+			elseif announceType == "you" or announceType == "youcount" or announceType == "youpos" or announceType == "move" or announceType == "dodge" or announceType == "dodgecount" or announceType == "moveaway" or announceType == "moveawaycount" or announceType == "keepmove" or announceType == "stopmove" or announceType == "run" or announceType == "stack" or announceType == "moveto" or announceType == "soak" or announceType == "soakpos" then
 				catType = "announcepersonal"
 			--Things you have to do to fulfil your role
 			elseif announceType == "taunt" or announceType == "dispel" or announceType == "interrupt" or announceType == "interruptcount" or announceType == "switch" or announceType == "switchcount" then
@@ -10096,6 +10096,10 @@ do
 	
 	function bossModPrototype:NewSpecialWarningMoveTo(text, optionDefault, ...)
 		return newSpecialWarning(self, "moveto", text, nil, optionDefault, ...)
+	end
+	
+	function bossModPrototype:NewSpecialWarningSoak(text, optionDefault, ...)
+		return newSpecialWarning(self, "soak", text, nil, optionDefault, ...)
 	end
 	
 	function bossModPrototype:NewSpecialWarningJump(text, optionDefault, ...)
@@ -10269,6 +10273,7 @@ do
 			--Starting ai timer with (1) indicates it's a first timer after pull
 			--Starting timer with (2) or (3) indicates it's a stage 2 or stage 3 first timer
 			--Starting AI timer with anything above 3 indicarets it's a regular timer and to use shortest time in between two regular casts
+			local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 			if self.type == "ai" then--A learning timer
 				if not DBM.Options.AITimer then return end
 				if timer > 4 then--Normal behavior.
@@ -10299,6 +10304,15 @@ do
 					end
 				else--AI timer passed with 4 or less is indicating phase change, with timer as phase number
 					if self["phase"..timer.."CastTimer"] and type(self["phase"..timer.."CastTimer"]) == "number" then
+						--Check if timer is shorter than previous learned first timer by scanning remaining time on existing bar
+						local bar = DBM.Bars:GetBar(id)
+						if bar then
+							local remaining = ("%.1f"):format(bar.timer)
+							if bar.timer > 0.2 then
+								self["phase"..timer.."CastTimer"] = self["phase"..timer.."CastTimer"] - remaining
+								DBM:Debug("AI timer learned a lower first timer for current phase of "..self["phase"..timer.."CastTimer"], 2)
+							end
+						end
 						timer = self["phase"..timer.."CastTimer"]
 					else--No first pull timer generated yet, set it to GetTime, as a string
 						self["phase"..timer.."CastTimer"] = tostring(GetTime())
@@ -10306,7 +10320,6 @@ do
 					end
 				end
 			end
-			local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 			if DBM.Options.AutoCorrectTimer or (DBM.Options.DebugMode and DBM.Options.DebugLevel > 1) then
 				if not self.type or (self.type ~= "target" and self.type ~= "active" and self.type ~= "fades" and self.type ~= "ai") then
 					local bar = DBM.Bars:GetBar(id)

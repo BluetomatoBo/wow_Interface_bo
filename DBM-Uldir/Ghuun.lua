@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(2147, "DBM-Uldir", nil, 1031)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 17993 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18034 $"):sub(12, -3))
 mod:SetCreatureID(132998)
 mod:SetEncounterID(2122)
 mod:SetZone()
 --mod:SetBossHPInfoToHighest()
-mod:SetUsedIcons(7, 6, 5, 4, 3, 2, 1)
+mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)
 mod:SetHotfixNoticeRev(17906)
 mod:SetMinSyncRevision(17776)
 mod.respawnTime = 29
@@ -16,9 +16,9 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 267509 267427 267412 273406 273405 267409 267462 267579 263482 263503 263307 275160",
 	"SPELL_CAST_SUCCESS 263235 263482 263503 263373 270373 270428 276839 274582 272505 275756 263416",
-	"SPELL_AURA_APPLIED 268074 267813 277079 272506 274262 263372 270447 263235 270443 273405 267409 263284 277007",
+	"SPELL_AURA_APPLIED 268074 267813 277079 272506 274262 263372 270447 263235 270443 273405 267409 263284 277007 263436",
 	"SPELL_AURA_APPLIED_DOSE 270447",
-	"SPELL_AURA_REMOVED 268074 267813 277079 272506 274262 263235 263372 277007",
+	"SPELL_AURA_REMOVED 268074 267813 277079 272506 274262 263235 263372 277007 273405 267409 263436",
 	"SPELL_PERIODIC_DAMAGE 270287",
 	"SPELL_PERIODIC_MISSED 270287",
 --	"SPELL_DAMAGE 263326",
@@ -34,11 +34,10 @@ mod:RegisterEventsInCombat(
 --TODO, how does http://bfa.wowhead.com/spell=268174/tendrils-of-corruption work? warning/yell? is it like yogg squeeze?
 --[[
 (ability.id = 267509 or ability.id = 273406 or ability.id = 273405 or ability.id = 267579 or ability.id = 263482 or ability.id = 263503 or ability.id = 275160 or ability.id = 269455) and type = "begincast"
- or (ability.id = 272505 or ability.id = 275756 or ability.id = 263235 or ability.id = 263482 or ability.id = 263503 or ability.id = 263373 or ability.id = 270373 or ability.id = 270428 or ability.id = 276839 or ability.id = 274582) and type = "cast"
+ or (ability.id = 272505 or ability.id = 275756 or ability.id = 263235 or ability.id = 263482 or ability.id = 263503 or ability.id = 263373 or ability.id = 270373 or ability.id = 270428 or ability.id = 276839 or ability.id = 274582 or ability.id = 276994) and type = "cast"
  or ability.id = 270443
  or (ability.id = 267462 or ability.id = 267412 or ability.id = 267409) and type = "begincast"
  or ability.id = 270443 and type = "applybuff"
- or ability.id = 277007 and type = "applydebuff"
  or (ability.id = 277079 or ability.id = 272506 or ability.id = 274262) and (type = "applydebuff" or type = "removedebuff")
 --]]
 --Arena Floor
@@ -66,7 +65,7 @@ local specWarnTorment					= mod:NewSpecialWarningInterrupt(267427, "HasInterrupt
 local specWarnMassiveSmash				= mod:NewSpecialWarningSpell(267412, "Tank", nil, 2, 1, 2)
 local specWarnDarkBargain				= mod:NewSpecialWarningDodge(267409, nil, nil, 2, 3, 2)
 local specWarnDarkBargainOther			= mod:NewSpecialWarningTaunt(267409, false, nil, 2, 1, 2)
-local specWarnGTFO						= mod:NewSpecialWarningGTFO(270287, nil, nil, nil, 1, 2)
+local specWarnGTFO						= mod:NewSpecialWarningGTFO(270287, nil, nil, nil, 1, 8)
 local specWarnDecayingEruption			= mod:NewSpecialWarningInterrupt(267462, "HasInterrupt", nil, nil, 1, 2)--Mythic
 ----Arena Floor P2+
 local specWarnGrowingCorruption			= mod:NewSpecialWarningCount(270447, nil, DBM_CORE_AUTO_SPEC_WARN_OPTIONS.stack:format(5, 270447), nil, 1, 2)
@@ -98,7 +97,7 @@ local timerBurrowCD						= mod:NewCDTimer(30, 267579, nil, nil, nil, 6)
 mod:AddTimerLine(SCENARIO_STAGE:format(2))
 local timerWaveofCorruptionCD			= mod:NewCDCountTimer(15, 270373, nil, nil, nil, 3)
 local timerBloodFeastCD					= mod:NewCDCountTimer(15, 263235, nil, nil, nil, 2)
-local timerBurstingBoil					= mod:NewCastCountTimer(8, 277007, nil, nil, nil, 3, nil, DBM_CORE_HEROIC_ICON)
+local timerBurstingBoil					= mod:NewCastCountTimer(8, 277007, nil, nil, 2, 5, nil, DBM_CORE_HEROIC_ICON)
 local timerBurstingBoilCD				= mod:NewCDCountTimer(20.5, 277007, nil, nil, nil, 3, nil, DBM_CORE_HEROIC_ICON)
 ----Horror
 local timerMindNumbingChatterCD			= mod:NewCDTimer(13.4, 263307, nil, "SpellCaster", nil, 2)
@@ -123,6 +122,7 @@ mod:AddNamePlateOption("NPAuraOnFixate", 268074)
 mod:AddNamePlateOption("NPAuraOnUnstoppable", 275204)
 mod:AddSetIconOption("SetIconOnBloodHost", 267813, true)
 mod:AddSetIconOption("SetIconOnBurstingBoil", 277007, true)
+mod:AddSetIconOption("SetIconOnExplosiveCorruption", 272506, false)
 
 mod.vb.phase = 1
 mod.vb.mawCastCount = 0
@@ -133,8 +133,9 @@ mod.vb.waveCast = 0
 mod.vb.bloodFeastCount = 0
 mod.vb.burstingIcon = 0
 mod.vb.burstingCount = 0
+mod.vb.explosiveIcon = 0
 mod.vb.matrixActive = false
-local playerBursting = false
+local playerHasImperfect, playerHasBursting, playerHasBargain, playerHasMatrix = false, false, false, false
 local matrixTargets, bloodFeastTarget = {}, {}
 local thousandMawsTimers = {25.4, 26.3, 25.5, 24.2, 23.9, 23.1, 21.5, 21.9, 19.4}
 local thousandMawsTimersLFR = {27.78, 29.2, 27.9, 26.46, 26.13, 25.26, 23.51, 23.95, 21.21}--Timers 4+ extrapolated using 1.093x greater formula
@@ -182,7 +183,7 @@ do
 				local name = matrixTargets[i]
 				local uId = DBM:GetRaidUnitId(name)
 				if not uId then break end
-				addLine(matrixSpellName, UnitName(uId))
+				addLine(i.."-"..matrixSpellName, UnitName(uId))
 			end
 			if mod.vb.matrixActive then
 				if mod:IsMythic() then--No side, short text
@@ -206,24 +207,26 @@ do
 			addLine(bloodFeastName, UnitName(uId))
 		end
 		--Player personal checks
-		local spellName3, _, _, _, _, expireTime = DBM:UnitDebuff("player", 263436)
-		if spellName3 and expireTime then--Personal Imperfect Physiology
-			local remaining = expireTime-GetTime()
-			addLine(spellName3, math.floor(remaining))
+		if playerHasImperfect then
+			local spellName3, _, _, _, _, expireTime = DBM:UnitDebuff("player", 263436)
+			if spellName3 and expireTime then--Personal Imperfect Physiology
+				local remaining = expireTime-GetTime()
+				addLine(spellName3, math.floor(remaining))
+			end
 		end
-		local spellName4, _, currentStack = DBM:UnitDebuff("player", 263227, 269301)
-		if spellName4 and currentStack then--Personal Putrid Blood count
-			addLine(spellName4, currentStack)
+		if playerHasBursting then
+			local spellName5, _, _, _, _, expireTime2 = DBM:UnitDebuff("player", 277007)
+			if spellName5 and expireTime2 then--Personal Bursting Boil
+				local remaining2 = expireTime2-GetTime()
+				addLine(spellName5, math.floor(remaining2))
+			end
 		end
-		local spellName5, _, _, _, _, expireTime2 = DBM:UnitDebuff("player", 277007)
-		if spellName5 and expireTime2 then--Personal Bursting Boil
-			local remaining2 = expireTime2-GetTime()
-			addLine(spellName5, math.floor(remaining2))
-		end
-		local spellName6, _, _, _, _, expireTime3 = DBM:UnitDebuff("player", 273405, 267409)
-		if spellName6 and expireTime3 then--Personal Dark Bargain
-			local remaining3 = expireTime3-GetTime()
-			addLine(spellName6, math.floor(remaining3))
+		if playerHasBargain then
+			local spellName6, _, _, _, _, expireTime3 = DBM:UnitDebuff("player", 273405, 267409)
+			if spellName6 and expireTime3 then--Personal Dark Bargain
+				local remaining3 = expireTime3-GetTime()
+				addLine(spellName6, math.floor(remaining3))
+			end
 		end
 		return lines, sortedLines
 	end
@@ -264,8 +267,9 @@ function mod:OnCombatStart(delay)
 	self.vb.bloodFeastCount = 0
 	self.vb.burstingIcon = 0
 	self.vb.burstingCount = 0
+	self.vb.explosiveIcon = 0
 	self.vb.matrixActive = false
-	playerBursting = false
+	playerHasImperfect, playerHasBursting, playerHasBargain, playerHasMatrix = false, false, false, false
 	timerMatrixCD:Start(5.3, 1)
 	if self:IsLFR() then
 		timerThousandMawsCD:Start(27.7-delay, 1)
@@ -298,6 +302,18 @@ function mod:OnCombatEnd()
 	end
 	if self.Options.NPAuraOnFixate or self.Options.NPAuraOnUnstoppable then
 		DBM.Nameplate:Hide(false, nil, nil, nil, true, true)
+	end
+end
+
+function mod:OnTimerRecovery()
+	if DBM:UnitDebuff("player", 277007) then
+		playerHasBursting = true
+	end
+	if DBM:UnitDebuff("player", 277007) then
+		playerHasImperfect = true
+	end
+	if DBM:UnitDebuff("player", 273405, 267409) then
+		playerHasBargain = true
 	end
 end
 
@@ -363,7 +379,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 263235 then--Blood Feast
 		self.vb.waveCast = 0
-		timerWaveofCorruptionCD:Start(15.6, 1)--16.6--Wave of corruption is next, not blood Feast
+		timerWaveofCorruptionCD:Start(15.5, 1)--Wave of corruption is next, not blood Feast
 	elseif (spellId == 263482 or spellId == 263503) then
 		timerReOrgBlast:Start()
 		if self.vb.phase < 2 then--Phase 1 to Phase 2 Transition
@@ -380,20 +396,20 @@ function mod:SPELL_CAST_SUCCESS(args)
 		else--Drive cast in Phase 2
 			if self.vb.waveCast == 2 then--Current timer is blood feast
 				local elapsed, total = timerBloodFeastCD:GetTime(self.vb.bloodFeastCount+1)
-				local extend = (total+24) - elapsed
-				timerBloodFeastCD:Update(elapsed, total+24, self.vb.bloodFeastCount+1)
+				local extend = (total+25) - elapsed
+				timerBloodFeastCD:Update(elapsed, total+25, self.vb.bloodFeastCount+1)
 				countdownBloodFeast:Cancel()
 				countdownBloodFeast:Start(extend)
 			else--Current timer is wave of corruption
-				timerWaveofCorruptionCD:AddTime(24, self.vb.waveCast+1)
+				timerWaveofCorruptionCD:AddTime(25, self.vb.waveCast+1)
 			end
 			local elapsed2, total2 = timerExplosiveCorruptionCD:GetTime(self.vb.explosiveCount+1)
-			local extend2 = (total2+24) - elapsed2
-			timerExplosiveCorruptionCD:Update(elapsed2, total2+24, self.vb.explosiveCount+1)
+			local extend2 = (total2+25) - elapsed2
+			timerExplosiveCorruptionCD:Update(elapsed2, total2+25, self.vb.explosiveCount+1)
 			countdownExplosiveCorruption:Cancel()
 			countdownExplosiveCorruption:Start(extend2)
 			if self:IsMythic() then
-				timerBurstingBoilCD:AddTime(24, self.vb.burstingCount+1)
+				timerBurstingBoilCD:AddTime(25, self.vb.burstingCount+1)
 			end
 		end
 	elseif spellId == 263373 then--Deposit Matrix
@@ -405,7 +421,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self.vb.waveCast = self.vb.waveCast + 1
 		if self.vb.phase == 2 then
 			if self.vb.waveCast == 1 then
-				timerWaveofCorruptionCD:Start(15.6, 2)
+				timerWaveofCorruptionCD:Start(15.5, 2)
 			else
 				timerBloodFeastCD:Start(15.6, self.vb.bloodFeastCount+1)
 				countdownBloodFeast:Start(15.6)
@@ -445,6 +461,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		countdownGazeofGhuun:Start(timer1)
 		timerWaveofCorruptionCD:Start(timer2, 1)
 	elseif spellId == 272505 or spellId == 275756 then
+		self.vb.explosiveIcon = 0
 		self.vb.explosiveCount = self.vb.explosiveCount + 1
 		if self.vb.phase == 1 then	
 			local timer = self:IsMythic() and 44 or 26
@@ -489,9 +506,11 @@ function mod:SPELL_AURA_APPLIED(args)
 	if spellId == 268074 then
 		warnDarkPurpose:CombinedShow(0.5, args.destName)
 		if args:IsPlayer() then
-			specWarnDarkPurpose:Show()
-			specWarnDarkPurpose:Play("justrun")
-			yellDarkPurpose:Yell()
+			if self:AntiSpam(3, 9) then
+				specWarnDarkPurpose:Show()
+				specWarnDarkPurpose:Play("justrun")
+				yellDarkPurpose:Yell()
+			end
 			if self.Options.NPAuraOnFixate then
 				DBM.Nameplate:Show(true, args.sourceGUID, spellId)
 			end
@@ -515,6 +534,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:SetIcon(args.destName, 7)
 		end
 	elseif spellId == 277079 or spellId == 272506 or spellId == 274262 then--272506 spread, 274262 initial targets, 277079 probably LFR with 6 second duration
+		self.vb.explosiveIcon = self.vb.explosiveIcon + 1
 		if args:IsPlayer() then
 			if self:AntiSpam(3, 8) then
 				specWarnExplosiveCorruption:Show()
@@ -523,12 +543,16 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 			yellExplosiveCorruptionFades:Countdown(spellId == 277079 and 6 or 4)
 		end
+		if self.Options.SetIconOnExplosiveCorruption then
+			self:SetIcon(args.destName, self.vb.explosiveIcon)
+		end
 	elseif spellId == 263372 then
 		self:Unschedule(checkThrowFail)
 		if args:IsPlayer() then
 			specWarnPowerMatrix:Show()
 			specWarnPowerMatrix:Play("newmatrix")
 			yellPowerMatrix:Yell()
+			playerHasMatrix = true
 		else
 			if self:IsMythic() then
 				warnPowerMatrix:CombinedShow(1, args.destName)
@@ -541,13 +565,13 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 270447 then
 		local amount = args.amount or 1
-		if (amount == 5 or amount >= 8) and self:AntiSpam(3, 4) then--First warning at 4, then a decent amount of time until 8. then spam every 3 seconds
+		if (amount == 5 or amount >= 8) and self:AntiSpam(3.5, 4) then--First warning at 4, then a decent amount of time until 8. then spam every 3 seconds
 			if self:IsTanking("player", "boss1", nil, true) then
 				specWarnGrowingCorruption:Show(amount)
 				specWarnGrowingCorruption:Play("changemt")
-			else
-				specWarnGrowingCorruptionOther:Show(L.name)
-				specWarnGrowingCorruptionOther:Play("changemt")
+			elseif not playerHasMatrix then--if player has matrix, don't shout to taunt boss
+				specWarnGrowingCorruptionOther:Show(args.destName)
+				specWarnGrowingCorruptionOther:Play("tauntboss")
 			end
 		end
 	elseif spellId == 263235 then
@@ -575,7 +599,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		self.vb.waveCast = 0
 		if self:IsMythic() then
 			--Wave seem cast instantly on mythic so no timer for first.
-			timerBurstingBoilCD:Start(16.9, 1)
+			timerBurstingBoilCD:Start(14.3, 1)--14.3-18
 		else
 			timerExplosiveCorruptionCD:Start(9, 1)
 			countdownExplosiveCorruption:Start(9)
@@ -590,6 +614,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnDarkBargainOther:Show(args.destName)
 			specWarnDarkBargainOther:Play("changemt")
 		end
+		if args:IsPlayer() then
+			playerHasBargain = true
+		end
 	elseif spellId == 263284 then--Horror Spawn
 		if self:IsMythic() then
 			timerMindNumbingChatterCD:Start(7, args.destGUID)
@@ -599,13 +626,15 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 277007 then
 		self.vb.burstingIcon = self.vb.burstingIcon + 1
 		if args:IsPlayer() then
-			playerBursting = true
+			playerHasBursting = true
 			specWarnBurstingBoil:Show()
 			specWarnBurstingBoil:Play("targetyou")
 		end
 		if self.Options.SetIconOnBurstingBoil then
 			self:SetIcon(args.destName, self.vb.burstingIcon)
 		end
+	elseif spellId == 263436 and args:IsPlayer() then
+		playerHasImperfect = true
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -636,6 +665,9 @@ function mod:SPELL_AURA_REMOVED(args)
 			specWarnVirulentCorruption:Show()
 			specWarnVirulentCorruption:Play("watchorb")
 		end
+		if self.Options.SetIconOnExplosiveCorruption then
+			self:SetIcon(args.destName, 0)
+		end
 	elseif spellId == 263235 then
 		if args:IsPlayer() then
 			yellBloodFeastFades:Cancel()
@@ -645,20 +677,27 @@ function mod:SPELL_AURA_REMOVED(args)
 		tDeleteItem(matrixTargets, args.destName)
 		self:Unschedule(checkThrowFail)
 		self:Schedule(3.5, checkThrowFail, self)
+		if args:IsPlayer() then
+			playerHasMatrix = false
+		end
 	elseif spellId == 277007 then
 		if args:IsPlayer() then
-			playerBursting = false
+			playerHasBursting = false
 		end
 		if self.Options.SetIconOnBurstingBoil then
 			self:SetIcon(args.destName, 0)
 		end
+	elseif (spellId == 273405 or spellId == 267409) and args:IsPlayer() then
+		playerHasBargain = false
+	elseif spellId == 263436 and args:IsPlayer() then
+		playerHasImperfect = false
 	end
 end
 
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spellName)
 	if spellId == 270287 and destGUID == UnitGUID("player") and self:AntiSpam(2, 6) then
 		specWarnGTFO:Show(spellName)
-		specWarnGTFO:Play("runaway")
+		specWarnGTFO:Play("watchfeet")
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
@@ -666,7 +705,7 @@ mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spellName)
 	if spellId == 263326 and destGUID == UnitGUID("player") and self:AntiSpam(2, 6) then
 		specWarnGTFO:Show(spellName)
-		specWarnGTFO:Play("runaway")
+		specWarnGTFO:Play("watchfeet")
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
@@ -722,19 +761,11 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
 		self.vb.burstingCount = self.vb.burstingCount + 1
 		timerBurstingBoil:Start(8, self.vb.burstingCount)
 		timerBurstingBoilCD:Start(20.5, self.vb.burstingCount+1)
-		if playerBursting then--Need to avoid the new boils
+		if playerHasBursting then--Need to avoid the new boils
 			specWarnBurstingBoilCast:Show()
 			specWarnBurstingBoilCast:Play("watchstep")
 		else--Need to help soak them
 			warnBurstingBoil:Show(self.vb.burstingCount)
 		end
-	--elseif spellId == 268251 then--Phase 2
-
-	--elseif spellId == 269803 then--Phase 3
-		
-	--elseif spellId == 274318 then--Spell Picker (Wave of Corruption & Blood Feast alternating)
-	
-	--elseif spellId == 270373 or spellId == 270428 then--Wave of Corruption
-
 	end
 end

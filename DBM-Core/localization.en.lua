@@ -19,7 +19,7 @@ DBM_COPY_URL_DIALOG					= "Copy URL"
 --Post Patch 7.1
 DBM_CORE_NO_RANGE					= "Range Radar can not be used in instances. Legacy text range frame used instead"
 DBM_CORE_NO_ARROW					= "Arrow can not be used in instances"
-DBM_CORE_ARROW_SUMMONED				= "Arrow has been activated. If you did not do this manually, you have a 3rd party addon configured to activated it for you"
+DBM_CORE_ARROW_SUMMONED				= "DBM Arrow has been activated. If you did not do this, you have a 3rd party addon configured to activated it for you"
 DBM_CORE_NO_HUD						= "HUDMap can not be used in instances"
 
 DBM_CORE_DYNAMIC_DIFFICULTY_CLUMP	= "DBM has disabled dynamic range frame on this fight do to insufficient information about number of players needed to affect clump check for a group of your size."
@@ -367,6 +367,7 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	moveaway		= "%s - move away from others",
 	moveawaycount	= "%s (%%s) - move away from others",
 	moveto			= "%s - move to >%%s<",
+	soak			= "%s - soak it",
 	jump			= "%s - jump",
 	run				= "%s - run away",
 	cast			= "%s - stop casting",
@@ -411,6 +412,7 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	moveaway		= "Show special warning to move away from others for $spell:%s",
 	moveawaycount	= "Show special warning (with count) to move away from others for $spell:%s",
 	moveto			= "Show special warning to move to someone or some place for $spell:%s",
+	soak			= "Show special warning to soak for $spell:%s",
 	jump			= "Show special warning to move to jump for $spell:%s",
 	run 			= "Show special warning to run away from $spell:%s",
 	cast 			= "Show special warning to stop casting for $spell:%s",--Spell Interrupt
