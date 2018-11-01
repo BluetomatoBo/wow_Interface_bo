@@ -561,23 +561,13 @@ end
 
 if GetLocale() == "esES" then
 	PawnUseThisLocalization()
-	PawnLocal.ThousandsSeparator = "\194\160"
+	PawnLocal.ThousandsSeparator = "."
 	PawnLocal.DecimalSeparator = ","
 elseif GetLocale() == "esMX" then 
 	PawnUseThisLocalization() 
 	PawnLocal.ThousandsSeparator = ","
 	PawnLocal.DecimalSeparator = "."
 end 
-
-if GetLocale() == "esES" or GetLocale() == "esMX" then
-	-- Convert "NBSP" to an actual non-breaking space (ASCII 160).  CurseForge isn't good about exporting actual NSBPs.
-	-- This is only supported for ThousandsSeparator and the items in the TooltipParsing table, and only for these languages.
-	local Key, Value
-	local T = PawnLocal.TooltipParsing
-	for Key, Value in pairs(T) do
-		T[Key] = gsub(Value, "NBSP", "\194\160")
-	end
-end
 
 -- After using this localization or deciding that we don't need it, remove it from memory.
 PawnUseThisLocalization = nil
