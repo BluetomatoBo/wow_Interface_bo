@@ -1,32 +1,14 @@
-tag 8297e6444f15c3bed02109fa141fd7a4b25a6bc2 v1.4.2
+tag 515f08b26d711a3f5494b3c49bfa75a6ab0e5b52 v1.4.3
 Author:	Ethan Centaurai <ethancentaurai@outlook.com>
-Date:	Tue Oct 23 20:30:23 2018 +0100
+Date:	Mon Oct 29 18:16:06 2018 +0000
 
-Tagging as v1.4.2.
+Tagging as v1.4.3.
 
-commit 25ed8f97677226fddad1519c3c76adba64dc48e9
+commit 5a3d2b52771e490ec531a35cbed337a237f3b095
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Tue Oct 23 20:06:47 2018 +0100
+Date:   Fri Oct 26 18:41:12 2018 +0100
 
-    Updated Shrine of Two Moons bucket.
+    Added a missing bucket to Stonetalon Mountains.
     
-    Also grammar fixes. Because reasons.
-
-commit 1292a6a9c2cbf749009866ac3cd6d251ca3db2f9
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Tue Oct 23 18:25:47 2018 +0100
-
-    Further tweaks.
-
-commit 6b830b32677dca73c29cbf58bbdccd766a95ff8e
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Tue Oct 23 18:19:48 2018 +0100
-
-    Tweaked the coordinates of the Underbelly buckets.
-
-commit 530342d0bfd70e9f2e4df31d020011661c6699cd
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Tue Oct 23 18:18:08 2018 +0100
-
-    Added a note to the bucket in the Underbelly Tavern. Closes #4.
+    Thank you Stoorma on CurseForge for the find!
 
