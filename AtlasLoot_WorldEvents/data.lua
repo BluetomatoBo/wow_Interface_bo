@@ -1294,7 +1294,7 @@ data["HallowsEnd"] = {
 	name = AL["Hallow's End"].." ("..ALIL["October"]..")",
 	ContentType = SEASONALEVENTS_CONTENT,
 	items = {
-		{	--HallowsEndHeadlessHorseman
+		{	--Hallows End Headless Horseman
 			name = BB["Headless Horseman"].." ("..ALIL["Scarlet Monastery"]..")",
 			[NORMAL_DIFF] = {
 				{ 1, "117363:3493" },	-- Band of the Petrified Pumpkin
@@ -1312,36 +1312,63 @@ data["HallowsEnd"] = {
 				{ 23, 33226 },	-- Tricky Treat
 			},
 		},
-		{	--HallowsEndCandyToys
+		{	--Hallows End Candy Toys
 			name = AL["Candy"].." & "..AL["Toys"],
 			[ALLIANCE_DIFF] = {
-				{ 1, 116801, "pet1521", [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Cursed Birman
-				{ 2, 33154, "pet162", [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Sinister Squashling
-				{ 3, 116804, "pet1523", [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Widget the Departed
+				-- Pets
+				{ 1, 151269, "pet2002", [PRICE_EXTRA_ITTYPE] = "trickytreat:150" }, 	-- Naxxy
+				{ 2, 116804, "pet1523", [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Widget the Departed
+				{ 3, 116801, "pet1521", [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Cursed Birman
 				{ 4, 70908, "pet319", [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Feline Familiar
-				{ 6, 70722, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Little Wickerman
-				{ 8, 116828, [PRICE_EXTRA_ITTYPE] = "trickytreat:500" },	-- Exquisite Costume Set: "The Lich King"
-				{ 9, 116811, [PRICE_EXTRA_ITTYPE] = "trickytreat:5" },	-- "Lil' Starlet" Costume
-				{ 10, 116810, [PRICE_EXTRA_ITTYPE] = "trickytreat:5" },	-- "Mad Alchemist" Costume
-				{ 11, 116812, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- "Yipp-Saron" Costume
-				{ 12, 138990, [PRICE_EXTRA_ITTYPE] = "trickytreat:200" },	-- Exquisite Costume Set: "Grommash"
-				{ 14, 33292, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Hallowed Helm
-				{ 15, 37011, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Magic Broom
-				{ 16, 37585, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Chewy Fel Taffy
-				{ 17, 37583, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- G.N.E.R.D.S.
-				{ 18, 37582, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Pyroblast Cinnamon Ball
-				{ 19, 37584, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Soothing Spearmint Candy
-				{ 20, 37604, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 10 },	-- Tooth Pick
-				{ 22, "INV_misc_food_25", nil, AL["Special Rewards"], nil },
-				{ 23, 33117 },	-- Jack-o'-Lantern
-				{ 24, 20400 },	-- Pumpkin Bag
-				{ 25, 71076, "pet321", [QUEST_EXTRA_ITTYPE] = 29413 },	-- Creepy Crate
-				{ 26, 20516 },	-- Bobbing Apple
-				{ 27, 34068 },	-- Weighted Jack-o'-Lantern
+				{ 5, 33154, "pet162", [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Sinister Squashling
+				{ 6, 71076, "pet321", [QUEST_EXTRA_ITTYPE] = 29413 },	-- Creepy Crate
+
+				{ 8, 116811, [PRICE_EXTRA_ITTYPE] = "trickytreat:5" },		-- "Lil' Starlet" Costume
+				{ 9, 116810, [PRICE_EXTRA_ITTYPE] = "trickytreat:5" },		-- "Mad Alchemist" Costume
+				{ 10, 116812, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- "Yipp-Saron" Costume
+				
+				-- Toys
+				{ 12, 163045, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Headless Horseman's Hearthstone
+				{ 13, 151271, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Horse Head Costume
+				{ 14, 151270, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Horse Tail Costume
+				{ 15,  70722, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Little Wickerman
+
+				-- Disguises
+				{ 16, 151268, [PRICE_EXTRA_ITTYPE] = "trickytreat:200" },	-- Exquisite Costume Set: "Xavius"
+				{ 17, 138990, [PRICE_EXTRA_ITTYPE] = "trickytreat:200" },	-- Exquisite Costume Set: "Deathwing"
+				{ 18, 128643, [PRICE_EXTRA_ITTYPE] = "trickytreat:200" },	-- Exquisite Costume Set: "Deathwing"
+				{ 19, 116828, [PRICE_EXTRA_ITTYPE] = "trickytreat:200" },	-- Exquisite Costume Set: "The Lich King"
+				
+				-- Festive Transmog
+				{ 21, 139136, }, -- Hat of the Youngest Sister
+				{ 22, 139135, }, -- Hat of the Third Sister
+				{ 23, 139134, }, -- Hat of the Second Sister
+				{ 24, 139133, }, -- Hat of the First Sister
+				{ 25, 33292, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Hallowed Helm
+				
+				-- Mounts
+				{ 27, 37011, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Magic Broom
+				
+				-- Heirloom Upgrades
+				{ 101, 151614, [PRICE_EXTRA_ITTYPE] = "trickytreat:450" },	-- Weathered Heirloom Armor Casing
+				{ 102, 122340, [PRICE_EXTRA_ITTYPE] = "trickytreat:450" },	-- Timeworn Heirloom Armor Casing
+				{ 103, 122338, [PRICE_EXTRA_ITTYPE] = "trickytreat:250" },	-- Ancient Heirloom Armor Casing
+				-- Consumables
+				{ 116, 37585, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Chewy Fel Taffy
+				{ 117, 37583, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- G.N.E.R.D.S.
+				{ 118, 37582, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Pyroblast Cinnamon Ball
+				{ 119, 37584, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Soothing Spearmint Candy
+				{ 120, 37604, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 10 },	-- Tooth Pick
+				
+				{ 122, "INV_misc_food_25", nil, AL["Special Rewards"], nil },
+				{ 123, 33117 },	-- Jack-o'-Lantern
+				{ 124, 20400 },	-- Pumpkin Bag
+				{ 126, 20516 },	-- Bobbing Apple
+				{ 127, 34068 },	-- Weighted Jack-o'-Lantern
 			},
 			[HORDE_DIFF] = {
 				GetItemsFromDiff = ALLIANCE_DIFF,
-				{ 25, 71076, "pet321", [QUEST_EXTRA_ITTYPE] = 29429 },	-- Creepy Crate
+				{ 6, 71076, "pet321", [QUEST_EXTRA_ITTYPE] = 29429 },	-- Creepy Crate
 			},
 		},
 		{	--HallowsEndNonPlayableRaceMasks
@@ -1408,7 +1435,7 @@ data["HallowsEnd"] = {
 				{ 23, 139004, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Banshee
 			},
 		},
-	}
+	},
 }
 
 data["DayoftheDead"] = {

@@ -114,7 +114,7 @@ local BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE = {	--[Glory of the Wa
 	ExtraList = true,
 	CoinTexture = "Achievement",
 	[MYTHIC_DIFF] = {
-		{ 1, 12812, --[["mount250735"]] },
+		{ 1, 12812, --[[ "mount239049" ]] },
 		{ 2, 12550 },			{ 17, 12548 },
 		{ 3, 12998 },			{ 18, 12489 },
 		{ 4, 12495 },			{ 19, 12490 },
@@ -339,6 +339,7 @@ data["Freehold"] = {
 				{ 17, "ac12998" }, -- AC: Mythic: Freehold "That Sweete Booty"
 				{ 18, "ac12550" }, -- AC: Mythic: Freehold "Pecking Order"
 				{ 19, "ac12999" }, -- AC: Mythic: Freehold Guild Run
+				{ 21, 159842, "mount" }, -- Sharkbait
 			},
 		},
 		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
@@ -401,16 +402,16 @@ data["Kings' Rest"] = {
 				{ 2, 159645 }, -- Headcracker of Supplication
 				{ 3, 159422 }, -- Helm of the Raptor King
 				{ 4, 158344 }, -- Mantle of Ceremonial Ascension
-				{ 5, 159921 }, -- Mummified Raptor Skull
-				{ 6, 159368 }, -- Spaulders of Prime Emperor
-				{ 7, 159644 }, -- Geti'ikku, Cut of Death
-				{ 8, 159301 }, -- Primal Dinomancer's Belt
-				{ 9, 159423 }, -- Pauldrons of the Great Unifier
-				{ 10, 158355 }, -- Loa-Blessed Chestguard
-				{ 11, 159303 }, -- Vest of Reverent Adoration
+				{ 5, 159368 }, -- Spaulders of Prime Emperor
+				{ 6, 159644 }, -- Geti'ikku, Cut of Death
+				{ 7, 159301 }, -- Primal Dinomancer's Belt
+				{ 8, 159423 }, -- Pauldrons of the Great Unifier
+				{ 9, 158355 }, -- Loa-Blessed Chestguard
+				{ 10, 159303 }, -- Vest of Reverent Adoration
 				{ 16, "ac12848" }, -- AC: Mythic: Kings' Rest
-				{ 16, "ac12723" }, -- AC: Mythic: Kings' Rest "How to Keep a Mummy"
-				{ 16, "ac13008" }, -- AC: Mythic: Kings' Rest Guild Run 
+				{ 17, "ac12723" }, -- AC: Mythic: Kings' Rest "How to Keep a Mummy"
+				{ 18, "ac13008" }, -- AC: Mythic: Kings' Rest Guild Run 
+				{ 20, 159921, "mount" }, -- Mummified Raptor Skull
 			},
 		},
 		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
@@ -628,7 +629,7 @@ data["Temple of Sethraliss"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				{ 9, 160832 }, -- Viable Cobra Egg
+				{ 9, 160832, "pet2186" }, -- Viable Cobra Egg
 			},
 		},
 		{ -- Galvazzt
@@ -762,6 +763,7 @@ data["The MOTHERLODE!!"] = {
 				{ 16, "ac12846" }, -- AC: Mythic: The MOTHERLODE!!
 				{ 17, "ac12854" }, -- AC: Mythic: The MOTHERLODE!! "Ready for Raiding VI"
 				{ 18, "ac13006" }, -- AC: Mythic: The MOTHERLODE!! Guild Run
+				{ 20, 161135, "mount" }, -- Schematic: Mecha-Mogul Mk2
 			},
 		},
 		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
@@ -859,6 +861,7 @@ data["The Underrot"] = {
 				{ 16, "ac12502" }, -- AC: Mythic: Underrot
 				{ 17, "ac12499" }, -- AC: Mythic: Underrot "Sporely Alive"
 				{ 18, "ac13003" }, -- AC: Mythic: Underrot Guild Run
+				{ 20, 160829, "mount" }, -- Underrot Crawg
 			},
 		},
 		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,

@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.08.01
+## Version: v8.08.02
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -32,7 +32,10 @@
 # 
 # ## Notes: AtlasLoot loot tables of Crafting Items
 # ## Notes-deDE: AtlasLoot Verzeichnisse der Berufsgegenstände
+# ## Notes-esES: Tablas de botín de AtlasLoot para objetos fabricados
+# ## Notes-frFR: Tables de butin AtlasLoot des Objets Fabriqués
 # ## Notes-koKR: AtlasLoot 전문 기술의 전리품 목록
+# ## Notes-ruRU: AtlasLoot таблица добычи на создание предметов
 # ## Notes-zhCN: AtlasLoot 《专业制造》物品信息
 # ## Notes-zhTW: AtlasLoot 商業技能物品資料庫
 #@end-debug@

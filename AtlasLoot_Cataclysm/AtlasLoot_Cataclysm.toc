@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.08.01
+## Version: v8.08.02
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -32,7 +32,10 @@
 # 
 # ## Notes: AtlasLoot loot tables from Cataclysm
 # ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Cataclysm
+# ## Notes-esES: Tablas de botín de AtlasLoot para Cataclysm
+# ## Notes-frFR: Tables de butin AtlasLoot de Cataclysm
 # ## Notes-koKR: AtlasLoot 대격변 전리품 목록
+# ## Notes-ruRU: AtlasLoot таблица добычи из Cataclysm
 # ## Notes-zhCN: AtlasLoot 《大地的裂变》物品信息
 # ## Notes-zhTW: AtlasLoot 浩劫與重生資料片物品掉落資料庫
 #@end-debug@

@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.08.01
+## Version: v8.08.02
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -32,7 +32,10 @@
 # 
 # ## Notes: AtlasLoot loot tables from Burning Crusade
 # ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Burning Crusade
+# ## Notes-esES: Tablas de botín de AtlasLoot para Burning Crusade
+# ## Notes-frFR: Tables de butin AtlasLoot de Burning Crusade
 # ## Notes-koKR: AtlasLoot 불타는 성전 전리품 목록
+# ## Notes-ruRU: AtlasLoot таблица добычи из Burning Crusade
 # ## Notes-zhCN: AtlasLoot 《燃烧的远征》物品信息
 # ## Notes-zhTW: AtlasLoot 燃燒的遠征資料片物品掉落資料庫
 #@end-debug@

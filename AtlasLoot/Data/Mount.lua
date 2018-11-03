@@ -656,6 +656,11 @@ local MOUNT_INFO = {
 		[275841] = 161774, -- Expedition Bloodswarmer
 		[237287] = 161773, -- Alabaster Hyena
 		[275837] = 161665, -- Cobalt Pterrordax
+		[273541] = 160829, -- Underrot Crawg
+		[254813] = 159842, -- Sharkbait
+		[266058] = 159921, -- Tomb Stalker
+		[261437] = 161135, -- Schematic: Mecha-Mogul Mk2
+		
 	},
 	["items"] = {
 		--[itemID] = spellID

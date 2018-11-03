@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.08.01
+## Version: v8.08.02
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -31,7 +31,9 @@
 # 
 # ## Notes: AtlasLoot loot tables of PvP Items
 # ## Notes-deDE: AtlasLoot Beuteverzeichnisse für PvP-Gegenstände
+# ## Notes-frFR: Tables de butin AtlasLoot des Objets JcJ
 # ## Notes-koKR: AtlasLoot PvP 아이템 전리품 목록
+# ## Notes-ruRU: AtlasLoot таблица добычи на PvP предметы
 # ## Notes-zhCN: AtlasLoot 《PvP》物品信息
 # ## Notes-zhTW: AtlasLoot PvP物品資料庫
 #@end-debug@

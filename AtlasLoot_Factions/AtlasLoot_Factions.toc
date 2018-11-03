@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.08.01
+## Version: v8.08.02
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -32,7 +32,10 @@
 # 
 # ## Notes: AtlasLoot loot tables from factions
 # ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Fraktionen
+# ## Notes-esES: Tablas de botín de AtlasLoot para facciones
+# ## Notes-frFR: Tables de butin AtlasLoot des Factions
 # ## Notes-koKR: AtlasLoot 평판 전리품 목록
+# ## Notes-ruRU: AtlasLoot таблица добычи для фракции
 # ## Notes-zhCN: AtlasLoot 《阵营》物品信息
 # ## Notes-zhTW: AtlasLoot 陣營物品資料庫
 #@end-debug@

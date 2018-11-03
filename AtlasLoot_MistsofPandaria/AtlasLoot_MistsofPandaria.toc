@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.08.01
+## Version: v8.08.02
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -31,7 +31,9 @@
 # 
 # ## Notes: AtlasLoot loot tables from Mists of Pandaria
 # ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Mists of Pandaria
+# ## Notes-frFR: Tables de butin AtlasLoot de Mists of Pandaria
 # ## Notes-koKR: AtlasLoot 판다리아의 안개 전리품 목록
+# ## Notes-ruRU: AtlasLoot таблица добычи из Mists of Pandaria
 # ## Notes-zhCN: AtlasLoot 《熊猫人之谜》物品信息
 # ## Notes-zhTW: AtlasLoot 潘達利亞之謎資料片物品掉落資料庫
 #@end-debug@
