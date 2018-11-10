@@ -22,6 +22,8 @@ local L = WeakAuras.L
 	L["A 48x48 pixels icon"] = "Иконка 48х48 пикселей"
 	L["A 64x64 pixels icon"] = "Иконка 64х64 пикселей"
 	L["A group that dynamically controls the positioning of its children"] = "Группа, динамически изменяющая позиции своих индикаций"
+	--[[Translation missing --]]
+	L["A Unit ID (e.g., party1)."] = "A Unit ID (e.g., party1)."
 	L["Actions"] = "Действия"
 	L["Add a new display"] = "Добавить новую индикацию"
 	L["Add Condition"] = "Добавить условие"
@@ -63,11 +65,13 @@ local L = WeakAuras.L
 	L["At a position a bit left of Right HUD position"] = "Немного правее позиции правого HUD"
 	L["At the same position as Blizzard's spell alert"] = "В таком же положении, как предупреждение заклинаний Blizzard"
 	L["Aura Name"] = "Название ауры"
+	--[[Translation missing --]]
+	L["Aura Name Pattern"] = "Aura Name Pattern"
 	L["Aura Type"] = "Тип эффекта"
 	L["Aura(s)"] = "Эффекты"
-	L["Aura:"] = "Эффект:"
-	L["Auras:"] = "Эффекты:"
 	L["Auto"] = "Авто"
+	--[[Translation missing --]]
+	L["Auto-Clone (Show All Matches)"] = "Auto-Clone (Show All Matches)"
 	L["Auto-cloning enabled"] = "Автоклонирование включено"
 	L["Automatic Icon"] = "Автоматическая иконка"
 	L["Backdrop Color"] = "Цвет фона"
@@ -98,6 +102,8 @@ local L = WeakAuras.L
 	L["Bracket Matching"] = "Закрывать скобки"
 	L["Button Glow"] = "Подсветка кнопки"
 	L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = "Может быть именем или UID (например, party1). Название работает только на дружественных игроках в вашей группе."
+	--[[Translation missing --]]
+	L["Can be a Name or a Unit ID (e.g. party1). A name only works on friendly players in your group."] = "Can be a Name or a Unit ID (e.g. party1). A name only works on friendly players in your group."
 	L["Cancel"] = "Отмена"
 	L["Channel Number"] = "Номер канала"
 	L["Chat Message"] = "Сообщение в чат"
@@ -120,19 +126,27 @@ local L = WeakAuras.L
 	L["Color"] = "Цвет"
 	L["color"] = "цвет"
 	L["Combinations"] = "Логические операции"
+	--[[Translation missing --]]
+	L["Combine Matches Per Unit"] = "Combine Matches Per Unit"
 	L["Common Options"] = "Общие параметры"
+	--[[Translation missing --]]
+	L["Compare against the number of units affected."] = "Compare against the number of units affected."
 	L["Compress"] = "Сжать"
 	L["Condition %i"] = "Условие %i"
 	L["Conditions"] = "Условия"
 	L["Constant Factor"] = "Постоянный параметр"
 	L["Control-click to select multiple displays"] = "Ctrl-клик для выбора нескольких индикаций"
 	L["Controls the positioning and configuration of multiple displays at the same time"] = "Управляет позиционированием и настройкой нескольких индикаций одновременно"
+	--[[Translation missing --]]
+	L["Convert to New Aura Trigger"] = "Convert to New Aura Trigger"
 	L["Convert to..."] = "Преобразовать в ..."
 	L["Cooldown"] = "Перезарядка"
 	L["Copy settings..."] = "Копировать настройки из ..."
 	L["Copy to all auras"] = "Копировать во все индикации"
 	L["Copy URL"] = "Копировать строку URL"
 	L["Count"] = "Кол-во"
+	--[[Translation missing --]]
+	L["Counts the number of matches over all units."] = "Counts the number of matches over all units."
 	L["Creating buttons: "] = "Создание кнопок:"
 	L["Creating options: "] = "Создание настроек:"
 	L["Crop X"] = "Обрезать по X"
@@ -192,11 +206,17 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 |cFFFF0000%c|r - Свой код - Позволяет написать функцию на Lua, которая возвращает одно значение или их список. Для отображения единственного значения используйте |cFFFF0000%c|r, для n-го значения из списка - |cFFFF0000%cn|r]=]
 	L["Enabled"] = "Включено"
 	L["End Angle"] = "Конечный угол"
+	--[[Translation missing --]]
+	L["Enter a Spell ID"] = "Enter a Spell ID"
 	L["Enter an aura name, partial aura name, or spell id"] = "Введите полное название эффекта, часть его названия или ID заклинания."
+	--[[Translation missing --]]
+	L["Enter an Aura Name, partial Aura Name, or Spell ID. A Spell ID will match any spells with the same name."] = "Enter an Aura Name, partial Aura Name, or Spell ID. A Spell ID will match any spells with the same name."
 	L["Event"] = "Событие"
 	L["Event Type"] = "Тип триггера"
 	L["Event(s)"] = "Событие(я)"
 	L["Everything"] = "Всех вкладок"
+	--[[Translation missing --]]
+	L["Exact Spell ID(s)"] = "Exact Spell ID(s)"
 	L["Exact Spell Match"] = "Точное совпадение"
 	L["Expand"] = "Развернуть"
 	L["Expand all loaded displays"] = "Развернуть все загруженные индикации"
@@ -209,6 +229,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Fade In"] = "Появление"
 	L["Fade Out"] = "Исчезновение"
 	L["False"] = "Ложь"
+	--[[Translation missing --]]
+	L["Fetch Affected/Unaffected Names"] = "Fetch Affected/Unaffected Names"
 	L["Filter by Group Role"] = "Применить фильтр:"
 	L["Finish"] = "Конечная"
 	L["Fire Orb"] = "Огненный шар"
@@ -221,11 +243,16 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Frame"] = "Кадр"
 	L["Frame Strata"] = "Слой кадра"
 	L["From Template"] = "Из шаблона"
-	L["Full Scan"] = "Полное сканирование"
 	L["General Text Settings"] = "Общие настройки текста"
 	L["Global Conditions"] = "Универсальные условия"
 	L["Glow"] = "Свечение"
 	L["Glow Action"] = "Действие"
+	--[[Translation missing --]]
+	L["Glow Color"] = "Glow Color"
+	--[[Translation missing --]]
+	L["Glow Settings"] = "Glow Settings"
+	--[[Translation missing --]]
+	L["Glow Type"] = "Glow Type"
 	L["Green Rune"] = "Зеленая руна"
 	L["Group"] = "Группа"
 	L["Group (verb)"] = "Группировать"
@@ -263,7 +290,11 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["If"] = "Если"
 	L["If this option is enabled, you are no longer able to import auras."] = "Если этот параметр включен, то вы больше не сможете импортировать индикации"
 	L["If Trigger %s"] = "Если Триггер %s"
+	--[[Translation missing --]]
+	L["If unchecked, then a default color will be used (usually yellow)"] = "If unchecked, then a default color will be used (usually yellow)"
 	L["Ignore self"] = "Исключить себя из числа участников"
+	--[[Translation missing --]]
+	L["Ignore Self"] = "Ignore Self"
 	L["Ignored"] = "Игнорируется"
 	L["Import"] = "Импорт"
 	L["Import a display from an encoded string"] = "Импортировать индикацию из закодированной строки"
@@ -272,6 +303,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Invalid Spell Name/ID/Link"] = "Неверное название, ссылка или ID заклинания"
 	L["Inverse"] = "Обратная"
 	L["Inverse Slant"] = "В обратную сторону"
+	--[[Translation missing --]]
+	L["Is Stealable"] = "Is Stealable"
 	L["Justify"] = "Выравнивание"
 	L["Keep Aspect Ratio"] = "Сохранять пропорции"
 	L["Leaf"] = "Лист"
@@ -284,12 +317,13 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Low Mana"] = "Мало маны"
 	L["Main"] = "Основная"
 	L["Manage displays defined by Addons"] = "Управление индикациями, определенными аддонами"
+	--[[Translation missing --]]
+	L["Match Count"] = "Match Count"
 	L["Medium Icon"] = "Средняя иконка"
 	L["Message"] = "Сообщение"
 	L["Message Prefix"] = "Префикс сообщения"
 	L["Message Suffix"] = "Суффикс сообщения"
 	L["Message Type"] = "Тип сообщения"
-	L["Message type:"] = "Тип сообщения:"
 	L["Mirror"] = "Отразить"
 	L["Model"] = "Модель"
 	L["Move Down"] = "Переместить вниз"
@@ -308,6 +342,10 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 |cFF777777Ничего|r - |cFF00FF00Одно|r - |cFF777777Несколько|r
 Можно выбрать только одно соответствующее значение]=]
 	L["Name Info"] = "Информация о названии"
+	--[[Translation missing --]]
+	L["Name Pattern Match"] = "Name Pattern Match"
+	--[[Translation missing --]]
+	L["Name(s)"] = "Name(s)"
 	L["Negator"] = "Не"
 	L["Never"] = "Никогда"
 	L["New"] = "Новая индикация"
@@ -347,6 +385,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Play Sound"] = "Проиграть звук"
 	L["Portrait Zoom"] = "Увеличить портрет"
 	L["Position Settings"] = "Настройки размера и расположения"
+	--[[Translation missing --]]
+	L["Preferred Match"] = "Preferred Match"
 	L["Preset"] = "Предустановка"
 	L["Prevents duration information from decreasing when an aura refreshes. May cause problems if used with multiple auras with different durations."] = "Не позволяет снижать информацию о длительности эффекта при его обновлении. Может вызвать проблемы при использовании с несколькими эффектами разной длительности."
 	L["Processed %i chars"] = "Обработано %i |4символ:символа:символов;"
@@ -392,6 +432,10 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Show all matches (Auto-clone)"] = "Показать все совпадения (Автоклонирование)"
 	L["Show Cooldown Text"] = "Показать отсчет времени"
 	L["Show If Unit Is Invalid"] = "Показать, если нет допустимой цели"
+	--[[Translation missing --]]
+	L["Show Matches for"] = "Show Matches for"
+	--[[Translation missing --]]
+	L["Show Matches for Units"] = "Show Matches for Units"
 	L["Show model of unit "] = "Показать модель элемента"
 	L["Show On"] = "Показать"
 	L["Show this group's children"] = "Показать индикации этой группы"
@@ -449,6 +493,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 Конечная анимация не начнет отображаться, пока индикация не будет нормально скрыта  (должен сработать детриггер).]=]
 	L["The type of trigger"] = "Тип триггера"
 	L["Then "] = "Тогда "
+	--[[Translation missing --]]
+	L["This adds %tooltip, %tooltip1, %tooltip2, %tooltip3 as text replacements."] = "This adds %tooltip, %tooltip1, %tooltip2, %tooltip3 as text replacements."
 	L["This display is currently loaded"] = "Эта индикация загружена"
 	L["This display is not currently loaded"] = "Эта индикация не загружена"
 	L["This region of type \"%s\" is not supported."] = "Регион типа \"%s\" не поддерживается."
@@ -462,19 +508,27 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Toggle the visibility of all non-loaded displays"] = "Переключить видимость всех не загруженных индикаций"
 	L["Toggle the visibility of this display"] = "Переключить видимость этой индикации"
 	L["Tooltip"] = "Подсказка"
+	--[[Translation missing --]]
+	L["Tooltip Content"] = "Tooltip Content"
 	L["Tooltip on Mouseover"] = "Подсказка при наведении курсора"
+	--[[Translation missing --]]
+	L["Tooltip Pattern Match"] = "Tooltip Pattern Match"
+	--[[Translation missing --]]
+	L["Tooltip Value"] = "Tooltip Value"
+	--[[Translation missing --]]
+	L["Tooltip Value #"] = "Tooltip Value #"
 	L["Top HUD position"] = "Верхняя позиция HUD"
 	L["Top Text"] = "Текст вверху"
 	L["Total Time Precision"] = "Точность общего времени"
 	L["Trigger"] = "Триггер"
 	L["Trigger %d"] = "Триггер %d"
 	L["Trigger %s"] = "Триггер %s"
-	L["Trigger:"] = "Триггер:"
 	L["True"] = "Истина"
 	L["Type"] = "Тип"
-	L["Undefined"] = "Не определено"
 	L["Ungroup"] = "Разгруппировать"
 	L["Unit"] = "Единица"
+	--[[Translation missing --]]
+	L["Unit Count"] = "Unit Count"
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "В отличие от начальной или конечной анимации, основная зациклена и будет повторяться пока индикация не пропадет."
 	L["Up"] = "Переместить вверх"
 	L["Update Custom Text On..."] = "Обновить свой текст на..."
@@ -482,6 +536,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Use nth value from tooltip:"] = "Использовать n-ое значение из подсказки:"
 	L["Use SetTransform"] = "Использовать ф-ю SetTransform"
 	L["Use tooltip \"size\" instead of stacks"] = "Использовать значение из подсказки вместо стаков"
+	--[[Translation missing --]]
+	L["Use Tooltip Information"] = "Use Tooltip Information"
 	L["Used in auras:"] = "Использовано в индикациях:"
 	L["Version: "] = "Версия: "
 	L["Vertical Align"] = "Выравнивание по вертикали"

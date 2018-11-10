@@ -23,6 +23,8 @@ local L = WeakAuras.L
 	L["A 48x48 pixels icon"] = "48x48 픽셀 아이콘"
 	L["A 64x64 pixels icon"] = "64x64 픽셀 아이콘"
 	L["A group that dynamically controls the positioning of its children"] = "포함된 개체들의 배열을 유동적으로 조절하는 그룹"
+	--[[Translation missing --]]
+	L["A Unit ID (e.g., party1)."] = "A Unit ID (e.g., party1)."
 	L["Actions"] = "동작"
 	L["Add a new display"] = "새로운 디스플레이 추가"
 	L["Add Condition"] = "조건 추가"
@@ -68,11 +70,13 @@ local L = WeakAuras.L
 	L["At a position a bit left of Right HUD position"] = "우측 HUD 위치보다 약간 왼쪽에 위치시킵니다"
 	L["At the same position as Blizzard's spell alert"] = "블리자드의 주문 경보와 같은 위치에 위치시킵니다"
 	L["Aura Name"] = "효과 이름"
+	--[[Translation missing --]]
+	L["Aura Name Pattern"] = "Aura Name Pattern"
 	L["Aura Type"] = "효과 유형"
 	L["Aura(s)"] = "효과"
-	L["Aura:"] = "효과:"
-	L["Auras:"] = "효과들:"
 	L["Auto"] = "자동"
+	--[[Translation missing --]]
+	L["Auto-Clone (Show All Matches)"] = "Auto-Clone (Show All Matches)"
 	L["Auto-cloning enabled"] = "자동 복제 활성화"
 	L["Automatic Icon"] = "자동 아이콘"
 	L["Backdrop Color"] = "배경 색상"
@@ -105,6 +109,8 @@ local L = WeakAuras.L
 	L["Bracket Matching"] = "괄호 맞춤"
 	L["Button Glow"] = "버튼 반짝임"
 	L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = "이름 또는 UID (예. party1)를 사용할 수 있습니다. 이름은 같은 파티에 속해 있는 우호적 플레이어에게만 작동합니다."
+	--[[Translation missing --]]
+	L["Can be a Name or a Unit ID (e.g. party1). A name only works on friendly players in your group."] = "Can be a Name or a Unit ID (e.g. party1). A name only works on friendly players in your group."
 	L["Cancel"] = "취소"
 	L["Channel Number"] = "채널 번호"
 	L["Chat Message"] = "대화 메시지"
@@ -130,19 +136,27 @@ local L = WeakAuras.L
 	L["color"] = "색상"
 	L["Combinations"] = "조합"
 	--[[Translation missing --]]
+	L["Combine Matches Per Unit"] = "Combine Matches Per Unit"
+	--[[Translation missing --]]
 	L["Common Options"] = "Common Options"
+	--[[Translation missing --]]
+	L["Compare against the number of units affected."] = "Compare against the number of units affected."
 	L["Compress"] = "누르기"
 	L["Condition %i"] = "조건 %i"
 	L["Conditions"] = "조건"
 	L["Constant Factor"] = "고정 요소"
 	L["Control-click to select multiple displays"] = "Ctrl+클릭 - 여러 디스플레이 선택"
 	L["Controls the positioning and configuration of multiple displays at the same time"] = "동시에 여러 디스플레이의 위치와 설정을 조절합니다"
+	--[[Translation missing --]]
+	L["Convert to New Aura Trigger"] = "Convert to New Aura Trigger"
 	L["Convert to..."] = "변환하기..."
 	L["Cooldown"] = "재사용 대기시간"
 	L["Copy settings..."] = "설정 복사..."
 	L["Copy to all auras"] = "모든 효과에 복사"
 	L["Copy URL"] = "URL 복사"
 	L["Count"] = "횟수"
+	--[[Translation missing --]]
+	L["Counts the number of matches over all units."] = "Counts the number of matches over all units."
 	L["Creating buttons: "] = "버튼 생성:"
 	L["Creating options: "] = "옵션 생성:"
 	L["Crop X"] = "X 자르기"
@@ -210,11 +224,17 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 |cFFFF0000%c|r - 사용자 설정 - 표시할 string 값을 반환하는 사용자 설정 Lua 함수 정의를 허용합니다]=]
 	L["Enabled"] = "활성화됨"
 	L["End Angle"] = "종료 각도"
+	--[[Translation missing --]]
+	L["Enter a Spell ID"] = "Enter a Spell ID"
 	L["Enter an aura name, partial aura name, or spell id"] = "효과 이름 / 효과 이름의 일부 / 주문 ID를 입력하세요"
+	--[[Translation missing --]]
+	L["Enter an Aura Name, partial Aura Name, or Spell ID. A Spell ID will match any spells with the same name."] = "Enter an Aura Name, partial Aura Name, or Spell ID. A Spell ID will match any spells with the same name."
 	L["Event"] = "이벤트"
 	L["Event Type"] = "이벤트 유형"
 	L["Event(s)"] = "이벤트"
 	L["Everything"] = "모두"
+	--[[Translation missing --]]
+	L["Exact Spell ID(s)"] = "Exact Spell ID(s)"
 	--[[Translation missing --]]
 	L["Exact Spell Match"] = "Exact Spell Match"
 	L["Expand"] = "확장"
@@ -229,6 +249,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Fade Out"] = "서서히 사라짐"
 	L["False"] = "거짓"
 	--[[Translation missing --]]
+	L["Fetch Affected/Unaffected Names"] = "Fetch Affected/Unaffected Names"
+	--[[Translation missing --]]
 	L["Filter by Group Role"] = "Filter by Group Role"
 	L["Finish"] = "종료"
 	L["Fire Orb"] = "화염 구슬"
@@ -241,11 +263,16 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Frame"] = "프레임"
 	L["Frame Strata"] = "프레임 우선순위"
 	L["From Template"] = "견본으로부터"
-	L["Full Scan"] = "전체 검사"
 	L["General Text Settings"] = "일반 문자 설정"
 	L["Global Conditions"] = "전역 조건"
 	L["Glow"] = "반짝이기"
 	L["Glow Action"] = "반짝임 동작"
+	--[[Translation missing --]]
+	L["Glow Color"] = "Glow Color"
+	--[[Translation missing --]]
+	L["Glow Settings"] = "Glow Settings"
+	--[[Translation missing --]]
+	L["Glow Type"] = "Glow Type"
 	L["Green Rune"] = "녹색 룬"
 	L["Group"] = "그룹"
 	L["Group (verb)"] = "그룹시키기"
@@ -286,7 +313,11 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	--[[Translation missing --]]
 	L["If Trigger %s"] = "If Trigger %s"
 	--[[Translation missing --]]
+	L["If unchecked, then a default color will be used (usually yellow)"] = "If unchecked, then a default color will be used (usually yellow)"
+	--[[Translation missing --]]
 	L["Ignore self"] = "Ignore self"
+	--[[Translation missing --]]
+	L["Ignore Self"] = "Ignore Self"
 	L["Ignored"] = "무시됨"
 	L["Import"] = "가져오기"
 	L["Import a display from an encoded string"] = "암호화된 문자열에서 디스플레이 가져오기"
@@ -295,6 +326,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Invalid Spell Name/ID/Link"] = "잘못된 주문 이름/ID/링크"
 	L["Inverse"] = "반대로"
 	L["Inverse Slant"] = "역 경사"
+	--[[Translation missing --]]
+	L["Is Stealable"] = "Is Stealable"
 	L["Justify"] = "정렬"
 	L["Keep Aspect Ratio"] = "종횡비 유지"
 	L["Leaf"] = "잎"
@@ -307,12 +340,13 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Low Mana"] = "마나 낮음"
 	L["Main"] = "메인"
 	L["Manage displays defined by Addons"] = "애드온에 의해 정의된 디스플레이 관리"
+	--[[Translation missing --]]
+	L["Match Count"] = "Match Count"
 	L["Medium Icon"] = "보통 아이콘"
 	L["Message"] = "메시지"
 	L["Message Prefix"] = "메시지 접두사"
 	L["Message Suffix"] = "메시지 접미사"
 	L["Message Type"] = "메시지 유형"
-	L["Message type:"] = "메시지 유형:"
 	L["Mirror"] = "뒤집기"
 	L["Model"] = "모델"
 	L["Move Down"] = "아래로 이동"
@@ -331,6 +365,10 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 |cFF777777무시|r - |cFF00FF00단일|r - |cFF777777다중|r
 선택한 한가지만 일치할 때 불러옴]=]
 	L["Name Info"] = "이름 정보"
+	--[[Translation missing --]]
+	L["Name Pattern Match"] = "Name Pattern Match"
+	--[[Translation missing --]]
+	L["Name(s)"] = "Name(s)"
 	L["Negator"] = "Not"
 	L["Never"] = "절대 안함"
 	L["New"] = "새로 만들기"
@@ -382,6 +420,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Play Sound"] = "소리 재생"
 	L["Portrait Zoom"] = "초상화 확대"
 	L["Position Settings"] = "자리 설정"
+	--[[Translation missing --]]
+	L["Preferred Match"] = "Preferred Match"
 	L["Preset"] = "프리셋"
 	L["Prevents duration information from decreasing when an aura refreshes. May cause problems if used with multiple auras with different durations."] = "효과가 갱신 됐을 때 지속시간 정보가 감소하지 않게 방지합니다. 다른 지속시간을 가진 여러 효과들과 같이 사용하면 문제가 발생할 수 있습니다."
 	L["Processed %i chars"] = "%i 문자 복사됨"
@@ -428,6 +468,10 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Show all matches (Auto-clone)"] = "모든 일치 표시 (자동 복제)"
 	L["Show Cooldown Text"] = "재사용 대기시간 문자 표시"
 	L["Show If Unit Is Invalid"] = "유닛이 유효하지 않은 경우 표시"
+	--[[Translation missing --]]
+	L["Show Matches for"] = "Show Matches for"
+	--[[Translation missing --]]
+	L["Show Matches for Units"] = "Show Matches for Units"
 	L["Show model of unit "] = "유닛의 모델 표시"
 	--[[Translation missing --]]
 	L["Show On"] = "Show On"
@@ -487,6 +531,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["The type of trigger"] = "활성 조건의 유형"
 	--[[Translation missing --]]
 	L["Then "] = "Then "
+	--[[Translation missing --]]
+	L["This adds %tooltip, %tooltip1, %tooltip2, %tooltip3 as text replacements."] = "This adds %tooltip, %tooltip1, %tooltip2, %tooltip3 as text replacements."
 	L["This display is currently loaded"] = "이 디스플레이는 불러온 상태입니다"
 	L["This display is not currently loaded"] = "이 디스플레이는 불러오지 않았습니다"
 	L["This region of type \"%s\" is not supported."] = "이 영역은 \"%s\" 유형을 지원하지 않습니다."
@@ -500,7 +546,15 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Toggle the visibility of all non-loaded displays"] = "불러오지 않은 모든 디스플레이 표시 토글"
 	L["Toggle the visibility of this display"] = "이 디스플레이의 표시 전환"
 	L["Tooltip"] = "툴팁"
+	--[[Translation missing --]]
+	L["Tooltip Content"] = "Tooltip Content"
 	L["Tooltip on Mouseover"] = "마우스오버 툴팁"
+	--[[Translation missing --]]
+	L["Tooltip Pattern Match"] = "Tooltip Pattern Match"
+	--[[Translation missing --]]
+	L["Tooltip Value"] = "Tooltip Value"
+	--[[Translation missing --]]
+	L["Tooltip Value #"] = "Tooltip Value #"
 	L["Top HUD position"] = "상단 HUD 위치"
 	L["Top Text"] = "상단 문자"
 	L["Total Time Precision"] = "전체 시간 정확도"
@@ -508,12 +562,12 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Trigger %d"] = "%d 활성 조건"
 	--[[Translation missing --]]
 	L["Trigger %s"] = "Trigger %s"
-	L["Trigger:"] = "활성 조건:"
 	L["True"] = "참"
 	L["Type"] = "유형"
-	L["Undefined"] = "정의되지 않음"
 	L["Ungroup"] = "그룹 해제"
 	L["Unit"] = "유닛"
+	--[[Translation missing --]]
+	L["Unit Count"] = "Unit Count"
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "시작 또는 종료 애니메이션과 달리 메인 애니메이션은 디스플레이가 숨겨질 때까지 계속 반복됩니다."
 	--[[Translation missing --]]
 	L["Up"] = "Up"
@@ -523,6 +577,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Use nth value from tooltip:"] = "Use nth value from tooltip:"
 	L["Use SetTransform"] = "SetTransform 사용"
 	L["Use tooltip \"size\" instead of stacks"] = "중첩 대신 툴팁 \"크기\" 사용"
+	--[[Translation missing --]]
+	L["Use Tooltip Information"] = "Use Tooltip Information"
 	--[[Translation missing --]]
 	L["Used in auras:"] = "Used in auras:"
 	--[[Translation missing --]]

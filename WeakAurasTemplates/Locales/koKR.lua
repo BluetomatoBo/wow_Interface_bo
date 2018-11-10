@@ -77,8 +77,7 @@ local L = WeakAuras.L
 	L["Highlight while debuffed, red when out of range."] = "Highlight while debuffed, red when out of range."
 	--[[Translation missing --]]
 	L["Highlight while debuffed."] = "Highlight while debuffed."
-	--[[Translation missing --]]
-	L["Hold CTRL to create multiple auras at once"] = "Hold CTRL to create multiple auras at once"
+	L["Hold CTRL to create multiple auras at once"] = "한 번에 여러 오라를 만드려면 CTRL 키를 누르세요"
 	L["Keeps existing triggers intact"] = "활성 조건 그대로 유지"
 	--[[Translation missing --]]
 	L["Next"] = "Next"
