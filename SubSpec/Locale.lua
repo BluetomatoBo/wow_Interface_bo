@@ -22,7 +22,7 @@ if locale == "ruRU" then
 	L["moveRight"] = "Переместить вправо"
 	L["renameText"] = "Введите новое имя профиля"
 	L["cancel"] = "Отмена"
-	L["versionError"] = "Это версия аддона для Легиона. Она не работает в более ранних патчах"
+	L["versionError"] = "Это версия аддона для Легиона или более поздних патчей. Она не работает в более ранних патчах"
 end
 
 --------------------------------   deDE:   -------------------------------------
@@ -30,10 +30,10 @@ end
 if locale == "deDE" then
 	L["new"] = "[Neues Profil]"
 	L["rename"] = "Umbenennen"
-	L["save"] = "Sparen"
+	L["save"] = "Speichern"
 	L["remove"] = "Entfernen"
-	L["moveLeft"] = "Geh nach links"
-	L["moveRight"] = "Nach rechts bewegen"
+	L["moveLeft"] = "Nach links verschieben"
+	L["moveRight"] = "Nach rechts verschieben"
 	L["renameText"] = "Geben Sie den neuen Profilnamen"
 	L["cancel"] = "Stornieren"
 end
@@ -42,12 +42,12 @@ end
 
 if locale == "esES" then
 	L["new"] = "[Nuevo perfil]"
-	L["rename"] = "Rebautizar"
-	L["save"] = "Salvar"
-	L["remove"] = "Retirar"
-	L["moveLeft"] = "Mover hacia la izquierda"
+	L["rename"] = "Renombrar"
+	L["save"] = "Guardar"
+	L["remove"] = "Eliminar"
+	L["moveLeft"] = "Mover a la izquierda"
 	L["moveRight"] = "Mover a la derecha"
-	L["renameText"] = "Introducir nuevo nombre de perfil"
+	L["renameText"] = "Introduce un nuevo nombre de perfil:"
 	L["cancel"] = "Cancelar"
 end
 
