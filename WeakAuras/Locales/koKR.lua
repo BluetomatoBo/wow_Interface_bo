@@ -40,7 +40,27 @@ L["%s total auras"] = "총 %s개 효과"
 L["%s Trigger Function"] = "%s 활성 조건 함수"
 L["%s Untrigger Function"] = "%s 비활성 조건 함수"
 --[[Translation missing --]]
+L["/wa help - Show this message"] = "/wa help - Show this message"
+--[[Translation missing --]]
+L["/wa minimap - Toggle the minimap icon"] = "/wa minimap - Toggle the minimap icon"
+--[[Translation missing --]]
+L["/wa pprint - Show the results from the most recent profiling"] = "/wa pprint - Show the results from the most recent profiling"
+--[[Translation missing --]]
+L["/wa pstart - Start profiling"] = "/wa pstart - Start profiling"
+--[[Translation missing --]]
+L["/wa pstop - Finish profiling"] = "/wa pstop - Finish profiling"
+--[[Translation missing --]]
 L["|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"] = "|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"
+--[[Translation missing --]]
+L["|cffeda55fLeft-Click|r to toggle showing the main window."] = "|cffeda55fLeft-Click|r to toggle showing the main window."
+--[[Translation missing --]]
+L["|cffeda55fMiddle-Click|r to toggle the minimap icon on or off."] = "|cffeda55fMiddle-Click|r to toggle the minimap icon on or off."
+--[[Translation missing --]]
+L["|cffeda55fRight-Click|r to toggle performance profiling on or off."] = "|cffeda55fRight-Click|r to toggle performance profiling on or off."
+--[[Translation missing --]]
+L["|cffeda55fShift-Click|r to pause addon execution."] = "|cffeda55fShift-Click|r to pause addon execution."
+--[[Translation missing --]]
+L["|cffeda55fShift-Right-Click|r to show profiling results."] = "|cffeda55fShift-Right-Click|r to show profiling results."
 L["<"] = "<"
 L["<="] = "<="
 L["="] = "="
@@ -101,8 +121,7 @@ L["Attach to End"] = "Attach to End"
 --[[Translation missing --]]
 L["Attach to Start"] = "Attach to Start"
 L["Attackable"] = "공격 가능"
---[[Translation missing --]]
-L["Attackable Target"] = "Attackable Target"
+L["Attackable Target"] = "공격 가능 대상"
 L["Aura"] = "효과"
 L["Aura Applied"] = "효과 적용"
 L["Aura Applied Dose"] = "효과 겹쳐짐"
@@ -189,8 +208,6 @@ L["Circle"] = "동그라미"
 --[[Translation missing --]]
 L["Clamp"] = "Clamp"
 L["Class"] = "직업"
-L["Click to close configuration"] = "클릭 - 설정창 닫기"
-L["Click to open configuration"] = "클릭 - 설정창 열기"
 L["Clockwise"] = "시계 방향"
 L["Clone per Event"] = "이벤트 별 복제"
 L["Clone per Match"] = "일치 별 복제"
@@ -323,10 +340,8 @@ L["Gained"] = "획득"
 L["Glancing"] = "비껴맞음"
 L["Global Cooldown"] = "전역 재사용 대기시간"
 L["Glow"] = "반짝이기 또는 선명하게"
---[[Translation missing --]]
-L["Glow Color"] = "Glow Color"
---[[Translation missing --]]
-L["Glow Type"] = "Glow Type"
+L["Glow Color"] = "반짝임 색상"
+L["Glow Type"] = "반짝임 유형"
 L["Gradient"] = "색상 전환"
 L["Gradient Pulse"] = "색상 전환(깜빡임)"
 L["Group"] = "그룹"
@@ -359,6 +374,8 @@ L["Icon"] = "아이콘"
 L["Icon Color"] = "아이콘 색상"
 L["Icon Desaturate"] = "아이콘 채도감소(흑백)"
 L["Id"] = "Id"
+--[[Translation missing --]]
+L["If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"] = "If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"
 L["Ignore Rune CD"] = "룬 재사용 대기시간 무시"
 L["Immune"] = "면역"
 L["Import"] = "가져오기"
@@ -419,8 +436,7 @@ L["Leaving"] = "떠남"
 L["Leech"] = "마력 흡수"
 L["Left"] = "왼쪽"
 L["Left to Right"] = "왼쪽에서 오른쪽"
---[[Translation missing --]]
-L["Legacy Aura"] = "Legacy Aura"
+L["Legacy Aura"] = "v2.9.0 이전 방식 효과"
 --[[Translation missing --]]
 L["Legacy RGB Gradient"] = "Legacy RGB Gradient"
 --[[Translation missing --]]
@@ -455,10 +471,6 @@ L["Message Type"] = "메시지 유형"
 L["Message type:"] = "메시지 유형:"
 --[[Translation missing --]]
 L["Meta Data"] = "Meta Data"
---[[Translation missing --]]
-L["Middle-Click to hide minimap icon"] = "Middle-Click to hide minimap icon"
---[[Translation missing --]]
-L["Middle-Click to show minimap icon"] = "Middle-Click to show minimap icon"
 L["Minimum"] = "최소"
 --[[Translation missing --]]
 L["Minimum Estimate"] = "Minimum Estimate"
@@ -547,8 +559,7 @@ L["Pet"] = "소환수"
 L["Pet Behavior"] = "소환수 행동"
 L["Pet Specialization"] = "소환수 전문화"
 L["Pet Spell"] = "소환수 주문"
---[[Translation missing --]]
-L["Pixel Glow"] = "Pixel Glow"
+L["Pixel Glow"] = "픽셀 반짝임"
 L["Play"] = "재생"
 L["Player"] = "플레이어"
 L["Player Character"] = "플레이어 캐릭터"
@@ -638,8 +649,6 @@ L["Resting"] = "휴식 중"
 L["Resurrect"] = "부활"
 L["Right"] = "오른쪽"
 L["Right to Left"] = "오른쪽에서 왼쪽"
---[[Translation missing --]]
-L["Right-Click to toggle profiling"] = "Right-Click to toggle profiling"
 L["Rotate Left"] = "왼쪽으로 회전"
 L["Rotate Right"] = "오른쪽으로 회전"
 L["Run Custom Code"] = "사용자 정의 코드 실행"
@@ -665,10 +674,8 @@ L["Select Frame"] = "프레임 선택"
 L["Set Maximum Progress"] = "최대 진행 값 설정"
 L["Set Minimum Progress"] = "최소 진행 값 설정"
 L["Shake"] = "흔들기"
-L["Shift-Click to pause"] = "Shift+클릭 - 일시 정지"
-L["Shift-Click to resume"] = "Shift+클릭 - 재시작"
 --[[Translation missing --]]
-L["Shift-Right-Click to show profiling results"] = "Shift-Right-Click to show profiling results"
+L["Shift-Click to resume addon execution."] = "Shift-Click to resume addon execution."
 L["Shoulder"] = "어깨"
 L["Show"] = "표시"
 L["Show Absorb"] = "흡수 표시"
@@ -839,9 +846,10 @@ L["Units Affected"] = "Units Affected"
 L["Up"] = "위로"
 L["Update Auras"] = "효과 갱신"
 --[[Translation missing --]]
-L["Use /wa minimap to show the minimap icon again"] = "Use /wa minimap to show the minimap icon again"
+L["Usage:"] = "Usage:"
 --[[Translation missing --]]
-L["Use Custom Glow Color"] = "Use Custom Glow Color"
+L["Use /wa minimap to show the minimap icon again"] = "Use /wa minimap to show the minimap icon again"
+L["Use Custom Glow Color"] = "사용자 정의 반짝임 색상 사용"
 L["Values/Remaining Time above this value are displayed as full progress."] = "이 값보다 큰 값/남은 시간은 전체 진행으로 표시됩니다."
 L["Values/Remaining Time below this value are displayed as no progress."] = "이 값 미만인 값/남은 시간은 진행되지 않음으로 표시됩니다."
 --[[Translation missing --]]

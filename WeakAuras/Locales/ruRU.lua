@@ -36,7 +36,27 @@ L["%s total auras"] = "Всего %s |4индикация:индикации:и�
 L["%s Trigger Function"] = "%s - Функция триггера"
 L["%s Untrigger Function"] = "%s - Функция детриггера"
 --[[Translation missing --]]
+L["/wa help - Show this message"] = "/wa help - Show this message"
+--[[Translation missing --]]
+L["/wa minimap - Toggle the minimap icon"] = "/wa minimap - Toggle the minimap icon"
+--[[Translation missing --]]
+L["/wa pprint - Show the results from the most recent profiling"] = "/wa pprint - Show the results from the most recent profiling"
+--[[Translation missing --]]
+L["/wa pstart - Start profiling"] = "/wa pstart - Start profiling"
+--[[Translation missing --]]
+L["/wa pstop - Finish profiling"] = "/wa pstop - Finish profiling"
+--[[Translation missing --]]
 L["|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"] = "|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"
+--[[Translation missing --]]
+L["|cffeda55fLeft-Click|r to toggle showing the main window."] = "|cffeda55fLeft-Click|r to toggle showing the main window."
+--[[Translation missing --]]
+L["|cffeda55fMiddle-Click|r to toggle the minimap icon on or off."] = "|cffeda55fMiddle-Click|r to toggle the minimap icon on or off."
+--[[Translation missing --]]
+L["|cffeda55fRight-Click|r to toggle performance profiling on or off."] = "|cffeda55fRight-Click|r to toggle performance profiling on or off."
+--[[Translation missing --]]
+L["|cffeda55fShift-Click|r to pause addon execution."] = "|cffeda55fShift-Click|r to pause addon execution."
+--[[Translation missing --]]
+L["|cffeda55fShift-Right-Click|r to show profiling results."] = "|cffeda55fShift-Right-Click|r to show profiling results."
 L["<"] = "<"
 L["<="] = "<="
 L["="] = "="
@@ -177,8 +197,6 @@ L["Choose a category"] = "Выберите категорию"
 L["Circle"] = "Круг"
 L["Clamp"] = "Закрепить текстуру"
 L["Class"] = "Класс"
-L["Click to close configuration"] = "Нажмите чтобы закрыть настройки"
-L["Click to open configuration"] = "Нажмите чтобы открыть настройки"
 L["Clockwise"] = "По часовой стрелке"
 L["Clone per Event"] = "Клон для каждого события"
 L["Clone per Match"] = "Клон для каждого совпадения"
@@ -335,6 +353,8 @@ L["Icon"] = "Иконка"
 L["Icon Color"] = "Цвет иконки"
 L["Icon Desaturate"] = "Обесцветить иконку"
 L["Id"] = "ID"
+--[[Translation missing --]]
+L["If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"] = "If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"
 L["Ignore Rune CD"] = "Игнорировать задержку руны"
 L["Immune"] = "Невосприимчивость"
 L["Import"] = "Импорт"
@@ -414,10 +434,6 @@ L["Message"] = "Сообщение"
 L["Message Type"] = "Тип сообщения"
 L["Message type:"] = "Тип сообщения:"
 L["Meta Data"] = "Описание и ссылка"
---[[Translation missing --]]
-L["Middle-Click to hide minimap icon"] = "Middle-Click to hide minimap icon"
---[[Translation missing --]]
-L["Middle-Click to show minimap icon"] = "Middle-Click to show minimap icon"
 L["Minimum"] = "Мин. значение"
 L["Minimum Estimate"] = "Мин. оценка"
 L["Mirror"] = "Зеркально отразить"
@@ -576,8 +592,6 @@ L["Resting"] = "В зоне отдыха"
 L["Resurrect"] = "Воскрешение"
 L["Right"] = "Справа"
 L["Right to Left"] = "Справа налево"
---[[Translation missing --]]
-L["Right-Click to toggle profiling"] = "Right-Click to toggle profiling"
 L["Rotate Left"] = "Поворот влево"
 L["Rotate Right"] = "Поворот вправо"
 L["Run Custom Code"] = "Выполнить свой код"
@@ -602,10 +616,8 @@ L["Select Frame"] = "Выбрать кадр"
 L["Set Maximum Progress"] = "Задать макс. прогресс"
 L["Set Minimum Progress"] = "Задать мин. прогресс"
 L["Shake"] = "Дрожь"
-L["Shift-Click to pause"] = "Shift-клик чтобы приостановить"
-L["Shift-Click to resume"] = "Shift-клик чтобы возобновить"
 --[[Translation missing --]]
-L["Shift-Right-Click to show profiling results"] = "Shift-Right-Click to show profiling results"
+L["Shift-Click to resume addon execution."] = "Shift-Click to resume addon execution."
 L["Shoulder"] = "Плечо"
 L["Show"] = "Показать"
 L["Show Absorb"] = "Показать поглощение"
@@ -766,6 +778,8 @@ L["Unit Name"] = "Unit Name"
 L["Units Affected"] = "Units Affected"
 L["Up"] = "Вверх"
 L["Update Auras"] = "Обновить индикацию"
+--[[Translation missing --]]
+L["Usage:"] = "Usage:"
 --[[Translation missing --]]
 L["Use /wa minimap to show the minimap icon again"] = "Use /wa minimap to show the minimap icon again"
 --[[Translation missing --]]

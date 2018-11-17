@@ -41,7 +41,27 @@ L["%s Trigger Function"] = "%s Função de gatilho"
 --[[Translation missing --]]
 L["%s Untrigger Function"] = "%s Untrigger Function"
 --[[Translation missing --]]
+L["/wa help - Show this message"] = "/wa help - Show this message"
+--[[Translation missing --]]
+L["/wa minimap - Toggle the minimap icon"] = "/wa minimap - Toggle the minimap icon"
+--[[Translation missing --]]
+L["/wa pprint - Show the results from the most recent profiling"] = "/wa pprint - Show the results from the most recent profiling"
+--[[Translation missing --]]
+L["/wa pstart - Start profiling"] = "/wa pstart - Start profiling"
+--[[Translation missing --]]
+L["/wa pstop - Finish profiling"] = "/wa pstop - Finish profiling"
+--[[Translation missing --]]
 L["|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"] = "|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"
+--[[Translation missing --]]
+L["|cffeda55fLeft-Click|r to toggle showing the main window."] = "|cffeda55fLeft-Click|r to toggle showing the main window."
+--[[Translation missing --]]
+L["|cffeda55fMiddle-Click|r to toggle the minimap icon on or off."] = "|cffeda55fMiddle-Click|r to toggle the minimap icon on or off."
+--[[Translation missing --]]
+L["|cffeda55fRight-Click|r to toggle performance profiling on or off."] = "|cffeda55fRight-Click|r to toggle performance profiling on or off."
+--[[Translation missing --]]
+L["|cffeda55fShift-Click|r to pause addon execution."] = "|cffeda55fShift-Click|r to pause addon execution."
+--[[Translation missing --]]
+L["|cffeda55fShift-Right-Click|r to show profiling results."] = "|cffeda55fShift-Right-Click|r to show profiling results."
 L["<"] = "<"
 L["<="] = "<="
 L["="] = "="
@@ -213,8 +233,6 @@ L["Circle"] = "Círculo"
 --[[Translation missing --]]
 L["Clamp"] = "Clamp"
 L["Class"] = "Classe"
-L["Click to close configuration"] = "Clique para fechar a configuração"
-L["Click to open configuration"] = "Clique para abrir a configuração"
 --[[Translation missing --]]
 L["Clockwise"] = "Clockwise"
 --[[Translation missing --]]
@@ -488,6 +506,8 @@ L["Icon Desaturate"] = "Icon Desaturate"
 --[[Translation missing --]]
 L["Id"] = "Id"
 --[[Translation missing --]]
+L["If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"] = "If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"
+--[[Translation missing --]]
 L["Ignore Rune CD"] = "Ignore Rune CD"
 --[[Translation missing --]]
 L["Immune"] = "Immune"
@@ -623,10 +643,6 @@ L["Message Type"] = "Tipo de mensagem"
 L["Message type:"] = "Tipo de mensagem:"
 --[[Translation missing --]]
 L["Meta Data"] = "Meta Data"
---[[Translation missing --]]
-L["Middle-Click to hide minimap icon"] = "Middle-Click to hide minimap icon"
---[[Translation missing --]]
-L["Middle-Click to show minimap icon"] = "Middle-Click to show minimap icon"
 --[[Translation missing --]]
 L["Minimum"] = "Minimum"
 --[[Translation missing --]]
@@ -834,8 +850,6 @@ L["Resting"] = "Descansando"
 L["Resurrect"] = "Reviver"
 L["Right"] = "Direita"
 L["Right to Left"] = "Da direita à esquerda"
---[[Translation missing --]]
-L["Right-Click to toggle profiling"] = "Right-Click to toggle profiling"
 L["Rotate Left"] = "Girar à esquerda"
 L["Rotate Right"] = "Girar à direita"
 --[[Translation missing --]]
@@ -876,10 +890,8 @@ L["Set Maximum Progress"] = "Set Maximum Progress"
 --[[Translation missing --]]
 L["Set Minimum Progress"] = "Set Minimum Progress"
 L["Shake"] = "Sacudir"
-L["Shift-Click to pause"] = "Shift-Click para pausar"
-L["Shift-Click to resume"] = "Shift-Click para continuar"
 --[[Translation missing --]]
-L["Shift-Right-Click to show profiling results"] = "Shift-Right-Click to show profiling results"
+L["Shift-Click to resume addon execution."] = "Shift-Click to resume addon execution."
 --[[Translation missing --]]
 L["Shoulder"] = "Shoulder"
 L["Show"] = "Mostrar"
@@ -1098,6 +1110,8 @@ L["Units Affected"] = "Units Affected"
 L["Up"] = "Acima"
 --[[Translation missing --]]
 L["Update Auras"] = "Update Auras"
+--[[Translation missing --]]
+L["Usage:"] = "Usage:"
 --[[Translation missing --]]
 L["Use /wa minimap to show the minimap icon again"] = "Use /wa minimap to show the minimap icon again"
 --[[Translation missing --]]

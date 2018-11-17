@@ -147,8 +147,7 @@ local L = WeakAuras.L
 	L["Constant Factor"] = "고정 요소"
 	L["Control-click to select multiple displays"] = "Ctrl+클릭 - 여러 디스플레이 선택"
 	L["Controls the positioning and configuration of multiple displays at the same time"] = "동시에 여러 디스플레이의 위치와 설정을 조절합니다"
-	--[[Translation missing --]]
-	L["Convert to New Aura Trigger"] = "Convert to New Aura Trigger"
+	L["Convert to New Aura Trigger"] = "신규 방식 효과 활성 조건으로 변환"
 	L["Convert to..."] = "변환하기..."
 	L["Cooldown"] = "재사용 대기시간"
 	L["Copy settings..."] = "설정 복사..."
@@ -267,12 +266,9 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Global Conditions"] = "전역 조건"
 	L["Glow"] = "반짝이기"
 	L["Glow Action"] = "반짝임 동작"
-	--[[Translation missing --]]
-	L["Glow Color"] = "Glow Color"
-	--[[Translation missing --]]
-	L["Glow Settings"] = "Glow Settings"
-	--[[Translation missing --]]
-	L["Glow Type"] = "Glow Type"
+	L["Glow Color"] = "반짝임 색상"
+	L["Glow Settings"] = "반짝임 설정"
+	L["Glow Type"] = "반짝임 유형"
 	L["Green Rune"] = "녹색 룬"
 	L["Group"] = "그룹"
 	L["Group (verb)"] = "그룹시키기"
@@ -312,8 +308,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["If this option is enabled, you are no longer able to import auras."] = "이 옵션이 활성화된 상태에서는 외부 문자열에서 디스플레이를 가져올 수 없습니다."
 	--[[Translation missing --]]
 	L["If Trigger %s"] = "If Trigger %s"
-	--[[Translation missing --]]
-	L["If unchecked, then a default color will be used (usually yellow)"] = "If unchecked, then a default color will be used (usually yellow)"
+	L["If unchecked, then a default color will be used (usually yellow)"] = "체크하지 않으면 기본 색상(보통 노란색)이 사용됩니다."
 	--[[Translation missing --]]
 	L["Ignore self"] = "Ignore self"
 	--[[Translation missing --]]
