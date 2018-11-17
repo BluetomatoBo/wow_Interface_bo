@@ -12,7 +12,8 @@ local L = TSM.L
 local private = {
 	thread = nil,
 	isOpening = false,
-	lastCheck = nil
+	lastCheck = nil,
+	moneyCollected = 0,
 }
 
 
@@ -31,6 +32,7 @@ end
 function Open.KillThread()
 	TSMAPI_FOUR.Thread.Kill(private.thread)
 
+	private.PrintMoneyCollected()
 	private.isOpening = false
 end
 
@@ -38,6 +40,7 @@ function Open.StartOpening(callback, autoRefresh, keepMoney, filterText, filterT
 	TSMAPI_FOUR.Thread.Kill(private.thread)
 
 	private.isOpening = true
+	private.moneyCollected = 0
 
 	TSMAPI_FOUR.Thread.SetCallback(private.thread, callback)
 	TSMAPI_FOUR.Thread.Start(private.thread, autoRefresh, keepMoney, filterText, filterType)
@@ -93,6 +96,7 @@ function private.OpenMailThread(autoRefresh, keepMoney, filterText, filterType)
 		TSMAPI_FOUR.Thread.Sleep(1)
 	end
 
+	private.PrintMoneyCollected()
 	private.isOpening = false
 end
 
@@ -106,7 +110,6 @@ function private.OpenMails(mails, keepMoney, filterType)
 		TSMAPI_FOUR.Thread.WaitForFunction(private.CanOpenMail)
 
 		local mailType = TSM.Inventory.MailTracking.GetMailType(index)
-
 		if (not filterType and mailType) or (filterType and filterType == mailType) then
 			if CalculateTotalNumberOfFreeBagSlots() <= TSM.db.global.mailingOptions.keepMailSpace then
 				return
@@ -114,6 +117,7 @@ function private.OpenMails(mails, keepMoney, filterType)
 			local _, _, _, _, money = GetInboxHeaderInfo(index)
 			if not keepMoney or (keepMoney and money <= 0) then
 				AutoLootMailItem(index)
+				private.moneyCollected = private.moneyCollected + money
 
 				if TSMAPI_FOUR.Thread.WaitForEvent("CLOSE_INBOX_ITEM", "MAIL_FAILED") ~= "MAIL_FAILED" then
 					if TSM.db.global.mailingOptions.inboxMessages then
@@ -143,6 +147,12 @@ function private.CheckInbox()
 	private.ScheduleCheck()
 end
 
+function private.PrintMoneyCollected()
+	if TSM.db.global.mailingOptions.inboxMessages and private.moneyCollected > 0 then
+		TSM:Printf(L["Total Gold Collected: %s"], TSM.Money.ToString(private.moneyCollected))
+	end
+	private.moneyCollected = 0
+end
 
 function private.PrintOpenMailMessage(index)
 	local _, _, sender, subject, money, cod, _, hasItem = GetInboxHeaderInfo(index)

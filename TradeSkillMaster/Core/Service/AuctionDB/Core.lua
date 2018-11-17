@@ -158,47 +158,6 @@ function AuctionDB.GetRegionSaleInfo(itemString, key)
 	end
 end
 
-function AuctionDB.GetGlobalItemData(itemString, key)
-	-- translate to region keys
-	if not private.globalKeyLookup[key] then
-		private.globalKeyLookup[key] = gsub(key, "^global", "region")
-	end
-	key = private.globalKeyLookup[key]
-	local valueUS = private.GetRegionItemDataHelper(private.regionDataUS, key, itemString)
-	local valueEU = private.GetRegionItemDataHelper(private.regionDataEU, key, itemString)
-	if valueUS and valueEU then
-		-- average the regions to get the global value
-		return TSMAPI_FOUR.Util.Round((valueUS + valueEU) / 2)
-	elseif valueUS then
-		return valueUS
-	elseif valueEU then
-		return valueEU
-	else
-		-- neither region has a valid price
-		return
-	end
-end
-
-function AuctionDB.GetGlobalSaleInfo(itemString, key)
-	if not private.globalKeyLookup[key] then
-		private.globalKeyLookup[key] = gsub(key, "^global", "region")
-	end
-	key = private.globalKeyLookup[key]
-	local valueUS = private.GetRegionItemDataHelper(private.regionDataUS, key, itemString)
-	local valueEU = private.GetRegionItemDataHelper(private.regionDataEU, key, itemString)
-	if valueUS and valueEU then
-		-- average the regions to get the global value
-		return TSMAPI_FOUR.Util.Round((valueUS + valueEU) / 2) / 100
-	elseif valueUS then
-		return valueUS / 100
-	elseif valueEU then
-		return valueEU / 100
-	else
-		-- neither region has a valid price
-		return
-	end
-end
-
 
 
 -- ============================================================================

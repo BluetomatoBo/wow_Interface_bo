@@ -47,6 +47,7 @@ function ToggleOnOff.Release(self)
 	self._settingTable = nil
 	self._settingKey = nil
 	self._onValueChangedHandler = nil
+	self:_GetBaseFrame():Enable()
 	self.__super:Release()
 end
 

@@ -469,7 +469,7 @@ end
 function ApplicationFrame.ShowMoreButtonDialog(self, moreBtn, iter)
 	local frame = TSMAPI_FOUR.UI.NewElement("MenuDialogFrame", "moreDialog")
 		:SetLayout("VERTICAL")
-		:SetStyle("width", 180)
+		:SetStyle("width", 200)
 		:SetStyle("anchors", { { "TOPRIGHT", moreBtn:_GetBaseFrame(), "BOTTOM", 22, -16 } })
 		:SetStyle("padding.top", 8)
 		:SetStyle("padding.bottom", 4)
@@ -488,7 +488,7 @@ function ApplicationFrame.ShowMoreButtonDialog(self, moreBtn, iter)
 		)
 		numRows = numRows + 1
 	end
-	frame:SetStyle("height", 4 + numRows * 28)
+	frame:SetStyle("height", 12 + numRows * 20)
 	self:ShowDialogFrame(frame)
 end
 

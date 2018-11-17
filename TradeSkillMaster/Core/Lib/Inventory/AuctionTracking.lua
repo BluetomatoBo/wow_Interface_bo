@@ -20,6 +20,7 @@ local private = {
 	lastScanNum = nil,
 	ignoreUpdateEvent = nil,
 }
+local PLAYER_NAME = UnitName("player")
 local SALE_HINT_SEP = "\001"
 local SALE_HINT_EXPIRE_TIME = 33 * 24 * 60 * 60
 local DB_SCHEMA = {
@@ -80,6 +81,25 @@ function AuctionTracking.OnInitialize()
 			TSM.db.char.internalData.auctionSaleHints[info] = nil
 		end
 	end
+
+	hooksecurefunc("PostAuction", function(self, _, runTime)
+		local days = nil
+		if runTime == 1 then
+			days = 0.5
+		elseif runTime == 2 then
+			days = 1
+		elseif runTime == 3 then
+			days = 2
+		end
+
+		local expiration = time() + (days * 24 * 60 * 60)
+		if (TSM.db.factionrealm.internalData.expiringAuction[PLAYER_NAME] or math.huge) < expiration then
+			return
+		end
+
+		TSM.db.factionrealm.internalData.expiringAuction[PLAYER_NAME] = expiration
+		TSM.TaskList.Expirations.Update()
+	end)
 end
 
 function AuctionTracking.RegisterCallback(callback)
@@ -178,6 +198,7 @@ function private.AuctionOwnedListUpdateDelayed()
 	private.db:SetQueryUpdatesPaused(true)
 	private.db:Truncate()
 	private.db:BulkInsertStart()
+	local expire = math.huge
 	for i = #private.indexUpdates.list, 1, -1 do
 		local index = private.indexUpdates.list[i]
 		local name, texture, stackSize, quality, _, _, _, minBid, _, buyout, bid, highBidder, _, _, _, saleStatus = GetAuctionItemInfo("owner", index)
@@ -186,6 +207,15 @@ function private.AuctionOwnedListUpdateDelayed()
 			assert(saleStatus == 0 or saleStatus == 1)
 			local duration = GetAuctionItemTimeLeft("owner", index)
 			duration = saleStatus == 0 and duration or (time() + duration)
+			if saleStatus == 0 then
+				if duration == 1 then -- 30 min
+					expire = min(expire, time() + 0.5 * 60 * 60)
+				elseif duration == 2 then -- 2 hours
+					expire = min(expire, time() + 2 * 60 * 60)
+				elseif duration == 3 then -- 12 hours
+					expire = min(expire, time() + 12 * 60 * 60)
+				end
+			end
 			highBidder = highBidder or ""
 			texture = texture or TSMAPI_FOUR.Item.GetTexture(link)
 			local itemString = TSMAPI_FOUR.Item.ToItemString(link)
@@ -204,6 +234,13 @@ function private.AuctionOwnedListUpdateDelayed()
 	end
 	private.db:BulkInsertEnd()
 	private.db:SetQueryUpdatesPaused(false)
+
+	if expire ~= math.huge then
+		if (TSM.db.factionrealm.internalData.expiringAuction[PLAYER_NAME] or math.huge) > expire then
+			TSM.db.factionrealm.internalData.expiringAuction[PLAYER_NAME] = expire
+			TSM.TaskList.Expirations.Update()
+		end
+	end
 
 	TSM:LOG_INFO("Scanned auctions (left=%d)", #private.indexUpdates.list)
 	if #private.indexUpdates.list > 0 then

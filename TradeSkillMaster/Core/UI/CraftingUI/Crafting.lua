@@ -531,6 +531,8 @@ local function MoreDialogRowIterator(_, prevIndex)
 		return 1, L["Select All Groups"], private.SelectAllBtnOnClick
 	elseif prevIndex == 1 then
 		return 2, L["Deselect All Groups"], private.DeselectAllBtnOnClick
+	elseif prevIndex == 2 then
+		return 3, L["Create Profession Group"], private.CreateProfessionBtnOnClick
 	end
 end
 function private.MoreBtnOnClick(button)
@@ -546,6 +548,47 @@ end
 function private.DeselectAllBtnOnClick(button)
 	local baseFrame = button:GetBaseElement()
 	baseFrame:GetElement("content.crafting.left.viewContainer.main.content.group.groupTree"):DeselectAll()
+	baseFrame:HideDialog()
+end
+
+function private.CreateProfessionBtnOnClick(button)
+	local baseFrame = button:GetBaseElement()
+	local profName = TSM.Crafting.ProfessionState.GetCurrentProfession()
+	if not TSM.Groups.Exists(profName) then
+		TSM.Groups.Create(profName)
+		TSM.Groups.Create(profName..TSM.CONST.GROUP_SEP..L["Items"])
+		TSM.Groups.Create(profName..TSM.CONST.GROUP_SEP..L["Materials"])
+	end
+
+	local numMats, numItems = 0, 0
+	local query = TSM.Crafting.CreateRawMatItemQuery()
+		:Matches("professions", profName)
+		:Select("itemString")
+
+	for _, itemString in query:IteratorAndRelease() do
+		local classId = TSMAPI_FOUR.Item.GetClassId(itemString)
+		if not TSM.Groups.IsItemInGroup(itemString) and classId ~= LE_ITEM_CLASS_WEAPON and classId ~= LE_ITEM_CLASS_ARMOR then
+			TSM.Groups.SetItemGroup(itemString, profName..TSM.CONST.GROUP_SEP..L["Materials"])
+			numMats = numMats + 1
+		end
+	end
+
+	query = TSM.Crafting.ProfessionScanner.CreateQuery()
+		:Select("spellId")
+
+	for _, spellId in query:IteratorAndRelease() do
+		local itemString = TSM.Crafting.GetItemString(spellId)
+		if itemString and not TSM.Groups.IsItemInGroup(itemString) then
+			TSM.Groups.SetItemGroup(itemString, profName..TSM.CONST.GROUP_SEP..L["Items"])
+			numItems = numItems + 1
+		end
+	end
+
+	if numMats > 0 or numItems > 0 then
+		TSM:Printf(L["%s group updated with %d items and %d materials."], profName, numItems, numMats)
+	end
+
+	baseFrame:GetElement("content.crafting.left.viewContainer.main.content.group.groupTree"):UpdateData(true)
 	baseFrame:HideDialog()
 end
 

@@ -11,6 +11,7 @@ local Money = TSM.Accounting:NewPackage("Money")
 local private = { db = nil }
 local CSV_KEYS = { "type", "amount", "otherPlayer", "player", "time" }
 local COMBINE_TIME_THRESHOLD = 300 -- group expenses within 5 minutes together
+local SECONDS_PER_DAY = 24 * 60 * 60
 local DB_SCHEMA = {
 	fields = {
 		recordType = "string",
@@ -82,6 +83,20 @@ function Money.CharacterIterator(recordType)
 		:IteratorAndRelease()
 end
 
+function Money.RemoveOldData(days)
+	local query = private.db:NewQuery()
+		:LessThan("time", time() - days * SECONDS_PER_DAY)
+	local numRecords = 0
+	private.db:SetQueryUpdatesPaused(true)
+	for _, row in query:Iterator() do
+		private.db:DeleteRow(row)
+		numRecords = numRecords + 1
+	end
+	query:Release()
+	private.db:SetQueryUpdatesPaused(false)
+	return numRecords
+end
+
 
 
 -- ============================================================================
@@ -98,6 +113,11 @@ function private.LoadData(recordType, csvRecords)
 		-- convert from old (TSM3) keys if necessary
 		local otherPlayer = record.otherPlayer or record.destination or record.source
 		if type(otherPlayer) == "string" and type(record.time) == "number" then
+			local newTime = floor(record.time)
+			if newTime ~= record.time then
+				-- make sure all timestamps are stored as integers
+				record.time = newTime
+			end
 			private.db:BulkInsertNewRow(recordType, record.type, record.amount, otherPlayer, record.player, record.time)
 		end
 	end
@@ -117,6 +137,7 @@ end
 
 function private.InsertRecord(recordType, type, amount, otherPlayer, timestamp)
 	assert(type and amount and amount > 0 and otherPlayer and timestamp)
+	timestamp = floor(timestamp)
 	local matchingRow = private.db:NewQuery()
 		:Equal("recordType", recordType)
 		:Equal("type", type)

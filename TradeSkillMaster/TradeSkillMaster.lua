@@ -18,7 +18,7 @@ local APP_INFO_REQUIRED_KEYS = { "version", "lastSync", "addonVersions", "messag
 local LOGOUT_TIME_WARNING_THRESHOLD_MS = 20
 do
 	-- show a message if we were updated
-	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.4.6" then
+	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.5.2" then
 		message("TSM was just updated and may not work properly until you restart WoW.")
 	end
 end
@@ -65,9 +65,10 @@ end
 -- [44] changed global.internalData.{mainUIFrameContext,auctionUIFrameContext,craftingUIFrameContext,destroyingUIFrameContext,mailingUIFrameContext,vendoringUIFrameContext,bankingUIFrameContext} default (added "scale = 1")
 -- [45] added char.internalData.auctionSaleHints
 -- [46] added global.shoppingOptions.{buyoutConfirm,buyoutAlertSource}
+-- [47] added factionrealm.internalData.expiringMail and factionrealm.internalData.expiringAuction
 
 local SETTINGS_INFO = {
-	version = 46,
+	version = 47,
 	global = {
 		debug = {
 			chatLoggingEnabled = { type = "boolean", default = false, lastModifiedVersion = 19 },
@@ -207,6 +208,8 @@ local SETTINGS_INFO = {
 			characterGuilds = { type = "table", default = {}, lastModifiedVersion = 10 },
 			guildVaults = { type = "table", default = {}, lastModifiedVersion = 10 },
 			pendingMail = { type = "table", default = {}, lastModifiedVersion = 10 },
+			expiringMail = { type = "table", default = {}, lastModifiedVersion = 47 },
+			expiringAuction = { type = "table", default = {}, lastModifiedVersion = 47 },
 			crafts = { type = "table", default = {}, lastModifiedVersion = 10 },
 			mats = { type = "table", default = {}, lastModifiedVersion = 10 },
 			guildGoldLog = { type = "table", default = {}, lastModifiedVersion = 25 },
@@ -561,12 +564,6 @@ function TSM.OnInitialize()
 	TSM.CustomPrice.RegisterSource("AuctionDB", "DBRegionSaleAvg", L["AuctionDB - Region Sale Average (via TSM App)"], TSM.AuctionDB.GetRegionItemData, false, "regionSale")
 	TSM.CustomPrice.RegisterSource("AuctionDB", "DBRegionSaleRate", L["AuctionDB - Region Sale Rate (via TSM App)"], TSM.AuctionDB.GetRegionSaleInfo, false, "regionSalePercent")
 	TSM.CustomPrice.RegisterSource("AuctionDB", "DBRegionSoldPerDay", L["AuctionDB - Region Sold Per Day (via TSM App)"], TSM.AuctionDB.GetRegionSaleInfo, false, "regionSoldPerDay")
-	TSM.CustomPrice.RegisterSource("AuctionDB", "DBGlobalMinBuyoutAvg", L["AuctionDB - Global Minimum Buyout Average (via TSM App)"], TSM.AuctionDB.GetGlobalItemData, false, "globalMinBuyout")
-	TSM.CustomPrice.RegisterSource("AuctionDB", "DBGlobalMarketAvg", L["AuctionDB - Global Market Value Average (via TSM App)"], TSM.AuctionDB.GetGlobalItemData, false, "globalMarketValue")
-	TSM.CustomPrice.RegisterSource("AuctionDB", "DBGlobalHistorical", L["AuctionDB - Global Historical Price (via TSM App)"], TSM.AuctionDB.GetGlobalItemData, false, "globalHistorical")
-	TSM.CustomPrice.RegisterSource("AuctionDB", "DBGlobalSaleAvg", L["AuctionDB - Global Sale Average (via TSM App)"], TSM.AuctionDB.GetGlobalItemData, false, "globalSale")
-	TSM.CustomPrice.RegisterSource("AuctionDB", "DBGlobalSaleRate", L["AuctionDB - Global Sale Rate (via TSM App)"], TSM.AuctionDB.GetGlobalSaleInfo, false, "globalSalePercent")
-	TSM.CustomPrice.RegisterSource("AuctionDB", "DBGlobalSoldPerDay", L["AuctionDB - Global Sold Per Day (via TSM App)"], TSM.AuctionDB.GetGlobalSaleInfo, false, "globalSoldPerDay")
 	TSM.CustomPrice.RegisterSource("Crafting", "Crafting", L["Crafting Cost"], TSM.Crafting.Cost.GetLowestCostByItem)
 	TSM.CustomPrice.RegisterSource("Crafting", "matPrice", L["Crafting Material Cost"], TSM.Crafting.Cost.GetMatCost)
 

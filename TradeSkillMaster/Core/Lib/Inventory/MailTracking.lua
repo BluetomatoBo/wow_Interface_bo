@@ -204,8 +204,12 @@ function private.MailInboxUpdateDelayed()
 	TSM.Inventory.WipePendingMail(PLAYER_NAME)
 	TSM.Inventory.WipeMailQuantity()
 
+	local expiration = math.huge
 	for i = 1, GetInboxNumItems() do
 		local _, _, _, subject, money, cod, daysLeft, itemCount = GetInboxHeaderInfo(i)
+		if itemCount and itemCount > 0 and money and money > 0 then
+			expiration = min(expiration, time() + (daysLeft * 24 * 60 * 60))
+		end
 		local firstItemString = TSMAPI_FOUR.Item.ToItemString(private.GetInboxItemLink(i))
 		local mailType = private.GetMailType(i) or ""
 		if mailType == "BUY" then
@@ -235,6 +239,9 @@ function private.MailInboxUpdateDelayed()
 
 	private.itemDB:BulkInsertEnd()
 	private.mailDB:BulkInsertEnd()
+
+	TSM.db.factionrealm.internalData.expiringMail[PLAYER_NAME] = expiration ~= math.huge and expiration or nil
+	TSM.TaskList.Expirations.UpdateDelayed()
 end
 
 

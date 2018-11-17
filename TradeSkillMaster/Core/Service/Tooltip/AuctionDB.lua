@@ -20,10 +20,6 @@ local DEFAULTS = {
 	regionSale = true,
 	regionSalePercent = true,
 	regionSoldPerDay = true,
-	globalMinBuyout = false,
-	globalMarketValue = false,
-	globalHistorical = false,
-	globalSale = false,
 }
 local TOOLTIP_STRINGS = {
 	minBuyout = L["Min Buyout"],
@@ -35,10 +31,6 @@ local TOOLTIP_STRINGS = {
 	regionSale = L["Region Sale Avg"],
 	regionSalePercent = L["Region Sale Rate"],
 	regionSoldPerDay = L["Region Avg Daily Sold"],
-	globalMinBuyout = L["Global Min Buyout Avg"],
-	globalMarketValue = L["Global Market Value Avg"],
-	globalHistorical = L["Global Historical Price"],
-	globalSale = L["Global Sale Avg"],
 }
 
 
@@ -76,14 +68,6 @@ function private.LoadTooltip(tooltip, itemString, options)
 	private.AddItemValueLine(tooltip, options, itemString, "regionSalePercent")
 	-- add region sold per day
 	private.AddItemValueLine(tooltip, options, itemString, "regionSoldPerDay")
-	-- add global min buyout
-	private.AddItemValueLine(tooltip, options, itemString, "globalMinBuyout")
-	-- add global market value
-	private.AddItemValueLine(tooltip, options, itemString, "globalMarketValue")
-	-- add global historical price
-	private.AddItemValueLine(tooltip, options, itemString, "globalHistorical")
-	-- add global sale avg
-	private.AddItemValueLine(tooltip, options, itemString, "globalSale")
 
 	-- add the header if we've added at least one line
 	local lastScan = TSM.AuctionDB.GetRealmItemData(itemString, "lastScan")
@@ -105,9 +89,7 @@ function private.AddItemValueLine(tooltip, options, itemString, key)
 		return
 	end
 	local value = nil
-	if strmatch(key, "^global") then
-		value = TSM.AuctionDB.GetGlobalItemData(itemString, key)
-	elseif strmatch(key, "^region") then
+	if strmatch(key, "^region") then
 		value = TSM.AuctionDB.GetRegionItemData(itemString, key)
 	else
 		value = TSM.AuctionDB.GetRealmItemData(itemString, key)

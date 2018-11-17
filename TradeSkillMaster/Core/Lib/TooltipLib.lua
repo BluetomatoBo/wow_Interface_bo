@@ -52,39 +52,22 @@ end
 
 function private.RegisterTooltip(tooltip)
 	local reg = { extraTip = private.NewExtraTip(tooltip) }
-	reg.extraTip:Attach(tooltip)
 	private.tooltipRegistry[tooltip] = reg
 
 	if private.IsBattlePetTooltip(tooltip) then
-		local scriptHooks = {
-			OnHide = private.OnTooltipCleared
-		}
-		for script, prehook in pairs(scriptHooks) do
-			local orig = tooltip:GetScript(script)
-			tooltip:SetScript(script, function(...)
-				prehook(...)
-				if orig then
-					orig(...)
-				end
-			end)
-		end
 		if not private.hookedBattlepetGlobal then
 			private.hookedBattlepetGlobal = true
 			hooksecurefunc("BattlePetTooltipTemplate_SetBattlePet", private.OnTooltipSetBattlePet)
+			hooksecurefunc("BattlePetToolTip_Show", private.OnBattlePetToolTipShow)
 		end
+		tooltip:HookScript("OnHide", private.OnTooltipCleared)
 	else
 		local scriptHooks = {
 			OnTooltipSetItem = private.OnTooltipSetItem,
 			OnTooltipCleared = private.OnTooltipCleared
 		}
 		for script, prehook in pairs(scriptHooks) do
-			local orig = tooltip:GetScript(script)
-			tooltip:SetScript(script, function(...)
-				prehook(...)
-				if orig then
-					orig(...)
-				end
-			end)
+			tooltip:HookScript(script, prehook)
 		end
 
 		for method, prehook in pairs(private.tooltipMethodPrehooks) do
@@ -136,7 +119,9 @@ function private.OnTooltipSetItem(tooltip)
 	if not item then return end
 
 	reg.hasItem = true
-	reg.extraTip:Attach(tooltip)
+	if not TSM.db.global.tooltipOptions.embeddedTooltip then
+		reg.extraTip:Attach(tooltip)
+	end
 
 	private.callback(tooltip, item, reg.quantity or 1)
 	tooltip:Show()
@@ -158,7 +143,7 @@ function private.OnTooltipCleared(tooltip)
 	reg.item = nil
 	reg.extraTip:Hide()
 	reg.extraTip.minWidth = 0
-	reg.extraTip:SetHeight(0)
+	reg.extraTip.isTop = nil
 end
 
 function private.OnTooltipSetBattlePet(tooltip, data)
@@ -199,6 +184,11 @@ function private.OnTooltipSetBattlePet(tooltip, data)
 	if reg.extraTipUsed then
 		reg.extraTip:Show()
 	end
+end
+
+function private.OnBattlePetToolTipShow()
+	local reg = private.tooltipRegistry[BattlePetTooltip]
+	reg.extraTip:Show()
 end
 
 
@@ -302,9 +292,12 @@ private.extraTipMethods = {
 	end,
 
 	Show = function(self)
-		self:SetScript("OnUpdate", self.OnUpdate)
 		self.anchorFrame = nil
 		GameTooltip.Show(self)
+		local bottom = self:GetBottom()
+		if bottom and self:GetParent():IsShown() then
+			self.isTop = bottom <= 0
+		end
 		self:OnUpdate()
 		local numLines = self:NumLines()
 		local changedLines = self.changedLines or 0
@@ -330,7 +323,12 @@ private.extraTipMethods = {
 		local tooltip = self:GetParent()
 		local anchorFrame = private.GetLibExtraTipFrame(tooltip, tooltip:GetChildren()) or tooltip
 		if anchorFrame ~= self.anchorFrame then
-			self:SetPoint("TOP", anchorFrame, "BOTTOM")
+			self:ClearAllPoints()
+			if self.isTop then
+				self:SetPoint("BOTTOM", anchorFrame, "TOP")
+			else
+				self:SetPoint("TOP", anchorFrame, "BOTTOM")
+			end
 			self.anchorFrame = anchorFrame
 		end
 	end,
@@ -339,7 +337,7 @@ private.extraTipMethods = {
 function private.NewExtraTip(tooltip)
 	private.numExtraTips = private.numExtraTips + 1
 	local extraTip = CreateFrame("GameTooltip", "TSMExtraTip"..private.numExtraTips, tooltip, "GameTooltipTemplate")
-	extraTip:SetClampedToScreen(false)
+	extraTip:SetClampedToScreen(true)
 
 	for name, func in pairs(private.extraTipMethods) do
 		extraTip[name] = func

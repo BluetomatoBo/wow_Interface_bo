@@ -31,7 +31,7 @@ function Path.Split(groupPath)
 end
 
 function Path.Join(...)
-	if select(1, ...) == "" then
+	if select(1, ...) == TSM.CONST.ROOT_GROUP_PATH then
 		return Path.Join(select(2, ...))
 	end
 	return strjoin(TSM.CONST.GROUP_SEP, ...)

@@ -7,18 +7,20 @@
 -- ------------------------------------------------------------------------------ --
 
 local _, TSM = ...
-local ImportConfirmationList = TSMAPI_FOUR.Class.DefineClass("ImportConfirmationList", TSM.UI.ScrollList)
+local ImportConfirmationList = TSMAPI_FOUR.Class.DefineClass("ImportConfirmationList", TSM.UI.FastScrollingList)
 local L = TSM.L
 TSM.UI.ImportConfirmationList = ImportConfirmationList
-local private = {}
+local private = { rowFrameLookup = {} }
+local EXPANDER_PADDING_LEFT = 7
+local CATEGORY_EXPANDER_PADDING_LEFT = 23
+local TEXT_PADDING_RIGHT = 38
+local HEADER_TEXT_PADDING = 29
+local CATEGORY_TEXT_PADDING = 48
+local ITEM_TEXT_PADDING = 66
+local REMOVE_BTN_RIGHT_PADDING = 12
+local DATA_SEP = "\001"
 
-local stylesheet = {
-	LINE_COLOR = "#e2e2e2",
-	BANANA_YELLOW = "#ffd839",
-	GROUP_LABEL_COLOR = "#e2e2e2",
-	TEXTCOLOR = "#e2e2e2",
-	HIGHLIGHT_TEXT_COLOR = "#ff000000",
-}
+
 
 -- ============================================================================
 -- Public Class Methods
@@ -26,74 +28,26 @@ local stylesheet = {
 
 function ImportConfirmationList.__init(self)
 	self.__super:__init()
-
-	self._sections = {}
-	self._hidden = {}
-	self._itemGroup = {}
-	self._groupLabel = {}
-	self._sectionLabel = {}
-	self._operationModules = {}
-	self._operationName = {}
-
-	self._importer = nil
-	self._onSelectionChangedHandler = nil
+	self._import = nil
+	self._numChildren = {}
+	self._collapsed = {}
 end
 
 
 function ImportConfirmationList.Release(self)
-	private._WipeTables(self)
-	self._onSelectionChangedHandler = nil
-	self._importer = nil
+	self._import = nil
+	wipe(self._numChildren)
+	wipe(self._collapsed)
+	for _, row in ipairs(self._rows) do
+		private.rowFrameLookup[row._frame] = nil
+	end
 	self.__super:Release()
 end
 
 
-function ImportConfirmationList.SetImporter(self, importer, redraw)
-	wipe(self._data)
-	private._WipeTables(self)
-
-	self._importer = importer
-
-	private._AddSectionLabel(self, "GROUPS_HEADER", L["Imported Items"])
-	local groups = importer.groups
-	for _, groupPath in pairs(groups) do
-		private._AddGroupLabel(self, groupPath)
-		local items = importer:ItemsForGroup(groupPath)
-		for _, itemString in pairs(items) do
-			private._AddItem(self, itemString, groupPath)
-		end
-	end
-
-	private._AddSectionLabel(self, "OPERATIONS_HEADER", L["Imported Operations"])
-	local modulesByOperation = importer:GetModulesByOperation()
-	for name, modules in pairs(modulesByOperation) do
-		private._AddOperation(self, name, modules)
-	end
-
-	if redraw then
-		self:Draw()
-	end
-
-	return self
-end
-
-function ImportConfirmationList.IsItemSelected(self, item)
-	return false
-end
-
-function ImportConfirmationList.ClearSelection(self)
-	if self._onSelectionChangedHandler then
-		self:_onSelectionChangedHandler(0)
-	end
-	self:_DrawRows()
-end
-
-function ImportConfirmationList.SetScript(self, script, handler)
-	if script == "OnSelectionChanged" then
-		self._onSelectionChangedHandler = handler
-	else
-		error("Unknown ImportConfirmationList script: "..tostring(script))
-	end
+function ImportConfirmationList.SetImport(self, import)
+	self._import = import
+	self:_UpdateData()
 	return self
 end
 
@@ -103,197 +57,198 @@ end
 -- Private Class Methods
 -- ============================================================================
 
-function private._WipeTables(self)
-	wipe(self._sections)
-	wipe(self._hidden)
-	wipe(self._sectionLabel)
-	wipe(self._groupLabel)
-	wipe(self._itemGroup)
-	wipe(self._operationModules)
-	wipe(self._operationName)
-end
+function ImportConfirmationList._UpdateData(self)
+	wipe(self._data)
+	wipe(self._numChildren)
 
-function private._AddSectionLabel(self, marker, label)
-	tinsert(self._data, marker)
-	self._sections[marker] = marker
-	self._sectionLabel[marker] = label
-	self._lastSection = marker
-end
+	-- add the groups
+	for _, groupPath in self._import:GroupIterator() do
+		-- add the group header
+		local groupHeader = GROUP..": "..TSM.Groups.Path.Format(groupPath)
+		tinsert(self._data, groupHeader)
 
-function private._AddGroupLabel(self, path)
-	tinsert(self._data, path)
-	local fullPath = self._importer:JoinPath(path)
-	self._groupLabel[path] = "Placed in Root > " .. gsub(fullPath, TSM.CONST.GROUP_SEP, " > ")
-	self._sections[path] = self._lastSection
-	self._lastGroup = path
-end
+		if not self._collapsed[groupHeader] then
+			-- add the items category and items
+			local itemsCategory = groupPath..DATA_SEP..L["Items"]
+			tinsert(self._data, itemsCategory)
+			local numItems = 0
+			for _, itemString in self._import:GroupItemIterator(groupPath) do
+				if not self._collapsed[itemsCategory] then
+					tinsert(self._data, itemsCategory..DATA_SEP..itemString)
+				end
+				numItems = numItems + 1
+			end
+			if numItems > 0 then
+				self._numChildren[itemsCategory] = numItems
+			else
+				-- remove this category
+				tremove(self._data)
+			end
 
-function private._AddItem(self, itemString, groupPath)
-	tinsert(self._data, itemString)
-	self._itemGroup[itemString] = groupPath
-	self._sections[itemString] = self._lastSection
-end
-
-function private._AddOperation(self, label, modules)
-	local key = private._GetOperationKey(self, label)
-
-	tinsert(self._data, key)
-	self._operationName[key] = label
-	self._operationModules[key] = modules
-	self._sections[key] = self._lastSection
-end
-
-function private._GetOperationKey(self, label)
-	return TSM.CONST.GROUP_SEP..label
-end
-
-function ImportConfirmationList._IsDataHidden(self, data)
-	local section = self._sections[data]
-
-	if section == data then
-		return self.__super:_IsDataHidden(data)
-	end
-
-	-- this whole block is for items
-	local group = self._itemGroup[data]
-	if group then
-		if self._hidden[group] then
-			return true
+			-- add the operations categories and operations
+			for _, moduleName in TSM.Operations.ModuleIterator() do
+				local moduleOperationsCategory = groupPath..DATA_SEP..format(L["%s Operations"], moduleName)
+				tinsert(self._data, moduleOperationsCategory)
+				local numOperations = 0
+				for _, operationName in self._import:GroupModuleOperationIterator(groupPath, moduleName) do
+					if not self._collapsed[moduleOperationsCategory] then
+						tinsert(self._data, moduleOperationsCategory..DATA_SEP..operationName)
+					end
+					numOperations = numOperations + 1
+				end
+				if numOperations > 0 then
+					self._numChildren[moduleOperationsCategory] = numOperations
+				else
+					-- remove this category
+					tremove(self._data)
+				end
+			end
 		end
-		if self._hidden[self._sections[group]] then
-			return true
+	end
+
+	-- add the operations
+	for _, moduleName in TSM.Operations.ModuleIterator() do
+		-- add the operation header
+		local operationHeader = format(L["%s Operations"], moduleName)
+		tinsert(self._data, operationHeader)
+		local numOperations = 0
+		for _, operationName in self._import:ModuleOperationIterator(moduleName) do
+			if not self._collapsed[operationHeader] then
+				tinsert(self._data, operationHeader..DATA_SEP..operationName)
+			end
+			numOperations = numOperations + 1
 		end
-		return self.__super:_IsDataHidden(data)
-	end
-
-	local operation = self._operationName[data]
-	if operation then
-		if self._hidden[self._sections[data]] then
-			return true
+		if numOperations > 0 then
+			self._numChildren[operationHeader] = numOperations
+		else
+			-- remove this category
+			tremove(self._data)
 		end
-		return self.__super:_IsDataHidden(data)
 	end
-
-	if section and self._hidden[section] then
-		return true
-	end
-
-	return self.__super:_IsDataHidden(data)
 end
 
-function ImportConfirmationList._CreateRow(self)
-	local row = self.__super:_CreateRow()
-		:SetLayout("HORIZONTAL")
-		:SetStyle("padding", 10)
-		:SetStyle("height", self:_GetStyle("rowHeight"))
-		:SetScript("OnUpdate", private.RowOnUpdate)
-		:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "expander")
-			:SetScript("OnClick", private.RowOnClick)
-			:SetStyle("margin", { right = 4 })
-		)
-		:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "text")
-			:SetStyle("justifyH", "LEFT")
-			:SetStyle("autoWidth", true)
-		)
-		:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "subText")
-			:SetStyle("justifyH", "LEFT")
-			:SetStyle("textColor", "#e2e2e2")
-			:SetStyle("fontHeight", 16)
-			:SetStyle("autoWidth", true)
-			:SetStyle("margin", { left = 8 })
-		)
-		:AddChild(TSMAPI_FOUR.UI.NewElement("Spacer", "spacer"))
-		:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "cancelButton")
-			:SetStyle("width", 68)
-			:SetStyle("height", 26)
-			:SetText(CANCEL)
-			:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
-			:SetStyle("fontHeight", 14)
-			:SetStyle("height", 15)
-			:SetScript("OnClick", private.RowOnClick)
-		)
+function ImportConfirmationList._GetListRow(self)
+	local row = self.__super:_GetListRow()
+	private.rowFrameLookup[row._frame] = row
+
+	local expander = row:_GetTexture()
+	expander:SetDrawLayer("ARTWORK", 2)
+	expander:SetPoint("LEFT", EXPANDER_PADDING_LEFT, 0)
+	row._icons.expander = expander
+
+	local expanderBtn = row:_GetButton()
+	expanderBtn:SetAllPoints(expander)
+	expanderBtn:SetScript("OnEnter", private.ExpanderBtnOnEnter)
+	expanderBtn:SetScript("OnLeave", private.ExpanderBtnOnLeave)
+	expanderBtn:SetScript("OnClick", private.ExpanderBtnOnClick)
+	row._buttons.expander = expanderBtn
+
+	local text = row:_GetFontString()
+	text:SetPoint("LEFT", 0, 0)
+	text:SetPoint("TOPRIGHT", -TEXT_PADDING_RIGHT, 0)
+	text:SetPoint("BOTTOMRIGHT", -TEXT_PADDING_RIGHT, 0)
+	text:SetJustifyH("LEFT")
+	text:SetJustifyV("MIDDLE")
+	row._texts.text = text
+
+	-- add the remove button before the first col
+	local remove = row:_GetTexture()
+	TSM.UI.TexturePacks.SetTextureAndSize(remove, "iconPack.14x14/Close/Default")
+	remove:SetPoint("RIGHT", -REMOVE_BTN_RIGHT_PADDING, 0)
+	row._icons.remove = remove
+
+	local removeBtn = row:_GetButton()
+	removeBtn:SetAllPoints(remove)
+	removeBtn:SetScript("OnEnter", private.RemoveBtnOnEnter)
+	removeBtn:SetScript("OnLeave", private.RemoveBtnOnLeave)
+	removeBtn:SetScript("OnClick", private.RemoveBtnOnClick)
+	row._buttons.remove = removeBtn
+
 	return row
 end
 
-function ImportConfirmationList._DrawRow(self, row, dataIndex)
-	local item = row:GetContext()
+function ImportConfirmationList._SetRowData(self, row, data)
+	local header, category, item = strsplit(DATA_SEP, data)
 
-	local isSection = self._sections[item] == item
-	local isGroup = self._groupLabel[item]
-	local isOperation = self._operationName[item]
-	local isItem = not isSection and not isGroup and not isOperation
-	local isCollapsable = not isItem and not isOperation
-	local isCollapsed = isCollapsable and self._hidden[item]
-
-	local cancelButton = row:GetElement("cancelButton")
-	local text = row:GetElement("text")
-	text:SetStyle("height", self:_GetStyle("rowHeight"))
-	local subText = row:GetElement("subText")
-
-	if isCollapsable then
-		text:SetStyle("font", TSM.UI.Fonts.MontserratBold)
-		if isSection then
-			text:SetText(self._sectionLabel[item])
-				:SetStyle("textColor", stylesheet.BANANA_YELLOW)
-				:SetStyle("fontHeight", 18)
-			if item == "GROUPS_HEADER" then
-				cancelButton:Hide()
-			elseif item == "OPERATIONS_HEADER" then
-				cancelButton:Show()
-				cancelButton:SetScript("OnClick", private.OperationsCancelClick)
-			end
-			subText:Hide()
-		elseif isGroup then
-			text:SetText(self._groupLabel[item])
-				:SetStyle("textColor", stylesheet.TEXTCOLOR)
-			subText:SetText(L["(New group(s) will be created)"])
-				:Show()
-			cancelButton:Show()
-			cancelButton:SetScript("OnClick", private.GroupCancelClick)
-		end
-
-		local texturePack = self:_GetStyle(isCollapsed and "expanderCollapsedBackgroundTexturePack" or "expanderExpandedBackgroundTexturePack")
-		row:GetElement("expander")
-			:SetStyle("width", TSM.UI.TexturePacks.GetWidth(texturePack))
-			:SetStyle("height", TSM.UI.TexturePacks.GetHeight(texturePack))
-			:SetStyle("backgroundTexturePack", texturePack)
-			:Show()
-	elseif isOperation then
-		text:SetStyle("font", TSM.UI.Fonts.MontserratRegular)
-			:SetText(self._operationName[item])
-			:SetStyle("fontHeight", 14)
-		subText:SetText(self._operationModules[item])
-			:SetStyle("font", TSM.UI.Fonts.MontserratRegular)
-			:SetStyle("fontHeight", 14)
-			:Show()
-
-		row:GetElement("expander"):Hide()
-		text:SetStyle("textColor", stylesheet.TEXTCOLOR)
-		local texturePack = self:_GetStyle("expanderCollapsedBackgroundTexturePack")
-		row:GetElement("expander")
-			:SetStyle("width", TSM.UI.TexturePacks.GetWidth(texturePack))
-			:SetStyle("backgroundTexturePack", nil)
-			:Show()
-		cancelButton:Hide()
-		-- FIXME set text to white color and set correct font size
-	elseif isItem then
-		text:SetStyle("font", TSM.UI.Fonts.MontserratBold)
-			:SetText(TSMAPI_FOUR.Item.GetLink(item))
-			:SetStyle("fontHeight", 16)
-		row:GetElement("subText")
-			:Hide()
-
+	local text = row._texts.text
+	text:SetFont(self:_GetStyle(category and "regularFont" or "headerFont"), self:_GetStyle(category and "regularFontHeight" or "headerFontHeight"))
+	text:SetPoint("LEFT", (item and ITEM_TEXT_PADDING) or (category and CATEGORY_TEXT_PADDING) or HEADER_TEXT_PADDING, 0)
+	if item and category == L["Items"] then
 		text:SetText(TSM.UI.GetColoredItemName(item))
-		local texturePack = self:_GetStyle("expanderCollapsedBackgroundTexturePack")
-		row:GetElement("expander")
-			:SetStyle("width", TSM.UI.TexturePacks.GetWidth(texturePack))
-			:SetStyle("backgroundTexturePack", nil)
-		cancelButton:Hide()
+	elseif item then
+		text:SetText(item)
 	else
-		print("Unfortunate")
+		local textStr = category or header
+		if self._numChildren[data] then
+			textStr = textStr.." |cffffd839("..self._numChildren[data]..")|r"
+		end
+		text:SetText(textStr)
 	end
 
-	self.__super:_DrawRow(row, dataIndex)
+	local expander = row._icons.expander
+	if self._numChildren[data] or not category then
+		local texturePack = self:_GetStyle(self._collapsed[data] and "expanderCollapsedBackgroundTexturePack" or "expanderExpandedBackgroundTexturePack")
+		TSM.UI.TexturePacks.SetTextureAndSize(expander, texturePack)
+		expander:SetPoint("LEFT", category and CATEGORY_EXPANDER_PADDING_LEFT or EXPANDER_PADDING_LEFT, 0)
+		expander:Show()
+	else
+		expander:Hide()
+	end
+
+	self.__super:_SetRowData(row, data)
+end
+
+function ImportConfirmationList._ModuleNameFromText(self, text)
+	local result = nil
+	for _, moduleName in TSM.Operations.ModuleIterator() do
+		if text == format(L["%s Operations"], moduleName) then
+			assert(not result)
+			result = moduleName
+		end
+	end
+	return result
+end
+
+function ImportConfirmationList._RemoveRow(self, data)
+	local header, category, item = strsplit(DATA_SEP, data)
+	local moduleName = self:_ModuleNameFromText(header)
+	if moduleName then
+		assert(not item)
+		if category then
+			-- remove this operation
+			self._import:RemoveOperation(moduleName, category)
+		else
+			-- remove all operations for this module
+			self._import:RemoveModuleOperations(moduleName)
+		end
+	else
+		local groupPath = strmatch(header, TSMAPI_FOUR.Util.StrEscape(GROUP..": ").."(.+)") or header
+		assert(groupPath)
+		if not category then
+			-- remove the group
+			self._import:RemoveGroup(groupPath)
+		elseif category == L["Items"] then
+			if item then
+				-- remove this item from the group
+				self._import:RemoveGroupItem(groupPath, item)
+			else
+				-- remove all the items from the group
+				self._import:RemoveGroupItems(groupPath)
+			end
+		else
+			moduleName = self:_ModuleNameFromText(category)
+			assert(moduleName)
+			if item then
+				-- remove this operation from the group
+				self._import:RemoveGroupOperation(groupPath, moduleName, item)
+			else
+				-- remove all operations for this module from the group
+				self._import:RemoveGroupOperations(groupPath, moduleName)
+			end
+		end
+	end
+	self:_UpdateData()
+	self:Draw()
 end
 
 
@@ -302,28 +257,38 @@ end
 -- Local Script Handlers
 -- ============================================================================
 
-function private.GroupCancelClick(button)
-	local row = button:GetParentElement()
-	local self = row:GetParentElement()
-	local item = row:GetContext()
-	self._importer:CancelGroup(item)
-	self:SetImporter(self._importer, true)
+function private.ExpanderBtnOnEnter(button)
+	local row = button:GetParent()
+	row:GetScript("OnEnter")(row)
 end
 
-function private.OperationsCancelClick(button)
-	local row = button:GetParentElement()
-	local self = row:GetParentElement()
-	wipe(self._importer.operations)
-	self:SetImporter(self._importer, true)
+function private.ExpanderBtnOnLeave(button)
+	local row = button:GetParent()
+	row:GetScript("OnLeave")(row)
 end
 
-function private.RowOnClick(button)
-	local row = button:GetParentElement()
-	local self = row:GetParentElement()
-	local data = row:GetContext()
-
-	if (self._sections[data] == data) or self._groupLabel[data] or self._operationName[data] then
-		self._hidden[data] = not self._hidden[data]
-	end
+function private.ExpanderBtnOnClick(button)
+	local row = private.rowFrameLookup[button:GetParent()]
+	local data = row:GetData()
+	local self = row._scrollingList
+	self._collapsed[data] = not self._collapsed[data] or nil
+	self:_UpdateData()
 	self:Draw()
+end
+
+function private.RemoveBtnOnEnter(button)
+	local row = button:GetParent()
+	row:GetScript("OnEnter")(row)
+end
+
+function private.RemoveBtnOnLeave(button)
+	local row = button:GetParent()
+	row:GetScript("OnLeave")(row)
+end
+
+function private.RemoveBtnOnClick(button)
+	local row = private.rowFrameLookup[button:GetParent()]
+	local data = row:GetData()
+	local self = row._scrollingList
+	self:_RemoveRow(data)
 end

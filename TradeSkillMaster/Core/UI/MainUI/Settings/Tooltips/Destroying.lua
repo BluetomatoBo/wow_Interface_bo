@@ -21,8 +21,6 @@ local INVALID_PRICE_SOURCES = {
 	NumExpires = true,
 	DBRegionSaleRate = true,
 	DBRegionSoldPerDay = true,
-	DBGlobalSaleRate = true,
-	DBGlobalSoldPerDay = true,
 }
 
 

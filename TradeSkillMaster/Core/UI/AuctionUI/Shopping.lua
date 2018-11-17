@@ -1537,9 +1537,9 @@ function private.UpdateDepositCost(frame)
 	local buyout = TSM.Money.FromString(frame:GetElement("buyout.text"):GetText())
 	local num = tonumber(frame:GetElement("quantity.num"):GetText())
 	local stackSize = tonumber(frame:GetElement("quantity.stackSize"):GetText())
-	if not private.perItem then
-		bid = bid / stackSize
-		buyout = buyout / stackSize
+	if private.perItem then
+		bid = bid * stackSize
+		buyout = buyout * stackSize
 	end
 
 	frame:GetElement("deposit.text"):SetText(TSM.Money.ToString(GetAuctionDeposit(postTime, bid, buyout, stackSize, num)))

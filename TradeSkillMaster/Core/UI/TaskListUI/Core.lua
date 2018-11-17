@@ -331,6 +331,7 @@ function private.OnTaskListUpdate()
 	if private.frame then
 		local numTasks = TSM.TaskList.GetNumTasks()
 		if numTasks == 0 then
+			private.didAutoShow = false
 			TaskListUI.Toggle()
 			return
 		end

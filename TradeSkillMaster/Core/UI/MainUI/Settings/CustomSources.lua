@@ -207,10 +207,12 @@ function private.ValueOnValueChanged(text, newValue)
 end
 
 function private.DeleteCustomPriceOnClick(button)
-	private.editingElement
-		:SetEditing(false)
-		:Draw()
-	private.editingElement = nil
+	if private.editingElement then
+		private.editingElement
+			:SetEditing(false)
+			:Draw()
+		private.editingElement = nil
+	end
 	TSM.db.global.userData.customPriceSources[button:GetParentElement():GetContext()] = nil
 	local rowFrame = button:GetParentElement()
 	local parentFrame = rowFrame:GetParentElement()

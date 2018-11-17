@@ -2,7 +2,7 @@
 ## Title: |cff00fe00TradeSkillMaster|r
 ## Notes: Auction house and gold making addon.
 ## Author: TSM Team
-## Version: v4.4.6
+## Version: v4.5.2
 ## SavedVariables: TradeSkillMasterDB, TSMItemCacheDB, TSMItemInfoDB, TradeSkillMasterModulesDB
 ## OptionalDeps: CostBasis, Auc-Advanced, Auctionator, TheUndermineJournal
 ## X-Embeds: AccurateTime, Ace3, LibDataBroker-1.1, LibDBIcon-1.0, LibCompress, LibRealmInfo
@@ -90,7 +90,6 @@ Core\Lib\CustomPrice.lua
 Core\Lib\Delay.lua
 Core\Lib\Exporter.lua
 Core\Lib\Features.lua
-Core\Lib\Importer.lua
 Core\Lib\ItemFilter.lua
 Core\Lib\ItemInfo.lua
 Core\Lib\PlayerInfo.lua
@@ -262,6 +261,7 @@ Core\Service\Operations\Warehousing.lua
 Core\Service\Groups\Core.lua
 Core\Service\Groups\Path.lua
 Core\Service\Groups\Sync.lua
+Core\Service\Groups\Import.lua
 Core\Service\Accounting\Core.lua
 Core\Service\Accounting\Money.lua
 Core\Service\Accounting\Auctions.lua
@@ -306,6 +306,8 @@ Core\Service\TaskList\Tasks\Task.lua
 Core\Service\TaskList\Tasks\ItemTask.lua
 Core\Service\TaskList\Tasks\CraftingTask.lua
 Core\Service\TaskList\Tasks\CooldownCraftingTask.lua
+Core\Service\TaskList\Tasks\ExpiredAuctionTask.lua
+Core\Service\TaskList\Tasks\ExpiringMailTask.lua
 Core\Service\TaskList\Tasks\ShoppingTask.lua
 Core\Service\TaskList\Tasks\VendoringTask.lua
 Core\Service\TaskList\Tasks\BankingTask.lua
@@ -313,6 +315,7 @@ Core\Service\TaskList\Tasks\AltTask.lua
 Core\Service\TaskList\Tasks\SendMailTask.lua
 Core\Service\TaskList\Tasks\OpenMailTask.lua
 Core\Service\TaskList\Cooldowns.lua
+Core\Service\TaskList\Expirations.lua
 Core\Service\TaskList\Gathering.lua
 Core\Service\Banking\Core.lua
 Core\Service\Banking\Util.lua

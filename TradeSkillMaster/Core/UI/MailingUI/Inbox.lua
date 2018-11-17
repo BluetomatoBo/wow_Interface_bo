@@ -587,7 +587,7 @@ function private.UpdateInboxItemsFrame()
 		if invoiceType == "buyer" then
 			bodyText = ITEM_PURCHASED_COLON.." "..itemName.."\n"..SOLD_BY_COLON.." "..playerName.." ("..purchaseType..")".."\n\n"..AMOUNT_RECEIVED_COLON.." "..TSM.Money.ToString(bid)
 		elseif invoiceType == "seller" then
-			bodyText = ITEM_SOLD_COLON.." "..itemName.."\n"..PURCHASED_BY_COLON.." "..playerName.." ("..purchaseType..")".."\n\n"..L["Sale Price"]..": "..TSM.Money.ToString(bid).."\n"..L["Deposit"]..": +"..TSM.Money.ToString(deposit).."\n"..L["Auction House Cut"]..": -"..TSM.Money.ToString(deposit, "|cffff0000").."\n\n"..AMOUNT_RECEIVED_COLON.." "..TSM.Money.ToString(bid + deposit - consignment)
+			bodyText = ITEM_SOLD_COLON.." "..itemName.."\n"..PURCHASED_BY_COLON.." "..playerName.." ("..purchaseType..")".."\n\n"..L["Sale Price"]..": "..TSM.Money.ToString(bid).."\n"..L["Deposit"]..": +"..TSM.Money.ToString(deposit).."\n"..L["Auction House Cut"]..": -"..TSM.Money.ToString(consignment, "|cffff0000").."\n\n"..AMOUNT_RECEIVED_COLON.." "..TSM.Money.ToString(bid + deposit - consignment)
 		elseif invoiceType == "seller_temp_invoice" then
 			bodyText = ITEM_SOLD_COLON.." "..itemName.."\n"..PURCHASED_BY_COLON.." "..playerName.." ("..purchaseType..")".."\n\n"..AUCTION_INVOICE_PENDING_FUNDS_COLON.." "..TSM.Money.ToString(bid + deposit - consignment).."\n"..L["Estimated deliver time"]..": "..GameTime_GetFormattedTime(etaHour, etaMin, true)
 		end

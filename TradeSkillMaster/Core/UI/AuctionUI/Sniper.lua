@@ -624,9 +624,9 @@ function private.FSMCreate()
 					context.numActioned = context.numActioned + 1
 				else
 					if context.scanType == "buyout" then
-						TSM:Printf(L["Failed to buy auction of %s."], context.findAuction:GetField("rawLink"))
+						TSM:Printf(L["Failed to buy auction of %s (x%s) for %s."], context.findAuction:GetField("rawLink"), context.findAuction:GetField("stackSize"), TSM.Money.ToString(context.findAuction:GetField("buyout")))
 					elseif context.scanType == "bid" then
-						TSM:Printf(L["Failed to bid on auction of %s."], context.findAuction:GetField("rawLink"))
+						TSM:Printf(L["Failed to bid on auction of %s (x%s) for %s."], context.findAuction:GetField("rawLink"), context.findAuction:GetField("stackSize"), TSM.Money.ToString(context.findAuction:GetField("bid")))
 					else
 						error("Invalid scanType: "..tostring(context.scanType))
 					end
@@ -638,7 +638,7 @@ function private.FSMCreate()
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_CONFIRMING_BID_BUY")
 			:SetOnEnter(function(context, success)
 				if not success then
-					TSM:Printf(L["Failed to buy auction of %s."], context.findAuction:GetField("rawLink"))
+					TSM:Printf(L["Failed to buy auction of %s (x%s) for %s."], context.findAuction:GetField("rawLink"), context.findAuction:GetField("stackSize"), TSM.Money.ToString(context.findAuction:GetField("buyout")))
 				end
 				context.numConfirmed = context.numConfirmed + 1
 				-- remove this row

@@ -171,16 +171,6 @@ local DEFAULT_STYLESHEET = {
 		rowHeight = 20,
 		altBackground = "#000000",
 	},
-	-- Element -> FastScrollingList -> GroupTree
-	[TSM.UI.GroupTree] = {
-		rowHeight = 24,
-		font = TSM.UI.Fonts.MontserratMedium,
-		fontHeight = 14,
-		treeIndentWidth = 14,
-		expanderSize = 18,
-		expanderCollapsedBackgroundTexturePack = "iconPack.18x18/Carot/Collapsed",
-		expanderExpandedBackgroundTexturePack = "iconPack.18x18/Carot/Expanded",
-	},
 	-- Element -> FastScrollingList -> ItemList
 	[TSM.UI.ItemList] = {
 		rowHeight = 20,
@@ -192,6 +182,16 @@ local DEFAULT_STYLESHEET = {
 		expanderCollapsedBackgroundTexturePack = "iconPack.18x18/Carot/Collapsed",
 		expanderExpandedBackgroundTexturePack = "iconPack.18x18/Carot/Expanded",
 		checkTexturePack = "iconPack.18x18/Checkmark/Default",
+	},
+	-- Element -> FastScrollingList -> GroupTree
+	[TSM.UI.GroupTree] = {
+		rowHeight = 24,
+		font = TSM.UI.Fonts.MontserratMedium,
+		fontHeight = 14,
+		treeIndentWidth = 14,
+		expanderSize = 18,
+		expanderCollapsedBackgroundTexturePack = "iconPack.18x18/Carot/Collapsed",
+		expanderExpandedBackgroundTexturePack = "iconPack.18x18/Carot/Expanded",
 	},
 	-- Element -> FastScrollingList -> GroupTree -> ManagementGroupTree
 	[TSM.UI.ManagementGroupTree] = {
@@ -208,6 +208,16 @@ local DEFAULT_STYLESHEET = {
 	},
 	-- Element -> FastScrollingList -> GroupTree -> SelectionGroupTree
 	[TSM.UI.SelectionGroupTree] = {
+	},
+	-- Element -> FastScrollingList -> ImportConfirmationList
+	[TSM.UI.ImportConfirmationList] = {
+		rowHeight = 24,
+		headerFont = TSM.UI.Fonts.FRIZQT,
+		headerFontHeight = 14,
+		regularFont = TSM.UI.Fonts.FRIZQT,
+		regularFontHeight = 12,
+		expanderCollapsedBackgroundTexturePack = "iconPack.18x18/Carot/Collapsed",
+		expanderExpandedBackgroundTexturePack = "iconPack.18x18/Carot/Expanded",
 	},
 	-- Element -> ScrollingTable
 	[TSM.UI.ScrollingTable] = {
@@ -395,14 +405,6 @@ local DEFAULT_STYLESHEET = {
 	[TSM.UI.SelectionList] = {
 		rowHeight = 40,
 		fontHeight = 18,
-	},
-	-- Element -> Container -> ScrollList -> ImportConfirmationList
-	[TSM.UI.ImportConfirmationList] = {
-		rowHeight = 28,
-		headerFontHeight = 18,
-		fontHeight = 14,
-		expanderCollapsedBackgroundTexturePack = "iconPack.18x18/Carot/Collapsed",
-		expanderExpandedBackgroundTexturePack = "iconPack.18x18/Carot/Expanded",
 	},
 	[TSM.UI.ExportConfirmationList] = {
 		cancelButtonFont = TSM.UI.Fonts.title,

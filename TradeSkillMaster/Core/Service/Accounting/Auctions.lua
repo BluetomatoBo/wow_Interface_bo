@@ -155,6 +155,12 @@ function private.LoadData(recordType, csvRecords, csvSaveTimes)
 			local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
 			local saveTime = tonumber(saveTimes[index])
 			if type(record.stackSize) == "number" and type(record.quantity) == "number" and type(record.player) == "string" and type(record.time) == "number" then
+				local newTime = floor(record.time)
+				if newTime ~= record.time then
+					-- make sure all timestamps are stored as integers
+					private.dataChanged = true
+					record.time = newTime
+				end
 				private.db:BulkInsertNewRow(recordType, itemString, baseItemString, record.stackSize, record.quantity, record.player, record.time, saveTime)
 			end
 		end
@@ -164,6 +170,7 @@ end
 function private.InsertRecord(recordType, itemString, stackSize, timestamp)
 	private.dataChanged = true
 	assert(itemString and stackSize and stackSize > 0 and timestamp)
+	timestamp = floor(timestamp)
 	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
 	local matchingRow = private.db:NewQuery()
 		:Equal("type", recordType)

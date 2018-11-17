@@ -158,6 +158,7 @@ function private.FSMCreate()
 			:AddTransition("ST_CLOSED")
 			:AddTransition("ST_FRAME_OPEN")
 			:AddEvent("EV_FRAME_HIDE", function(context)
+				OpenMailFrame:Hide()
 				CloseMail()
 
 				return "ST_CLOSED"

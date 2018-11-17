@@ -143,6 +143,8 @@ end
 function ScrollingTable.CommitTableInfo(self)
 	if self._header then
 		self._header:Release()
+		private.rowPool:Recycle(self._header)
+		self._header = nil
 	end
 	self._header = self:_GetTableRow(true)
 	self._header:SetBackgroundColor(self:_GetStyle("headerBackground"))

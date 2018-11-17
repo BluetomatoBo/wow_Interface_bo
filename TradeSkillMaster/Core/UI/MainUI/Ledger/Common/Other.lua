@@ -10,7 +10,7 @@ local _, TSM = ...
 local Other = TSM.MainUI.Ledger.Common:NewPackage("Other")
 local L = TSM.L
 local SECONDS_PER_DAY = 24 * 60 * 60
-local private = { query = nil, characters = {}, characterFilter = ALL, typeFilter = "All", timeFrameFilter = 7 * SECONDS_PER_DAY }
+local private = { query = nil, characters = {}, characterFilter = ALL, typeFilter = "All", recordType = nil, timeFrameFilter = 30 * SECONDS_PER_DAY }
 local TIME_LIST = { ALL, L["Last 3 Days"], L["Last 7 Days"], L["Last 14 Days"], L["Last 30 Days"], L["Last 60 Days"] }
 local TIME_KEYS = { 0, 3 * SECONDS_PER_DAY, 7 * SECONDS_PER_DAY, 14 * SECONDS_PER_DAY, 30 * SECONDS_PER_DAY, 60 * SECONDS_PER_DAY }
 local TYPE_LIST = {
@@ -70,6 +70,7 @@ function private.DrawOtherPage(recordType)
 		private.query = TSM.Accounting.Money.CreateQuery()
 			:OrderBy("time", false)
 	end
+	private.recordType = recordType
 	private.UpdateQuery()
 
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")
@@ -229,7 +230,7 @@ end
 
 function private.UpdateQuery()
 	private.query:ResetFilters()
-		:Equal("recordType", "expense")
+		:Equal("recordType", private.recordType)
 	if private.typeFilter ~= "All" then
 		private.query:Equal("type", private.typeFilter)
 	end

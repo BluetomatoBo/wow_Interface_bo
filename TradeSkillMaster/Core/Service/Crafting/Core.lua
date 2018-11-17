@@ -242,6 +242,10 @@ function Crafting.CreateCooldownSpellsQuery()
 		:Equal("hasCD", true)
 end
 
+function Crafting.CreateRawMatItemQuery()
+	return private.matItemDB:NewQuery()
+end
+
 function Crafting.CreateMatItemQuery()
 	return private.matItemDB:NewQuery()
 		:InnerJoin(TSM.ItemInfo.GetDBForJoin(), "itemString")

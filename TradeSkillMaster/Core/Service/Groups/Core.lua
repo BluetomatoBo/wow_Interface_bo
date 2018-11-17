@@ -324,7 +324,7 @@ function Groups.GroupIterator()
 			tinsert(groups, groupPath)
 		end
 	end
-	sort(groups, private.GroupSortFunction)
+	Groups.SortGroupList(groups)
 	return TSMAPI_FOUR.Util.TempTableIterator(groups)
 end
 

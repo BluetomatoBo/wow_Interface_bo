@@ -755,6 +755,13 @@ function private.CODOnValueChanged(checkbox)
 
 		private.isMoney = false
 		private.isCOD = true
+
+		local input = checkbox:GetElement("__parent.moneyInput")
+		local text = gsub(strtrim(input:GetText()), TSMAPI_FOUR.Util.StrEscape(LARGE_NUMBER_SEPERATOR), "")
+		local value = tonumber(text) or TSM.Money.FromString(text) or 0
+		private.money = private.isCOD and min(value, 100000000) or value
+		input:SetText(TSM.Money.ToString(private.money))
+			:Draw()
 	else
 		private.isCOD = false
 	end
@@ -780,6 +787,10 @@ function private.MoneyOnTextChanged(input)
 end
 
 function private.MoneyValueConvert(input)
+	local text = gsub(strtrim(input:GetText()), TSMAPI_FOUR.Util.StrEscape(LARGE_NUMBER_SEPERATOR), "")
+	local value = tonumber(text) or TSM.Money.FromString(text) or 0
+	private.money = private.isCOD and min(value, 100000000) or value
+
 	input:SetFocused(false)
 	input:SetText(TSM.Money.ToString(private.money))
 		:Draw()
