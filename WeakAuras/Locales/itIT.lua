@@ -191,7 +191,11 @@ L["Aura(s) Missing"] = "Aura(s) Missing"
 L["Aura:"] = "Aura:"
 L["Auras:"] = "Auras:"
 --[[Translation missing --]]
+L["Author Options"] = "Author Options"
+--[[Translation missing --]]
 L["Autocast Shine"] = "Autocast Shine"
+--[[Translation missing --]]
+L["Auto-Clone (Show all Matches)"] = "Auto-Clone (Show all Matches)"
 L["Automatic"] = "Automatico"
 --[[Translation missing --]]
 L["Automatic Rotation"] = "Automatic Rotation"
@@ -251,6 +255,8 @@ L["Caster"] = "Caster"
 L["Caster Name"] = "Caster Name"
 --[[Translation missing --]]
 L["Caster Unit"] = "Caster Unit"
+--[[Translation missing --]]
+L["Caster's Target "] = "Caster's Target "
 L["Center"] = "Centro"
 L["Centered Horizontal"] = "Centrato orizzontalmente"
 L["Centered Vertical"] = "Centrato verticalmente"
@@ -294,6 +300,8 @@ L["Combine all matches"] = "Combine all matches"
 L["Conditions"] = "Condizioni"
 L["Contains"] = "Contiene"
 --[[Translation missing --]]
+L["Cooldown Edge"] = "Cooldown Edge"
+--[[Translation missing --]]
 L["Cooldown Progress (Equipment Slot)"] = "Cooldown Progress (Equipment Slot)"
 --[[Translation missing --]]
 L["Cooldown Progress (Item)"] = "Cooldown Progress (Item)"
@@ -305,6 +313,8 @@ L["Cooldown Ready (Equipment Slot)"] = "Cooldown Ready (Equipment Slot)"
 L["Cooldown Ready (Item)"] = "Cooldown Ready (Item)"
 --[[Translation missing --]]
 L["Cooldown Ready (Spell)"] = "Cooldown Ready (Spell)"
+--[[Translation missing --]]
+L["Cooldown Swipe"] = "Cooldown Swipe"
 --[[Translation missing --]]
 L["Counter Clockwise"] = "Counter Clockwise"
 L["Create"] = "Crea"
@@ -327,6 +337,8 @@ L["Current Zone ID: "] = "Current Zone ID: "
 L["Curse"] = "Curse"
 --[[Translation missing --]]
 L["Custom"] = "Custom"
+--[[Translation missing --]]
+L["Custom Configuration"] = "Custom Configuration"
 --[[Translation missing --]]
 L["Custom Function"] = "Custom Function"
 --[[Translation missing --]]
@@ -359,6 +371,8 @@ L["Desaturate Foreground"] = "Desaturate Foreground"
 --[[Translation missing --]]
 L["Descending"] = "Descending"
 --[[Translation missing --]]
+L["Description"] = "Description"
+--[[Translation missing --]]
 L["Dest Raid Mark"] = "Dest Raid Mark"
 --[[Translation missing --]]
 L["Destination In Group"] = "Destination In Group"
@@ -388,6 +402,8 @@ L["Done"] = "Done"
 L["Down"] = "Down"
 --[[Translation missing --]]
 L["Drain"] = "Drain"
+--[[Translation missing --]]
+L["Dropdown Menu"] = "Dropdown Menu"
 --[[Translation missing --]]
 L["Drowning"] = "Drowning"
 --[[Translation missing --]]
@@ -658,6 +674,8 @@ L["Item Set Id"] = "Item Set Id"
 --[[Translation missing --]]
 L["Keep Inside"] = "Keep Inside"
 --[[Translation missing --]]
+L["Large"] = "Large"
+--[[Translation missing --]]
 L["Lava"] = "Lava"
 --[[Translation missing --]]
 L["Least remaining time"] = "Least remaining time"
@@ -718,6 +736,8 @@ L["Maximum"] = "Maximum"
 --[[Translation missing --]]
 L["Maximum Estimate"] = "Maximum Estimate"
 --[[Translation missing --]]
+L["Medium"] = "Medium"
+--[[Translation missing --]]
 L["Message"] = "Message"
 --[[Translation missing --]]
 L["Message Type"] = "Message Type"
@@ -764,6 +784,8 @@ L["Mounted"] = "Mounted"
 --[[Translation missing --]]
 L["Mouse Cursor"] = "Mouse Cursor"
 --[[Translation missing --]]
+L["Multi-Line"] = "Multi-Line"
+--[[Translation missing --]]
 L["Multi-target"] = "Multi-target"
 --[[Translation missing --]]
 L["Music"] = "Music"
@@ -773,6 +795,8 @@ L["Mythic"] = "Mythic"
 L["Mythic+ Affix"] = "Mythic+ Affix"
 --[[Translation missing --]]
 L["Name"] = "Name"
+--[[Translation missing --]]
+L["Name of Caster's Target"] = "Name of Caster's Target"
 --[[Translation missing --]]
 L["Nameplate"] = "Nameplate"
 --[[Translation missing --]]
@@ -1032,6 +1056,8 @@ L["Seconds"] = "Seconds"
 --[[Translation missing --]]
 L["Select Frame"] = "Select Frame"
 --[[Translation missing --]]
+L["Set Glow Visibility"] = "Set Glow Visibility"
+--[[Translation missing --]]
 L["Set Maximum Progress"] = "Set Maximum Progress"
 --[[Translation missing --]]
 L["Set Minimum Progress"] = "Set Minimum Progress"
@@ -1072,6 +1098,8 @@ L["Show lowest time left per unit"] = "Show lowest time left per unit"
 --[[Translation missing --]]
 L["Shrink"] = "Shrink"
 --[[Translation missing --]]
+L["Single-Line"] = "Single-Line"
+--[[Translation missing --]]
 L["Size & Position"] = "Size & Position"
 --[[Translation missing --]]
 L["Skull"] = "Skull"
@@ -1092,7 +1120,11 @@ L["Slide to Right"] = "Slide to Right"
 --[[Translation missing --]]
 L["Slide to Top"] = "Slide to Top"
 --[[Translation missing --]]
+L["Slider"] = "Slider"
+--[[Translation missing --]]
 L["Slime"] = "Slime"
+--[[Translation missing --]]
+L["Small"] = "Small"
 --[[Translation missing --]]
 L["Sound"] = "Sound"
 --[[Translation missing --]]
@@ -1109,6 +1141,8 @@ L["Source Raid Mark"] = "Source Raid Mark"
 L["Source Unit"] = "Source Unit"
 --[[Translation missing --]]
 L["Source: "] = "Source: "
+--[[Translation missing --]]
+L["Space"] = "Space"
 --[[Translation missing --]]
 L["Spacing"] = "Spacing"
 --[[Translation missing --]]
@@ -1176,6 +1210,8 @@ L["Stop"] = "Stop"
 --[[Translation missing --]]
 L["Stop Profiling"] = "Stop Profiling"
 --[[Translation missing --]]
+L["String"] = "String"
+--[[Translation missing --]]
 L["Summon"] = "Summon"
 --[[Translation missing --]]
 L[ [=[Supports multiple entries, separated by commas
@@ -1228,6 +1264,8 @@ L["Timed"] = "Timed"
 --[[Translation missing --]]
 L["Timewalking"] = "Timewalking"
 --[[Translation missing --]]
+L["Toggle"] = "Toggle"
+--[[Translation missing --]]
 L["Toggle Options Window"] = "Toggle Options Window"
 --[[Translation missing --]]
 L["Tooltip"] = "Tooltip"
@@ -1272,7 +1310,7 @@ L["Trigger"] = "Trigger"
 --[[Translation missing --]]
 L["Trigger 1"] = "Trigger 1"
 --[[Translation missing --]]
-L["Trigger State Updater"] = "Trigger State Updater"
+L["Trigger State Updater (Advanced)"] = "Trigger State Updater (Advanced)"
 --[[Translation missing --]]
 L["Trigger Update"] = "Trigger Update"
 --[[Translation missing --]]

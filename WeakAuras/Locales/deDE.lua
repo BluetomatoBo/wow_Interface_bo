@@ -143,7 +143,11 @@ L["Aura(s) Missing"] = "Aura(s) Missing"
 L["Aura:"] = "Aura:"
 L["Auras:"] = "Auren:"
 --[[Translation missing --]]
+L["Author Options"] = "Author Options"
+--[[Translation missing --]]
 L["Autocast Shine"] = "Autocast Shine"
+--[[Translation missing --]]
+L["Auto-Clone (Show all Matches)"] = "Auto-Clone (Show all Matches)"
 L["Automatic"] = "Automatisch"
 L["Automatic Rotation"] = "Automatische Rotation"
 L["Back"] = "Rücken"
@@ -187,6 +191,8 @@ L["Caster"] = "Zauberwirker"
 L["Caster Name"] = "Caster Name"
 --[[Translation missing --]]
 L["Caster Unit"] = "Caster Unit"
+--[[Translation missing --]]
+L["Caster's Target "] = "Caster's Target "
 L["Center"] = "Mitte"
 L["Centered Horizontal"] = "Horizontal-Zentriert"
 L["Centered Vertical"] = "Vertikal zentriert"
@@ -217,12 +223,16 @@ L["Combat Log"] = "Kampflog"
 L["Combine all matches"] = "Combine all matches"
 L["Conditions"] = "Bedingungen"
 L["Contains"] = "Enthält"
+--[[Translation missing --]]
+L["Cooldown Edge"] = "Cooldown Edge"
 L["Cooldown Progress (Equipment Slot)"] = "Abklingzeit (Ausrüstungsplatz)"
 L["Cooldown Progress (Item)"] = "Abklingzeit (Gegenstand)"
 L["Cooldown Progress (Spell)"] = "Abklingzeit (Zauber)"
 L["Cooldown Ready (Equipment Slot)"] = "Abklingzeit bereit (Ausrüstungsplatz)"
 L["Cooldown Ready (Item)"] = "Abklingzeit vorbei (Gegenstand)"
 L["Cooldown Ready (Spell)"] = "Abklingzeit vorbei (Zauber)"
+--[[Translation missing --]]
+L["Cooldown Swipe"] = "Cooldown Swipe"
 L["Counter Clockwise"] = "Gegen den Uhrzeigersinn"
 L["Create"] = "Erstellen"
 L["Create a Copy"] = "Kopie erstellen"
@@ -238,6 +248,8 @@ L["Current Zone Group ID: "] = "Current Zone Group ID: "
 L["Current Zone ID: "] = "Current Zone ID: "
 L["Curse"] = "Fluch"
 L["Custom"] = "Benutzerdefiniert"
+--[[Translation missing --]]
+L["Custom Configuration"] = "Custom Configuration"
 L["Custom Function"] = "Benutzerdefiniert"
 L["Damage"] = "Schaden (DAMAGE)"
 L["Damage Shield"] = "Schadensschild (DAMAGE_SHIELD)"
@@ -254,6 +266,8 @@ L["Desaturate"] = "Entsättigen"
 L["Desaturate Background"] = "Hintergrund entsättigen"
 L["Desaturate Foreground"] = "Vordergrund entsättigen"
 L["Descending"] = "Absteigend"
+--[[Translation missing --]]
+L["Description"] = "Description"
 L["Dest Raid Mark"] = "Zielmarkierung"
 L["Destination In Group"] = "Ziel in Gruppe"
 L["Destination Name"] = "Zielname"
@@ -269,6 +283,8 @@ L["Dodge"] = "Ausweichen (DODGE)"
 L["Done"] = "Fertiggestellt"
 L["Down"] = "Runter"
 L["Drain"] = "Saugen (DRAIN)"
+--[[Translation missing --]]
+L["Dropdown Menu"] = "Dropdown Menu"
 L["Drowning"] = "Ertrinken (DROWNING)"
 L["Durability Damage"] = "Haltbarkeitsschaden (DURABILITY_DAMAGE)"
 L["Durability Damage All"] = "Haltbarkeitsschaden, Alle (DURABILITY_DAMAGE_ALL)"
@@ -430,6 +446,8 @@ L["Item Set Equipped"] = "Gegenstandsset angelegt"
 L["Item Set Id"] = "Item Set Id"
 --[[Translation missing --]]
 L["Keep Inside"] = "Keep Inside"
+--[[Translation missing --]]
+L["Large"] = "Large"
 L["Lava"] = "Lava"
 --[[Translation missing --]]
 L["Least remaining time"] = "Least remaining time"
@@ -469,6 +487,8 @@ L["Max Charges"] = "Max Charges"
 L["Maximum"] = "Maximum"
 --[[Translation missing --]]
 L["Maximum Estimate"] = "Maximum Estimate"
+--[[Translation missing --]]
+L["Medium"] = "Medium"
 L["Message"] = "Nachricht"
 L["Message Type"] = "Nachrichtentyp"
 L["Message type:"] = "Nachrichtentyp:"
@@ -498,12 +518,16 @@ L["Moon"] = "Mond"
 L["Most remaining time"] = "Most remaining time"
 L["Mounted"] = "am Reiten"
 L["Mouse Cursor"] = "Mauszeiger"
+--[[Translation missing --]]
+L["Multi-Line"] = "Multi-Line"
 L["Multi-target"] = "Mehrfachziel"
 L["Music"] = "Musik"
 L["Mythic"] = "Mythisch"
 --[[Translation missing --]]
 L["Mythic+ Affix"] = "Mythic+ Affix"
 L["Name"] = "Name"
+--[[Translation missing --]]
+L["Name of Caster's Target"] = "Name of Caster's Target"
 --[[Translation missing --]]
 L["Nameplate"] = "Nameplate"
 --[[Translation missing --]]
@@ -681,6 +705,8 @@ L["Second Text Size"] = "Größe des 2. Text"
 L["Second Value of Tooltip Text"] = "Second Value of Tooltip Text"
 L["Seconds"] = "Sekunden"
 L["Select Frame"] = "Frame auswählen"
+--[[Translation missing --]]
+L["Set Glow Visibility"] = "Set Glow Visibility"
 L["Set Maximum Progress"] = "Max. Fortschritt"
 L["Set Minimum Progress"] = "Min. Fortschritt"
 L["Shake"] = "Beben"
@@ -711,6 +737,8 @@ L["Show lowest time left over all units"] = "Show lowest time left over all unit
 --[[Translation missing --]]
 L["Show lowest time left per unit"] = "Show lowest time left per unit"
 L["Shrink"] = "Schrumpfen"
+--[[Translation missing --]]
+L["Single-Line"] = "Single-Line"
 L["Size & Position"] = "Größe & Position"
 L["Skull"] = "Totenschädel"
 L["Slide from Bottom"] = "Von unten eingleiten"
@@ -721,7 +749,11 @@ L["Slide to Bottom"] = "Nach unten entgleiten"
 L["Slide to Left"] = "Nach links entgleiten"
 L["Slide to Right"] = "Nach rechts entgleiten"
 L["Slide to Top"] = "Nach oben entgleiten"
+--[[Translation missing --]]
+L["Slider"] = "Slider"
 L["Slime"] = "Schleim"
+--[[Translation missing --]]
+L["Small"] = "Small"
 --[[Translation missing --]]
 L["Sound"] = "Sound"
 --[[Translation missing --]]
@@ -733,6 +765,8 @@ L["Source Raid Mark"] = "Quellmarkierung"
 L["Source Unit"] = "Quelleinheit"
 --[[Translation missing --]]
 L["Source: "] = "Source: "
+--[[Translation missing --]]
+L["Space"] = "Space"
 L["Spacing"] = "Abstand"
 L["Spark Color"] = "Funkenfarbe"
 L["Spark Height"] = "Funkenhöhe"
@@ -775,6 +809,8 @@ L["Stolen"] = "Gestohlen (STOLEN)"
 L["Stop"] = "Stopp"
 --[[Translation missing --]]
 L["Stop Profiling"] = "Stop Profiling"
+--[[Translation missing --]]
+L["String"] = "String"
 L["Summon"] = "Herbeirufen (SUMMON)"
 --[[Translation missing --]]
 L[ [=[Supports multiple entries, separated by commas
@@ -810,6 +846,8 @@ L["Tier "] = "Tier"
 L["Timed"] = "Zeitgesteuert"
 L["Timewalking"] = "Zeitwanderung"
 --[[Translation missing --]]
+L["Toggle"] = "Toggle"
+--[[Translation missing --]]
 L["Toggle Options Window"] = "Toggle Options Window"
 --[[Translation missing --]]
 L["Tooltip"] = "Tooltip"
@@ -842,7 +880,7 @@ Dreieck]=]
 L["Trigger"] = "Trigger"
 L["Trigger 1"] = "Auslöser 1"
 --[[Translation missing --]]
-L["Trigger State Updater"] = "Trigger State Updater"
+L["Trigger State Updater (Advanced)"] = "Trigger State Updater (Advanced)"
 L["Trigger Update"] = "Auslöseraktualisierung"
 L["Trigger:"] = "Auslöser:"
 L["Trinket 1"] = "Schmuckstück 1"
