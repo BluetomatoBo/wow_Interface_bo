@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 18057 $"):sub(12, -3)),
-	DisplayVersion = "8.0.15", -- the string that is shown as version
-	ReleaseRevision = 18057 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 18106 $"):sub(12, -3)),
+	DisplayVersion = "8.0.17", -- the string that is shown as version
+	ReleaseRevision = 18106 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -412,7 +412,7 @@ local delayedFunction
 local dataBroker
 local voiceSessionDisabled = false
 
-local fakeBWVersion, fakeBWHash = 121, "fe1a1bd"
+local fakeBWVersion, fakeBWHash = 122, "a213230"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -2786,7 +2786,7 @@ do
 			if not inRaid then
 				inRaid = true
 				sendSync("H")
-				SendAddonMessage("BigWigs", versionQueryString:format(0, fakeBWHash), IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
+				SendAddonMessage("BigWigs", versionQueryString:format(0, fakeBWHash), IsInGroup(2) and "INSTANCE_CHAT" or "RAID")
 				self:Schedule(2, self.RoleCheck, false, self)
 				fireEvent("raidJoin", playerName)
 				if BigWigs and BigWigs.db.profile.raidicon and not self.Options.DontSetIcons and self:GetRaidRank() > 0 then--Both DBM and bigwigs have raid icon marking turned on.
@@ -2843,7 +2843,7 @@ do
 				-- joined a new party
 				inRaid = true
 				sendSync("H")
-				SendAddonMessage("BigWigs", versionQueryString:format(0, fakeBWHash), IsPartyLFG() and "INSTANCE_CHAT" or "RAID")
+				SendAddonMessage("BigWigs", versionQueryString:format(0, fakeBWHash), IsInGroup(2) and "INSTANCE_CHAT" or "PARTY")
 				self:Schedule(2, self.RoleCheck, false, self)
 				fireEvent("partyJoin", playerName)
 			end
@@ -3767,7 +3767,7 @@ do
 		if self:GetCIDFromGUID(UnitGUID("pet")) == 138172 then
 			fireEvent("DBM_MusicStart", "Turtle")
 			if not self.Options.tempMusicSetting then
-				self.Options.tempMusicSetting = tonumber(GetCVar("Sound_EnableMusic"))
+				self.Options.tempMusicSetting = tonumber(GetCVar("Sound_EnableMusic")) or 1
 				if self.Options.tempMusicSetting == 0 then
 					SetCVar("Sound_EnableMusic", 1)
 				else
@@ -3845,7 +3845,7 @@ do
 		fireEvent("DBM_MusicStart", "RaidOrDungeon")
 		if self.Options.EventSoundDungeonBGM and self.Options.EventSoundDungeonBGM ~= "None" and self.Options.EventSoundDungeonBGM ~= "" and not (self.Options.EventDungMusicMythicFilter and (savedDifficulty == "mythic" or savedDifficulty == "challenge")) then
 			if not self.Options.tempMusicSetting then
-				self.Options.tempMusicSetting = tonumber(GetCVar("Sound_EnableMusic"))
+				self.Options.tempMusicSetting = tonumber(GetCVar("Sound_EnableMusic")) or 1
 				if self.Options.tempMusicSetting == 0 then
 					SetCVar("Sound_EnableMusic", 1)
 				else
@@ -5918,7 +5918,7 @@ do
 				fireEvent("DBM_MusicStart", "BossEncounter")
 				if self.Options.EventSoundMusic and self.Options.EventSoundMusic ~= "None" and self.Options.EventSoundMusic ~= "" and not (self.Options.EventMusicMythicFilter and (savedDifficulty == "mythic" or savedDifficulty == "challenge")) then
 					if not self.Options.tempMusicSetting then
-						self.Options.tempMusicSetting = tonumber(GetCVar("Sound_EnableMusic"))
+						self.Options.tempMusicSetting = tonumber(GetCVar("Sound_EnableMusic")) or 1
 						if self.Options.tempMusicSetting == 0 then
 							SetCVar("Sound_EnableMusic", 1)
 						else
@@ -6718,10 +6718,18 @@ do
 				self:AddMsg("Error: unable to register Transcriptor addon message prefix (reached client side addon message filter limit)")
 			end
 		end
-		if self.Options.sfxDisabled then--Check if sound was disabled by previous session and not re-enabled.
+		--Check if any previous changed cvars were not restored and restore them
+		if self.Options.sfxDisabled then
 			self.Options.sfxDisabled = nil
 			SetCVar("Sound_EnableSFX", 1)
+			DBM:Debug("Restoring Sound_EnableSFX CVAR")
 		end
+		if self.Options.tempQuestCVar then
+			SetCVar("showQuestTrackingTooltips", self.Options.tempQuestCVar)
+			self.Options.tempQuestCVar = nil
+			DBM:Debug("Restoring showQuestTrackingTooltips CVAR")
+		end
+		--tempMusicSetting doens't need restoring here, since zone change transition will handle it
 		if self.Options.RestoreRange then self.Options.RestoreRange = nil end--User DCed while this was true, clear it
 	end
 end
@@ -6866,7 +6874,12 @@ do
 	function DBM:HideBlizzardEvents(toggle, custom)
 		if toggle == 1 then
 			if self.Options.HideQuestTooltips then
-				SetCVar("showQuestTrackingTooltips", 0)
+				self.Options.tempQuestCVar = tonumber(GetCVar("showQuestTrackingTooltips")) or 1
+				if self.Options.tempQuestCVar == 1 then
+					SetCVar("showQuestTrackingTooltips", 0)
+				else
+					self.Options.tempQuestCVar = nil--Don't actually need it
+				end
 			end
 			if (self.Options.HideBossEmoteFrame2 or custom) and not testBuild then
 				DisableEvent(RaidBossEmoteFrame, "RAID_BOSS_EMOTE")
@@ -6882,8 +6895,10 @@ do
 				DisableEvent(AlertFrame, "GUILD_CHALLENGE_COMPLETED")
 			end
 		elseif toggle == 0 then
-			if self.Options.HideQuestTooltips then
-				SetCVar("showQuestTrackingTooltips", 1)
+			if self.Options.tempQuestCVar then
+				SetCVar("showQuestTrackingTooltips", self.Options.tempQuestCVar)
+				self.Options.tempQuestCVar = nil
+				DBM:Debug("Restoring Quest Tooltip CVAR")
 			end
 			if (self.Options.HideBossEmoteFrame2 or custom) and not testBuild then
 				EnableEvent(RaidBossEmoteFrame, "RAID_BOSS_EMOTE")

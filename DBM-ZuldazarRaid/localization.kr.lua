@@ -1,3 +1,4 @@
+if GetLocale() ~= "koKR" then return end
 local L
 
 ---------------------------
@@ -41,8 +42,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Bulwark =	"Bulwark",
-	Hand	=	"Hand"
+	Bulwark =	"보루",
+	Hand	=	"손"
 })
 
 ---------------------------
@@ -61,7 +62,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(2335)
 
 L:SetOptionLocalization({
-	AnnounceAlternatePhase	= "Show general warnings for phase you aren't in as well (timers will always be shown regardless of this option)"
+	AnnounceAlternatePhase	= "다른 세계의 일반 경고도 같이 보기 (타이머는 이 옵션과 상관없이 항상 표시됩니다)"
 })
 
 ---------------------------
@@ -85,5 +86,5 @@ L= DBM:GetModLocalization(2343)
 L = DBM:GetModLocalization("ZuldazarRaidTrash")
 
 L:SetGeneralLocalization({
-	name =	"Dazar'alor Trash"
+	name =	"다자알로 전투 일반몹"
 })
