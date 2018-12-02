@@ -10,7 +10,7 @@
 -- @module ObjectPool
 
 TSMAPI_FOUR.ObjectPool = {}
-local ObjectPool = TSMAPI_FOUR.Class.DefineClass("Logger")
+local ObjectPool = TSMAPI_FOUR.Class.DefineClass("ObjectPool")
 local private = { instances = {} }
 local DEBUG_STATS_MIN_COUNT = 1
 

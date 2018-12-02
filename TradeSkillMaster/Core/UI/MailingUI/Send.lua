@@ -482,6 +482,7 @@ function private.SubjectBtnOnClick(button)
 					:SetText(private.body)
 					:SetScript("OnTextChanged", private.DesciptionOnTextChanged)
 					:SetScript("OnSizeChanged", private.DesciptionOnSizeChanged)
+					:SetScript("OnCursorChanged", private.DesciptionOnCursorChanged)
 				)
 			)
 			:SetScript("OnMouseUp", private.DescriptionOnMouseUp)
@@ -731,9 +732,11 @@ function private.DesciptionOnSizeChanged(input, width, height)
 
 	input:SetStyle("height", height)
 	input:GetParentElement():Draw()
+end
 
-	local scrollframe = input:GetParentElement()
-	scrollframe._scrollbar:SetValue(scrollframe:_GetMaxScroll())
+function private.DesciptionOnCursorChanged(input, _, y)
+	local scrollFrame = input:GetParentElement()
+	scrollFrame._scrollbar:SetValue(TSMAPI_FOUR.Util.Round(abs(y) / (input:_GetStyle("height") - 22) * scrollFrame:_GetMaxScroll()))
 end
 
 function private.SendOnValueChanged(checkbox)

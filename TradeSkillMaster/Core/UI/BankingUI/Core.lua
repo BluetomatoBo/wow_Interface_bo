@@ -10,6 +10,7 @@ local _, TSM = ...
 local BankingUI = TSM.UI:NewPackage("BankingUI")
 local L = TSM.L
 local private = {
+	fsm = nil,
 	currentModule = nil,
 	groupSearch = "",
 }
@@ -487,7 +488,12 @@ function private.FSMCreate()
 				context.progress = progress
 				UpdateFrame(context)
 			end)
-			:AddEvent("EV_THREAD_DONE", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_FRAME_OPEN"))
+			:AddEvent("EV_THREAD_DONE", function(context)
+				if context.progress == 0 then
+					TSM:Print(L["Nothing to move."])
+				end
+				return "ST_FRAME_OPEN"
+			end)
 			:AddEvent("EV_TOGGLE", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_FRAME_HIDDEN"))
 		)
 		:AddDefaultEvent("EV_BANK_CLOSED", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_CLOSED"))

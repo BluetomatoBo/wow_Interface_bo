@@ -272,6 +272,7 @@ function private.PlusButtonOnClick(button)
 		newGroupPath = newGroupPath.." "..num
 	end
 	TSM.Groups.Create(newGroupPath)
+	TSM.Analytics.Action("CREATED_GROUP", newGroupPath)
 	self:SetSelectedGroup(newGroupPath, true)
 end
 
@@ -282,6 +283,7 @@ end
 
 function private.DeleteConfirmed(self)
 	TSM.Groups.Delete(self._selectedGroup)
+	TSM.Analytics.Action("DELETED_GROUP", self._selectedGroup)
 	self:SetSelectedGroup(TSM.CONST.ROOT_GROUP_PATH, true)
 end
 
@@ -348,5 +350,6 @@ function private.RowOnDragStop(frame)
 	end
 
 	TSM.Groups.Move(oldPath, newPath)
+	TSM.Analytics.Action("MOVED_GROUP", oldPath, newPath)
 	scrollingList:SetSelectedGroup(newPath, true)
 end

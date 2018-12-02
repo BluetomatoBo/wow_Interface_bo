@@ -62,40 +62,53 @@ function private.GetNumToMoveToBags(itemString, numHave, includeAH)
 	if includeAH then
 		numInBags = numInBags + select(3, TSMAPI_FOUR.Inventory.GetPlayerTotals(itemString)) + TSMAPI_FOUR.Inventory.GetMailQuantity(itemString)
 	end
+
 	for _, _, operationSettings in TSM.Operations.GroupOperationIterator("Auctioning", TSM.Groups.GetPathByItem(itemString)) do
-		-- subtract the keep quantity
-		if operationSettings.keepQuantity > 0 then
-			if TSM.Banking.IsGuildBankOpen() and operationSettings.keepQtySources.guild then
-				local numInBank = 0
-				if operationSettings.keepQtySources.bank then
-					numInBank = TSM.Inventory.BagTracking.GetBankQuantityByAutoBaseItemString(itemString, true, true)
-				end
-				numAvailable = numAvailable - max(operationSettings.keepQuantity - numInBank, 0)
-			elseif not TSM.Banking.IsGuildBankOpen() and operationSettings.keepQtySources.bank then
-				local numInBank = 0
-				if operationSettings.keepQtySources.guild then
-					numInBank = TSM.Inventory.GuildTracking.GetQuantityByAutoBaseItemString(itemString)
-				end
-				numAvailable = numAvailable - max(operationSettings.keepQuantity - numInBank, 0)
+		local operationHasExpired = false
+		if operationSettings.maxExpires > 0 then
+			local numExpires = TSM.Accounting.Auctions.GetNumExpiresSinceSale(itemString)
+			if numExpires and numExpires > operationSettings.maxExpires then
+				operationHasExpired = true
 			end
 		end
 
-		local numNeeded = operationSettings.stackSize * operationSettings.postCap
-		if numInBags > numNeeded then
-			-- we can satisfy this operation from the bags
-			numInBags = numInBags - numNeeded
-		elseif numInBags > 0 then
-			-- we can partially satisfy this operation from the bags
-			numNeeded = numNeeded - numInBags
-			numInBags = 0
-		end
+		if not operationHasExpired then
+			-- subtract the keep quantity
+			if operationSettings.keepQuantity > 0 then
+				if TSM.Banking.IsGuildBankOpen() and operationSettings.keepQtySources.guild then
+					local numInBank = 0
+					if operationSettings.keepQtySources.bank then
+						numInBank = TSM.Inventory.BagTracking.GetBankQuantityByAutoBaseItemString(itemString, true, true)
+					end
+					numAvailable = numAvailable - max(operationSettings.keepQuantity - numInBank, 0)
+				elseif not TSM.Banking.IsGuildBankOpen() and operationSettings.keepQtySources.bank then
+					local numInBank = 0
+					if operationSettings.keepQtySources.guild then
+						numInBank = TSM.Inventory.GuildTracking.GetQuantityByAutoBaseItemString(itemString)
+					end
+					numAvailable = numAvailable - max(operationSettings.keepQuantity - numInBank, 0)
+				end
+			end
 
-		local numToMove = min(numAvailable, numNeeded)
-		if numToMove > 0 then
-			numAvailable = numAvailable - numToMove
-			totalNumToMove = totalNumToMove + numToMove
+			local numNeeded = operationSettings.stackSize * operationSettings.postCap
+			if numInBags > numNeeded then
+				-- we can satisfy this operation from the bags
+				numInBags = numInBags - numNeeded
+				numNeeded = 0
+			elseif numInBags > 0 then
+				-- we can partially satisfy this operation from the bags
+				numNeeded = numNeeded - numInBags
+				numInBags = 0
+			end
+
+			local numToMove = min(numAvailable, numNeeded)
+			if numToMove > 0 then
+				numAvailable = numAvailable - numToMove
+				totalNumToMove = totalNumToMove + numToMove
+			end
 		end
 	end
+
 	return totalNumToMove
 end
 

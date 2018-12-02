@@ -12,6 +12,7 @@ local private = { events = {}, lastEventTime = nil, argsTemp = {} }
 local MAX_ANALYTICS_AGE = 14 * 24 * 60 * 60 -- 2 weeks
 local HIT_TYPE_IS_VALID = {
 	PV = true,
+	AC = true,
 }
 
 
@@ -23,6 +24,10 @@ local HIT_TYPE_IS_VALID = {
 function Analytics.PageView(path)
 	assert(type(path) == "string" and strmatch(path, "^[a-zA-Z_%-0-9/]+$"))
 	private.InsertHit("PV", path)
+end
+
+function Analytics.Action(name, ...)
+	private.InsertHit("AC", name, ...)
 end
 
 function Analytics.Save(appDB)
@@ -56,10 +61,15 @@ function private.InsertHit(hitType, ...)
 		local arg = select(i, ...)
 		local argType = type(arg)
 		if argType == "string" then
-			assert(not strmatch(arg, ","))
+			-- remove non-printable and non-ascii characters
+			arg = gsub(arg, "[^ -~]", "")
+			-- remove characters we don't want in the JSON
+			arg = gsub(arg, "[\\\"]", "")
 			arg = private.AddQuotes(arg)
 		elseif argType == "number" then
 			-- pass
+		elseif argType == "boolean" then
+			arg = tostring(arg)
 		else
 			error("Invalid arg type: "..argType)
 		end

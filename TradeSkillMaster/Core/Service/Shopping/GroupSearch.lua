@@ -73,6 +73,10 @@ function private.ScanThread(auctionScan, groupList)
 						private.maxQuantity[itemString] = operation.restockQuantity - numHave
 					end
 				end
+				if not operation.showAboveMaxPrice and not TSMAPI_FOUR.CustomPrice.GetValue(operation.maxPrice, itemString) then
+					-- we're not showing auctions above the max price and the max price isn't valid for this item, so skip it
+					isValid = false
+				end
 				if isValid then
 					tinsert(private.itemList, itemString)
 				elseif err then

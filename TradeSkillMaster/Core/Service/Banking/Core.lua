@@ -82,7 +82,7 @@ end
 
 function Banking.CanRestoreBags()
 	assert(private.openFrame)
-	return private.openFrame == private.restoreIsGuildBank
+	return private.openFrame == private.restoreFrame
 end
 
 function Banking.PutByFilter(filterStr)
@@ -169,6 +169,7 @@ function private.MoveThread(context, callback)
 	end
 
 	local numDone = 0
+	local lastSlotId = nil
 	while next(slotIds) do
 		-- do all the pending moves
 		for slotId, targetSlotId in pairs(slotIds) do
@@ -182,9 +183,10 @@ function private.MoveThread(context, callback)
 		while not didMove and GetTime() < timeout do
 			-- check which moves are done
 			didMove = false
-			for slotId in pairs(slotIds) do
+			for slotId, targetSlotId in pairs(slotIds) do
 				if context:GetSlotQuantity(slotId) <= slotEndQuantity[slotId] then
 					didMove = true
+					lastSlotId = targetSlotId
 					slotIds[slotId] = nil
 					numDone = numDone + 1
 					callback("MOVED", slotItemString[slotId], slotMoveQuantity[slotId])
@@ -196,6 +198,11 @@ function private.MoveThread(context, callback)
 			end
 			TSMAPI_FOUR.Thread.Yield(true)
 		end
+	end
+
+	if lastSlotId then
+		local tab = TSMAPI_FOUR.Util.SplitSlotId(lastSlotId)
+		QueryGuildBankTab(tab)
 	end
 
 	TSMAPI_FOUR.Thread.ReleaseSafeTempTable(slotIds)

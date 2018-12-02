@@ -250,6 +250,21 @@ function Operations.SanitizeSettings(moduleName, operationName, operationSetting
 	end
 end
 
+function Operations.HasRelationship(moduleName, operationName, settingKey)
+	return Operations.GetRelationship(moduleName, operationName, settingKey) and true or false
+end
+
+function Operations.GetRelationship(moduleName, operationName, settingKey)
+	assert(private.operationInfo[moduleName].info[settingKey])
+	return private.operations[moduleName][operationName].relationships[settingKey]
+end
+
+function Operations.SetRelationship(moduleName, operationName, settingKey, targetOperationName)
+	assert(targetOperationName == nil or private.operations[moduleName][targetOperationName])
+	assert(private.operationInfo[moduleName].info[settingKey])
+	private.operations[moduleName][operationName].relationships[settingKey] = targetOperationName
+end
+
 
 
 -- ============================================================================

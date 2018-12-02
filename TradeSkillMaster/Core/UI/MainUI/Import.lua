@@ -263,6 +263,7 @@ function private.GetImportEntryFrame()
 					:SetMultiLine(true)
 					:SetScript("OnTextChanged", private.ImportOnTextChanged)
 					:SetScript("OnSizeChanged", private.ImportOnSizeChanged)
+					:SetScript("OnCursorChanged", private.ImportOnCursorChanged)
 				)
 			)
 			:SetScript("OnMouseUp", private.ImportOnMouseUp)
@@ -458,9 +459,11 @@ function private.ImportOnSizeChanged(input, width, height)
 
 	input:SetStyle("height", height)
 	input:GetParentElement():Draw()
+end
 
+function private.ImportOnCursorChanged(input, _, y)
 	local scrollframe = input:GetParentElement()
-	scrollframe._scrollbar:SetValue(scrollframe:_GetMaxScroll())
+	scrollframe._scrollbar:SetValue(abs(y) / (input:_GetStyle("height") - 22) * scrollframe:_GetMaxScroll())
 end
 
 function private.ConfirmImportOnClick(element)

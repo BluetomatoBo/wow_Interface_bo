@@ -190,7 +190,7 @@ function private.ScanGuildBank()
 						-- defer the scanning of pets which we don't have cached info for
 						private.pendingPetSlotIds[slotId] = true
 					end
-					baseItemString = private.petSpeciesCache[itemLink] and ("p:" .. private.petSpeciesCache[itemLink])
+					baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(private.petSpeciesCache[itemLink])
 				end
 				if baseItemString then
 					local _, quantity = GetGuildBankItemInfo(tab, slot)
@@ -201,7 +201,7 @@ function private.ScanGuildBank()
 						break
 					end
 					TSM.Inventory.ChangeGuildQuantity(baseItemString, quantity)
-					local itemString = TSMAPI_FOUR.Item.ToItemString(itemLink)
+					local itemString = private.petSpeciesCache[itemLink] or TSMAPI_FOUR.Item.ToItemString(itemLink)
 					local autoBaseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString, true)
 					private.db:BulkInsertNewRow(slotId, tab, slot, itemString, baseItemString, autoBaseItemString, quantity)
 				end
@@ -228,13 +228,14 @@ function private.ScanPetsDeferred()
 	for slotId in pairs(private.pendingPetSlotIds) do
 		local tab, slot = TSMAPI_FOUR.Util.SplitSlotId(slotId)
 		local itemLink = GetGuildBankItemLink(tab, slot)
-		private.petSpeciesCache[itemLink] = GameTooltip:SetGuildBankItem(tab, slot)
-		local itemString = private.petSpeciesCache[itemLink] and ("p:" .. private.petSpeciesCache[itemLink])
+		local speciesId, level, rarity = GameTooltip:SetGuildBankItem(tab, slot)
+		private.petSpeciesCache[itemLink] = "p:"..speciesId..":"..level..":"..rarity
+		local itemString = private.petSpeciesCache[itemLink]
 		if itemString then
 			tinsert(toRemove, slotId)
 			local _, quantity = GetGuildBankItemInfo(tab, slot)
 			TSM.Inventory.ChangeGuildQuantity(itemString, quantity)
-			private.db:BulkInsertNewRow(slotId, tab, slot, itemString, itemString, itemString, quantity)
+			private.db:BulkInsertNewRow(slotId, tab, slot, itemString, TSMAPI_FOUR.Item.ToBaseItemString(itemString), TSMAPI_FOUR.Item.ToBaseItemString(itemString, true), quantity)
 		end
 		-- throttle how many pet slots we scan per call (regardless of whether or not it was successful)
 		numPetSlotIdsScanned = numPetSlotIdsScanned + 1

@@ -25,6 +25,10 @@ local private = {
 		displayedBid = nil,
 		buyout = nil,
 	},
+	itemString = nil,
+	postQuantity = nil,
+	postStack = nil,
+	postTime = L["24 hr"],
 	perItem = true,
 	updateCallbacks = {},
 }
@@ -130,7 +134,7 @@ function private.GetSelectionFrame()
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "moreBtn")
 					:SetStyle("width", 18)
 					:SetStyle("height", 18)
-					:SetStyle("margin", { left = 8 })
+					:SetStyle("margin.left", 8)
 					:SetStyle("backgroundTexturePack", "iconPack.18x18/More")
 					:SetScript("OnClick", private.MoreBtnOnClick)
 				)
@@ -206,7 +210,7 @@ function private.GetSelectionSearchFrame()
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Dropdown", "dropdown")
 				:SetStyle("width", 80)
 				:SetStyle("height", 14)
-				:SetStyle("margin", { left = 8 })
+				:SetStyle("margin.left", 8)
 				:SetStyle("background", "#00000000")
 				:SetStyle("border", "#00000000")
 				:SetStyle("font", TSM.UI.Fonts.MontserratBold)
@@ -256,7 +260,7 @@ function private.GetSelectionSearchFrame()
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "text")
 			:SetStyle("height", 22)
-			:SetStyle("margin", { top = 27 })
+			:SetStyle("margin.top", 27)
 			:SetStyle("font", TSM.UI.Fonts.MontserratBold)
 			:SetStyle("fontHeight", 16)
 			:SetText(L["Other Shopping Searches"])
@@ -266,7 +270,7 @@ function private.GetSelectionSearchFrame()
 			:SetStyle("height", 26)
 			:SetStyle("margin", { top = 16, bottom = 16 })
 			:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "dealsBtn")
-				:SetStyle("margin", { right = 16 })
+				:SetStyle("margin.right", 16)
 				:SetText(L["GREAT DEALS SEARCH"])
 				:SetDisabled(not TSM.Shopping.GreatDealsSearch.GetFilter())
 				:SetScript("OnClick", private.DealsButtonOnClick)
@@ -280,7 +284,7 @@ function private.GetSelectionSearchFrame()
 			:SetLayout("HORIZONTAL")
 			:SetStyle("height", 26)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "disenchantBtn")
-				:SetStyle("margin", { right = 16 })
+				:SetStyle("margin.right", 16)
 				:SetText(L["DISENCHANT SEARCH"])
 				:SetScript("OnClick", private.DisenchantButtonOnClick)
 			)
@@ -317,7 +321,7 @@ function private.GetAdvancedFrame()
 					:SetScript("OnClick", private.AdvancedBackButtonOnClick)
 				)
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "title")
-					:SetStyle("margin", { right = 100 })
+					:SetStyle("margin.right", 100)
 					:SetStyle("fontHeight", 16)
 					:SetStyle("justifyH", "CENTER")
 					:SetText(L["Advanced Item Search"])
@@ -335,11 +339,11 @@ function private.GetAdvancedFrame()
 					:SetStyle("height", 18)
 					:SetStyle("font", TSM.UI.Fonts.bold)
 					:SetStyle("fontHeight", 11)
-					:SetStyle("margin", { top = 15 })
+					:SetStyle("margin.top", 15)
 				)
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "filterInput")
 					:SetStyle("height", 26)
-					:SetStyle("margin", { bottom = 10 })
+					:SetStyle("margin.bottom", 10)
 					:SetStyle("background", "#404040")
 					:SetStyle("border", "#585858")
 					:SetStyle("borderSize", 2)
@@ -358,7 +362,7 @@ function private.GetAdvancedFrame()
 						:SetStyle("fontHeight", 11)
 					)
 					:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "subClassLabel")
-						:SetStyle("margin", { left = 20 })
+						:SetStyle("margin.left", 20)
 						:SetText(L["ITEM SUBCLASS"])
 						:SetStyle("font", TSM.UI.Fonts.bold)
 						:SetStyle("fontHeight", 11)
@@ -367,10 +371,10 @@ function private.GetAdvancedFrame()
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "classAndSubClass")
 					:SetLayout("HORIZONTAL")
 					:SetStyle("height", 18)
-					:SetStyle("margin", { bottom = 10 })
+					:SetStyle("margin.bottom", 10)
 					:AddChild(TSMAPI_FOUR.UI.NewElement("Dropdown", "classDropdown")
 						:SetStyle("height", 20)
-						:SetStyle("margin", { right = 20 })
+						:SetStyle("margin.right", 20)
 						:SetItems(TSMAPI_FOUR.Item.GetItemClasses())
 						:SetScript("OnSelectionChanged", private.ClassDropdownOnSelectionChanged)
 						:SetHintText(L["All Item Classes"])
@@ -394,7 +398,7 @@ function private.GetAdvancedFrame()
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "level")
 					:SetLayout("HORIZONTAL")
 					:SetStyle("height", 18)
-					:SetStyle("margin", { bottom = 10 })
+					:SetStyle("margin.bottom", 10)
 					:AddChild(TSMAPI_FOUR.UI.NewElement("Slider", "slider")
 						:SetRange(0, MAX_PLAYER_LEVEL)
 					)
@@ -411,7 +415,7 @@ function private.GetAdvancedFrame()
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "itemLevel")
 					:SetLayout("HORIZONTAL")
 					:SetStyle("height", 18)
-					:SetStyle("margin", { bottom = 10 })
+					:SetStyle("margin.bottom", 10)
 					:AddChild(TSMAPI_FOUR.UI.NewElement("Slider", "slider")
 						:SetRange(0, MAX_ITEM_LEVEL)
 					)
@@ -428,7 +432,7 @@ function private.GetAdvancedFrame()
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "quantity")
 					:SetLayout("HORIZONTAL")
 					:SetStyle("height", 18)
-					:SetStyle("margin", { bottom = 10 })
+					:SetStyle("margin.bottom", 10)
 					:AddChild(TSMAPI_FOUR.UI.NewElement("InputNumeric", "input")
 						:SetStyle("backgroundTexturePacks", "uiFrames.ActiveInputField")
 						:SetStyle("width", 64)
@@ -438,7 +442,7 @@ function private.GetAdvancedFrame()
 					)
 					:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "label")
 						:SetText(L["(minimum 0 - maximum 2000)"])
-						:SetStyle("margin", { left = 10 })
+						:SetStyle("margin.left", 10)
 						:SetStyle("fontHeight", 14)
 					)
 				)
@@ -454,7 +458,7 @@ function private.GetAdvancedFrame()
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "rarity")
 					:SetLayout("HORIZONTAL")
 					:SetStyle("height", 18)
-					:SetStyle("margin", { bottom = 10 })
+					:SetStyle("margin.bottom", 10)
 					:AddChild(TSMAPI_FOUR.UI.NewElement("Dropdown", "dropdown")
 						:SetStyle("height", 20)
 						:SetItems(private.rarityList)
@@ -463,7 +467,7 @@ function private.GetAdvancedFrame()
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "usableFrame")
 					:SetLayout("HORIZONTAL")
 					:SetStyle("height", 18)
-					:SetStyle("margin", { bottom = 10 })
+					:SetStyle("margin.bottom", 10)
 					:AddChild(TSMAPI_FOUR.UI.NewElement("Checkbox", "usableCheckbox")
 						:SetStyle("height", 24)
 						:SetCheckboxPosition("LEFT")
@@ -475,7 +479,7 @@ function private.GetAdvancedFrame()
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "exactFrame")
 					:SetLayout("HORIZONTAL")
 					:SetStyle("height", 25)
-					:SetStyle("margin", { bottom = 12 })
+					:SetStyle("margin.bottom", 12)
 					:AddChild(TSMAPI_FOUR.UI.NewElement("Checkbox", "exactCheckbox")
 						:SetStyle("height", 24)
 						:SetCheckboxPosition("LEFT")
@@ -792,23 +796,7 @@ function private.ConfirmBuyoutBtnOnClick(button)
 end
 
 function private.PostDialogShow(baseFrame, record)
-	local itemString = record.itemString
-	local undercut = TSMAPI_FOUR.PlayerInfo.IsPlayer(record.seller, true, true, true) and 0 or 1
-	local bid = floor(record.displayedBid / record.stackSize) - undercut
-	if bid <= 0 then
-		bid = 1
-	elseif bid > MAXIMUM_BID_PRICE then
-		bid = MAXIMUM_BID_PRICE
-	end
-	local buyout = floor(record.buyout / record.stackSize) - undercut
-	if buyout < 0 then
-		buyout = 0
-	elseif buyout > MAXIMUM_BID_PRICE then
-		buyout = MAXIMUM_BID_PRICE
-	end
-	local cagedPet = strfind(itemString, "^p")
-	private.perItem = true
-	local frame = TSMAPI_FOUR.UI.NewElement("Frame", "frame")
+	baseFrame:ShowDialogFrame(TSMAPI_FOUR.UI.NewElement("Frame", "frame")
 		:SetLayout("VERTICAL")
 		:SetStyle("width", 264)
 		:SetStyle("height", 252)
@@ -818,10 +806,38 @@ function private.PostDialogShow(baseFrame, record)
 		:SetStyle("borderSize", 1)
 		:SetStyle("padding", 8)
 		:SetMouseEnabled(true)
-		:SetContext(record)
+		:AddChild(TSMAPI_FOUR.UI.NewElement("ViewContainer", "view")
+			:SetNavCallback(private.GetViewContentFrame)
+			:AddPath("posting")
+			:AddPath("selection")
+			:SetPath("posting")
+			:SetContext(record)
+		)
+		:SetScript("OnHide", private.PostDialogOnHide)
+	)
+end
+
+function private.PostDialogOnHide(frame)
+	private.itemString = nil
+end
+
+function private.GetViewContentFrame(viewContainer, path)
+	if path == "posting" then
+		return private.GetPostingFrame()
+	elseif path == "selection" then
+		return private.GetPostSelectionFrame()
+	else
+		error("Unexpected path: "..tostring(path))
+	end
+end
+
+function private.GetPostingFrame()
+	local frame = TSMAPI_FOUR.UI.NewElement("Frame", "posting")
+		:SetLayout("VERTICAL")
+		:SetMouseEnabled(true)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "header")
 			:SetLayout("HORIZONTAL")
-			:SetStyle("margin", { bottom = 6 })
+			:SetStyle("margin.bottom", 8)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "title")
 				:SetStyle("width", 124)
 				:SetStyle("height", 13)
@@ -834,7 +850,7 @@ function private.PostDialogShow(baseFrame, record)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "closeBtn")
 				:SetStyle("width", 18)
 				:SetStyle("height", 18)
-				:SetStyle("margin", { top = -4, left = 110, right = -4, bottom = 1 })
+				:SetStyle("margin", { top = -4, left = 110, right = -4 })
 				:SetStyle("backgroundTexturePack", "iconPack.18x18/Close/Default")
 				:SetScript("OnClick", private.PostDialogCloseBtnOnClick)
 			)
@@ -843,19 +859,23 @@ function private.PostDialogShow(baseFrame, record)
 			:SetLayout("HORIZONTAL")
 			:SetStyle("margin.top", -6)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "icon")
-				:SetStyle("width", 22)
-				:SetStyle("height", 22)
-				:SetStyle("margin", { top = 0, left = 0, right = 8, bottom = 7 })
-				:SetStyle("backgroundTexture", TSMAPI_FOUR.Item.GetTexture(itemString))
-				:SetTooltip(itemString)
+				:SetStyle("width", 28)
+				:SetStyle("height", 28)
+				:SetStyle("margin", { top = 2, right = 8, bottom = 7 })
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "name")
 				:SetStyle("height", 40)
-				:SetStyle("margin", { top = -5, bottom = 4 })
+				:SetStyle("margin.top", -5)
 				:SetStyle("font", TSM.UI.Fonts.FRIZQT)
 				:SetStyle("fontHeight", 16)
 				:SetStyle("justifyH", "LEFT")
-				:SetText(TSM.UI.GetColoredItemName(itemString))
+			)
+			:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "editBtn")
+				:SetStyle("width", 14)
+				:SetStyle("height", 14)
+				:SetStyle("margin", { top = -5, left = 4 })
+				:SetStyle("backgroundTexturePack", "iconPack.14x14/Edit")
+				:SetScript("OnClick", private.ItemBtnOnClick)
 			)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "quantity")
@@ -876,7 +896,6 @@ function private.PostDialogShow(baseFrame, record)
 				:SetStyle("justifyH", "RIGHT")
 				:SetMinNumber(1)
 				:SetMaxNumber(9999)
-				:SetDisabled(cagedPet)
 				:SetMaxLetters(4)
 				:SetText("1")
 				:SetScript("OnTextChanged", private.QuantityNumInputOnTextChanged)
@@ -895,11 +914,9 @@ function private.PostDialogShow(baseFrame, record)
 				:SetStyle("fontHeight", 12)
 				:SetStyle("height", 18)
 				:SetStyle("justifyH", "RIGHT")
-				:SetDisabled(cagedPet)
 				:SetMinNumber(1)
 				:SetMaxNumber(9999)
 				:SetMaxLetters(4)
-				:SetText(record.stackSize)
 				:SetScript("OnTextChanged", private.QuantityStackInputOnTextChanged)
 				:SetScript("OnTabPressed", private.QuantityStackInputOnTabPressed)
 			)
@@ -917,7 +934,6 @@ function private.PostDialogShow(baseFrame, record)
 				:SetStyle("margin.right", 4)
 				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
 				:SetStyle("fontHeight", 12)
-				:SetDisabled(cagedPet)
 				:SetText(L["MAX"])
 				:SetScript("OnClick", private.MaxNumBtnOnClick)
 			)
@@ -931,7 +947,6 @@ function private.PostDialogShow(baseFrame, record)
 				:SetStyle("margin.right", 4)
 				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
 				:SetStyle("fontHeight", 12)
-				:SetDisabled(cagedPet)
 				:SetText(L["MAX"])
 				:SetScript("OnClick", private.MaxStackSizeBtnOnClick)
 			)
@@ -955,8 +970,10 @@ function private.PostDialogShow(baseFrame, record)
 				:SetStyle("selectedBackground", "#e2e2e2")
 				:SetStyle("fontHeight", 12)
 				:AddOption(L["12 hr"])
-				:AddOption(L["24 hr"], true)
+				:AddOption(L["24 hr"])
 				:AddOption(L["48 hr"])
+				:SetOption(private.postTime, true)
+				:SetScript("OnValueChanged", private.DurationOnValueChanged)
 			)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Spacer", "spacer"))
@@ -985,14 +1002,13 @@ function private.PostDialogShow(baseFrame, record)
 				:SetStyle("font", TSM.UI.Fonts.RobotoMedium)
 				:SetStyle("fontHeight", 12)
 				:SetStyle("justifyH", "RIGHT")
-				:SetText(TSM.Money.ToString(bid))
 				:SetContext("bid")
 				:SetScript("OnValueChanged", private.BidTextOnValueChanged)
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "editBtn")
 				:SetStyle("width", 12)
 				:SetStyle("height", 12)
-				:SetStyle("margin", { left = 4 })
+				:SetStyle("margin.left", 4)
 				:SetStyle("backgroundTexturePack", "iconPack.12x12/Edit")
 				:SetScript("OnClick", private.BidEditBtnOnClick)
 			)
@@ -1000,7 +1016,7 @@ function private.PostDialogShow(baseFrame, record)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "buyout")
 			:SetLayout("HORIZONTAL")
 			:SetStyle("height", 20)
-			:SetStyle("margin", { bottom = 6 })
+			:SetStyle("margin.bottom", 6)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "desc")
 				:SetStyle("font", TSM.UI.Fonts.MontserratRegular)
 				:SetStyle("fontHeight", 12)
@@ -1012,14 +1028,13 @@ function private.PostDialogShow(baseFrame, record)
 				:SetStyle("font", TSM.UI.Fonts.RobotoMedium)
 				:SetStyle("fontHeight", 12)
 				:SetStyle("justifyH", "RIGHT")
-				:SetText(TSM.Money.ToString(buyout))
 				:SetContext("buyout")
 				:SetScript("OnValueChanged", private.BuyoutTextOnValueChanged)
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "editBtn")
 				:SetStyle("width", 12)
 				:SetStyle("height", 12)
-				:SetStyle("margin", { left = 4 })
+				:SetStyle("margin.left", 4)
 				:SetStyle("backgroundTexturePack", "iconPack.12x12/Edit")
 				:SetScript("OnClick", private.BuyoutEditBtnOnClick)
 			)
@@ -1027,7 +1042,7 @@ function private.PostDialogShow(baseFrame, record)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "deposit")
 			:SetLayout("HORIZONTAL")
 			:SetStyle("height", 20)
-			:SetStyle("margin", { bottom = 4 })
+			:SetStyle("margin.bottom", 4)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "desc")
 				:SetStyle("font", TSM.UI.Fonts.MontserratRegular)
 				:SetStyle("fontHeight", 12)
@@ -1042,17 +1057,151 @@ function private.PostDialogShow(baseFrame, record)
 			)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "confirmBtn")
-			:SetStyle("margin", { top = 0})
+			:SetStyle("margin.top", 0)
 			:SetStyle("height", 248)
 			:SetStyle("height", 26)
 			:SetText(L["POST"])
-			:SetContext(itemString)
 			:SetScript("OnClick", private.PostButtonOnClick)
 		)
+		:SetScript("OnUpdate", private.PostingFrameOnUpdate)
 
-	baseFrame:ShowDialogFrame(frame)
+	return frame
+end
+
+function private.GetPostSelectionFrame()
+	local query = TSM.Inventory.BagTracking.CreateQuery()
+		:GreaterThanOrEqual("bag", 0)
+		:LessThanOrEqual("bag", NUM_BAG_SLOTS)
+		:Equal("baseItemString", TSMAPI_FOUR.Item.ToBaseItemString(private.itemString))
+		:Equal("isBoP", false)
+		:Equal("isBoA", false)
+		:Equal("usedCharges", false)
+
+	local frame = TSMAPI_FOUR.UI.NewElement("Frame", "selection")
+		:SetLayout("VERTICAL")
+		:SetMouseEnabled(true)
+		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "header")
+			:SetLayout("HORIZONTAL")
+			:SetStyle("margin.bottom", 6)
+			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "title")
+				:SetStyle("width", 124)
+				:SetStyle("height", 13)
+				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
+				:SetStyle("fontHeight", 10)
+				:SetStyle("justifyH", "LEFT")
+				:SetStyle("textColor", "#e2e2e2")
+				:SetText(L["ITEM SELECTION"])
+			)
+			:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "closeBtn")
+				:SetStyle("width", 18)
+				:SetStyle("height", 18)
+				:SetStyle("margin", { top = -4, left = 110, right = -4, bottom = 1 })
+				:SetStyle("backgroundTexturePack", "iconPack.18x18/Close/Default")
+				:SetScript("OnClick", private.PostDialogCloseBtnOnClick)
+			)
+		)
+		:AddChild(TSMAPI_FOUR.UI.NewElement("QueryScrollingTable", "items")
+			:SetStyle("lineColor", "#000000")
+			:SetStyle("hideHeader", true)
+			:SetStyle("headerBackground", "#00000000")
+			:SetStyle("background", "#000000")
+			:SetStyle("altBackground", "#1b1b1b")
+			:SetStyle("headerFont", TSM.UI.Fonts.MontserratRegular)
+			:SetStyle("headerFontHeight", 12)
+			:GetScrollingTableInfo()
+				:NewColumn("item")
+					:SetTitles(L["Item"])
+					:SetFont(TSM.UI.Fonts.FRIZQT)
+					:SetFontHeight(12)
+					:SetJustifyH("LEFT")
+					:SetIconSize(14)
+					:SetTextInfo("itemString", TSM.UI.GetColoredItemName)
+					:SetIconInfo("itemString", TSMAPI_FOUR.Item.GetTexture)
+					:SetTooltipInfo("itemString")
+					:Commit()
+				:Commit()
+			:SetQuery(query)
+			:SetAutoReleaseQuery(true)
+			:SetScript("OnRowClick", private.ItemQueryOnRowClick)
+		)
+		:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "backBtn")
+			:SetStyle("margin.top", 9)
+			:SetStyle("height", 248)
+			:SetStyle("height", 26)
+			:SetText(L["BACK"])
+			:SetScript("OnClick", private.ViewBackButtonOnClick)
+		)
+
+	return frame
+end
+
+function private.PostingFrameOnUpdate(frame)
+	frame:SetScript("OnUpdate", nil)
+
+	local record = frame:GetParentElement():GetContext()
+	if not private.itemString then
+		assert(record.itemString)
+		local foundItem = false
+		local backupItemString = nil
+		for _, _, _, itemString in TSMAPI_FOUR.Inventory.BagIterator() do
+			if itemString == record.itemString then
+				foundItem = true
+			elseif not backupItemString and TSMAPI_FOUR.Item.ToBaseItemString(itemString) == TSMAPI_FOUR.Item.ToBaseItemString(record.itemString) then
+				backupItemString = itemString
+			end
+		end
+		assert(foundItem or backupItemString)
+		private.itemString = foundItem and record.itemString or backupItemString
+	end
+	local undercut = TSMAPI_FOUR.PlayerInfo.IsPlayer(record.seller, true, true, true) and 0 or 1
+	local bid = floor(record.displayedBid / record.stackSize) - undercut
+	if bid <= 0 then
+		bid = 1
+	elseif bid > MAXIMUM_BID_PRICE then
+		bid = MAXIMUM_BID_PRICE
+	end
+	local buyout = floor(record.buyout / record.stackSize) - undercut
+	if buyout < 0 then
+		buyout = 0
+	elseif buyout > MAXIMUM_BID_PRICE then
+		buyout = MAXIMUM_BID_PRICE
+	end
+	local cagedPet = strfind(private.itemString, "^p")
+	private.perItem = true
+
+	frame:GetElement("item.icon")
+		:SetStyle("backgroundTexture", TSMAPI_FOUR.Item.GetTexture(private.itemString))
+		:SetTooltip(private.itemString)
+	frame:GetElement("item.name")
+		:SetText(TSM.UI.GetColoredItemName(private.itemString))
+	frame:GetElement("quantity.num")
+		:SetDisabled(cagedPet)
+	frame:GetElement("quantity.stackSize")
+		:SetDisabled(cagedPet)
+		:SetText(record.stackSize)
+	frame:GetElement("maxBtns.numBtn")
+		:SetDisabled(cagedPet)
+	frame:GetElement("maxBtns.stackSizeBtn")
+		:SetDisabled(cagedPet)
+	frame:GetElement("bid.text")
+		:SetText(TSM.Money.ToString(bid))
+	frame:GetElement("buyout.text")
+		:SetText(TSM.Money.ToString(buyout))
+	frame:GetElement("confirmBtn")
+		:SetContext(private.itemString)
+
+	frame:Draw()
 
 	private.UpdateDepositCost(frame)
+end
+
+function private.ItemQueryOnRowClick(scrollingtable, row)
+	private.itemString = row:GetField("itemString")
+	scrollingtable:GetElement("__parent.__parent"):SetPath("posting", true)
+end
+
+function private.ViewBackButtonOnClick(button)
+	button:GetElement("__parent.__parent"):SetPath("posting", true)
 end
 
 
@@ -1064,9 +1213,10 @@ end
 function private.OnItemLinked(name, itemLink)
 	local itemString = TSMAPI_FOUR.Item.ToItemString(itemLink)
 	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local baseName = TSMAPI_FOUR.Item.GetName(baseItemString)
 	private.frame:SetPath("selection")
 	if itemString == baseItemString and private.singleItemSearchType ~= "crafting" then
-		name = name.."/exact"
+		baseName = baseName.."/exact"
 	end
 	private.itemInfo.itemString = itemString
 	private.itemInfo.seller = UnitName("player")
@@ -1074,7 +1224,7 @@ function private.OnItemLinked(name, itemLink)
 	private.itemInfo.displayedBid = TSMAPI_FOUR.CustomPrice.GetValue("first(dbmarket, 100g)", itemString)
 	private.itemInfo.buyout = TSMAPI_FOUR.CustomPrice.GetValue("first(dbmarket, 100g)", itemString)
 	private.frame:GetBaseElement():HideDialog()
-	private.StartFilterSearchHelper(private.frame, name, nil, private.itemInfo)
+	private.StartFilterSearchHelper(private.frame, baseName, nil, private.itemInfo)
 	return true
 end
 
@@ -1440,6 +1590,10 @@ function private.BuyoutTextOnValueChanged(text, value)
 	private.UpdateDepositCost(text:GetParentElement():GetParentElement())
 end
 
+function private.ItemBtnOnClick(button)
+	button:GetElement("__parent.__parent.__parent"):SetPath("selection", true)
+end
+
 function private.QuantityNumInputOnTextChanged(input)
 	local text = input:GetText()
 	local textNum = tonumber(text)
@@ -1449,6 +1603,10 @@ function private.QuantityNumInputOnTextChanged(input)
 	if textNum < 1 then
 		return
 	end
+	if textNum == private.postQuantity then
+		return
+	end
+	private.postQuantity = textNum
 
 	input:SetText(text)
 
@@ -1471,6 +1629,10 @@ function private.QuantityStackInputOnTextChanged(input)
 	if textNum < 1 then
 		return
 	end
+	if textNum == private.postStack then
+		return
+	end
+	private.postStack = textNum
 
 	input:SetText(text)
 
@@ -1509,8 +1671,8 @@ end
 
 function private.UpdateDepositCost(frame)
 	local postBag, postSlot = nil, nil
-	for _, bag, slot, bagItemString in TSMAPI_FOUR.Inventory.BagIterator() do
-		if not postBag and not postSlot and bagItemString == frame:GetElement("confirmBtn"):GetContext() then
+	for _, bag, slot, itemString in TSMAPI_FOUR.Inventory.BagIterator() do
+		if not postBag and not postSlot and itemString == frame:GetElement("confirmBtn"):GetContext() then
 			postBag = bag
 			postSlot = slot
 		end
@@ -1520,9 +1682,18 @@ function private.UpdateDepositCost(frame)
 		PickupContainerItem(postBag, postSlot)
 		ClickAuctionSellItemButton(AuctionsItemButton, "LeftButton")
 		ClearCursor()
+	else
+		frame:GetElement("deposit.text")
+			:SetText(TSM.Money.ToString(0))
+			:Draw()
+		frame:GetElement("confirmBtn")
+			:SetDisabled(true)
+			:Draw()
+		return
 	end
 
 	local postTime = frame:GetElement("duration.toggle"):GetValue()
+	private.postTime = postTime
 	if postTime == L["12 hr"] then
 		postTime = 1
 	elseif postTime == L["24 hr"] then
@@ -1542,7 +1713,11 @@ function private.UpdateDepositCost(frame)
 		buyout = buyout * stackSize
 	end
 
-	frame:GetElement("deposit.text"):SetText(TSM.Money.ToString(GetAuctionDeposit(postTime, bid, buyout, stackSize, num)))
+	frame:GetElement("deposit.text")
+		:SetText(TSM.Money.ToString(GetAuctionDeposit(postTime, bid, buyout, stackSize, num)))
+		:Draw()
+	frame:GetElement("confirmBtn")
+		:SetDisabled(false)
 		:Draw()
 
 	ClearCursor()
@@ -1623,9 +1798,10 @@ end
 
 function private.GetBagQuantity(itemString)
 	local query = TSM.Inventory.BagTracking.CreateQuery()
-		:Equal("itemString", itemString)
+		:Equal("baseItemString", TSMAPI_FOUR.Item.ToBaseItemString(itemString))
 		:GreaterThanOrEqual("slotId", TSMAPI_FOUR.Util.JoinSlotId(0, 1))
 		:LessThanOrEqual("slotId", TSMAPI_FOUR.Util.JoinSlotId(NUM_BAG_SLOTS + 1, 0))
+		:Equal("usedCharges", false)
 		:Equal("isBoP", false)
 		:Equal("isBoA", false)
 	local result = query:Sum("quantity")
@@ -1643,8 +1819,6 @@ function private.MaxNumBtnOnClick(button)
 	button:GetElement("__parent.__parent.quantity.num")
 		:SetText(num)
 		:Draw()
-
-	private.UpdateDepositCost(button:GetParentElement():GetParentElement())
 end
 
 function private.MaxStackSizeBtnOnClick(button)
@@ -1662,8 +1836,10 @@ function private.MaxStackSizeBtnOnClick(button)
 			:SetText(newStackSize)
 			:Draw()
 	end
+end
 
-	private.UpdateDepositCost(button:GetParentElement():GetParentElement())
+function private.DurationOnValueChanged(toggle)
+	private.UpdateDepositCost(toggle:GetParentElement():GetParentElement())
 end
 
 
@@ -1888,7 +2064,7 @@ function private.FSMCreate()
 						cheapest:Release()
 					end
 				end
-				context.postDisabled = not context.itemInfo and true or false
+				context.postDisabled = not context.itemInfo and true or private.GetBagQuantity(context.itemInfo.itemString) == 0
 				context.bidDisabled = true
 				context.buyoutDisabled = true
 				context.stopDisabled = true
@@ -1906,7 +2082,7 @@ function private.FSMCreate()
 				end
 			end)
 			:AddEvent("EV_POST_BUTTON_CLICK", function(context)
-				private.PostDialogShow(context.scanFrame:GetBaseElement(), context.scanFrame:GetElement("auctions"):GetSelectedRecord() or context.itemInfo)
+				private.PostDialogShow(context.scanFrame:GetBaseElement(), context.scanFrame:GetElement("auctions"):GetSelectedRecord() or private.itemInfo)
 			end)
 			:AddEvent("EV_RESCAN_CLICKED", function(context)
 				if context.scanFrame then
@@ -1927,7 +2103,7 @@ function private.FSMCreate()
 				context.findHash = context.findAuction:GetField("hash")
 				context.progress = 0
 				context.progressText = L["Finding Selected Auction"]
-				context.postDisabled = TSMAPI_FOUR.Inventory.GetBagQuantity(context.scanFrame:GetElement("auctions"):GetSelectedRecord():GetField("itemString")) == 0
+				context.postDisabled = private.GetBagQuantity(context.scanFrame:GetElement("auctions"):GetSelectedRecord():GetField("itemString")) == 0
 				context.bidDisabled = true
 				context.buyoutDisabled = true
 				UpdateScanFrame(context)
@@ -2020,7 +2196,7 @@ function private.FSMCreate()
 				end
 				context.progress = context.numConfirmed / context.numFound
 				context.progressText = progressText
-				context.postDisabled = TSMAPI_FOUR.Inventory.GetBagQuantity(selection:GetField("itemString")) == 0
+				context.postDisabled = private.GetBagQuantity(selection:GetField("itemString")) == 0
 				context.bidDisabled = selection:GetField("displayedBid") == selection:GetField("buyout") or numCanBuy == 0 or GetMoney() < selection:GetField("requiredBid") or TSMAPI_FOUR.PlayerInfo.IsPlayer(selection.seller, true, true, true) or selection:GetField("isHighBidder")
 				context.buyoutDisabled = selection:GetField("buyout") == 0 or numCanBuy == 0 or GetMoney() < selection:GetField("buyout") or TSMAPI_FOUR.PlayerInfo.IsPlayer(selection.seller, true, true, true)
 				UpdateScanFrame(context)

@@ -134,10 +134,31 @@ function GroupImport.Commit(self, rootGroup)
 		end
 	end
 
+	-- check if we're trying to import items directly into the root group, in which case we should create a new top-level group
+	local hasRootItems = false
+	if rootGroup == TSM.CONST.ROOT_GROUP_PATH then
+		for _, relativeGroupPath in pairs(self._items) do
+			if relativeGroupPath == TSM.CONST.ROOT_GROUP_PATH then
+				hasRootItems = true
+				break
+			end
+		end
+	end
+	if hasRootItems then
+		local newGroupName = L["Imported Items"]
+		local num = 2
+		while TSM.Groups.Exists(newGroupName) do
+			newGroupName = L["Imported Items"].." "..num
+			num = num + 1
+		end
+		TSM.Groups.Create(newGroupName)
+		rootGroup = newGroupName
+	end
+
 	-- get list of new groups which have items in them
 	local newGroups = TSMAPI_FOUR.Util.AcquireTempTable()
 	for _, relativeGroupPath in pairs(self._items) do
-		local groupPath = TSM.Groups.Path.Join(rootGroup, relativeGroupPath)
+		local groupPath = relativeGroupPath == TSM.CONST.ROOT_GROUP_PATH and rootGroup or TSM.Groups.Path.Join(rootGroup, relativeGroupPath)
 		if not newGroups[groupPath] and groupPath ~= TSM.CONST.ROOT_GROUP_PATH and not TSM.Groups.Exists(groupPath) then
 			newGroups[groupPath] = relativeGroupPath
 			tinsert(newGroups, groupPath)
@@ -165,7 +186,8 @@ function GroupImport.Commit(self, rootGroup)
 
 	-- add items to groups
 	for itemString, relativeGroupPath in pairs(self._items) do
-		TSM.Groups.SetItemGroup(itemString, TSM.Groups.Path.Join(rootGroup, relativeGroupPath))
+		local groupPath = relativeGroupPath == TSM.CONST.ROOT_GROUP_PATH and rootGroup or TSM.Groups.Path.Join(rootGroup, relativeGroupPath)
+		TSM.Groups.SetItemGroup(itemString, groupPath)
 	end
 end
 
@@ -268,7 +290,7 @@ end
 
 function GroupImport.RemoveExistingGroupedItems(self)
 	for itemString in pairs(self._items) do
-		if TSM.Groups.GetPathByItem(itemString) then
+		if TSM.Groups.GetPathByItem(itemString) ~= TSM.CONST.ROOT_GROUP_PATH then
 			self._items[itemString] = nil
 		end
 	end
@@ -348,11 +370,10 @@ function GroupImport._ParseGroupExport(self, str)
 				groupPath = TSM.Groups.Path.GetParent(groupPath)
 			end
 		elseif itemString then
-			if relativePath == TSM.CONST.ROOT_GROUP_PATH and not self._groups[L["Imported Items"]] then
-				-- create a new group to put this item into
-				self:_CreateGroup(L["Imported Items"])
+			if relativePath == TSM.CONST.ROOT_GROUP_PATH and not self._groups[TSM.CONST.ROOT_GROUP_PATH] then
+				self:_CreateGroup(TSM.CONST.ROOT_GROUP_PATH)
 			end
-			self._items[itemString] = relativePath == TSM.CONST.ROOT_GROUP_PATH and L["Imported Items"] or relativePath
+			self._items[itemString] = relativePath
 		else
 			TSM:LOG_ERR("Unknown part: %s", part)
 		end

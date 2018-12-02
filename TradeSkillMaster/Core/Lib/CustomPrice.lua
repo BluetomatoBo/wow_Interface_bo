@@ -40,7 +40,7 @@ local MATH_FUNCTIONS = {
 	["rounddown"] = "self._rounddown",
 }
 local CUSTOM_PRICE_FUNC_TEMPLATE = [[
-	return function(self, _item)
+	return function(self, _item, _baseitem)
 		local isTop
 		local context = self.globalContext
 		if not context.num then
@@ -96,22 +96,6 @@ local COMPARISONS = {
 -- ============================================================================
 -- Module Functions
 -- ============================================================================
-
-function TSM.CustomPrice.OnEnable()
-	for key in pairs(MAPPED_PRICES) do
-		if not TSM.db.global.userData.customPriceSources[key] then
-			tinsert(private.priceSourceKeys, strlower(key))
-			private.priceSourceInfo[strlower(key)] = {
-				moduleName = "AuctionDB",
-				key = key,
-				label = "Mapped",
-				callback = function() end,
-				takeItemString = false,
-				arg = nil,
-			}
-		end
-	end
-end
 
 --- Register a built-in price source.
 -- @tparam string moduleName The name of the module which provides this source
@@ -453,7 +437,7 @@ private.proxyMT = {
 	__call = function(self, item)
 		local data = private.proxyData[self]
 		data.isUnlocked = true
-		local result = self.func(self, item)
+		local result = self.func(self, item, TSMAPI_FOUR.Item.ToBaseItemString(item))
 		data.isUnlocked = false
 		return result
 	end,
@@ -604,8 +588,10 @@ function private.ParsePriceString(str, badPriceSource)
 	str = gsub(str, "[%%]", "%1 ")
 	-- convert percentages to decimal numbers
 	str = gsub(str, "([0-9%.]+)%%", "( %1 / 100 ) *")
-	-- ensure a space before items and remove parentheses around items
-	str = gsub(str, "%( ?("..ITEM_STRING_PATTERN..") ?%)", " %1")
+	-- ensure a space on either side of item strings and remove parentheses around them
+	str = gsub(str, "%([ ]*("..ITEM_STRING_PATTERN..")[ ]*%)", " %1 ")
+	-- ensure a space on either side of baseitem arguments and remove parentheses around them
+	str = gsub(str, "%([ ]*(baseitem)[ ]*%)", " ~baseitem~ ")
 	-- ensure a space on either side of parentheses and commas
 	str = gsub(str, "[%(%),]", " %1 ")
 	-- remove any occurances of more than one consecutive space
@@ -641,7 +627,7 @@ function private.ParsePriceString(str, badPriceSource)
 				return nil, L["Invalid parameter to price source."]
 			end
 			-- valid number
-		elseif strmatch(word, "^"..ITEM_STRING_PATTERN.."$") then
+		elseif strmatch(word, "^"..ITEM_STRING_PATTERN.."$") or word == "~baseitem~" then
 			-- make sure previous word was a price source
 			if i > 1 and (private.priceSourceInfo[parts[i-1]] or TSM.db.global.userData.customPriceSources[parts[i-1]]) then
 				-- valid item parameter
@@ -676,7 +662,7 @@ function private.ParsePriceString(str, badPriceSource)
 			-- harmless extra spaces
 		elseif word == "disenchant" then
 			return nil, format(L["The 'disenchant' price source has been replaced by the more general 'destroy' price source. Please update your custom prices."])
-		else
+		elseif not MAPPED_PRICES[word] then
 			-- check if this is an operation export that they tried to use as a custom price
 			if strfind(word, "^%^1%^t%^") then
 				return nil, L["This looks like an exported operation and not a custom price."]
@@ -687,44 +673,15 @@ function private.ParsePriceString(str, badPriceSource)
 	end
 
 	for key in pairs(TSM.db.global.userData.customPriceSources) do
-		-- price sources need to have at least 1 capital letter for this algorithm to work, so temporarily give it one
-		local startStr = str
-		local tempKey = strupper(strsub(key, 1, 1))..strsub(key, 2)
-		-- replace all "<customPriceSource> itemString" occurances with the proper parameters (with the itemString)
-		str = gsub(str, format(" %s (%s)", strlower(key), ITEM_STRING_PATTERN), format(" self._priceHelper(\"%%1\", \"%s\", \"custom\")", tempKey))
-		-- replace all "<customPriceSource>" occurances with the proper parameters (with _item for the item)
-		str = gsub(str, format(" %s$", strlower(key)), format(" self._priceHelper(_item, \"%s\", \"custom\")", tempKey))
-		str = gsub(str, format(" %s([^a-z])", strlower(key)), format(" self._priceHelper(_item, \"%s\", \"custom\")%%1", tempKey))
-		if startStr ~= str then
-			-- change custom price sources to the correct capitalization
-			str = gsub(str, tempKey, key)
-		end
+		str = private.PriceSourceParsingHelper(str, strlower(key), "custom")
 	end
 
 	for key in pairs(MAPPED_PRICES) do
-		-- price sources need to have at least 1 capital letter for this algorithm to work, so temporarily give it one
-		local startStr = str
-		local tempKey = strupper(strsub(key, 1, 1))..strsub(key, 2)
-		-- replace all "<mappedPriceSource> itemString" occurances with the proper parameters (with the itemString)
-		str = gsub(str, format(" %s (%s)", strlower(key), ITEM_STRING_PATTERN), format(" self._priceHelper(\"%%1\", \"%s\", \"map\")", tempKey))
-		-- replace all "<mappedPriceSource>" occurances with the proper parameters (with _item for the item)
-		str = gsub(str, format(" %s$", strlower(key)), format(" self._priceHelper(_item, \"%s\", \"map\")", tempKey))
-		str = gsub(str, format(" %s([^a-z])", strlower(key)), format(" self._priceHelper(_item, \"%s\", \"map\")%%1", tempKey))
-		if startStr ~= str then
-			-- change mapped price sources to the correct capitalization
-			str = gsub(str, tempKey, key)
-		end
+		str = private.PriceSourceParsingHelper(str, key, "map")
 	end
 
 	for key in pairs(private.priceSourceInfo) do
-		-- replace all "<priceSource> itemString" occurances with the proper parameters (with the itemString)
-		str = gsub(str, format(" %s (%s)", key, ITEM_STRING_PATTERN), format(" self._priceHelper(\"%%1\", \"%s\")", key))
-		-- replace all "<priceSource>" occurances with the proper parameters (with _item for the item)
-		str = gsub(str, format(" %s$", key), format(" self._priceHelper(_item, \"%s\")", key))
-		str = gsub(str, format(" %s([^a-z])", key), format(" self._priceHelper(_item, \"%s\")%%1", key))
-		if key == convertPriceSource then
-			convertPriceSource = key
-		end
+		str = private.PriceSourceParsingHelper(str, key)
 	end
 
 	-- replace "~convert~" appropriately
@@ -750,6 +707,17 @@ function private.ParsePriceString(str, badPriceSource)
 		return nil, L["Invalid function."]
 	end
 	return private.CreateCustomPriceObj(func, origStr)
+end
+
+function private.PriceSourceParsingHelper(str, key, extraArg)
+	extraArg = extraArg and (",\""..extraArg.."\"") or ""
+	-- replace all "<priceSource> <itemString>" occurances with the proper parameters (with the itemString)
+	str = gsub(str, format(" %s (%s) ", key, ITEM_STRING_PATTERN), format(" self._priceHelper(\"%%1\",\"%s\"%s) ", key, extraArg))
+	-- replace all "<priceSource> baseitem" occurances with the proper parameters (with _baseitem for the item)
+	str = gsub(str, format(" %s ~baseitem~ ", key), format(" self._priceHelper(_baseitem,\"%s\"%s) ", key, extraArg))
+	-- replace all "<priceSource>" occurances with the proper parameters (with _item for the item)
+	str = gsub(str, format(" %s ", key), format(" self._priceHelper(_item,\"%s\"%s) ", key, extraArg))
+	return str
 end
 
 function private.ParseCustomPrice(customPriceStr, badPriceSource)

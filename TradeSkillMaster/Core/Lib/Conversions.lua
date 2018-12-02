@@ -141,9 +141,9 @@ function TSMAPI_FOUR.Conversions.GetValue(sourceItem, customPrice, method)
 	if not customPrice then return end
 
 	-- calculate disenchant value first
-	if TSMAPI_FOUR.Item.IsDisenchantable(sourceItem) and (not method or method == "disenchant") then
+	if (not method or method == "disenchant") and TSMAPI_FOUR.Item.IsDisenchantable(sourceItem) then
 		local quality = TSMAPI_FOUR.Item.GetQuality(sourceItem)
-		local ilvl = TSMAPI_FOUR.Item.GetItemLevel(sourceItem) or 0
+		local ilvl = TSMAPI_FOUR.Item.GetItemLevel(TSMAPI_FOUR.Item.ToBaseItemString(sourceItem)) or 0
 		local iType = GetItemClassInfo(TSMAPI_FOUR.Item.GetClassId(sourceItem))
 		local value = 0
 		for _, data in ipairs(TSM.CONST.DISENCHANT_INFO) do
@@ -230,7 +230,7 @@ function private.GetSourceItemsHelper(targetItem, result, depth, currentRate)
 		if not result[sourceItem] or result[sourceItem].depth > depth then
 			result[sourceItem] = result[sourceItem] or {}
 			result[sourceItem].rate = info.rate * currentRate
-			result[sourceItem].method = (depth == 0) and info.method or "multiple"
+			result[sourceItem].method = info.method ~= "craft" and depth > 0 and "multiple" or info.method
 			result[sourceItem].depth = depth
 			if info.method == "mill" or info.method == "prospect" then
 				result[sourceItem].requiresFive = true

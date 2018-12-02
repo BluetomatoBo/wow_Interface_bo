@@ -66,24 +66,18 @@ function TableRow.Acquire(self, scrollingTable, isHeader)
 end
 
 function TableRow.Release(self)
-	self._scrollingTable = nil
-	self._tableInfo = nil
-	self._rowData = nil
-	self._frame:ClearAllPoints()
-	self._frame:SetParent(nil)
-	self._frame:SetScript("OnEnter", nil)
-	self._frame:SetScript("OnLeave", nil)
-	self._frame:SetScript("OnClick", nil)
+	self._frame:Hide()
 	for _, text in pairs(self._texts) do
+		text:Hide()
 		text:ClearAllPoints()
 		text:SetWidth(0)
 		text:SetHeight(0)
 		text:SetTextColor(1, 1, 1, 1)
-		text:Hide()
 		tinsert(self._recycled.texts, text)
 	end
 	wipe(self._texts)
 	for _, icon in pairs(self._icons) do
+		icon:Hide()
 		icon:SetDrawLayer("ARTWORK", 0)
 		icon:SetTexture(nil)
 		icon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
@@ -92,7 +86,6 @@ function TableRow.Release(self)
 		icon:ClearAllPoints()
 		icon:SetWidth(0)
 		icon:SetHeight(0)
-		icon:Hide()
 		tinsert(self._recycled.icons, icon)
 	end
 	wipe(self._icons)
@@ -101,26 +94,35 @@ function TableRow.Release(self)
 			TSM.UI.HideTooltip()
 			tooltip.isShowingTooltip = nil
 		end
+		tooltip:Hide()
 		tooltip:SetScript("OnEnter", nil)
 		tooltip:SetScript("OnLeave", nil)
 		tooltip:SetScript("OnClick", nil)
+		tooltip:SetParent(nil)
 		tooltip:ClearAllPoints()
 		tooltip:SetWidth(0)
 		tooltip:SetHeight(0)
-		tooltip:Hide()
 		tinsert(self._recycled.buttons, tooltip)
 	end
 	wipe(self._buttons)
 	for _, icon in pairs(self._sortIcons) do
 		icon.direction = nil
+		icon:Hide()
 		icon:ClearAllPoints()
 		icon:SetWidth(0)
 		icon:SetHeight(0)
-		icon:Hide()
 		tinsert(self._recycled.icons, icon)
 	end
 	wipe(self._sortIcons)
-	self._frame:Hide()
+
+	self._scrollingTable = nil
+	self._tableInfo = nil
+	self._rowData = nil
+	self._frame:SetParent(nil)
+	self._frame:ClearAllPoints()
+	self._frame:SetScript("OnEnter", nil)
+	self._frame:SetScript("OnLeave", nil)
+	self._frame:SetScript("OnClick", nil)
 end
 
 function TableRow.SetData(self, data)
@@ -249,6 +251,7 @@ function TableRow._GetButton(self)
 	if not frame then
 		frame = CreateFrame("Button", nil, self._frame, nil)
 	end
+	frame:SetParent(self._frame)
 	frame:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	frame:Show()
 	return frame

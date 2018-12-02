@@ -209,9 +209,9 @@ function TSMAPI_FOUR.Inventory.IsSoulbound(bag, slot)
 
 	-- set TSMScanTooltip to show the inventory item
 	if bag == BANK_CONTAINER then
-		TSMScanTooltip:SetInventoryItem("player", slot + BankButtonIDToInvSlotID(0))
+		TSMScanTooltip:SetInventoryItem("player", BankButtonIDToInvSlotID(slot))
 	elseif bag == REAGENTBANK_CONTAINER then
-		TSMScanTooltip:SetInventoryItem("player", slot + ReagentBankButtonIDToInvSlotID(0))
+		TSMScanTooltip:SetInventoryItem("player", ReagentBankButtonIDToInvSlotID(slot))
 	else
 		TSMScanTooltip:SetBagItem(bag, slot)
 	end
@@ -223,7 +223,7 @@ function TSMAPI_FOUR.Inventory.IsSoulbound(bag, slot)
 		return nil, nil
 	end
 	local isBOP, isBOA = false, false
-	for id = 1, numLines do
+	for id = 2, numLines do
 		local text = private.GetTooltipText(_G["TSMScanTooltipTextLeft"..id])
 		if text then
 			if (text == ITEM_BIND_ON_PICKUP and id < 4) or text == ITEM_SOULBOUND or text == ITEM_BIND_QUEST then
@@ -262,9 +262,9 @@ function TSMAPI_FOUR.Inventory.HasUsedCharges(bag, slot)
 
 	-- set TSMScanTooltip to show the inventory item
 	if bag == BANK_CONTAINER then
-		TSMScanTooltip:SetInventoryItem("player", slot + BankButtonIDToInvSlotID(0))
+		TSMScanTooltip:SetInventoryItem("player", BankButtonIDToInvSlotID(slot))
 	elseif bag == REAGENTBANK_CONTAINER then
-		TSMScanTooltip:SetInventoryItem("player", slot + ReagentBankButtonIDToInvSlotID(0))
+		TSMScanTooltip:SetInventoryItem("player", ReagentBankButtonIDToInvSlotID(slot))
 	else
 		TSMScanTooltip:SetBagItem(bag, slot)
 	end

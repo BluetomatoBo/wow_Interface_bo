@@ -105,8 +105,7 @@ function Operations.CreateHeadingLine(id, text)
 end
 
 function Operations.CreateLinkedSettingLine(settingKey, labelText, disabled)
-	local operation = TSM.Operations.GetSettings(private.currentModule, private.currentOperationName)
-	local relationshipSet = operation.relationships[settingKey] and true or false
+	local relationshipSet = TSM.Operations.HasRelationship(private.currentModule, private.currentOperationName, settingKey)
 	return TSMAPI_FOUR.UI.NewElement("Frame", settingKey)
 		:SetLayout("HORIZONTAL")
 		:SetStyle("height", 26)
@@ -294,8 +293,7 @@ end
 
 function private.CreateLinkButton(disabled, settingKey)
 	local vertexColor = nil
-	local operation = TSM.Operations.GetSettings(private.currentModule, private.currentOperationName)
-	local relationshipSet = operation.relationships[settingKey]
+	local relationshipSet = TSM.Operations.HasRelationship(private.currentModule, private.currentOperationName, settingKey)
 	if disabled and relationshipSet then
 		vertexColor = "#6f5819"
 	elseif disabled then
@@ -453,8 +451,6 @@ function private.LinkBtnOnClick(button)
 		end
 	end
 	sort(private.linkMenuEntries)
-	local operation = TSM.Operations.GetSettings(private.currentModule, private.currentOperationName)
-	local currentRelationshipOperationName = operation.relationships[settingKey]
 	button:GetBaseElement():ShowDialogFrame(TSMAPI_FOUR.UI.NewElement("MenuDialogFrame", "linkDialog")
 		:SetLayout("VERTICAL")
 		:SetStyle("width", 263)
@@ -481,7 +477,7 @@ function private.LinkBtnOnClick(button)
 			:SetContext(settingKey)
 			:SetStyle("margin", { left = 2, right = 2, bottom = 3 })
 			:SetStyle("rowHeight", 20)
-			:SetEntries(private.linkMenuEntries, currentRelationshipOperationName)
+			:SetEntries(private.linkMenuEntries, TSM.Operations.GetRelationship(private.currentModule, private.currentOperationName, settingKey))
 			:SetScript("OnEntrySelected", private.ListOnEntrySelected)
 		)
 	)
@@ -489,12 +485,11 @@ end
 
 function private.ListOnEntrySelected(list, operationName)
 	local settingKey = list:GetContext()
-	local operationSettings = TSM.Operations.GetSettings(private.currentModule, private.currentOperationName)
-	local previousValue = operationSettings.relationships[settingKey]
+	local previousValue = TSM.Operations.GetRelationship(private.currentModule, private.currentOperationName, settingKey)
 	if operationName == previousValue then
-		operationSettings.relationships[settingKey] = nil
+		TSM.Operations.SetRelationship(private.currentModule, private.currentOperationName, settingKey, nil)
 	else
-		operationSettings.relationships[settingKey] = operationName
+		TSM.Operations.SetRelationship(private.currentModule, private.currentOperationName, settingKey, operationName)
 	end
 
 	local baseFrame = list:GetBaseElement()

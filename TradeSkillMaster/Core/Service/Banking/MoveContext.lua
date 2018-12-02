@@ -97,7 +97,7 @@ function BankToBagMoveContext.SlotIdIterator(self, itemString)
 			:End()
 			:Equal("bag", REAGENTBANK_CONTAINER)
 		:End()
-		:Equal("itemString", itemString)
+		:Equal("autoBaseItemString", TSMAPI_FOUR.Item.ToBaseItemString(itemString, true))
 		:IteratorAndRelease()
 end
 
@@ -131,17 +131,28 @@ function BagToGuildBankMoveContext.GetSlotQuantity(self, slotId)
 end
 
 function BagToGuildBankMoveContext.SlotIdIterator(self, itemString)
-	return private.BagSlotIdIterator(itemString, true)
+	return private.BagSlotIdIterator(itemString)
 end
 
 function BagToGuildBankMoveContext.GetEmptySlotsThreaded(self, emptySlotIds)
+	local currentTab = GetCurrentGuildBankTab()
+	local _, _, _, _, numWithdrawals = GetGuildBankTabInfo(currentTab)
+	if numWithdrawals == -1 or numWithdrawals >= GUILD_BANK_TAB_SLOTS then
+		for slot = 1, GUILD_BANK_TAB_SLOTS do
+			if not GetGuildBankItemInfo(currentTab, slot) then
+				tinsert(emptySlotIds, TSMAPI_FOUR.Util.JoinSlotId(currentTab, slot))
+			end
+		end
+	end
 	for tab = 1, GetNumGuildBankTabs() do
-		-- only use tabs which we have at least enough withdrawals to withdraw every slot
-		local _, _, _, _, numWithdrawals = GetGuildBankTabInfo(tab)
-		if numWithdrawals == -1 or numWithdrawals >= GUILD_BANK_TAB_SLOTS then
-			for slot = 1, GUILD_BANK_TAB_SLOTS do
-				if not GetGuildBankItemInfo(tab, slot) then
-					tinsert(emptySlotIds, TSMAPI_FOUR.Util.JoinSlotId(tab, slot))
+		if tab ~= currentTab then
+			-- only use tabs which we have at least enough withdrawals to withdraw every slot
+			_, _, _, _, numWithdrawals = GetGuildBankTabInfo(tab)
+			if numWithdrawals == -1 or numWithdrawals >= GUILD_BANK_TAB_SLOTS then
+				for slot = 1, GUILD_BANK_TAB_SLOTS do
+					if not GetGuildBankItemInfo(tab, slot) then
+						tinsert(emptySlotIds, TSMAPI_FOUR.Util.JoinSlotId(tab, slot))
+					end
 				end
 			end
 		end
@@ -170,14 +181,16 @@ function GuildBankToBagMoveContext.MoveSlot(self, fromSlotId, toSlotId, quantity
 end
 
 function GuildBankToBagMoveContext.GetSlotQuantity(self, slotId)
-	local _, quantity = GetGuildBankItemInfo(TSMAPI_FOUR.Util.SplitSlotId(slotId))
+	local tab, slot = TSMAPI_FOUR.Util.SplitSlotId(slotId)
+	QueryGuildBankTab(tab)
+	local _, quantity = GetGuildBankItemInfo(tab, slot)
 	return quantity or 0
 end
 
 function GuildBankToBagMoveContext.SlotIdIterator(self, itemString)
 	return TSM.Inventory.GuildTracking.CreateQuery()
 		:Select("slotId", "quantity")
-		:Equal("baseItemString", TSMAPI_FOUR.Item.ToBaseItemString(itemString))
+		:Equal("autoBaseItemString", TSMAPI_FOUR.Item.ToBaseItemString(itemString, true))
 		:IteratorAndRelease()
 end
 
@@ -231,7 +244,7 @@ function private.BagSlotIdIterator(itemString)
 		:Select("slotId", "quantity")
 		:GreaterThanOrEqual("bag", BACKPACK_CONTAINER)
 		:LessThanOrEqual("bag", NUM_BAG_SLOTS)
-		:Equal("itemString", itemString)
+		:Equal("autoBaseItemString", TSMAPI_FOUR.Item.ToBaseItemString(itemString, true))
 	if TSM.Banking.IsGuildBankOpen() then
 		query:Equal("isBoA", false)
 		query:Equal("isBoP", false)

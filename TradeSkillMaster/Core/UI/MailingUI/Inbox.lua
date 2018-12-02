@@ -411,7 +411,6 @@ function private.GetInboxItemsFrame()
 					:Commit()
 				:SetQuery(private.itemsQuery)
 				:SetScript("OnRowClick", private.ItemQueryOnRowClick)
-				:SetScript("OnDataUpdated", private.ItemQueryOnDataUpdated)
 			)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "footer")
@@ -445,8 +444,8 @@ function private.GetInboxItemsFrame()
 	return frame
 end
 
-function private.ViewBackButtonOnClick()
-	private.view:GetElement("view"):SetPath("mails", true)
+function private.ViewBackButtonOnClick(button)
+	button:GetElement("__parent.__parent.__parent"):SetPath("mails", true)
 end
 
 function private.BodyOnSizeChanged(input, width, height)
@@ -458,7 +457,7 @@ function private.ItemQueryOnRowClick(scrollingTable, row)
 	local index = row:GetField("index")
 	local _, _, _, _, _, cod = GetInboxHeaderInfo(index)
 	if cod > 0 then
-		scrollingTable:GetBaseElement():ShowConfirmationDialog(L["Accepting this item will cost"]..":", TSM.Money.ToString(cod), strupper(ACCEPT), function() private.TakeInboxItem(scrollingTable, row) end)
+		scrollingTable:GetBaseElement():ShowConfirmationDialog(L["Accepting this item will cost"]..":", TSM.Money.ToString(cod), strupper(ACCEPT), private.TakeInboxItem, scrollingTable, row)
 		return
 	end
 
@@ -474,7 +473,7 @@ function private.TakeInboxItem(scrollingTable, row)
 		else
 			TakeInboxItem(index, row:GetField("itemIndex"))
 		end
-		private.view:GetElement("view"):SetPath("mails", true)
+		scrollingTable:GetElement("__parent.__parent.__parent"):SetPath("mails", true)
 	else
 		if itemIndex == 0 then
 			TakeInboxMoney(index)
@@ -495,15 +494,15 @@ end
 function private.TakeAllOnClick(button)
 	local _, _, _, _, _, cod = GetInboxHeaderInfo(private.selectedMail)
 	if cod > 0 then
-		button:GetBaseElement():ShowConfirmationDialog(L["Accepting these item(s) will cost"]..":", TSM.Money.ToString(cod), strupper(ACCEPT), private.AutoLootMailItem)
+		button:GetBaseElement():ShowConfirmationDialog(L["Accepting these item(s) will cost"]..":", TSM.Money.ToString(cod), strupper(ACCEPT), private.AutoLootMailItem, button)
 	else
-		private.AutoLootMailItem()
+		private.AutoLootMailItem(button)
 	end
 end
 
-function private.AutoLootMailItem()
+function private.AutoLootMailItem(button)
 	AutoLootMailItem(private.selectedMail)
-	private.view:GetElement("view"):SetPath("mails", true)
+	button:GetElement("__parent.__parent.__parent.__parent"):SetPath("mails", true)
 end
 
 function private.ReplyOnClick(button)
@@ -525,7 +524,7 @@ function private.DeleteMailOnClick(button)
 	else
 		ReturnInboxItem(private.selectedMail)
 	end
-	private.view:GetElement("view"):SetPath("mails", true)
+	button:GetElement("__parent.__parent.__parent"):SetPath("mails", true)
 end
 
 function private.UpdateInboxItemsFrame()
@@ -691,7 +690,7 @@ function private.QueryOnRowClick(scrollingTable, row, button)
 	else
 		TSM.Mailing.Open.KillThread()
 		private.selectedMail = row:GetField("index")
-		private.view:GetElement("view"):SetPath("items", true)
+		scrollingTable:GetElement("__parent.__parent"):SetPath("items", true)
 	end
 end
 

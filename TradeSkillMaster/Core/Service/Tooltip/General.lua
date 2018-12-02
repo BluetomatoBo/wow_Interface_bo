@@ -51,7 +51,7 @@ function General.LoadTooltip(tooltip, itemString)
 			tooltip:StartSection()
 			if TSM.db.global.tooltipOptions.detailedDestroyTooltip then
 				local rarity = TSMAPI_FOUR.Item.GetQuality(itemString)
-				local ilvl = TSMAPI_FOUR.Item.GetItemLevel(itemString)
+				local ilvl = TSMAPI_FOUR.Item.GetItemLevel(TSMAPI_FOUR.Item.ToBaseItemString(itemString))
 				local iType = GetItemClassInfo(TSMAPI_FOUR.Item.GetClassId(itemString))
 				for _, data in ipairs(TSM.CONST.DISENCHANT_INFO) do
 					for targetItem, itemData in pairs(data) do
