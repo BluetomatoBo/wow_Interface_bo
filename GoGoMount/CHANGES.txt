@@ -1,0 +1,32 @@
+lightweight tag c3c01bfaa6dac1294cfdf74d40095d06125185d3 v8.1.2
+Author:	Rob Debouter <tiker@funkymonkey.org>
+Date:	Tue Dec 11 20:14:47 2018 -0500
+
+commit c3c01bfaa6dac1294cfdf74d40095d06125185d3
+Author: Rob Debouter <tiker@funkymonkey.org>
+Date:   Tue Dec 11 20:14:47 2018 -0500
+
+    Update GoGoMount.toc
+    
+    Version update for release
+
+commit 3041337859410d0cab003647d1091e40120a3181
+Author: Rob Debouter <tiker@funkymonkey.org>
+Date:   Tue Dec 11 20:04:19 2018 -0500
+
+    Added translation files
+    
+    Moving away from CurseForge localization pages.
+
+commit 5ec44b2c14a76e9fb8f80645a1b6b2cb060faa8c
+Author: Rob Debouter <tiker@funkymonkey.org>
+Date:   Tue Dec 11 19:43:03 2018 -0500
+
+    Flagged Cobalt Pterrordax as a flying mount
+
+commit c3f0af6a3ce6413db0449e9699465adf36d05b2d
+Author: Rob Debouter <tiker@funkymonkey.org>
+Date:   Tue Dec 11 19:36:33 2018 -0500
+
+    Flagged Valarjar Stormwing as a flying mount
+
