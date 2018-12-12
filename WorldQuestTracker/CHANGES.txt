@@ -1,0 +1,7 @@
+changeset:   342:334aebd2e9de
+tag:         v8.0.1.342
+user:        Tercioo
+date:        Tue Dec 11 23:40:37 2018 -0200
+summary:     - Fixed some errors and added Dark Shore + Arathi into the Azeroth map.
+
+
