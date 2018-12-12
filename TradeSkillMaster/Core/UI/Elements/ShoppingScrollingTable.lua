@@ -53,11 +53,12 @@ function ShoppingScrollingTable.SelectNextRecord(self)
 	local nextItemHash = nil
 	for i = 2, #self._data do
 		local hash = self._data[i]
-		local prevHash = self._data[i-1]
+		local prevHash = self._data[i - 1]
 		if prevHash == self._selection then
 			nextItemHash = hash
 			while TSMAPI_FOUR.PlayerInfo.IsPlayer(self._baseRecordByHash[hash].seller, true, true, true) and self._data[i + 1] do
 				hash = self._data[i + 1]
+				i = i + 1
 			end
 			if self._baseRecordByHash[hash].baseItemString == self._baseRecordByHash[prevHash].baseItemString then
 				-- found the next auction for this item

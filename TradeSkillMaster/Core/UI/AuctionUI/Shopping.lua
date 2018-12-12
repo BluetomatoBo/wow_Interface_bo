@@ -44,6 +44,7 @@ local DEFAULT_DIVIDED_CONTAINER_CONTEXT = {
 local DEFAULT_TAB_GROUP_CONTEXT = {
 	pathIndex = 1
 }
+local PLAYER_NAME = UnitName("player")
 local function NoOp()
 	-- do nothing - what did you expect?
 end
@@ -1219,7 +1220,7 @@ function private.OnItemLinked(name, itemLink)
 		baseName = baseName.."/exact"
 	end
 	private.itemInfo.itemString = itemString
-	private.itemInfo.seller = UnitName("player")
+	private.itemInfo.seller = PLAYER_NAME
 	private.itemInfo.stackSize = 1
 	private.itemInfo.displayedBid = TSMAPI_FOUR.CustomPrice.GetValue("first(dbmarket, 100g)", itemString)
 	private.itemInfo.buyout = TSMAPI_FOUR.CustomPrice.GetValue("first(dbmarket, 100g)", itemString)
@@ -1512,8 +1513,8 @@ end
 
 function private.StackBtnOnClick(button)
 	local frame = button:GetParentElement()
-	local record = frame:GetContext()
-	local undercut = record.seller == UnitName("player") and 0 or 1
+	local record = frame:GetParentElement():GetContext()
+	local undercut = record.seller == PLAYER_NAME and 0 or 1
 	local stackSize = record.stackSize
 	local bidText = frame:GetElement("bid.text")
 	local buyoutText = frame:GetElement("buyout.text")
@@ -1527,11 +1528,11 @@ function private.StackBtnOnClick(button)
 		local stackSizeEdit = frame:GetElement("quantity.stackSize"):GetText()
 		stackSizeEdit = tonumber(stackSizeEdit)
 		if stackSize == stackSizeEdit then
-			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.ToString(buyout - undercut))
-			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(bid - undercut))
+			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.ToString(buyout - undercut), true)
+			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(bid - undercut), true)
 		else
-			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(record.buyout / stackSize) * stackSizeEdit) or 0)
-			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(floor(record.displayedBid / stackSize) * stackSizeEdit))
+			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(record.buyout / stackSize) * stackSizeEdit) or 0, true)
+			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(floor(record.displayedBid / stackSize) * stackSizeEdit), true)
 		end
 		button:SetText(L["Per Stack"])
 	else
@@ -1543,18 +1544,18 @@ function private.StackBtnOnClick(button)
 		local stackSizeEdit = frame:GetElement("quantity.stackSize"):GetText()
 		stackSizeEdit = tonumber(stackSizeEdit)
 		if stackSize == stackSizeEdit then
-			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(buyout / stackSizeEdit) - undercut) or 0)
-			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(floor(bid / stackSizeEdit) - undercut))
+			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(buyout / stackSizeEdit) - undercut) or 0, true)
+			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(floor(bid / stackSizeEdit) - undercut), true)
 		else
-			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(record.buyout / stackSize)) or 0)
-			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(floor(record.displayedBid / stackSize)))
+			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(record.buyout / stackSize)) or 0, true)
+			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(floor(record.displayedBid / stackSize)), true)
 		end
 		button:SetText(L["Per Unit"])
 	end
 	button:Draw()
 end
 
-function private.BidTextOnValueChanged(text, value)
+function private.BidTextOnValueChanged(text, value, skipUpdate)
 	value = TSM.Money.FromString(value)
 	if value then
 		value = min(value, MAXIMUM_BID_PRICE)
@@ -1570,10 +1571,12 @@ function private.BidTextOnValueChanged(text, value)
 	end
 	text:Draw()
 
-	private.UpdateDepositCost(text:GetParentElement():GetParentElement())
+	if not skipUpdate then
+		private.UpdateDepositCost(text:GetParentElement():GetParentElement())
+	end
 end
 
-function private.BuyoutTextOnValueChanged(text, value)
+function private.BuyoutTextOnValueChanged(text, value, skipUpdate)
 	value = TSM.Money.FromString(value)
 	if value then
 		value = min(value, MAXIMUM_BID_PRICE)
@@ -1581,13 +1584,15 @@ function private.BuyoutTextOnValueChanged(text, value)
 		local bidText = frame:GetElement("bid.text")
 		local bid = TSM.Money.FromString(bidText:GetText())
 		if value > 0 and bid > value then
-			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(value))
+			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(value), skipUpdate)
 		end
 		text:SetText(TSM.Money.ToString(value))
 	end
 	text:Draw()
 
-	private.UpdateDepositCost(text:GetParentElement():GetParentElement())
+	if not skipUpdate then
+		private.UpdateDepositCost(text:GetParentElement():GetParentElement())
+	end
 end
 
 function private.ItemBtnOnClick(button)
@@ -1643,8 +1648,8 @@ function private.QuantityStackInputOnTextChanged(input)
 	end
 
 	local frame = input:GetParentElement():GetParentElement()
-	local record = frame:GetContext()
-	local undercut = record.seller == UnitName("player") and 0 or 1
+	local record = frame:GetParentElement():GetContext()
+	local undercut = record.seller == PLAYER_NAME and 0 or 1
 	local stackSize = record.stackSize
 	local bidText = frame:GetElement("bid.text")
 	local buyoutText = frame:GetElement("buyout.text")

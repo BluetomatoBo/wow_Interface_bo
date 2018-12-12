@@ -181,7 +181,7 @@ function private.FrameOnHide(frame)
 	local baseFrame = frame:GetBaseElement()
 	baseFrame:SetStyle("bottomPadding", nil)
 	baseFrame:Draw()
-	OpenStackSplitFrame()
+	StackSplitFrame:Hide()
 end
 
 function private.SearchInputOnTextChanged(input)
@@ -205,7 +205,11 @@ function private.RowOnClick(table, row, mouseButton)
 		private.splitFrame:SetParent(table:_GetBaseFrame())
 		private.splitFrame:SetAllPoints(table:_GetBaseFrame())
 		private.splitFrame.item = row:GetField("itemString")
-		OpenStackSplitFrame(math.huge, private.splitFrame, "TOPLEFT", "TOPRIGHT")
+		if tonumber((select(2, GetBuildInfo()))) >= 28724 then
+			StackSplitFrame:OpenStackSplitFrame(math.huge, private.splitFrame, "TOPLEFT", "TOPRIGHT")
+		else
+			OpenStackSplitFrame(math.huge, private.splitFrame, "TOPLEFT", "TOPRIGHT")
+		end
 	elseif mouseButton == "RightButton" then
 		TSM.Vendoring.Buy.BuyItem(row:GetFields("itemString", "stackSize"))
 	end

@@ -180,7 +180,7 @@ function private.FrameOnHide(frame)
 	local baseFrame = frame:GetBaseElement()
 	baseFrame:SetStyle("bottomPadding", nil)
 	baseFrame:Draw()
-	OpenStackSplitFrame()
+	StackSplitFrame:Hide()
 end
 
 function private.SearchInputOnTextChanged(input)

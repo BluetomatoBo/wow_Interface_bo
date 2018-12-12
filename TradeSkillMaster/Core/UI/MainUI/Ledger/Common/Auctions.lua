@@ -232,7 +232,7 @@ function private.DrawAuctionsPage()
 						:SetFont(TSM.UI.Fonts.FRIZQT)
 						:SetFontHeight(12)
 						:SetJustifyH("RIGHT")
-						:SetTextInfo("quantity")
+						:SetTextInfo(nil, private.FormatAuctions)
 						:SetSortInfo("quantity")
 						:Commit()
 					:NewColumn("time")
@@ -258,6 +258,10 @@ end
 
 function private.TableGetTimeframeText(record)
 	return SecondsToTime(time() - record)
+end
+
+function private.FormatAuctions(row)
+	return row:GetField("quantity") / row:GetField("stackSize")
 end
 
 

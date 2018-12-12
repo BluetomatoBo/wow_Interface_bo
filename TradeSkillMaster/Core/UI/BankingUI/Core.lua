@@ -317,6 +317,7 @@ function private.DeselectAllBtnOnClick(button)
 end
 
 function private.WarehousingDepositReagentsBtnOnClick()
+	ReagentBankFrame_OnShow(ReagentBankFrame)
 	DepositReagentBank()
 end
 

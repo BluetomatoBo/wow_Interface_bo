@@ -187,8 +187,14 @@ end
 function private.PrepareFriendsInfo()
 	-- wait for friend info to populate
 	ShowFriends()
-	local isValid = true
-	for i = 1, GetNumFriends() do
+	local isValid
+	local num = GetNumFriends()
+	if not num then
+		isValid = false
+	else
+		isValid = true
+	end
+	for i = 1, num or 0 do
 		if not GetFriendInfo(i) then
 			isValid = false
 			break
