@@ -23,7 +23,7 @@ L["%s - Rotate Animation"] = "%s - Animation Rotation"
 L["%s - Scale Animation"] = "%s - Animation Échelle"
 L["%s - Start"] = "%s - Début"
 L["%s - Start Action"] = "%s - Action Début"
-L["%s - Start Custom Text"] = "%s - Texte personnalisé de début"
+L["%s - Start Custom Text"] = "%s - Commencer un texte personnalisé"
 L["%s - Translate Animation"] = "%s - Animation Translation"
 L["%s - Trigger Logic"] = "%s - Logique de déclenchement"
 L["%s Duration Function"] = "%s Fonction de Durée"
@@ -35,16 +35,11 @@ L["%s Texture Function"] = "%s Fonction de Texture"
 L["%s total auras"] = "%s auras au total"
 L["%s Trigger Function"] = "%s Fonction de Déclenchement"
 L["%s Untrigger Function"] = "%s Fonction de Désactivation"
---[[Translation missing --]]
-L["/wa help - Show this message"] = "/wa help - Show this message"
---[[Translation missing --]]
-L["/wa minimap - Toggle the minimap icon"] = "/wa minimap - Toggle the minimap icon"
---[[Translation missing --]]
-L["/wa pprint - Show the results from the most recent profiling"] = "/wa pprint - Show the results from the most recent profiling"
---[[Translation missing --]]
-L["/wa pstart - Start profiling"] = "/wa pstart - Start profiling"
---[[Translation missing --]]
-L["/wa pstop - Finish profiling"] = "/wa pstop - Finish profiling"
+L["/wa help - Show this message"] = "/wa help - Montrer ce message"
+L["/wa minimap - Toggle the minimap icon"] = "/wa minimap - Afficher l'icône sur la mini-carte"
+L["/wa pprint - Show the results from the most recent profiling"] = "/wa pprint - Afficher les résultats du profilage le plus récent"
+L["/wa pstart - Start profiling"] = "/wa pstart - Commencer le profilage"
+L["/wa pstop - Finish profiling"] = "/wa pstop - Arrêter le profilage"
 --[[Translation missing --]]
 L["|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"] = "|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"
 --[[Translation missing --]]
@@ -520,6 +515,8 @@ L["On Cooldown"] = "En Recharge"
 L["Only if Primary"] = "Seulement si primaire"
 L["Opaque"] = "Opaque"
 L["Options will finish loading after combat ends."] = "Les options finiront de se charger après la fin du combat."
+--[[Translation missing --]]
+L["Options will finish loading after the login process has completed."] = "Options will finish loading after the login process has completed."
 L["Orbit"] = "Orbite"
 L["Orientation"] = "Orientation"
 L["Outline"] = "Contour"
@@ -739,6 +736,8 @@ L["Stacks"] = "Piles"
 L["Stacks Text Color"] = "Stacks Text Color"
 --[[Translation missing --]]
 L["Stacks Text Size"] = "Stacks Text Size"
+--[[Translation missing --]]
+L["Stagger Scale"] = "Stagger Scale"
 L["Stance/Form/Aura"] = "Posture/Forme/Aura"
 L["Star"] = "Étoile"
 L["Start Profiling"] = "Démarrer le profilage"
@@ -764,6 +763,8 @@ L["Tanking And Highest"] = "Tank et le plus haut"
 L["Tanking But Not Highest"] = "Tank mais pas le plus haut"
 L["Target"] = "Cible"
 L["Tenacity"] = "Ténacité"
+--[[Translation missing --]]
+L["There are %i updates to your auras ready to be installed!"] = "There are %i updates to your auras ready to be installed!"
 L["Thick Outline"] = "Contour épais"
 L["Third"] = "Troisième"
 --[[Translation missing --]]

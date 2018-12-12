@@ -687,6 +687,8 @@ L["Only if Primary"] = "Only if Primary"
 L["Opaque"] = "Opaco"
 --[[Translation missing --]]
 L["Options will finish loading after combat ends."] = "Options will finish loading after combat ends."
+--[[Translation missing --]]
+L["Options will finish loading after the login process has completed."] = "Options will finish loading after the login process has completed."
 L["Orbit"] = "Orbitar"
 --[[Translation missing --]]
 L["Orientation"] = "Orientation"
@@ -942,6 +944,8 @@ L["Stacks"] = "Acumulaciones"
 L["Stacks Text Color"] = "Stacks Text Color"
 --[[Translation missing --]]
 L["Stacks Text Size"] = "Stacks Text Size"
+--[[Translation missing --]]
+L["Stagger Scale"] = "Stagger Scale"
 L["Stance/Form/Aura"] = "Impostura/Forma/Aura"
 --[[Translation missing --]]
 L["Star"] = "Star"
@@ -976,6 +980,8 @@ L["Tanking But Not Highest"] = "Tanqueando pero no el mas alto"
 L["Target"] = "Objetivo"
 --[[Translation missing --]]
 L["Tenacity"] = "Tenacity"
+--[[Translation missing --]]
+L["There are %i updates to your auras ready to be installed!"] = "There are %i updates to your auras ready to be installed!"
 L["Thick Outline"] = "Linea exterior gruesa"
 --[[Translation missing --]]
 L["Third"] = "Third"

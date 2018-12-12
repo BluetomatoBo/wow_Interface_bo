@@ -1,22 +1,15 @@
-# [2.10.2](https://github.com/WeakAuras/WeakAuras2/tree/2.10.2) (2018-11-28)
+# [2.10.5](https://github.com/WeakAuras/WeakAuras2/tree/2.10.5) (2018-12-12)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.10.1...2.10.2)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.10.4...2.10.5)
 
 ## Highlights
 
-  
+ Better fix for 8.1 issues 
 
 ## Commits
 
-InfusOnWoW (5):
+emptyrivers (2):
 
-- Use a unicode code point from the private use area
-- Fix WeakAuras.RemoveCollapsed
-- Tweak AuthorOptions
-- Fix lua errors for multi bufftriggers
-- Increase min width/height
-
-mrbuds (1):
-
-- fix texteditor crashing on PTR - ticket #971
+- Fix login process (#1015)
+- fix PRD regression
 

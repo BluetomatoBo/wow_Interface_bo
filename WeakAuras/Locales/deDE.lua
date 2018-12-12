@@ -569,6 +569,8 @@ L["Only if Primary"] = "Nur falls Primär"
 L["Opaque"] = "Deckend"
 --[[Translation missing --]]
 L["Options will finish loading after combat ends."] = "Options will finish loading after combat ends."
+--[[Translation missing --]]
+L["Options will finish loading after the login process has completed."] = "Options will finish loading after the login process has completed."
 L["Orbit"] = "Orbit"
 L["Orientation"] = "Ausrichtung"
 L["Outline"] = "Kontur"
@@ -800,6 +802,8 @@ L["Square"] = "Quadrat"
 L["Stacks"] = "Stapel"
 L["Stacks Text Color"] = "Stapel Textfarbe"
 L["Stacks Text Size"] = "Stapel Textgröße"
+--[[Translation missing --]]
+L["Stagger Scale"] = "Stagger Scale"
 L["Stance/Form/Aura"] = "Haltung/Form/Aura"
 L["Star"] = "Stern"
 --[[Translation missing --]]
@@ -830,6 +834,8 @@ L["Tanking But Not Highest"] = "Aggro aber nicht höchste"
 L["Target"] = "Ziel"
 --[[Translation missing --]]
 L["Tenacity"] = "Tenacity"
+--[[Translation missing --]]
+L["There are %i updates to your auras ready to be installed!"] = "There are %i updates to your auras ready to be installed!"
 L["Thick Outline"] = "Dicke Kontur"
 --[[Translation missing --]]
 L["Third"] = "Third"
