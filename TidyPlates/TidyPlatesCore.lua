@@ -1,5 +1,7 @@
 -- Tidy Plates - SMILE! :-D
 
+
+
 ---------------------------------------------------------------------------------------------------------------------
 -- Variables and References
 ---------------------------------------------------------------------------------------------------------------------
@@ -568,6 +570,8 @@ do
 
 		unit.health = UnitHealth(unitid) or 0
 		unit.healthmax = UnitHealthMax(unitid) or 1
+		unit.absorb = UnitGetTotalAbsorbs(unitid)
+		unit.absorbmax = max(unit.absorb, unit.absorbmax or 0)
 
 		unit.threatValue = UnitThreatSituation("player", unitid) or 0
 		unit.threatSituation = ThreatReference[unit.threatValue]
@@ -620,8 +624,9 @@ do
 
 	-- UpdateIndicator_HealthBar: Updates the value on the health bar
 	function UpdateIndicator_HealthBar()
-		visual.healthbar:SetMinMaxValues(0, unit.healthmax)
-		visual.healthbar:SetValue(unit.health)
+		local healthRange = unit.healthmax + unit.absorbmax
+		visual.healthbar:SetMinMaxValues(0, healthRange)
+		visual.healthbar:SetValue(unit.health, unit.absorb)
 	end
 
 
@@ -699,7 +704,9 @@ do
 		if activetheme.SetHealthbarColor then
 			visual.healthbar:SetAllColors(activetheme.SetHealthbarColor(unit))
 
-		else visual.healthbar:SetStatusBarColor(unit.red, unit.green, unit.blue) end
+		else 
+			visual.healthbar:SetStatusBarColor(unit.red, unit.green, unit.blue) 
+		end
 
 		-- Name Color
 		if activetheme.SetNameColor then
@@ -946,6 +953,9 @@ do
 		OnNewNameplate(plate)
 	 end
 
+
+
+
 	function CoreEvents:NAME_PLATE_UNIT_ADDED(...)
 		local unitid = ...
 		local plate = GetNamePlateForUnit(unitid);
@@ -966,6 +976,7 @@ do
 		OnHideNameplate(plate, unitid)
 	end
 
+
 	function CoreEvents:PLAYER_TARGET_CHANGED()
 		HasTarget = UnitExists("target") == true;
 		SetUpdateAll()
@@ -977,6 +988,15 @@ do
 
 		if plate then OnHealthUpdate(plate) end
 	end
+
+
+	function CoreEvents:UNIT_ABSORB_AMOUNT_CHANGED(...)
+		local unitid = ...
+		local plate = PlatesByUnit[unitid]
+
+		if plate then OnHealthUpdate(plate) end
+	end
+
 
 	function CoreEvents:PLAYER_REGEN_ENABLED()
 		InCombat = false
@@ -1017,6 +1037,9 @@ do
 			OnStopCasting(plate)
 		end
 	 end
+
+
+
 
 	function CoreEvents:UNIT_SPELLCAST_CHANNEL_START(...)
 		local unitid = ...

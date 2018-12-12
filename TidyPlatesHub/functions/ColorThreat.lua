@@ -21,6 +21,11 @@ local RaidIconColors = {
 	["SKULL"] = {r = 244/255, g = 242/255, b = 240/255,},
 }
 
+local BossGrey = {r = 251/255, g = 240/255, b = 85/255,}
+local NormalGrey = {r = 251/255, g = 240/255, b = 85/255,}
+local EliteColor  = {r = 251/255, g = 240/255, b = 85/255,}
+local RareColor  = {r = 251/255, g = 240/255, b = 85/255,}
+
 local ReactionColors = HubData.Colors.ReactionColors
 local NameReactionColors = HubData.Colors.NameReactionColors
 
@@ -330,6 +335,8 @@ local WarningBorderFunctionsUniversal = { DummyFunction, WarningBorderFunctionBy
 local function ThreatColorDelegate(unit)
 	local color
 
+
+
 	-- Friendly Unit Aggro
 	if LocalVars.ColorShowPartyAggro and LocalVars.ColorPartyAggroGlow and unit.reaction == "FRIENDLY" then
 		if GetFriendlyThreat(unit.unitid) then color = LocalVars.ColorPartyAggro end
@@ -342,6 +349,7 @@ local function ThreatColorDelegate(unit)
 			color = WarningBorderFunctionByThreat(unit)
 		end
 
+		--if color then print(color.r, color.g, color.b) end
 		-- Players
 		-- Check for Healer?  By Threat does this.
 	end
@@ -352,9 +360,13 @@ local function ThreatColorDelegate(unit)
 	end
 	--]]
 
+
+
+
 	if color then return color.r, color.g, color.b, 1
 	else return 0, 0, 0, 0 end
 end
+
 
 
 
@@ -375,14 +387,21 @@ end
 -- By Significance
 local function NameColorBySignificance(unit)
 	-- [[
+
 	if unit.reaction ~= "FRIENDLY" then
-		if (unit.isTarget or (LocalVars.FocusAsTarget and unit.isFocus)) then return White
-		elseif unit.isBoss or unit.isMarked then return BossGrey
-		elseif unit.isElite or (unit.levelcolorRed > .9 and unit.levelcolorGreen < .9) then return EliteGrey
+		if (unit.isTarget or (LocalVars.FocusAsTarget and unit.isFocus)) then 
+			return White
+		elseif unit.isBoss or unit.isMarked then 
+			return BossGrey
+		elseif unit.isElite or (unit.levelcolorRed > .9 and unit.levelcolorGreen < .9) then 
+			return EliteColor
 		else return NormalGrey end
 	else
 		return NameColorByReaction(unit)
 	end
+
+
+
 	--]]
 	--[[
 	if unit.reaction == "FRIENDLY" then return White
@@ -537,6 +556,7 @@ local function SetNameColorDelegate(unit)
 	--else
 		color = func(unit)
 	--end
+
 
 
 	if color then
