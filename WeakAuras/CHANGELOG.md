@@ -1,15 +1,18 @@
-# [2.10.5](https://github.com/WeakAuras/WeakAuras2/tree/2.10.5) (2018-12-12)
+# [2.10.10](https://github.com/WeakAuras/WeakAuras2/tree/2.10.10) (2018-12-14)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.10.4...2.10.5)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.10.9...2.10.10)
 
 ## Highlights
 
- Better fix for 8.1 issues 
+ Update TOC for Patch 8.1 
 
 ## Commits
 
-emptyrivers (2):
+Stanzilla (1):
 
-- Fix login process (#1015)
-- fix PRD regression
+- update TOC for Patch 8.1
+
+emptyrivers (1):
+
+- fix ScanForLoads (#1027)
 

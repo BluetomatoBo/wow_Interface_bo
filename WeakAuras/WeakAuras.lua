@@ -1356,13 +1356,17 @@ local loginThread = coroutine.create(function()
   WeakAuras.RegisterLoadEvents();
   WeakAuras.Resume();
   coroutine.yield();
-  for _, callback in ipairs(loginQueue) do
-    if type(callback) == 'table' then
-      callback[1](unpack(callback[2]))
+
+  local nextCallback = loginQueue[1];
+  while nextCallback do
+    tremove(loginQueue, 1);
+    if type(nextCallback) == 'table' then
+      nextCallback[1](unpack(nextCallback[2]))
     else
-      callback()
+      nextCallback()
     end
     coroutine.yield();
+    nextCallback = loginQueue[1];
   end
 end)
 
@@ -1421,8 +1425,8 @@ loadedFrame:SetScript("OnEvent", function(self, event, addon)
   elseif(event == "LOADING_SCREEN_ENABLED") then
     in_loading_screen = true;
   elseif(event == "LOADING_SCREEN_DISABLED") then
-  else
     in_loading_screen = false;
+  else
     local callback
     if(event == "PLAYER_ENTERING_WORLD") then
       -- Schedule events that need to be handled some time after login
@@ -1449,7 +1453,11 @@ loadedFrame:SetScript("OnEvent", function(self, event, addon)
         end
       end
     end
-    loginQueue[#loginQueue + 1] = callback
+    if WeakAuras.IsLoginFinished() then
+      callback()
+    else
+      loginQueue[#loginQueue + 1] = callback
+    end
   end
 end);
 
@@ -1591,11 +1599,8 @@ function WeakAuras.CreateEncounterTable(encounter_id)
   return WeakAuras.CurrentEncounter
 end
 
-function WeakAuras.LoadEncounterInitScripts(id)
-  if not WeakAuras.IsLoginFinished() then
-    loginQueue[#loginQueue + 1] = {WeakAuras.LoadEncounterInitScripts, {id}}
-    return
-  end
+local encounterScriptsDeferred = {}
+local function LoadEncounterInitScriptsImpl(id)
   if (WeakAuras.currentInstanceType ~= "raid") then
     return
   end
@@ -1605,6 +1610,7 @@ function WeakAuras.LoadEncounterInitScripts(id)
       WeakAuras.ActivateAuraEnvironment(id)
       WeakAuras.ActivateAuraEnvironment(nil)
     end
+    encounterScriptsDeferred[id] = nil
   else
     for id, data in pairs(db.displays) do
       if (data.load.use_encounterid and not WeakAuras.IsEnvironmentInitialized(id) and data.actions.init and data.actions.init.do_custom) then
@@ -1613,6 +1619,18 @@ function WeakAuras.LoadEncounterInitScripts(id)
       end
     end
   end
+end
+
+function WeakAuras.LoadEncounterInitScripts(id)
+  if not WeakAuras.IsLoginFinished() then
+    if encounterScriptsDeferred[id] then
+      return
+    end
+    loginQueue[#loginQueue + 1] = {LoadEncounterInitScriptsImpl, {id}}
+    encounterScriptsDeferred[id] = true
+    return
+  end
+  LoadEncounterInitScriptsImpl(id)
 end
 
 function WeakAuras.UpdateCurrentInstanceType(instanceType)
@@ -1634,11 +1652,7 @@ end
 
 local toLoad = {}
 local toUnload = {};
-function WeakAuras.ScanForLoads(self, event, arg1, ...)
-  if not WeakAuras.IsLoginFinished() then
-    loginQueue[#loginQueue + 1] = WeakAuras.ScanForLoads
-    return
-  end
+local function scanForLoadsImpl(self, event, arg1, ...)
   if (WeakAuras.IsOptionsProcessingPaused()) then
     return;
   end
@@ -1780,6 +1794,13 @@ function WeakAuras.ScanForLoads(self, event, arg1, ...)
   wipe(toUnload)
 end
 
+function WeakAuras.ScanForLoads(self, event, arg1, ...)
+  if not WeakAuras.IsLoginFinished() then
+    return
+  end
+  scanForLoadsImpl(self, event, arg1, ...)
+end
+
 local loadFrame = CreateFrame("FRAME");
 WeakAuras.loadFrame = loadFrame;
 WeakAuras.frames["Display Load Handling"] = loadFrame;
@@ -1835,7 +1856,7 @@ end
 
 function WeakAuras.ReloadAll()
   WeakAuras.UnloadAll();
-  WeakAuras.ScanForLoads();
+  scanForLoadsImpl();
 end
 
 function WeakAuras.UnloadAll()
@@ -4156,6 +4177,7 @@ end
 do
   local customTextUpdateFrame;
   local updateRegions = {};
+  local initRequested = false
 
   local function DoCustomTextUpdates()
     WeakAuras.StartProfileSystem("custom text - every frame update");
@@ -4173,16 +4195,26 @@ do
     WeakAuras.StopProfileSystem("custom text - every frame update");
   end
 
-  function WeakAuras.InitCustomTextUpdates()
-    if not WeakAuras.IsLoginFinished() then
-      loginQueue[#loginQueue] = WeakAuras.InitCustomTextUpdates
-      return
-    end
+  local function InitCustomTextUpdatesImpl()
     if not(customTextUpdateFrame) then
       customTextUpdateFrame = CreateFrame("frame");
       customTextUpdateFrame:SetScript("OnUpdate", DoCustomTextUpdates);
     end
   end
+
+  function WeakAuras.InitCustomTextUpdates()
+    if not WeakAuras.IsLoginFinished() then
+      if initRequested then
+        return
+      end
+      loginQueue[#loginQueue] = InitCustomTextUpdatesImpl
+      initRequested = true
+      return
+    end
+    InitCustomTextUpdatesImpl()
+  end
+
+
 
   function WeakAuras.RegisterCustomTextUpdates(region)
     WeakAuras.InitCustomTextUpdates();
