@@ -102,6 +102,8 @@ L["S_MAPBAR_SUMMARYMENU_TODAYREWARDS"] = "Récompenses du jour"
 L["S_MAPFRAME_ALIGN_CENTER"] = "centrer"
 L["S_MAPFRAME_ALIGN_DESC"] = "|cFF22FF22Cliquez|r pour activer pour basculer l'alignement du cadre de la carte de gauche au centre, et du centre à gauche de l'écran."
 L["S_MAPFRAME_ALIGN_LEFT"] = "gauche"
+--[[Translation missing --]]
+--[[ L["S_OPTIONS_ANIMATIONS"] = ""--]] 
 L["S_OPTIONS_MAPFRAME_ALIGN"] = "Cadre de la carte centré"
 L["S_OPTIONS_MAPFRAME_ERROR_SCALING_DISABLED"] = "Vous devez activer 'Echelle du cadre de la carte' avant, aucune valeur n'à changé"
 L["S_OPTIONS_MAPFRAME_SCALE"] = [=[Échelle de la carte

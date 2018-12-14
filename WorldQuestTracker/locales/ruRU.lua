@@ -101,6 +101,8 @@ L["S_MAPBAR_SUMMARYMENU_TODAYREWARDS"] = "Награды за сегодня"
 --[[Translation missing --]]
 --[[ L["S_MAPFRAME_ALIGN_LEFT"] = ""--]] 
 --[[Translation missing --]]
+--[[ L["S_OPTIONS_ANIMATIONS"] = ""--]] 
+--[[Translation missing --]]
 --[[ L["S_OPTIONS_MAPFRAME_ALIGN"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["S_OPTIONS_MAPFRAME_ERROR_SCALING_DISABLED"] = ""--]] 

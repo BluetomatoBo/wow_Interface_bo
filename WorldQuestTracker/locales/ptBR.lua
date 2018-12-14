@@ -96,6 +96,8 @@ L["S_MAPBAR_SUMMARYMENU_TODAYREWARDS"] = "Conquistas de Hoje"
 L["S_MAPFRAME_ALIGN_CENTER"] = "centro"
 L["S_MAPFRAME_ALIGN_DESC"] = "|cFF22FF22Clique|r para alternar o alinhamento da janela do mapa do centro para a esquerda e da esquerda para o centro da sua tela."
 L["S_MAPFRAME_ALIGN_LEFT"] = "esquerda"
+--[[Translation missing --]]
+--[[ L["S_OPTIONS_ANIMATIONS"] = ""--]] 
 L["S_OPTIONS_MAPFRAME_ALIGN"] = "Janela do Mapa Centralizada"
 --[[Translation missing --]]
 --[[ L["S_OPTIONS_MAPFRAME_ERROR_SCALING_DISABLED"] = ""--]] 
