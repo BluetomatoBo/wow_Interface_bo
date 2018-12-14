@@ -1,3 +1,5 @@
+local _G = getfenv(0)
+
 local AtlasLoot = _G.AtlasLoot
 
 -- lua
@@ -19,9 +21,7 @@ local months = {
 	MONTH_DECEMBER,
 }
 
-
-local GetAchievementInfo, GetAchievementCriteriaInfo = GetAchievementInfo, GetAchievementCriteriaInfo
-local GetMapNameByID = GetMapNameByID
+local GetAchievementInfo, UnitSex, GetFactionInfoByID = _G.GetAchievementInfo, _G.UnitSex, _G.GetFactionInfoByID
 
 local function GetSpecNameById(id)
 	_, tmp1 = GetSpecializationInfoByID(id)
@@ -125,7 +125,7 @@ local IngameLocales = {
 	["Hyjal Summit"] = GetMapInfo(329).name,
 	["Karazhan"] = GetMapInfo(350).name,
 	["Magtheridon's Lair"] = GetMapInfo(331).name,
-	["Outland"] = GetAchievementCriteriaInfo(46,3),
+	["Outland"] = GetMapInfo(101).name,
 	["Serpentshrine Cavern"] = GetMapInfo(332).name,
 	["Shattrath City"] = GetMapInfo(111).name,
 	["Sunwell Plateau"] = GetMapInfo(335).name,
@@ -137,7 +137,7 @@ local IngameLocales = {
 	["Icecrown"] = GetMapInfo(118).name,
 	["Icecrown Citadel"] = GetMapInfo(186).name,
 	["Naxxramas"] = GetMapInfo(162).name,
-	["Northrend"] = GetAchievementCriteriaInfo(46,4),
+	["Northrend"] = GetMapInfo(113).name,
 	["Onyxia's Lair"] = GetMapInfo(248).name,
 	["The Eye of Eternity"] = GetMapInfo(141).name,
 	["The Obsidian Sanctum"] = GetMapInfo(155).name,

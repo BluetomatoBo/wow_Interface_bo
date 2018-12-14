@@ -30,8 +30,11 @@ local STRING_GREEN = "|cff1eff00"
 
 local PRICE_INFO = {
 	-- items
+	["PetCharm"]		= { itemID = 163036 }, -- Polished Pet Charm, added in patch 8.0.1.26624
 	["markofhonor"] 	= { itemID = 137642 }, -- Mark of Honor
 	["bfclaw"] 		= { itemID = 124099 }, -- Blackfang Claw
+	["luckycoin"] 		= { itemID = 117397 }, -- Nat's Lucky Coin, added in 6.0.1
+	["vicioussaddle"] 	= { itemID = 103533 }, -- Vicious Saddle, added in 5.4.0
 	["brewfest"] 		= { itemID = 37829 }, -- Brewfest Prize Token
 	["burningblossom"] 	= { itemID = 23247 }, -- Burning Blossom
 	["lovetoken"] 		= { itemID = 49927 }, -- Love Token
@@ -39,8 +42,6 @@ local PRICE_INFO = {
 	["spiritofharmony"] 	= { itemID = 76061 }, -- Spirit of Harmony
 	["trickytreat"] 	= { itemID = 33226 }, -- Tricky Treat
 	["ancestrycoin"] 	= { itemID = 21100 }, -- Coin of Ancestry
-	["vicioussaddle"] 	= { itemID = 103533 }, -- Vicious Saddle, added in 5.4.0
-	["luckycoin"] 		= { itemID = 117397 }, -- Nat's Lucky Coin, added in 6.0.1
 	["forlorn"] 		= { itemID = 66998 }, -- Essence of the Forlorn, Added in patch 4.0.1.12984
 	["65000"] = { itemID = 65000 }, -- Crown of the Forlorn Protector
 	["65001"] = { itemID = 65001 }, -- Crown of the Forlorn Conqueror
@@ -143,22 +144,22 @@ local PRICE_INFO = {
 	["ArgusWaystone"]	= { currencyID = 1506 }, -- Argus Waystone, added in 7.3.0
 	["VeiledArgunite"]	= { currencyID = 1508 }, -- Veiled Argunite, added in 7.3.0
 	["echoofbattle"] 	= { currencyID = 1356 }, -- added in 7.2.0, LegionPVPTier1
-	["echoofdomination"] = { currencyID = 1357 }, -- added in 7.2.0, LegionPVPTier4
+	["echoofdomination"] 	= { currencyID = 1357 }, -- added in 7.2.0, LegionPVPTier4
 	["brawlergold"] 	= {currencyID = 1299}, -- Brawler's Gold, Added in patch 7.1.5.23360
 	["nethershard"] 	= { currencyID = 1226 },
 	["orderresources"] 	= { currencyID = 1220 },
-	["apexis"] 			= { currencyID = 823 },
+	["apexis"] 		= { currencyID = 823 },
 	["artifactfragment"] 	= { currencyID = 944 },
 	["bloodycoin"] 		= { currencyID = 789 },
 	["championsseal"] 	= { currencyID = 241 },
 	["conquest"] 		= { currencyID = 390 }, -- has been removed since 7.0.3
-	["honor"] 			= { currencyID = 392 }, -- has been removed since 7.0.3
+	["honor"] 		= { currencyID = 392 }, -- has been removed since 7.0.3
 	["darkmoon"] 		= { currencyID = 515 },
 	["eldercharm"] 		= { currencyID = 697 },
 	["timelesscoin"] 	= { currencyID = 777 },
 	["tolbarad"] 		= { currencyID = 391 },
 	["worldtree"] 		= { currencyID = 416 },
-	["valor"] 			= {currencyID = 1191},
+	["valor"] 		= {currencyID = 1191},
 	["timewarped"] 		= {currencyID = 1166}, -- Timewarped Badge
 	-- others
 	["money"] 		= { func = GetCoinTextureString },

@@ -24,14 +24,25 @@ data["BFAFACTIONS"] = {
 			FactionID = 2164,
 			CoinTexture = "Reputation",
 			[NORMAL_DIFF] = {
-				{ 1, "f2164rep6" },
-				{ 2, 160537, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Drape of the Azerothian Champion
-				{ 4, "f2164rep8" },
-				{ 5, 161555, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, --Azerothian Champion's Crown
-				{ 6, 161557, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, --Vest of the Azerothian Champion
-				{ 7, 161560, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, --Azerothian Champion's Spaulders
-				{ 8, 161563, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, --Helm of the Azerothian Champion
-				{ 9, 160544, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, --Champions of Azeroth Tabard
+				{ 1, "f2164rep5" }, -- Friendly
+				{ 2, 153668, }, -- Contract: Champions of Azeroth
+				{ 4, "f2164rep6" }, -- Honored
+				{ 5, 160537, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Drape of the Azerothian Champion
+				{ 7, "f2164rep7" }, -- Revered
+				-- ?{ 8, 163560, [PRICE_EXTRA_ITTYPE] = "PetCharm:200" }, -- Saurolisk Hatchling
+				{ 8, 163515, [PRICE_EXTRA_ITTYPE] = "PetCharm:100" }, -- Drop of Azerite
+				{ 9, 163555, [PRICE_EXTRA_ITTYPE] = "PetCharm:200" }, -- Drop of Azerite
+				{ 10, 163553, }, -- Digitized Assistant
+				{ 11, 163554, }, -- Finicky Gauntlet
+				{ 12, 163556, }, -- Mechanized Gulper
+				{ 13, 163557, }, -- Gigan Tarantula
+				{ 14, 163559, }, -- Queen Cobra
+				{ 16, "f2164rep8" }, -- Exalted
+				{ 17, 161555, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, -- Azerothian Champion's Crown
+				{ 18, 161557, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, -- Vest of the Azerothian Champion
+				{ 19, 161560, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, -- Azerothian Champion's Spaulders
+				{ 20, 161563, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, -- Helm of the Azerothian Champion
+				{ 21, 160544, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Champions of Azeroth Tabard
 			},
 		},
 		{ -- AH Tortollan Seekers
