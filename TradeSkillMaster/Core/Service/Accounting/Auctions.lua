@@ -10,6 +10,7 @@ local _, TSM = ...
 local Auctions = TSM.Accounting:NewPackage("Auctions")
 local private = { db = nil, numExpiresQuery = nil, dataChanged = false }
 local COMBINE_TIME_THRESHOLD = 300 -- group expenses within 5 minutes together
+local REMOVE_OLD_THRESHOLD = 365 * 24 * 60 * 60 -- remove records over 1 year old
 local CSV_KEYS = { "itemString", "stackSize", "quantity", "player", "time" }
 local DB_SCHEMA = {
 	fields = {
@@ -149,12 +150,13 @@ function private.LoadData(recordType, csvRecords, csvSaveTimes)
 		return
 	end
 
+	local removeTime = time() - REMOVE_OLD_THRESHOLD
 	for index, record in ipairs(records) do
 		local itemString = TSMAPI_FOUR.Item.ToItemString(record.itemString)
 		if itemString then
 			local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
 			local saveTime = tonumber(saveTimes[index])
-			if type(record.stackSize) == "number" and type(record.quantity) == "number" and type(record.player) == "string" and type(record.time) == "number" then
+			if type(record.stackSize) == "number" and type(record.quantity) == "number" and type(record.player) == "string" and type(record.time) == "number" and record.time > removeTime then
 				local newTime = floor(record.time)
 				if newTime ~= record.time then
 					-- make sure all timestamps are stored as integers
@@ -162,6 +164,8 @@ function private.LoadData(recordType, csvRecords, csvSaveTimes)
 					record.time = newTime
 				end
 				private.db:BulkInsertNewRow(recordType, itemString, baseItemString, record.stackSize, record.quantity, record.player, record.time, saveTime)
+			else
+				private.dataChanged = true
 			end
 		end
 	end
