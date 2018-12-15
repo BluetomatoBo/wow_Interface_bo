@@ -10,7 +10,7 @@
 -- @submodule Item
 
 local _, TSM = ...
-local private = { bonusIdCache = {}, bonusIdTemp = {}, itemStringCache = {}, filteredItemStringCache = {} }
+local private = { bonusIdCache = {}, bonusIdTemp = {}, itemStringCache = {}, filteredItemStringCache = {}, baseItemStringCache = {} }
 local ITEM_UPGRADE_VALUE_SHIFT = 1000000
 
 
@@ -50,9 +50,22 @@ end
 
 --- Converts the parameter into a base itemString.
 -- @tparam string item An item to get the base itemString of
+-- @treturn string The base itemString
+function TSMAPI_FOUR.Item.ToBaseItemStringFast(itemString)
+	if not itemString then
+		return nil
+	end
+	if not private.baseItemStringCache[itemString] then
+		private.baseItemStringCache[itemString] = strmatch(itemString, "([ip]:%d+)")
+	end
+	return private.baseItemStringCache[itemString]
+end
+
+--- Converts the parameter into a base itemString.
+-- @tparam string item An item to get the base itemString of
 -- @tparam[opt=false] boolean doGroupLookup If true, will decide whether or not to convert to a baseItemString based on
 -- whether or not this specific item is in a group (preserve the full itemString) or not (convert to a baseItemString)
--- @treturn number The base itemString
+-- @treturn string The base itemString
 function TSMAPI_FOUR.Item.ToBaseItemString(item, doGroupLookup)
 	-- make sure it's a valid itemString
 	local itemString = TSMAPI_FOUR.Item.ToItemString(item)

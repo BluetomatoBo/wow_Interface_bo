@@ -42,8 +42,10 @@ local DB_SCHEMA = {
 
 function Money.OnInitialize()
 	private.db = TSMAPI_FOUR.Database.New(DB_SCHEMA, "ACCOUNTING_MONEY")
+	private.db:BulkInsertStart()
 	private.LoadData("expense", TSM.db.realm.internalData.csvExpense)
 	private.LoadData("income", TSM.db.realm.internalData.csvIncome)
+	private.db:BulkInsertEnd()
 end
 
 function Money.OnDisable()
@@ -108,7 +110,6 @@ function private.LoadData(recordType, csvRecords)
 	if not records then
 		return
 	end
-	private.db:BulkInsertStart()
 	for _, record in ipairs(records) do
 		-- convert from old (TSM3) keys if necessary
 		local otherPlayer = record.otherPlayer or record.destination or record.source
@@ -121,7 +122,6 @@ function private.LoadData(recordType, csvRecords)
 			private.db:BulkInsertNewRow(recordType, record.type, record.amount, otherPlayer, record.player, record.time)
 		end
 	end
-	private.db:BulkInsertEnd()
 end
 
 function private.SaveData(recordType)

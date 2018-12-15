@@ -17,53 +17,54 @@ local TIME_WARNING_THRESHOLD_MS = 20
 -- Event Handling
 -- ============================================================================
 
-function private.EventHandler(event, arg1)
-	if event == "PLAYER_LOGOUT" then
-		for _, addon in ipairs(private.disableQueue) do
-			if addon.OnDisable then
-				addon.OnDisable()
-			end
-		end
-		wipe(private.disableQueue)
-	else
-		if event == "ADDON_LOADED" and arg1 == "Blizzard_DebugTools" then
-			-- need to ignore this event according to comments in AceAddon
-			return
-		end
-		for _, addon in ipairs(private.initializeQueue) do
-			if addon.OnInitialize then
-				local startTime = debugprofilestop()
-				addon.OnInitialize()
-				local timeTaken = debugprofilestop() - startTime
-				if timeTaken > TIME_WARNING_THRESHOLD_MS then
-					TSM:LOG_WARN("OnInitialize (%s) took %0.2fms", addon, timeTaken)
-				end
-			end
-			tinsert(private.enableQueue, addon)
-		end
-		wipe(private.initializeQueue)
+function private.AddonLoadedHandler(event, addonName)
+	if addonName ~= "TradeSkillMaster" then
+		return
+	end
 
-		if IsLoggedIn() then
-			for _, addon in ipairs(private.enableQueue) do
-				if addon.OnEnable then
-					local startTime = debugprofilestop()
-					addon.OnEnable()
-					local timeTaken = debugprofilestop() - startTime
-					if timeTaken > TIME_WARNING_THRESHOLD_MS then
-						TSM:LOG_WARN("OnEnable (%s) took %0.2fms", addon, timeTaken)
-					end
-				end
-				tinsert(private.disableQueue, addon)
+	for _, addon in ipairs(private.initializeQueue) do
+		if addon.OnInitialize then
+			local startTime = debugprofilestop()
+			addon.OnInitialize()
+			local timeTaken = debugprofilestop() - startTime
+			if timeTaken > TIME_WARNING_THRESHOLD_MS then
+				TSM:LOG_WARN("OnInitialize (%s) took %0.2fms", addon, timeTaken)
 			end
-			wipe(private.enableQueue)
+		end
+		tinsert(private.enableQueue, addon)
+	end
+	TSMAPI_FOUR.Event.Unregister("ADDON_LOADED", private.AddonLoadedHandler)
+	wipe(private.initializeQueue)
+end
+
+function private.PlayerLoginHandler()
+	for _, addon in ipairs(private.enableQueue) do
+		if addon.OnEnable then
+			local startTime = debugprofilestop()
+			addon.OnEnable()
+			local timeTaken = debugprofilestop() - startTime
+			if timeTaken > TIME_WARNING_THRESHOLD_MS then
+				TSM:LOG_WARN("OnEnable (%s) took %0.2fms", addon, timeTaken)
+			end
+		end
+		tinsert(private.disableQueue, addon)
+	end
+	wipe(private.enableQueue)
+end
+
+function private.PlayerLogoutHandler()
+	for _, addon in ipairs(private.disableQueue) do
+		if addon.OnDisable then
+			addon.OnDisable()
 		end
 	end
+	wipe(private.disableQueue)
 end
 
 do
-	TSMAPI_FOUR.Event.Register("ADDON_LOADED", private.EventHandler)
-	TSMAPI_FOUR.Event.Register("PLAYER_LOGIN", private.EventHandler)
-	TSMAPI_FOUR.Event.Register("PLAYER_LOGOUT", private.EventHandler)
+	TSMAPI_FOUR.Event.Register("ADDON_LOADED", private.AddonLoadedHandler)
+	TSMAPI_FOUR.Event.Register("PLAYER_LOGIN", private.PlayerLoginHandler)
+	TSMAPI_FOUR.Event.Register("PLAYER_LOGOUT", private.PlayerLogoutHandler)
 end
 
 

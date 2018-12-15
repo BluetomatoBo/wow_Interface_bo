@@ -145,5 +145,5 @@ function private.ClearBtnOnClick(button)
 end
 
 function private.ClearDataConfirmed(days)
-	TSM:Printf(L["Removed a total of %s old records."], TSM.Accounting.Transactions.RemoveOldData(days) + TSM.Accounting.Money.RemoveOldData(days))
+	TSM:Printf(L["Removed a total of %s old records."], TSM.Accounting.Transactions.RemoveOldData(days) + TSM.Accounting.Money.RemoveOldData(days) + TSM.Accounting.Auctions.RemoveOldData(days))
 end

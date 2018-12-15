@@ -287,6 +287,10 @@ function private.AuctionsOnSelectionChanged()
 end
 
 function private.AuctionsOnDataUpdated()
+	if not private.frame then
+		return
+	end
+
 	private.fsm:ProcessEvent("EV_DATA_UPDATED")
 end
 

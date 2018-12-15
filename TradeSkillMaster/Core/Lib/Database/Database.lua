@@ -116,59 +116,6 @@ function Database.FieldIterator(self)
 	return TSMAPI_FOUR.Util.TableKeyIterator(self._schema.fields)
 end
 
---- Perform a raw insert into the DB.
--- This function skips all of the normal checks, but is very performant, so use with great care.
--- @tparam Database self The database object
--- @param ... The data to insert
-function Database.RawInsert(self, ...)
-	local numFields = select("#", ...)
-	local v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, extra = ...
-	if extra ~= nil then
-		error("Too many values")
-	end
-	local uuid = TSM.Database.GetNextUUID()
-	local rowIndex = #self._data + 1
-	self._uuids[#self._uuids + 1] = uuid
-	self._uuidToDataOffsetLookup[uuid] = rowIndex
-	for _ = 1, 1 do
-		self._data[rowIndex] = v1
-		if numFields == 1 then break end
-		self._data[rowIndex + 1] = v2
-		if numFields == 2 then break end
-		self._data[rowIndex + 2] = v3
-		if numFields == 3 then break end
-		self._data[rowIndex + 3] = v4
-		if numFields == 4 then break end
-		self._data[rowIndex + 4] = v5
-		if numFields == 5 then break end
-		self._data[rowIndex + 5] = v6
-		if numFields == 6 then break end
-		self._data[rowIndex + 6] = v7
-		if numFields == 7 then break end
-		self._data[rowIndex + 7] = v8
-		if numFields == 8 then break end
-		self._data[rowIndex + 8] = v9
-		if numFields == 9 then break end
-		self._data[rowIndex + 9] = v10
-		if numFields == 10 then break end
-		self._data[rowIndex + 10] = v11
-		if numFields == 11 then break end
-		self._data[rowIndex + 11] = v12
-		if numFields == 12 then break end
-		self._data[rowIndex + 12] = v13
-		if numFields == 13 then break end
-		self._data[rowIndex + 13] = v14
-		if numFields == 14 then break end
-		self._data[rowIndex + 14] = v15
-		if numFields == 15 then break end
-		self._data[rowIndex + 15] = v16
-	end
-	for uniqueField, uniqueValues in pairs(self._uniques) do
-		local value = self._data[rowIndex + self._fields[uniqueField] - 1]
-		uniqueValues[value] = uuid
-	end
-end
-
 --- Create a new row.
 -- @tparam Database self The database object
 -- @treturn DatabaseRow The new database row object
@@ -418,6 +365,9 @@ function Database.BulkInsertStart(self)
 			self._bulkInsertContext.indexValues[field][uuid] = self:_GetRowIndexValue(uuid, field)
 		end
 	end
+	if not next(self._uniques) and #self._multiFieldIndexFields == 0 and TSMAPI_FOUR.Util.Count(self._indexLists) == 1 and self._indexLists[self._fields[1]] then
+		self._bulkInsertContext.fastNum = #self._fields
+	end
 	self:SetQueryUpdatesPaused(true)
 end
 
@@ -502,6 +452,38 @@ function Database.BulkInsertNewRow(self, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10
 	end
 end
 
+function Database.BulkInsertNewRowFast8(self, v1, v2, v3, v4, v5, v6, v7, v8, extraValue)
+	if not self._bulkInsertContext then
+		error("Bulk insert hasn't been started")
+	elseif self._bulkInsertContext.fastNum ~= 8 then
+		error("Invalid usage of fast insert")
+	elseif v8 == nil or extraValue ~= nil then
+		error("Wrong number of values")
+	elseif not self._bulkInsertContext.hasNewData then
+		self._bulkInsertContext.hasNewData = true
+		for _, indexList in pairs(self._indexLists) do
+			wipe(indexList)
+		end
+	end
+
+	local uuid = TSM.Database.GetNextUUID()
+	local rowIndex = #self._data + 1
+	self._uuidToDataOffsetLookup[uuid] = rowIndex
+	self._uuids[#self._uuids + 1] = uuid
+
+	self._data[rowIndex] = v1
+	self._data[rowIndex + 1] = v2
+	self._data[rowIndex + 2] = v3
+	self._data[rowIndex + 3] = v4
+	self._data[rowIndex + 4] = v5
+	self._data[rowIndex + 5] = v6
+	self._data[rowIndex + 6] = v7
+	self._data[rowIndex + 7] = v8
+
+	-- the first field is always an index (and the only index)
+	self._bulkInsertContext.indexValues[self._fields[1]][uuid] = v1
+end
+
 --- Ends a bulk insert into the database.
 -- @tparam Database self The database object
 function Database.BulkInsertEnd(self)
@@ -509,9 +491,9 @@ function Database.BulkInsertEnd(self)
 	if self._bulkInsertContext.hasNewData then
 		for field, indexList in pairs(self._indexLists) do
 			private.indexListSortValues = self._bulkInsertContext.indexValues[field]
-			for i = 1, #self._uuids do
-				indexList[i] = self._uuids[i]
-				assert(private.indexListSortValues[indexList[i]] ~= nil)
+			for i, uuid in ipairs(self._uuids) do
+				indexList[i] = uuid
+				assert(private.indexListSortValues[uuid] ~= nil)
 			end
 			sort(indexList, private.IndexListSortHelper)
 			private.indexListSortValues = nil

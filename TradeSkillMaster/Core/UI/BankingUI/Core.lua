@@ -150,6 +150,7 @@ function private.GroupTreeGetList(groups, headerNameLookup)
 end
 
 function private.UpdateCurrentModule(frame)
+	ReagentBankFrame_OnShow(ReagentBankFrame)
 	-- update nav buttons
 	local navButtonsFrame = frame:GetElement("content.navButtons")
 	for _, module in ipairs(MODULE_LIST) do
@@ -317,7 +318,6 @@ function private.DeselectAllBtnOnClick(button)
 end
 
 function private.WarehousingDepositReagentsBtnOnClick()
-	ReagentBankFrame_OnShow(ReagentBankFrame)
 	DepositReagentBank()
 end
 

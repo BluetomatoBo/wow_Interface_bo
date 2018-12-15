@@ -11,12 +11,13 @@ local Auctions = TSM.Accounting:NewPackage("Auctions")
 local private = { db = nil, numExpiresQuery = nil, dataChanged = false }
 local COMBINE_TIME_THRESHOLD = 300 -- group expenses within 5 minutes together
 local REMOVE_OLD_THRESHOLD = 365 * 24 * 60 * 60 -- remove records over 1 year old
+local SECONDS_PER_DAY = 24 * 60 * 60
 local CSV_KEYS = { "itemString", "stackSize", "quantity", "player", "time" }
 local DB_SCHEMA = {
 	fields = {
+		baseItemString = "string",
 		type = "string",
 		itemString = "string",
-		baseItemString = "string",
 		stackSize = "number",
 		quantity = "number",
 		player = "string",
@@ -24,13 +25,12 @@ local DB_SCHEMA = {
 		saveTime = "number",
 	},
 	fieldAttributes = {
-		type = { "index" },
 		baseItemString = { "index" },
 	},
 	fieldOrder = {
+		"baseItemString",
 		"type",
 		"itemString",
-		"baseItemString",
 		"stackSize",
 		"quantity",
 		"player",
@@ -137,6 +137,21 @@ function Auctions.CreateQuery()
 	return private.db:NewQuery()
 end
 
+function Auctions.RemoveOldData(days)
+	private.dataChanged = true
+	local query = private.db:NewQuery()
+		:LessThan("time", time() - days * SECONDS_PER_DAY)
+	local numRecords = 0
+	private.db:SetQueryUpdatesPaused(true)
+	for _, row in query:Iterator() do
+		private.db:DeleteRow(row)
+		numRecords = numRecords + 1
+	end
+	query:Release()
+	private.db:SetQueryUpdatesPaused(false)
+	return numRecords
+end
+
 
 
 -- ============================================================================
@@ -144,30 +159,43 @@ end
 -- ============================================================================
 
 function private.LoadData(recordType, csvRecords, csvSaveTimes)
-	local _, records = TSMAPI_FOUR.CSV.Decode(csvRecords)
 	local saveTimes = TSMAPI_FOUR.Util.SafeStrSplit(csvSaveTimes, ",")
-	if not records or not saveTimes or #records ~= #saveTimes then
+	if not saveTimes then
 		return
 	end
 
+	local tonumber = tonumber
 	local removeTime = time() - REMOVE_OLD_THRESHOLD
-	for index, record in ipairs(records) do
-		local itemString = TSMAPI_FOUR.Item.ToItemString(record.itemString)
-		if itemString then
-			local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local index = 0
+	for line in gmatch(csvRecords, "[^\n]+") do
+		if index == 0 then
+			-- check the keys
+			if line ~= table.concat(CSV_KEYS, ",") then
+				TSM:LOG_ERR("Invalid keys for %s: %s", recordType, strsub(line, 1, 100))
+				private.dataChanged = true
+				return
+			end
+		else
+			local itemString, stackSize, quantity, player, timestamp = strsplit(",", line)
+			itemString = TSMAPI_FOUR.Item.ToItemString(itemString)
+			local baseItemString = TSMAPI_FOUR.Item.ToBaseItemStringFast(itemString)
 			local saveTime = tonumber(saveTimes[index])
-			if type(record.stackSize) == "number" and type(record.quantity) == "number" and type(record.player) == "string" and type(record.time) == "number" and record.time > removeTime then
-				local newTime = floor(record.time)
-				if newTime ~= record.time then
+			stackSize = tonumber(stackSize)
+			quantity = tonumber(quantity)
+			timestamp = tonumber(timestamp)
+			if itemString and baseItemString and stackSize and quantity and timestamp and saveTime and timestamp > removeTime then
+				local newTimestamp = floor(timestamp)
+				if newTimestamp ~= timestamp then
 					-- make sure all timestamps are stored as integers
 					private.dataChanged = true
-					record.time = newTime
+					timestamp = newTimestamp
 				end
-				private.db:BulkInsertNewRow(recordType, itemString, baseItemString, record.stackSize, record.quantity, record.player, record.time, saveTime)
+				private.db:BulkInsertNewRowFast8(baseItemString, recordType, itemString, stackSize, quantity, player, timestamp, saveTime)
 			else
 				private.dataChanged = true
 			end
 		end
+		index = index + 1
 	end
 end
 
@@ -191,9 +219,9 @@ function private.InsertRecord(recordType, itemString, stackSize, timestamp)
 		matchingRow:Release()
 	else
 		private.db:NewRow()
+			:SetField("baseItemString", baseItemString)
 			:SetField("type", recordType)
 			:SetField("itemString", itemString)
-			:SetField("baseItemString", baseItemString)
 			:SetField("stackSize", stackSize)
 			:SetField("quantity", stackSize)
 			:SetField("player", UnitName("player"))
