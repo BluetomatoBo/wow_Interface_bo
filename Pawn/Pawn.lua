@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0231
+PawnVersion = 2.0232
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -593,6 +593,10 @@ function PawnInitializeOptions()
 	if PawnOptions.LastVersion < 2.0227 then
 		-- The relic advisor is off by default as of 2.2.27.
 		PawnCommon.ShowRelicUpgrades = false
+	end
+	if PawnCommon.LastVersion < 2.0232 then
+		-- When upgrading to 2.2.32, turn off this annoying debug option if they still had it on.
+		PawnCommon.DebugCache = nil
 	end
 	if PawnCommon.LastVersion < PawnMrRobotLastUpdatedVersion then
 		-- If the Ask Mr. Robot scales have been updated since the last time they used Pawn, re-scan gear.

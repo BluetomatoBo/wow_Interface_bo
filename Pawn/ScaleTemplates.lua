@@ -118,7 +118,7 @@ PawnScaleTemplates =
 	["SpecID"] = 2, -- Feral
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsFrill", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield" } -- ideally IsOffHand should be here as well, but the feral artifact is dual-wielded
+	["UnusableStats"] = { "IsFrill", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield", "IsOffHand" } -- IsOffHand may cause problems for the feral artifact
 },
 
 {
@@ -126,7 +126,7 @@ PawnScaleTemplates =
 	["SpecID"] = 3, -- Guardian
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsFrill", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield" } -- ideally IsOffHand should be here as well, but the guardian artifact is dual-wielded
+	["UnusableStats"] = { "IsFrill", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield", "IsOffHand" } -- IsOffHand may cause problems for the guardian artifact
 },
 
 {
