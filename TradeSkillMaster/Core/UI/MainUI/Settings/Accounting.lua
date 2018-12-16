@@ -10,7 +10,7 @@ local _, TSM = ...
 local Accounting = TSM.MainUI.Settings:NewPackage("Accounting")
 local L = TSM.L
 local private = { marketValueItems = {}, marketValueKeys = {} }
-local DAYS_OLD_OPTIONS = { 30, 45, 60, 75, 90 }
+local DAYS_OLD_OPTIONS = { 30, 45, 60, 75, 90, 180, 360 }
 local INVALID_PRICE_SOURCES = {
 	Crafting = true,
 	VendorBuy = true,

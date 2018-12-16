@@ -22,6 +22,10 @@ local private = {
 		smartTotalPrice = {},
 	},
 }
+local OLD_CSV_KEYS = {
+    sale = { "itemString", "stackSize", "quantity", "price", "buyer", "player", "time", "source" },
+    buy = { "itemString", "stackSize", "quantity", "price", "seller", "player", "time", "source" },
+}
 local CSV_KEYS = { "itemString", "stackSize", "quantity", "price", "otherPlayer", "player", "time", "source" }
 local COMBINE_TIME_THRESHOLD = 300 -- group transactions within 5 minutes together
 local MAX_CSV_RECORDS = 55000 -- the max number of records we can store without WoW corrupting the SV file
@@ -29,9 +33,9 @@ local TRIMMED_CSV_RECORDS = 50000 -- how many records to trim to if we're over t
 local SECONDS_PER_DAY = 24 * 60 * 60
 local DB_SCHEMA = {
 	fields = {
+		baseItemString = "string",
 		type = "string",
 		itemString = "string",
-		baseItemString = "string",
 		stackSize = "number",
 		quantity = "number",
 		price = "number",
@@ -42,13 +46,12 @@ local DB_SCHEMA = {
 		saveTime = "number",
 	},
 	fieldAttributes = {
-		type = { "index" },
 		baseItemString = { "index" },
 	},
 	fieldOrder = {
+		"baseItemString",
 		"type",
 		"itemString",
-		"baseItemString",
 		"stackSize",
 		"quantity",
 		"price",
@@ -449,40 +452,43 @@ end
 -- ============================================================================
 
 function private.LoadData(recordType, csvRecords, csvSaveTimes)
-	local _, records = TSMAPI_FOUR.CSV.Decode(csvRecords)
-	if not records then
+	local saveTimes = TSMAPI_FOUR.Util.SafeStrSplit(csvSaveTimes, ",")
+
+	local decodeContext = TSMAPI_FOUR.CSV.DecodeStart(csvRecords, OLD_CSV_KEYS[recordType]) or TSMAPI_FOUR.CSV.DecodeStart(csvRecords, CSV_KEYS)
+	if not decodeContext then
+		TSM:LOG_ERR("Failed to decode %s records", recordType)
+		private.dataChanged = true
 		return
 	end
-	local saveTimes = TSMAPI_FOUR.Util.SafeStrSplit(csvSaveTimes, ",")
+
 	local saveTimeIndex = 1
-	for _, record in ipairs(records) do
+	for itemString, stackSize, quantity, price, otherPlayer, player, timestamp, source in TSMAPI_FOUR.CSV.DecodeIterator(decodeContext) do
+		itemString = TSMAPI_FOUR.Item.ToItemString(itemString)
+		local baseItemString = TSMAPI_FOUR.Item.ToBaseItemStringFast(itemString)
 		local saveTime = 0
-		if saveTimes and record.source == "Auction" then
+		if saveTimes and source == "Auction" then
 			saveTime = tonumber(saveTimes[saveTimeIndex])
 			saveTimeIndex = saveTimeIndex + 1
 		end
-		local itemString = TSMAPI_FOUR.Item.ToItemString(record.itemString)
-		if itemString then
-			local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
-			local otherPlayer = record.otherPlayer
-			if not otherPlayer then
-				-- convert from old (TSM3) keys
-				otherPlayer = record.buyer or record.seller
+		stackSize = tonumber(stackSize)
+		quantity = tonumber(quantity)
+		price = tonumber(price)
+		if itemString and stackSize and quantity and price and otherPlayer and player and timestamp and source then
+			local newTimestamp = floor(timestamp)
+			if newTimestamp ~= timestamp then
+				-- make sure all timestamps are stored as integers
 				private.dataChanged = true
+				timestamp = newTimestamp
 			end
-			otherPlayer = type(otherPlayer) == "string" and otherPlayer or "?"
-			if type(record.stackSize) == "number" and type(record.quantity) == "number" and type(record.price) == "number" and type(record.player) == "string" and type(record.time) == "number" then
-				local newTime = floor(record.time)
-				if newTime ~= record.time then
-					-- make sure all timestamps are stored as integers
-					private.dataChanged = true
-					record.time = newTime
-				end
-				private.db:BulkInsertNewRow(recordType, record.itemString, baseItemString, record.stackSize, record.quantity, record.price, otherPlayer, record.player, record.time, record.source, saveTime)
-			end
-
-			private.characters[record.player] = true
+			private.db:BulkInsertNewRowFast11(baseItemString, recordType, itemString, stackSize, quantity, price, otherPlayer, player, timestamp, source, saveTime)
+		else
+			private.dataChanged = true
 		end
+	end
+
+	if not TSMAPI_FOUR.CSV.DecodeEnd(decodeContext) then
+		TSM:LOG_ERR("Failed to decode %s records", recordType)
+		private.dataChanged = true
 	end
 end
 
@@ -518,7 +524,7 @@ function private.SaveData(recordType)
 	else
 		local saveTimes = {}
 		local encodeContext = TSMAPI_FOUR.CSV.EncodeStart(CSV_KEYS)
-		for _, rowRecordType, itemString, _, stackSize, quantity, price, otherPlayer, player, timestamp, source, saveTime in private.db:RawIterator() do
+		for _, _, rowRecordType, itemString, stackSize, quantity, price, otherPlayer, player, timestamp, source, saveTime in private.db:RawIterator() do
 			if rowRecordType == recordType then
 				-- add the save time
 				if source == "Auction" then

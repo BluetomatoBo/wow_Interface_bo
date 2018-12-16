@@ -452,6 +452,36 @@ function Database.BulkInsertNewRow(self, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10
 	end
 end
 
+function Database.BulkInsertNewRowFast6(self, v1, v2, v3, v4, v5, v6, extraValue)
+	if not self._bulkInsertContext then
+		error("Bulk insert hasn't been started")
+	elseif self._bulkInsertContext.fastNum ~= 6 then
+		error("Invalid usage of fast insert")
+	elseif v6 == nil or extraValue ~= nil then
+		error("Wrong number of values")
+	elseif not self._bulkInsertContext.hasNewData then
+		self._bulkInsertContext.hasNewData = true
+		for _, indexList in pairs(self._indexLists) do
+			wipe(indexList)
+		end
+	end
+
+	local uuid = TSM.Database.GetNextUUID()
+	local rowIndex = #self._data + 1
+	self._uuidToDataOffsetLookup[uuid] = rowIndex
+	self._uuids[#self._uuids + 1] = uuid
+
+	self._data[rowIndex] = v1
+	self._data[rowIndex + 1] = v2
+	self._data[rowIndex + 2] = v3
+	self._data[rowIndex + 3] = v4
+	self._data[rowIndex + 4] = v5
+	self._data[rowIndex + 5] = v6
+
+	-- the first field is always an index (and the only index)
+	self._bulkInsertContext.indexValues[self._fields[1]][uuid] = v1
+end
+
 function Database.BulkInsertNewRowFast8(self, v1, v2, v3, v4, v5, v6, v7, v8, extraValue)
 	if not self._bulkInsertContext then
 		error("Bulk insert hasn't been started")
@@ -479,6 +509,41 @@ function Database.BulkInsertNewRowFast8(self, v1, v2, v3, v4, v5, v6, v7, v8, ex
 	self._data[rowIndex + 5] = v6
 	self._data[rowIndex + 6] = v7
 	self._data[rowIndex + 7] = v8
+
+	-- the first field is always an index (and the only index)
+	self._bulkInsertContext.indexValues[self._fields[1]][uuid] = v1
+end
+
+function Database.BulkInsertNewRowFast11(self, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, extraValue)
+	if not self._bulkInsertContext then
+		error("Bulk insert hasn't been started")
+	elseif self._bulkInsertContext.fastNum ~= 11 then
+		error("Invalid usage of fast insert")
+	elseif v11 == nil or extraValue ~= nil then
+		error("Wrong number of values")
+	elseif not self._bulkInsertContext.hasNewData then
+		self._bulkInsertContext.hasNewData = true
+		for _, indexList in pairs(self._indexLists) do
+			wipe(indexList)
+		end
+	end
+
+	local uuid = TSM.Database.GetNextUUID()
+	local rowIndex = #self._data + 1
+	self._uuidToDataOffsetLookup[uuid] = rowIndex
+	self._uuids[#self._uuids + 1] = uuid
+
+	self._data[rowIndex] = v1
+	self._data[rowIndex + 1] = v2
+	self._data[rowIndex + 2] = v3
+	self._data[rowIndex + 3] = v4
+	self._data[rowIndex + 4] = v5
+	self._data[rowIndex + 5] = v6
+	self._data[rowIndex + 6] = v7
+	self._data[rowIndex + 7] = v8
+	self._data[rowIndex + 8] = v9
+	self._data[rowIndex + 9] = v10
+	self._data[rowIndex + 10] = v11
 
 	-- the first field is always an index (and the only index)
 	self._bulkInsertContext.indexValues[self._fields[1]][uuid] = v1

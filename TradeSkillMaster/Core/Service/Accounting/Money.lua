@@ -106,21 +106,27 @@ end
 -- ============================================================================
 
 function private.LoadData(recordType, csvRecords)
-	local _, records = TSMAPI_FOUR.CSV.Decode(csvRecords)
-	if not records then
+	local decodeContext = TSMAPI_FOUR.CSV.DecodeStart(csvRecords, CSV_KEYS)
+	if not decodeContext then
+		TSM:LOG_ERR("Failed to decode %s records", recordType)
 		return
 	end
-	for _, record in ipairs(records) do
-		-- convert from old (TSM3) keys if necessary
-		local otherPlayer = record.otherPlayer or record.destination or record.source
-		if type(otherPlayer) == "string" and type(record.time) == "number" then
-			local newTime = floor(record.time)
-			if newTime ~= record.time then
+
+	for type, amount, otherPlayer, player, timestamp in TSMAPI_FOUR.CSV.DecodeIterator(decodeContext) do
+		amount = tonumber(amount)
+		timestamp = tonumber(timestamp)
+		if amount and timestamp then
+			local newTimestamp = floor(timestamp)
+			if newTimestamp ~= timestamp then
 				-- make sure all timestamps are stored as integers
-				record.time = newTime
+				timestamp = newTimestamp
 			end
-			private.db:BulkInsertNewRow(recordType, record.type, record.amount, otherPlayer, record.player, record.time)
+			private.db:BulkInsertNewRowFast6(recordType, type, amount, otherPlayer, player, timestamp)
 		end
+	end
+
+	if not TSMAPI_FOUR.CSV.DecodeEnd(decodeContext) then
+		TSM:LOG_ERR("Failed to decode %s records", recordType)
 	end
 end
 

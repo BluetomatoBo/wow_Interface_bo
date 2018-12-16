@@ -67,7 +67,7 @@ function Auctions.OnDisable()
 	local cancelSaveTimes, expireSaveTimes = {}, {}
 	local cancelEncodeContext = TSMAPI_FOUR.CSV.EncodeStart(CSV_KEYS)
 	local expireEncodeContext = TSMAPI_FOUR.CSV.EncodeStart(CSV_KEYS)
-	for _, recordType, itemString, _, stackSize, quantity, player, timestamp, saveTime in private.db:RawIterator() do
+	for _, _, recordType, itemString, stackSize, quantity, player, timestamp, saveTime in private.db:RawIterator() do
 		local saveTimes, encodeContext = nil, nil
 		if recordType == "cancel" then
 			saveTimes = cancelSaveTimes
@@ -164,38 +164,39 @@ function private.LoadData(recordType, csvRecords, csvSaveTimes)
 		return
 	end
 
-	local tonumber = tonumber
+	local decodeContext = TSMAPI_FOUR.CSV.DecodeStart(csvRecords, CSV_KEYS)
+	if not decodeContext then
+		TSM:LOG_ERR("Failed to decode %s records", recordType)
+		private.dataChanged = true
+		return
+	end
+
 	local removeTime = time() - REMOVE_OLD_THRESHOLD
-	local index = 0
-	for line in gmatch(csvRecords, "[^\n]+") do
-		if index == 0 then
-			-- check the keys
-			if line ~= table.concat(CSV_KEYS, ",") then
-				TSM:LOG_ERR("Invalid keys for %s: %s", recordType, strsub(line, 1, 100))
+	local index = 1
+	for itemString, stackSize, quantity, player, timestamp in TSMAPI_FOUR.CSV.DecodeIterator(decodeContext) do
+		itemString = TSMAPI_FOUR.Item.ToItemString(itemString)
+		local baseItemString = TSMAPI_FOUR.Item.ToBaseItemStringFast(itemString)
+		local saveTime = tonumber(saveTimes[index])
+		stackSize = tonumber(stackSize)
+		quantity = tonumber(quantity)
+		timestamp = tonumber(timestamp)
+		if itemString and baseItemString and stackSize and quantity and timestamp and saveTime and timestamp > removeTime then
+			local newTimestamp = floor(timestamp)
+			if newTimestamp ~= timestamp then
+				-- make sure all timestamps are stored as integers
 				private.dataChanged = true
-				return
+				timestamp = newTimestamp
 			end
+			private.db:BulkInsertNewRowFast8(baseItemString, recordType, itemString, stackSize, quantity, player, timestamp, saveTime)
 		else
-			local itemString, stackSize, quantity, player, timestamp = strsplit(",", line)
-			itemString = TSMAPI_FOUR.Item.ToItemString(itemString)
-			local baseItemString = TSMAPI_FOUR.Item.ToBaseItemStringFast(itemString)
-			local saveTime = tonumber(saveTimes[index])
-			stackSize = tonumber(stackSize)
-			quantity = tonumber(quantity)
-			timestamp = tonumber(timestamp)
-			if itemString and baseItemString and stackSize and quantity and timestamp and saveTime and timestamp > removeTime then
-				local newTimestamp = floor(timestamp)
-				if newTimestamp ~= timestamp then
-					-- make sure all timestamps are stored as integers
-					private.dataChanged = true
-					timestamp = newTimestamp
-				end
-				private.db:BulkInsertNewRowFast8(baseItemString, recordType, itemString, stackSize, quantity, player, timestamp, saveTime)
-			else
-				private.dataChanged = true
-			end
+			private.dataChanged = true
 		end
 		index = index + 1
+	end
+
+	if not TSMAPI_FOUR.CSV.DecodeEnd(decodeContext) then
+		TSM:LOG_ERR("Failed to decode %s records", recordType)
+		private.dataChanged = true
 	end
 end
 

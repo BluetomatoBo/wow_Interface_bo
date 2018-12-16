@@ -10,6 +10,7 @@
 -- @module CSV
 
 TSMAPI_FOUR.CSV = {}
+local private = {}
 
 
 
@@ -68,4 +69,47 @@ function TSMAPI_FOUR.CSV.Decode(str)
 		end
 	end
 	return keys, result
+end
+
+function TSMAPI_FOUR.CSV.DecodeStart(str, fields)
+	local func = gmatch(str, strrep("([^\n,]+),", #fields - 1).."([^\n,]+)(,?[^\n,]*)")
+	if strjoin(",", func()) ~= table.concat(fields, ",").."," then
+		return
+	end
+	local context = TSMAPI_FOUR.Util.AcquireTempTable()
+	context.func = func
+	context.extraArgPos = #fields + 1
+	context.result = true
+	return context
+end
+
+function TSMAPI_FOUR.CSV.DecodeIterator(context)
+	return private.DecodeIteratorHelper, context
+end
+
+function TSMAPI_FOUR.CSV.DecodeEnd(context)
+	local result = context.result
+	TSMAPI_FOUR.Util.ReleaseTempTable(context)
+	return result
+end
+
+
+
+-- ============================================================================
+-- Private Helper Functions
+-- ============================================================================
+
+function private.DecodeIteratorHelper(context)
+	return private.DecodeIteratorHelper2(context, context.func())
+end
+
+function private.DecodeIteratorHelper2(context, v1, ...)
+	if not v1 then
+		return
+	end
+	if select(context.extraArgPos, v1, ...) ~= "" then
+		context.result = false
+		return
+	end
+	return v1, ...
 end

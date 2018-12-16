@@ -204,6 +204,7 @@ function private.GetAuctioningSelectionFrame()
 				)
 			)
 		)
+		:SetScript("OnUpdate", private.SelectionOnUpdate)
 		:SetScript("OnHide", private.SelectionOnHide)
 	local noGroupSelected = frame:GetElement("groupSelection.groupTree"):IsSelectionCleared(true)
 	frame:GetElement("groupSelection.postScanBtn"):SetDisabled(noGroupSelected)
@@ -566,6 +567,13 @@ function private.OnItemLinked(_, itemLink)
 	return true
 end
 
+function private.SelectionOnUpdate(frame)
+	frame:SetScript("OnUpdate", nil)
+	local baseFrame = frame:GetBaseElement()
+	baseFrame:SetStyle("bottomPadding", nil)
+	baseFrame:Draw()
+end
+
 function private.SelectionOnHide(frame)
 	assert(frame == private.selectionFrame)
 	private.selectionFrame = nil
@@ -679,9 +687,6 @@ function private.ScanFrameOnUpdate(frame)
 end
 
 function private.ScanFrameOnHide(frame)
-	local baseFrame = frame:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", nil)
-	baseFrame:Draw()
 	private.fsm:ProcessEvent("EV_SCAN_FRAME_HIDDEN")
 end
 
@@ -1006,9 +1011,6 @@ function private.FSMCreate()
 				if ... then
 					return "ST_STARTING_SCAN", ...
 				elseif context.scanFrame then
-					local baseFrame = context.scanFrame:GetBaseElement()
-					baseFrame:SetStyle("bottomPadding", nil)
-					baseFrame:Draw()
 					context.scanFrame:GetParentElement():SetPath("selection", true)
 					context.scanFrame = nil
 				end
@@ -1105,7 +1107,6 @@ function private.FSMCreate()
 							return "ST_DONE"
 						end
 					end
-					context.scanThreadId = TSM.Auctioning.CancelScan.Prepare()
 				else
 					error("Invalid scan type: "..tostring(context.scanType))
 				end

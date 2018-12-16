@@ -258,6 +258,7 @@ function private.AuctionScanOnFilterDone(_, filter)
 				:OrderBy("index", false)
 			for _, auctionsDBRow in auctionsDBQuery:Iterator() do
 				private.GenerateCancels(auctionsDBRow, itemString, query, groupPath)
+				TSMAPI_FOUR.Thread.Yield()
 			end
 			auctionsDBQuery:Release()
 		else
