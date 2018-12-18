@@ -5,6 +5,13 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.09.00 (Dec. 16, 2018)
+========================
+- ToC update to support WoW 8.1.0
+- Updates for Tides of Vengence (WoW 8.1.0)
+  - World boss added: Ivus the Decayed
+  - Raids added: Battle of Dazar'alor, Crucible of Storms
+
 v8.08.03 (Dec. 13, 2018)
 ========================
 - Updated faction items
