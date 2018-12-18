@@ -23,8 +23,8 @@ local private = {
 	},
 }
 local OLD_CSV_KEYS = {
-    sale = { "itemString", "stackSize", "quantity", "price", "buyer", "player", "time", "source" },
-    buy = { "itemString", "stackSize", "quantity", "price", "seller", "player", "time", "source" },
+	sale = { "itemString", "stackSize", "quantity", "price", "buyer", "player", "time", "source" },
+	buy = { "itemString", "stackSize", "quantity", "price", "seller", "player", "time", "source" },
 }
 local CSV_KEYS = { "itemString", "stackSize", "quantity", "price", "otherPlayer", "player", "time", "source" }
 local COMBINE_TIME_THRESHOLD = 300 -- group transactions within 5 minutes together
@@ -493,7 +493,10 @@ function private.LoadData(recordType, csvRecords, csvSaveTimes)
 end
 
 function private.SaveData(recordType)
-	if private.db:GetNumRowsByIndex("type", recordType) > MAX_CSV_RECORDS then
+	local numRecords = private.db:NewQuery()
+		:Equal("type", recordType)
+		:Count()
+	if numRecords > MAX_CSV_RECORDS then
 		local query = private.db:NewQuery()
 			:Equal("type", recordType)
 			:OrderBy("time", false)

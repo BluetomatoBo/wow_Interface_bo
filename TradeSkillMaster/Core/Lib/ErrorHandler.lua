@@ -237,7 +237,7 @@ function private.ErrorHandler(msg, thread, errorTime)
 			end
 		end
 	end
-	if addonName ~= "TradeSkillMaster" then
+	if not isManual and addonName ~= "TradeSkillMaster" then
 		return false
 	end
 
@@ -457,7 +457,7 @@ do
 
 	local text = frame:CreateFontString()
 	frame.text = text
-	text:SetHeight(40)
+	text:SetHeight(45)
 	text:SetPoint("TOPLEFT", hLine, "BOTTOMLEFT", 8, -8)
 	text:SetPoint("TOPRIGHT", hLine, "BOTTOMRIGHT", -8, -8)
 	text:SetFontObject(GameFontNormal)
@@ -472,7 +472,8 @@ do
 	switchBtn:SetHeight(20)
 	local fontString = switchBtn:CreateFontString()
 	fontString:SetFontObject(GameFontNormalSmall)
-	fontString:SetJustifyH("LEFT")
+	fontString:SetJustifyH("CENTER")
+	fontString:SetJustifyV("MIDDLE")
 	switchBtn:SetFontString(fontString)
 	switchBtn:SetScript("OnClick", function(self)
 		private.errorFrame.showingError = not private.errorFrame.showingError
@@ -489,8 +490,8 @@ do
 	local hLine2 = frame:CreateTexture(nil, "ARTWORK")
 	hLine2:SetHeight(2)
 	hLine2:SetColorTexture(0.3, 0.3, 0.3, 1)
-	hLine2:SetPoint("TOPLEFT", text, "BOTTOMLEFT", -4, -4)
-	hLine2:SetPoint("TOPRIGHT", text, "BOTTOMRIGHT", 4, -4)
+	hLine2:SetPoint("TOPLEFT", text, "BOTTOMLEFT", -8, -4)
+	hLine2:SetPoint("TOPRIGHT", text, "BOTTOMRIGHT", 8, -4)
 
 	local scrollFrame = CreateFrame("ScrollFrame", nil, frame, "UIPanelScrollFrameTemplate")
 	scrollFrame:SetPoint("TOPLEFT", hLine2, "BOTTOMLEFT", 8, -4)

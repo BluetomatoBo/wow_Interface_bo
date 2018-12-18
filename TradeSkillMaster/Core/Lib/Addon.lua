@@ -8,8 +8,18 @@
 
 local _, TSM = ...
 TSMAPI_FOUR.Addon = {}
-local private = { addonLookup = {}, initializeQueue = {}, enableQueue = {}, disableQueue = {} }
+local private = {
+	eventFrames = {},
+	addonLookup = {},
+	initializeQueue = {},
+	enableQueue = {},
+	disableQueue = {},
+	totalInitializeTime = 0,
+	totalEnableTime = 0,
+}
 local TIME_WARNING_THRESHOLD_MS = 20
+local MAX_TIME_PER_EVENT_MS = 12000
+local NUM_EVENT_FRAMES = 10
 
 
 
@@ -17,39 +27,40 @@ local TIME_WARNING_THRESHOLD_MS = 20
 -- Event Handling
 -- ============================================================================
 
-function private.AddonLoadedHandler(event, addonName)
-	if addonName ~= "TradeSkillMaster" then
-		return
-	end
-
-	for _, addon in ipairs(private.initializeQueue) do
+function private.DoInitialize()
+	local eventStartTime = debugprofilestop()
+	while #private.initializeQueue > 0 and debugprofilestop() < (eventStartTime + MAX_TIME_PER_EVENT_MS) do
+		local addon = tremove(private.initializeQueue, 1)
 		if addon.OnInitialize then
-			local startTime = debugprofilestop()
+			local addonStartTime = debugprofilestop()
 			addon.OnInitialize()
-			local timeTaken = debugprofilestop() - startTime
-			if timeTaken > TIME_WARNING_THRESHOLD_MS then
-				TSM:LOG_WARN("OnInitialize (%s) took %0.2fms", addon, timeTaken)
+			local addonTimeTaken = debugprofilestop() - addonStartTime
+			if addonTimeTaken > TIME_WARNING_THRESHOLD_MS then
+				TSM:LOG_WARN("OnInitialize (%s) took %0.2fms", addon, addonTimeTaken)
 			end
 		end
 		tinsert(private.enableQueue, addon)
 	end
-	TSMAPI_FOUR.Event.Unregister("ADDON_LOADED", private.AddonLoadedHandler)
-	wipe(private.initializeQueue)
+	private.totalInitializeTime = private.totalInitializeTime + debugprofilestop() - eventStartTime
+	return #private.initializeQueue == 0
 end
 
-function private.PlayerLoginHandler()
-	for _, addon in ipairs(private.enableQueue) do
+function private.DoEnable()
+	local eventStartTime = debugprofilestop()
+	while #private.enableQueue > 0 and debugprofilestop() < (eventStartTime + MAX_TIME_PER_EVENT_MS) do
+		local addon = tremove(private.enableQueue, 1)
 		if addon.OnEnable then
-			local startTime = debugprofilestop()
+			local addonStartTime = debugprofilestop()
 			addon.OnEnable()
-			local timeTaken = debugprofilestop() - startTime
-			if timeTaken > TIME_WARNING_THRESHOLD_MS then
-				TSM:LOG_WARN("OnEnable (%s) took %0.2fms", addon, timeTaken)
+			local addonTimeTaken = debugprofilestop() - addonStartTime
+			if addonTimeTaken > TIME_WARNING_THRESHOLD_MS then
+				TSM:LOG_WARN("OnEnable (%s) took %0.2fms", addon, addonTimeTaken)
 			end
 		end
 		tinsert(private.disableQueue, addon)
 	end
-	wipe(private.enableQueue)
+	private.totalEnableTime = private.totalEnableTime + debugprofilestop() - eventStartTime
+	return #private.enableQueue == 0
 end
 
 function private.PlayerLogoutHandler()
@@ -62,8 +73,38 @@ function private.PlayerLogoutHandler()
 end
 
 do
-	TSMAPI_FOUR.Event.Register("ADDON_LOADED", private.AddonLoadedHandler)
-	TSMAPI_FOUR.Event.Register("PLAYER_LOGIN", private.PlayerLoginHandler)
+	-- Blizzard did something silly in 8.1 where scripts time throw an error after 19 seconds, but nothing prevents us
+	-- from just splitting the processing across multiple script handlers, so we do that here.
+	local function EventHandler(self, event, arg)
+		if event == "ADDON_LOADED" and arg == "TradeSkillMaster" then
+			if private.DoInitialize() then
+				-- we're done
+				for _, frame in ipairs(private.eventFrames) do
+					frame:UnregisterEvent(event)
+				end
+				TSM.Analytics.Action("ADDON_INITIALIZE", floor(private.totalInitializeTime))
+			elseif self == private.eventFrames[#private.eventFrames] then
+				error("Ran out of event frames to initialize TSM")
+			end
+		elseif event == "PLAYER_LOGIN" then
+			if private.DoEnable() then
+				-- we're done
+				for _, frame in ipairs(private.eventFrames) do
+					frame:UnregisterEvent(event)
+				end
+				TSM.Analytics.Action("ADDON_ENABLE", floor(private.totalEnableTime))
+			elseif self == private.eventFrames[#private.eventFrames] then
+				error("Ran out of event frames to enable TSM")
+			end
+		end
+	end
+	for _ = 1, NUM_EVENT_FRAMES do
+		local frame = CreateFrame("Frame")
+		frame:SetScript("OnEvent", EventHandler)
+		frame:RegisterEvent("ADDON_LOADED")
+		frame:RegisterEvent("PLAYER_LOGIN")
+		tinsert(private.eventFrames, frame)
+	end
 	TSMAPI_FOUR.Event.Register("PLAYER_LOGOUT", private.PlayerLogoutHandler)
 end
 

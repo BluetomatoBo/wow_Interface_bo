@@ -75,6 +75,7 @@ function private.InsertHit(hitType, ...)
 		end
 		tinsert(private.argsTemp, arg)
 	end
+	TSM:LOG_INFO("%s %s", hitType, strjoin(" ", tostringall(...)))
 	tinsert(private.events, "["..strjoin(",", private.AddQuotes(hitType), private.AddQuotes(TSM:GetVersion() or "???"), time(), unpack(private.argsTemp)).."]")
 	private.lastEventTime = time()
 end

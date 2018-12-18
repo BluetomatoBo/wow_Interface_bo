@@ -11,10 +11,8 @@ local AuctionDB = TSM:NewPackage("AuctionDB")
 local L = TSM.L
 local private = {
 	region = nil,
-	globalKeyLookup = {},
-	regionDataUS = nil,
-	regionDataEU = nil,
 	realmData = {},
+	regionData = nil,
 	realmScanTime = nil,
 }
 
@@ -33,16 +31,10 @@ function AuctionDB.OnEnable()
 		for _, info in ipairs(appData) do
 			local realm, data = unpack(info)
 			local downloadTime = "?"
-			if realm == "US" then
+			if realm == private.region then
 				local regionData, lastUpdate = private.LoadRegionAppData(data)
 				if regionData then
-					private.regionDataUS = regionData
-					downloadTime = SecondsToTime(time() - lastUpdate).." ago"
-				end
-			elseif realm == "EU" then
-				local regionData, lastUpdate = private.LoadRegionAppData(data)
-				if regionData then
-					private.regionDataEU = regionData
+					private.regionData = regionData
 					downloadTime = SecondsToTime(time() - lastUpdate).." ago"
 				end
 			elseif TSMAPI.AppHelper:IsCurrentRealm(realm) then
@@ -134,28 +126,13 @@ function AuctionDB.GetRealmItemData(itemString, key)
 end
 
 function AuctionDB.GetRegionItemData(itemString, key)
-	if private.region == "US" then
-		return private.GetRegionItemDataHelper(private.regionDataUS, key, itemString)
-	elseif private.region == "EU" then
-		return private.GetRegionItemDataHelper(private.regionDataEU, key, itemString)
-	else
-		-- unsupported region (or PTR)
-		return
-	end
+	return private.GetRegionItemDataHelper(private.regionData, key, itemString)
 end
 
 function AuctionDB.GetRegionSaleInfo(itemString, key)
 	-- need to divide the result by 100
-	if private.region == "US" then
-		local result = private.GetRegionItemDataHelper(private.regionDataUS, key, itemString)
-		return result and (result / 100) or nil
-	elseif private.region == "EU" then
-		local result = private.GetRegionItemDataHelper(private.regionDataEU, key, itemString)
-		return result and (result / 100) or nil
-	else
-		-- unsupported region (or PTR)
-		return
-	end
+	local result = private.GetRegionItemDataHelper(private.regionData, key, itemString)
+	return result and (result / 100) or nil
 end
 
 
