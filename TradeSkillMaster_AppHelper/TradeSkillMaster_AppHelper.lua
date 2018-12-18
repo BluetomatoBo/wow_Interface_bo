@@ -1,12 +1,9 @@
 -- ------------------------------------------------------------------------------ --
 --                           TradeSkillMaster_AppHelper                           --
---           http://www.curse.com/addons/wow/tradeskillmaster_apphelper           --
---                                                                                --
---             A TradeSkillMaster Addon (http://tradeskillmaster.com)             --
+--                          https://tradeskillmaster.com                          --
 --    All Rights Reserved* - Detailed license information included with addon.    --
 -- ------------------------------------------------------------------------------ --
 
--- register this file with Ace Libraries
 local _, TSM = ...
 TSMAPI.AppHelper = {}
 local private = { data = {} }
