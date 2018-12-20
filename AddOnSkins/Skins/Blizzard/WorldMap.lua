@@ -244,12 +244,17 @@ function AS:Blizzard_Quest()
 		QuestLogPopupDetailFrameScrollFrame.Backdrop.Background:SetInside()
 		QuestLogPopupDetailFrameScrollFrame.Backdrop.Background:SetTexCoord(0, .585, 0.02, .655)
 	else
-		GreetingText:SetTextColor(1, 1, 1)
-		GreetingText.SetTextColor = AS.Noop
-		CurrentQuestsText:SetTextColor(1, .8, .1)
-		CurrentQuestsText.SetTextColor = AS.Noop
-		AvailableQuestsText:SetTextColor(1, .8, .1)
-		AvailableQuestsText.SetTextColor = AS.Noop
+		hooksecurefunc('QuestFrameProgressItems_Update', function()
+			QuestProgressRequiredItemsText:SetTextColor(1, .8, .1)
+		end)
+
+		hooksecurefunc("QuestFrame_SetTitleTextColor", function(fontString)
+			fontString:SetTextColor(1, .8, .1)
+		end)
+
+		hooksecurefunc("QuestFrame_SetTextColor", function(fontString)
+			fontString:SetTextColor(1, 1, 1)
+		end)
 
 		for i = 1, 16 do
 			local button = _G['QuestTitleButton'..i]

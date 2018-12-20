@@ -1,28 +1,106 @@
-lightweight tag 4430761bbf0f5986edd85eef232fdf1468baa1d9 4.04
-Author:	Michael James <darktemplar9900@yahoo.com>
-Date:	Wed Nov 21 17:22:48 2018 -0600
+lightweight tag 3fe1b0c521809da69188c34417ab7fa2b7e73e5e 4.05
+Author:	Azilroka <darktemplar9900@yahoo.com>
+Date:	Mon Dec 17 17:16:13 2018 -0600
 
-commit 4430761bbf0f5986edd85eef232fdf1468baa1d9
+commit 3fe1b0c521809da69188c34417ab7fa2b7e73e5e
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Dec 17 17:16:13 2018 -0600
+
+    4.05
+
+commit 0357471ddd774f90f89053d69cfef5b1b4f82e97
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Dec 16 13:43:16 2018 -0600
+
+    AAP
+
+commit 4cc0cc58fe4a94417e7a90cf8c67fefac2abe4dd
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Dec 16 12:44:17 2018 -0600
+
+    TalentSetManager
+
+commit b871af8a62a45faebde2633b30517b078e801db4
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Thu Dec 13 23:14:41 2018 -0600
+
+    API 8.1 Changes / Blizzard Skins
+
+commit 32439e07fc179d24d662b41eb381c5849e560270
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Dec 9 14:41:19 2018 -0600
+
+    Ace3 Things
+
+commit 223668a721ff59e3da31fc8bc8b843ba5e9d690f
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Dec 9 07:56:14 2018 -0600
+
+    CollectionShop
+
+commit dde2756f024a6ba888fae875e271479df1be07c4
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Dec 9 07:27:47 2018 -0600
+
+    Adding Ace3 back in
+
+commit 6e682a0cf430e4ca6ec6f1d93d9eded2daef76fa
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Wed Nov 21 17:22:48 2018 -0600
+Date:   Sat Dec 8 16:30:56 2018 -0600
 
-    4.04
+    Added submodule Libs/Ace3
 
-commit 856532c45d1f21d50cde96b482eef3d84c649535
+commit 4b5a1522cd8bdc95b26efd96843428cd7aff3034
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Wed Nov 21 17:21:38 2018 -0600
+Date:   Thu Dec 6 20:09:21 2018 -0600
 
-    :Kill to AS:Kill
+    API, Options, Embed (Tukui), Ace3
 
-commit 4cb0a155859c31f152930cf2f986637aca87073b
+commit 9a1eb8c4364f85f932973bd52797a6b75cd6faeb
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Wed Nov 21 16:43:31 2018 -0600
+Date:   Mon Dec 3 16:00:38 2018 -0600
 
-    Yea.. This is why drinking is bad kids.
+    Tukui 18 Embed
 
-commit dd538d02336cb78a81921c812171f5b85a2df5c6
-Author: Merathilis <neo0608@gmail.com>
-Date:   Wed Nov 21 17:25:44 2018 +0100
+commit adb5f534a56eac5663562f1b962cae146aae5904
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Dec 2 14:43:58 2018 -0600
 
-    Slightly adjust the Postal OpenAllMenuButton: https://www.tukui.org/forum/viewtopic.php?f=35&t=4412
+    Some Cleanup
+
+commit 210c409e0248681d31c4f3e24deb558f0ad4b267
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Dec 1 14:33:40 2018 -0600
+
+    NugRunning & FlyoutButtonCustom
+
+commit 7375ea6e28c61fe553e3f6f96584f3069a80985e
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Tue Nov 27 21:43:51 2018 -0600
+
+    BFA Talents Quest
+
+commit aea4a31aba0c1a426b0dbe193574919aa57d2e38
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Nov 25 12:47:35 2018 -0600
+
+    Quest
+
+commit 0f097015e07bee668e0672a50e8575c450a52ab7
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Nov 24 16:15:53 2018 -0600
+
+    Clean this up
+
+commit db8e65755bff59cecc521e5d36ef7ece69b3d279
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Fri Nov 23 23:22:48 2018 -0600
+
+    ...
+
+commit 0e11f5527f08b2b92dfa8aad6df1d99248dd5032
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Fri Nov 23 21:44:31 2018 -0600
+
+    UI Widgets
 
