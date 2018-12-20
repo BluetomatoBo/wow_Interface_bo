@@ -329,6 +329,8 @@ Con |cFF00CC00!= 2|r se activará cuando el número de miembros del grupo o band
 Con |cFF00CC00<= 0.8|r se activará cuando menos del 80%% del grupo o banda esté afectado (4 de 5 miembros en grupos, 8 de 10 ó 20 de 25 en bandas).
 Con |cFF00CC00> 1/2|r se activará cuando más de la mitad de miembros del grupo o banda estén afectados.
 Con |cFF00CC00>= 0|r se activará siempre.]=]
+	--[[Translation missing --]]
+	L["Group contains updates from Wago"] = "Group contains updates from Wago"
 	L["Group Member Count"] = "Contador de miembros del grupo"
 	--[[Translation missing --]]
 	L["Group Role"] = "Group Role"
@@ -457,7 +459,11 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["On Init"] = "Iniciar"
 	L["On Show"] = "Mostrar"
 	L["Only match auras cast by people other than the player"] = "Solamente corresponder auras conjuradas por otros jugadores"
+	--[[Translation missing --]]
+	L["Only match auras cast by people other than the player or his pet"] = "Only match auras cast by people other than the player or his pet"
 	L["Only match auras cast by the player"] = "Solamente corresponder auras conjuradas el jugador"
+	--[[Translation missing --]]
+	L["Only match auras cast by the player or his pet"] = "Only match auras cast by the player or his pet"
 	L["Operator"] = "Operador"
 	--[[Translation missing --]]
 	L["Option #"] = "Option #"
@@ -712,6 +718,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	--[[Translation missing --]]
 	L["Update "] = "Update "
 	L["Update Custom Text On..."] = "Actualizar texto personalizado en..."
+	--[[Translation missing --]]
+	L["Update in Group"] = "Update in Group"
 	--[[Translation missing --]]
 	L["Update this Aura"] = "Update this Aura"
 	L["Use Full Scan (High CPU)"] = "Escaneo Total (carga el procesador)"

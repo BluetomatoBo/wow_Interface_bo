@@ -364,6 +364,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Group (verb)"] = "Group (verb)"
 	--[[Translation missing --]]
 	L["Group aura count description"] = "Group aura count description"
+	--[[Translation missing --]]
+	L["Group contains updates from Wago"] = "Group contains updates from Wago"
 	L["Group Member Count"] = "Contagem dos membros do grupo"
 	--[[Translation missing --]]
 	L["Group Role"] = "Group Role"
@@ -526,7 +528,11 @@ WeakAuras → Opções → Opções ]=]
 	--[[Translation missing --]]
 	L["Only match auras cast by people other than the player"] = "Only match auras cast by people other than the player"
 	--[[Translation missing --]]
+	L["Only match auras cast by people other than the player or his pet"] = "Only match auras cast by people other than the player or his pet"
+	--[[Translation missing --]]
 	L["Only match auras cast by the player"] = "Only match auras cast by the player"
+	--[[Translation missing --]]
+	L["Only match auras cast by the player or his pet"] = "Only match auras cast by the player or his pet"
 	L["Operator"] = "Operador"
 	--[[Translation missing --]]
 	L["Option #"] = "Option #"
@@ -847,6 +853,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Update "] = "Update "
 	--[[Translation missing --]]
 	L["Update Custom Text On..."] = "Update Custom Text On..."
+	--[[Translation missing --]]
+	L["Update in Group"] = "Update in Group"
 	--[[Translation missing --]]
 	L["Update this Aura"] = "Update this Aura"
 	--[[Translation missing --]]
