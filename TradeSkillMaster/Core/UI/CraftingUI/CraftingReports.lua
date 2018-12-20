@@ -29,8 +29,10 @@ end
 
 function private.GetCraftingReportsFrame()
 	TSM.Analytics.PageView("crafting/crafting_reports")
-	private.craftsQuery = private.craftsQuery or TSM.Crafting.CreateCraftsQuery()
-	private.craftsQuery:VirtualField("firstOperation", "string", private.FirstOperationVirtualField, "itemString")
+	if not private.craftsQuery then
+		private.craftsQuery = TSM.Crafting.CreateCraftsQuery()
+		private.craftsQuery:VirtualField("firstOperation", "string", private.FirstOperationVirtualField, "itemString")
+	end
 	private.craftsQuery:ResetFilters()
 	private.craftsQuery:ResetOrderBy()
 	private.craftsQuery:OrderBy("itemName", true)
