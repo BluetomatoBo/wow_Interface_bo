@@ -1,13 +1,7 @@
-changeset:   349:f352214a6650
-tag:         v8.1.0.349
+changeset:   351:f5f472f61c09
+tag:         v8.1.0.351
 user:        Tercioo
-date:        Thu Dec 20 09:34:56 2018 -0200
-summary:     - Added time left to emissary quests.
-
-
-changeset:   348:ca981f383b8a
-user:        Tercioo
-date:        Sat Dec 15 20:09:31 2018 -0200
-summary:     - Fixed quests in warfront zones showing the service medal instead of the actually reward.
+date:        Thu Dec 20 21:47:45 2018 -0200
+summary:     - Retail version of the game are now returning nil in the time left for some quests.
 
 
