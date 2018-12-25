@@ -17,14 +17,14 @@
 # You should have received a copy of the GNU General Public License
 # along with AdiBags.  If not, see <http://www.gnu.org/licenses/>.
 
-## Interface: 80000
+## Interface: 80100
 
 ## Title: AdiBags
 ## Notes: Adirelle's bag addon.
 ## Author: Adirelle
-## Version: v1.9.11
+## Version: v1.9.13
 ## SavedVariables: AdiBagsDB
-## X-Date: 2018-08-17T15:33:16Z
+## X-Date: 2018-12-23T21:40:06Z
 ## X-License: GPL v3
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, LibSharedMedia-3.0, Scrap, BrainDead, !BugGrabber, SyLevel
 #@alpha@
