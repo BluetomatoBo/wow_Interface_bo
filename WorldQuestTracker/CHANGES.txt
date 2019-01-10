@@ -1,7 +1,7 @@
-changeset:   353:b4ca2dc292cf
-tag:         v8.1.0.353
+changeset:   355:c37fa80041f3
+tag:         v8.1.0.355
 user:        Tercioo
-date:        Thu Dec 27 20:17:04 2018 -0200
-summary:     - Fixed an issue with the taxi map where hovering over a widget won't show the tooltip.
+date:        Mon Jan 07 20:36:45 2019 -0200
+summary:     - Fixed LFG auto invite inviting people that has applied to your group when you aren't the group leader.
 
 
