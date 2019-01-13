@@ -119,8 +119,8 @@ function AS:SetInside(obj, anchor, xOffset, yOffset, anchor2)
 		obj:ClearAllPoints()
 	end
 
-	obj:Point('TOPLEFT', anchor, 'TOPLEFT', xOffset, -yOffset)
-	obj:Point('BOTTOMRIGHT', anchor2 or anchor, 'BOTTOMRIGHT', -xOffset, yOffset)
+	obj:SetPoint('TOPLEFT', anchor, 'TOPLEFT', xOffset, -yOffset)
+	obj:SetPoint('BOTTOMRIGHT', anchor2 or anchor, 'BOTTOMRIGHT', -xOffset, yOffset)
 end
 
 function AS:SetOutside(obj, anchor, xOffset, yOffset, anchor2)
@@ -133,8 +133,8 @@ function AS:SetOutside(obj, anchor, xOffset, yOffset, anchor2)
 		obj:ClearAllPoints()
 	end
 
-	obj:Point('TOPLEFT', anchor, 'TOPLEFT', -xOffset, yOffset)
-	obj:Point('BOTTOMRIGHT', anchor2 or anchor, 'BOTTOMRIGHT', xOffset, -yOffset)
+	obj:SetPoint('TOPLEFT', anchor, 'TOPLEFT', -xOffset, yOffset)
+	obj:SetPoint('BOTTOMRIGHT', anchor2 or anchor, 'BOTTOMRIGHT', xOffset, -yOffset)
 end
 
 function AS:StripTextures(Object, Kill, Alpha)
@@ -192,7 +192,7 @@ function AS:CreateBackdrop(Frame, Template, Texture)
 end
 
 function AS:CreateShadow(Frame, NoRegister, Inverted)
-	if Frame.Shadow then return end
+	if (not AS:CheckOption('Shadows')) or Frame.Shadow then return end
 
 	local Shadow = CreateFrame('Frame', nil, Frame)
 	Shadow:SetFrameStrata(Frame:GetFrameStrata())
@@ -264,7 +264,7 @@ function AS:SetTemplate(Frame, Template, Texture)
 
 	Frame:SetBackdrop(Backdrop)
 
-	if not AS.PixelPerfect then
+	if (AS:CheckOption('Theme') == 'TwoPixel' or AS:CheckOption('Theme') == 'ThickBorder') then
 		Backdrop = { edgeFile = AS.Blank, edgeSize = AS.Mult, insets = { left = AS.Mult, right = AS.Mult, top = AS.Mult, bottom = AS.Mult } }
 
 		for _, Inset in pairs({ 'InsideBorder', 'OutsideBorder' }) do
@@ -276,7 +276,11 @@ function AS:SetTemplate(Frame, Template, Texture)
 		Frame.InsideBorder:SetInside(Frame, AS.Mult, AS.Mult)
 		Frame.InsideBorder:SetFrameLevel(Frame:GetFrameLevel() + 1)
 
-		Frame.OutsideBorder:SetOutside(Frame, AS.Mult, AS.Mult)
+		if AS:CheckOption('Theme') == 'TwoPixel' then
+			Frame.OutsideBorder:SetOutside(Frame, 0, 0)
+		else
+			Frame.OutsideBorder:SetOutside(Frame, AS.Mult, AS.Mult)
+		end
 	end
 
 	local R, G, B = unpack(AS.BackdropColor)
@@ -765,7 +769,7 @@ function AS:SkinTab(Tab)
 		end
 	end
 
-	Tab.Backdrop:SetPoint('TOPLEFT', 10, AS.PixelPerfect and -1 or -3)
+	Tab.Backdrop:SetPoint('TOPLEFT', 10, AS:AdjustForTheme(-1))
 	Tab.Backdrop:SetPoint('BOTTOMRIGHT', -10, 3)
 end
 
@@ -891,12 +895,19 @@ function AS:SkinTexture(icon, backdrop)
 	end
 end
 
-function AS:AdjustForPixelPerfect(number, offset)
-	if not AS.PixelPerfect then
+function AS:AdjustForTheme(number, offset)
+	local Theme = AS:CheckOption('Theme')
+	local isNegative = number < 0
+
+	number = abs(number)
+
+	if Theme == 'TwoPixel' then
 		number = number + (offset or 1)
+	elseif Theme == 'ThickBorder' then
+		number = number + (offset or 2)
 	end
 
-	return number
+	return isNegative and -number or number
 end
 
 local function EnumObjectsHelper(enumFuncs, yieldFunc, iobj)
@@ -1066,7 +1077,7 @@ function AS:SkinStatusBarWidget(widgetFrame)
 	if bar.BGRight then bar.BGRight:Hide() end
 	if bar.BGCenter then bar.BGCenter:Hide() end
 
-	if not bar.backdrop then
+	if not bar.Backdrop then
 		AS:CreateBackdrop(bar)
 	end
 

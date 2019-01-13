@@ -14,6 +14,19 @@ AS.SkinErrors = {}
 AS.ErrorIndex = 0
 AS.ErrorCurrentIndex = 1
 
+function AS:GetUIScale()
+	local effectiveScale = _G.UIParent:GetEffectiveScale()
+	local magic = effectiveScale
+
+	local scale = max(.64, min(1.15, magic))
+
+	if strlen(scale) > 6 then
+		scale = tonumber(strsub(scale, 0, 6))
+	end
+
+	return magic/scale
+end
+
 function AS:CheckOption(optionName, ...)
 	for i = 1, select('#', ...) do
 		local addon = select(i, ...)
@@ -229,7 +242,6 @@ function AS:UpdateMedia()
 	AS.NormTex = AS.LSM:Fetch('statusbar', "Blizzard")
 	AS.BackdropColor = { .2, .2, .2, .8}
 	AS.BorderColor = { 1, 1, 1}
-	AS.PixelPerfect = true
 	AS.Color = AS.ClassColor
 	AS.HideShadows = false
 end
@@ -238,7 +250,7 @@ function AS:StartSkinning(event)
 	AS:UnregisterEvent(event)
 
 	AS.Color = AS:CheckOption('ClassColor') and AS.ClassColor or { 0, 0.44, .87, 1 }
-	AS.Mult = PixelUtil.GetNearestPixelSize(1, UIParent:GetEffectiveScale())
+	AS.Mult = AS:GetUIScale()
 	AS.ParchmentEnabled = AS:CheckOption('Parchment')
 
 	AS:UpdateMedia()

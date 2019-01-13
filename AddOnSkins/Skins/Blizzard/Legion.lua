@@ -27,7 +27,7 @@ function AS:Blizzard_ArtifactUI(event, addon)
 				child.HighlightTexture.SetAlpha = AS.Noop
 
 				if child.Selected:IsShown() then
-					child.backdrop:SetBackdropBorderColor(1,1,1)
+					child.Backdrop:SetBackdropBorderColor(1, 1, 1)
 				end
 
 				child.Selected:SetAlpha(0)
@@ -35,9 +35,9 @@ function AS:Blizzard_ArtifactUI(event, addon)
 
 				hooksecurefunc(child.Selected, "SetShown", function(_, isActive)
 					if isActive then
-						child.backdrop:SetBackdropBorderColor(1,1,1)
+						child.Backdrop:SetBackdropBorderColor(1, 1, 1)
 					else
-						child.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+						child.Backdrop:SetBackdropBorderColor(unpack(AS.BorderColor))
 					end
 				end)
 			end
@@ -136,7 +136,8 @@ function AS:Blizzard_OrderHallUI(event, addon)
 		AS:SetTemplate(self)
 		AS:SkinCloseButton(self.CloseButton)
 		AS:SkinButton(self.BackButton)
-		AS:StripTextures(self.LeftInset)
+		AS:StripTextures(self.NineSlice)
+		AS:SkinFrame(self.Inset)
 
 		for i = 1, self:GetNumChildren() do
 			local child = select(i, self:GetChildren())
