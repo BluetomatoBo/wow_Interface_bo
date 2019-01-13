@@ -1,71 +1,172 @@
-tag a657d437c5b2ee8c004d53a9261e1b706cbec746 8.1.1
+tag 35afe9bbedc5b2a3d9d902bfa60a033068a2af4c 8.1.2
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Thu Dec 20 00:36:19 2018 +0100
+Date:	Sat Jan 12 00:32:40 2019 +0100
 
-Tagging as 8.1.1
+Tagging as 8.1.2
 
-commit 32ea0aab875a66ff1865c573c86cab9158371e09
+commit 0aaac1fd3d78be6f573abbf9e5455e738170e12a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Dec 20 00:36:19 2018 +0100
+Date:   Sat Jan 12 00:32:40 2019 +0100
 
-    increment version number to 8.1.1
+    increment version number to 8.1.2
 
-commit 4e00d8f3336c7ce0d8426c72a184de1484af1c2e
+commit 1c7b43a6b301b9345db6a3a6cdce5bb82b4a367f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Dec 19 01:31:27 2018 +0100
+Date:   Fri Jan 11 02:54:13 2019 +0100
 
-    Omega via svn r18134:
-    Further improve ivus timers with more data, which confirms petrify interaction
+    Omega via svn r18157:
+    Cabal mod update
 
-commit 2a1431ac7e5e315fcb7514b95f92b02cf3e63bc8
+commit c43fd65290d8dd1491da0210205729604a1d0973
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Dec 18 05:16:41 2018 +0100
+Date:   Thu Jan 10 02:02:45 2019 +0100
 
-    Omega via svn r18133:
-    An additional no taunt warning for ghuun, based on distance from other tank
+    Omega via svn r18156:
+    Push some bug fixes to campion of light and push cabal mod
 
-commit f1ce152e21d6aa0f1f58aa95662d8ca974e72d1a
+commit f0862e2d3bc7ace1473ad4a38a43f72687209213
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Dec 14 05:12:20 2018 +0100
+Date:   Tue Jan 8 20:00:49 2019 +0100
 
-    Omega via svn r18132:
-    Adjust wind tunnel by 0.3
+    Omega via svn r18155:
+    Some antispam measures for kanae west
 
-commit ccab640280a207a9e21d520f7fa183f30085891f
+commit 1d0b8fbc1485a02f139178bf0dd4c97ac0008180
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Dec 14 05:11:43 2018 +0100
+Date:   Sat Jan 5 06:23:13 2019 +0100
 
-    Omega via svn r18131:
-    Adjust first Cudgel timer, which seems to have changed in 8.1 by about 4 seconds
+    Omega via svn r18154:
+    Blizz changed spelling of Gurgthock again, fix this so rp timer works again
 
-commit e91baac3f5b1973736e393f104430fbed583a761
+commit e8c35ac61e03812a50ca01a3e9c08d41653fe7a4
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Dec 13 04:39:39 2018 +0100
+Date:   Sat Jan 5 05:33:47 2019 +0100
 
-    Omega via svn r18130:
-    Added requested  auto marking to Ass Pix
-    Added requested countdown option for Mythrax
+    Omega via svn r18153:
+    Refine latency check for ring of booty to reduce likelyhood of timer not starting on higher latency connections
+    Add experimental target scanning to cyclone strike while at it
 
-commit aa82cb4f176bddccdd4ee7067d9c24f841111f3a
+commit 01bfc5501d698bc90ecb6188d3a421978a56fd1f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Dec 12 09:19:36 2018 +0100
+Date:   Sat Jan 5 04:33:07 2019 +0100
 
-    Omega via svn r18129:
-    CN update
+    Omega via svn r18152:
+    Fixed a bug that caused cyclone strike warning and timer to never show
 
-commit 6e55207cd2d1afea44fb04e58722de80ee76cf7b
+commit 367538b5d2c1f0724f75511c439e5b5b288a3e7e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Dec 12 06:10:29 2018 +0100
+Date:   Fri Jan 4 20:19:41 2019 +0100
 
-    Omega via svn r18128:
-    Fix Ivus mod not loading/engaging properly
-    Updated Ivus timers with live ones while at it.
-    Improved shockwave warning with target scanning on ivus
+    Omega via svn r18151:
+    don?\226?\128?\153t assume heroic changed because mythic did, at least for now
 
-commit dc8b74fb3ba19881cb20f2bf3b7117143977ffe7
+commit a03bfb40cc4dafbcf532dfcda1ec319ddd1b1345
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Dec 11 17:24:31 2018 +0100
+Date:   Fri Jan 4 20:17:23 2019 +0100
 
-    tandanu via svn r18127:
+    Omega via svn r18150:
+    Some tweaks and fixes to champion of the light
+
+commit 8e0218d3a057abfce02fb3953e6b7c3939e08870
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Jan 2 23:41:28 2019 +0100
+
+    Omega via svn r18149:
+    More positive brews to success, keep the negative brew in cast start and change color from positive color to a bad color
+
+commit 7acd9a3465f99f2f34a2714d62f272e3a07edde1
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Jan 2 04:21:03 2019 +0100
+
+    Omega via svn r18148:
+    tweak conditions some based on feedback
+
+commit 6cab50c7826e1859a6d60a56e121bac058297629
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Jan 2 03:49:51 2019 +0100
+
+    Omega via svn r18147:
+    Much smarter automation for grong tank code. Now DBM should properly consider all possible combos and handle them all with optimal tank swaps without under or over swapping.
+
+commit 87acb1ac3db3efbe8411ce8b18168816d2acdbbf
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Dec 28 21:17:27 2018 +0100
+
+    Omega via svn r18146:
+    Update dev tools a little
+
+commit bf14fe370e14ca0f634f9495d7e1237a2f0bd84a
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Dec 23 22:50:21 2018 +0100
+
+    Omega via svn r18145:
+    Add icon and yell improvements to Mekkatorque
+
+commit 88216057b4312db238c7447ccb1b7e7ff97bcd72
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Dec 22 19:00:25 2018 +0100
+
+    Omega via svn r18144:
+    Kr Update
+
+commit 35903767aff94f10ebe7b63c8efb231c87cc5981
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Dec 22 04:46:28 2018 +0100
+
+    Omega via svn r18143:
+    Fix bug that?\226?\128?\153d cause vector not to appear on info frame if user was on a different realm, do to way Full unit name from vector table was being matched to a truncated (realm stripped) name from lingering table
+    While at it, added a green color to debuff counter
+    Also changed info frame to be full size in normal, but even smaller in LFR
+
+commit c649f2a22cc162ce3d2f4f0e75eefd07a12f7217
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Dec 22 03:43:44 2018 +0100
+
+    Omega via svn r18142:
+    Fix description text for an option that?\226?\128?\153s done something totally different for a long time now.
+    Reworked TimerTracker usage so it?\226?\128?\153s more tailored to how DBM is using it and has less of it?\226?\128?\153s blizzard behavior that isn?\226?\128?\153t needed by way DBM uses it.
+
+commit b4a21a07421d53643180fd56e9ab41614a084ebd
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Dec 21 03:26:21 2018 +0100
+
+    Omega via svn r18141:
+    And fix timer for it being in wrong place
+
+commit e246f8dbca83d7f7f3cb78b7946915c13fdc314d
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Dec 21 03:22:47 2018 +0100
+
+    Omega via svn r18140:
+    Added a boss dispel warning to Alunza if group has a magic dispeller
+
+commit 92c65b7f6153476e9afd2baffd94558aa86d1367
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Dec 21 01:11:39 2018 +0100
+
+    Omega via svn r18139:
+    Cleaned up more unused stuff and comment cleanup of all mods in uldir
+    Also added some countdown options to zul finally (guess after all this time I simply forgot and no one complained)
+    Also added an audio countdown to eye beam to zekvoz as well.
+
+commit 097266952682f80b03fd4fb3cfd1eb40d26829b7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Dec 21 00:49:55 2018 +0100
+
+    Omega via svn r18138:
+    scrap mother icon option, it never worked right, and it?\226?\128?\153s too difficult to really test/fix, plus it?\226?\128?\153s not really that important of a feature (considering no body complained it didn?\226?\128?\153t work)
+
+commit 164412c86a695c28ba5d736f6575dccec69c2bb3
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Dec 21 00:46:19 2018 +0100
+
+    Omega via svn r18137:
+    Update zekvoz to use Encounter Event, this eliminates need of UNIT_POWER_FREQUENT as well the need for backup code I had if boss phase changed while at 0 energy
+
+commit 50f7d21d1070df2d63e2e6194f0fb311e6b4554d
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Dec 20 00:36:37 2018 +0100
+
+    tandanu via svn r18136:
     increment alpha version
 

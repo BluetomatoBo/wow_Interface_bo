@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 18134 $"):sub(12, -3)),
-	DisplayVersion = "8.1.1", -- the string that is shown as version
-	ReleaseRevision = 18134 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 18157 $"):sub(12, -3)),
+	DisplayVersion = "8.1.2", -- the string that is shown as version
+	ReleaseRevision = 18157 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -240,7 +240,7 @@ DBM.DefaultOptions = {
 	DontPlayPTCountdown = false,
 	DontShowPTText = false,
 	DontShowPTNoID = false,
-	PTCountThreshold = 5,
+	PTCountThreshold2 = 5,
 	LatencyThreshold = 250,
 	BigBrotherAnnounceToRaid = false,
 	SettingsMessageShown = false,
@@ -2474,16 +2474,11 @@ do
 		if sender then self:ShowPizzaInfo(text, sender) end
 		if count then
 			if not fakeMod then
-				local threshold = self.Options.PTCountThreshold
+				local threshold = self.Options.PTCountThreshold2
+				threshold = floor(threshold)
 				fakeMod = self:NewMod("CreateCountTimerDummy")
 				self:GetModLocalization("CreateCountTimerDummy"):SetGeneralLocalization{ name = DBM_CORE_MINIMAP_TOOLTIP_HEADER }
-				local adjustedThreshold = 5
-				if threshold > 10 then
-					adjustedThreshold = 10
-				else
-					adjustedThreshold = floor(threshold)
-				end
-				fakeMod.countdown = fakeMod:NewCountdown(0, 0, nil, nil, adjustedThreshold, true)
+				fakeMod.countdown = fakeMod:NewCountdown(0, 0, nil, nil, threshold, true)
 			end
 			if not self.Options.DontPlayPTCountdown then
 				fakeMod.countdown:Cancel()
@@ -4092,6 +4087,11 @@ do
 			DBM:StopLogging()
 		end
 	end
+	
+	local function restoreTimerTrackerSounds()
+		SOUNDKIT.UI_BATTLEGROUND_COUNTDOWN_TIMER = 25477
+		SOUNDKIT.UI_BATTLEGROUND_COUNTDOWN_FINISHED = 25478
+	end
 
 	local syncHandlers = {}
 	local whisperSyncHandlers = {}
@@ -4246,16 +4246,11 @@ do
 			return
 		end
 		if not dummyMod then
-			local threshold = DBM.Options.PTCountThreshold
-			local adjustedThreshold = 5
-			if threshold > 10 then
-				adjustedThreshold = 10
-			else
-				adjustedThreshold = floor(threshold)
-			end
+			local threshold = DBM.Options.PTCountThreshold2
+			threshold = floor(threshold)
 			dummyMod = DBM:NewMod("PullTimerCountdownDummy")
 			DBM:GetModLocalization("PullTimerCountdownDummy"):SetGeneralLocalization{ name = DBM_CORE_MINIMAP_TOOLTIP_HEADER }
-			dummyMod.countdown = dummyMod:NewCountdown(0, 0, nil, nil, adjustedThreshold, true)
+			dummyMod.countdown = dummyMod:NewCountdown(0, 0, nil, nil, threshold, true)
 			dummyMod.text = dummyMod:NewAnnounce("%s", 1, "Interface\\Icons\\ability_warrior_offensivestance")
 			dummyMod.geartext = dummyMod:NewSpecialWarning("  %s  ", nil, nil, nil, 3)
 		end
@@ -4269,6 +4264,8 @@ do
 		end
 		if not DBM.Options.DontShowPTCountdownText then
 			TimerTracker_OnEvent(TimerTracker, "PLAYER_ENTERING_WORLD")--easiest way to nil out timers on TimerTracker frame. This frame just has no actual star/stop functions
+			DBM:Unschedule(restoreTimerTrackerSounds)
+			restoreTimerTrackerSounds()
 		end
 		dummyMod.text:Cancel()
 		if timer == 0 then return end--"/dbm pull 0" will strictly be used to cancel the pull timer (which is why we let above part of code run but not below)
@@ -4281,7 +4278,32 @@ do
 			dummyMod.countdown:Start(timer)
 		end
 		if not DBM.Options.DontShowPTCountdownText then
-			TimerTracker_OnEvent(TimerTracker, "START_TIMER", 2, timer, timer)
+			--Start A TimerTracker timer by tricking it to start a BG timer
+			TimerTracker_OnEvent(TimerTracker, "START_TIMER", 1, timer, timer)
+			--Set default timer sound globals to fake values
+			SOUNDKIT.UI_BATTLEGROUND_COUNTDOWN_TIMER = 999999
+			SOUNDKIT.UI_BATTLEGROUND_COUNTDOWN_FINISHED = 999999
+			--But schedule method to restore the globals when timer ends
+			DBM:Unschedule(restoreTimerTrackerSounds)
+			DBM:Schedule(timer+3, restoreTimerTrackerSounds)
+			--Find the timer object DBM just created and hack our own changes into it.
+			local timerObject
+			for a,b in pairs(TimerTracker.timerList) do
+				if b.type == 1 and not b.isFree then
+					timerObject = b
+					break
+				end
+			end
+			if timerObject then
+				--Set end texture to nothing to eliminate pvp logo/hourglass
+				timerObject.GoTexture:SetTexture("")
+				timerObject.GoTextureGlow:SetTexture("")
+				--We don't want the PVP bar, we only want timer text
+				if timer > 10 then
+					--timerObject.startNumbers:Play()
+					timerObject.bar:Hide()
+				end
+			end
 		end
 		if not DBM.Options.DontShowPTText then
 			if target then
@@ -4316,16 +4338,11 @@ do
 		local dummyMod2 -- dummy mod for the break timer
 		function breakTimerStart(self, timer, sender)
 			if not dummyMod2 then
-				local threshold = DBM.Options.PTCountThreshold
-				local adjustedThreshold = 5
-				if threshold > 10 then
-					adjustedThreshold = 10
-				else
-					adjustedThreshold = floor(threshold)
-				end
+				local threshold = DBM.Options.PTCountThreshold2
+				threshold = floor(threshold)
 				dummyMod2 = DBM:NewMod("BreakTimerCountdownDummy")
 				DBM:GetModLocalization("BreakTimerCountdownDummy"):SetGeneralLocalization{ name = DBM_CORE_MINIMAP_TOOLTIP_HEADER }
-				dummyMod2.countdown = dummyMod2:NewCountdown(0, 0, nil, nil, adjustedThreshold, true)
+				dummyMod2.countdown = dummyMod2:NewCountdown(0, 0, nil, nil, threshold, true)
 				dummyMod2.text = dummyMod2:NewAnnounce("%s", 1, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 			end
 			--Cancel any existing break timers before creating new ones, we don't want double countdowns or mismatching blizz countdown text (cause you can't call another one if one is in progress)
@@ -7115,9 +7132,10 @@ do
 end
 
 --To speed up creating new mods.
-function DBM:FindDungeonIDs(low, peak)
+function DBM:FindDungeonMapIDs(low, peak)
 	local start = low or 1
 	local range = peak or 3000
+	self:AddMsg("-----------------")
 	for i = start, range do
 		local dungeon = GetRealZoneText(i)
 		if dungeon and dungeon ~= "" then
@@ -7129,6 +7147,7 @@ end
 function DBM:FindInstanceIDs(low, peak)
 	local start = low or 1
 	local range = peak or 3000
+	self:AddMsg("-----------------")
 	for i = start, range do
 		local instance = EJ_GetInstanceInfo(i)
 		if instance then
@@ -7141,14 +7160,16 @@ end
 --/run DBM:FindEncounterIDs(1177)--Crucible of Storms
 --/run DBM:FindEncounterIDs(1176)--Zuldazar Raid
 --/run DBM:FindEncounterIDs(1001, 23)--Dungeon Template (mythic difficulty)
---/run DBM:FindEncounterIDs(instanceID, 1)--Classic Dungeons need diff 1 specified
---/run DBM:FindDungeonIDs(1, 300)--Find Classic Dungeon IDs
+--/run DBM:FindEncounterIDs(228, 1)--Classic Dungeons need diff 1 specified
+--/run DBM:FindDungeonMapIDs(1, 500)--Find Classic Dungeon Map IDs
+--/run DBM:FindInstanceIDs(1, 300)--Find Classic Dungeon Journal IDs
 function DBM:FindEncounterIDs(instanceID, diff)
 	if not instanceID then
 		self:AddMsg("Error: Function requires instanceID be provided")
 	end
 	if not diff then diff = 14 end--Default to "normal" in 6.0+ if diff arg not given.
 	EJ_SetDifficulty(diff)--Make sure it's set to right difficulty or it'll ignore mobs (ie ra-den if it's not set to heroic). Use user specified one as primary, with curernt zone difficulty as fallback
+	self:AddMsg("-----------------")
 	for i=1, 25 do
 		local name, _, encounterID = EJ_GetEncounterInfoByIndex(i, instanceID)
 		if name then
@@ -7583,8 +7604,8 @@ function bossModPrototype:IsCriteriaCompleted(criteriaIDToCheck)
 	return false
 end
 
-function bossModPrototype:LatencyCheck()
-	return select(4, GetNetStats()) < DBM.Options.LatencyThreshold
+function bossModPrototype:LatencyCheck(custom)
+	return select(4, GetNetStats()) < (custom or DBM.Options.LatencyThreshold)
 end
 
 function bossModPrototype:CheckBigWigs(name)
