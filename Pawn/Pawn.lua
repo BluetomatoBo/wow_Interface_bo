@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0233
+PawnVersion = 2.0234
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -263,9 +263,12 @@ function PawnInitialize()
 		end)
 	
 	-- World map tooltip (for quest rewards)
-	hooksecurefunc(WorldMapTooltip, "SetHyperlink", function(self, ...) PawnUpdateTooltip("WorldMapTooltip", "SetHyperlink", ...) end) -- HandyNotes_DraenorTreasures compatibility
-	hooksecurefunc(WorldMapTooltip, "SetQuestLogItem", function(self, ...) PawnUpdateTooltip("WorldMapTooltip", "SetQuestLogItem", ...) end)
-	hooksecurefunc(WorldMapTooltip, "Hide", function(self, ...) PawnLastHoveredItem = nil end)
+	if WorldMapTooltip then
+		-- *** No longer needed in 8.1.5; the world map just uses GameTooltip.
+		hooksecurefunc(WorldMapTooltip, "SetHyperlink", function(self, ...) PawnUpdateTooltip("WorldMapTooltip", "SetHyperlink", ...) end) -- HandyNotes_DraenorTreasures compatibility
+		hooksecurefunc(WorldMapTooltip, "SetQuestLogItem", function(self, ...) PawnUpdateTooltip("WorldMapTooltip", "SetQuestLogItem", ...) end)
+		hooksecurefunc(WorldMapTooltip, "Hide", function(self, ...) PawnLastHoveredItem = nil end)
+	end
 	
 	-- The item link tooltip (only hook it if it's an actual item)
 	hooksecurefunc(ItemRefTooltip, "SetHyperlink",
@@ -320,7 +323,9 @@ function PawnInitialize()
 				PawnAttachIconToTooltip(ShoppingTooltip2, true)
 			end
 		end)
-	hooksecurefunc(WorldMapCompareTooltip1, "SetCompareItem",
+	if WorldMapCompareTooltip1 then
+		-- *** No longer necessary in 8.1.5
+		hooksecurefunc(WorldMapCompareTooltip1, "SetCompareItem",
 		function(self, ...)
 			local _, ItemLink1 = WorldMapCompareTooltip1:GetItem()
 			PawnUpdateTooltip("WorldMapCompareTooltip1", "SetCompareItem", ItemLink1, ...)
@@ -331,6 +336,7 @@ function PawnInitialize()
 				PawnAttachIconToTooltip(WorldMapCompareTooltip2, true)
 			end
 		end)
+	end
 	hooksecurefunc(ItemRefShoppingTooltip1, "SetCompareItem",
 		function(self, ...)
 			local _, ItemLink1 = ItemRefShoppingTooltip1:GetItem()
