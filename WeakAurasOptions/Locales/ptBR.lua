@@ -257,6 +257,8 @@ WeakAuras → Opções → Opções ]=]
 	--[[Translation missing --]]
 	L["Done"] = "Done"
 	--[[Translation missing --]]
+	L["Don't skip this Version"] = "Don't skip this Version"
+	--[[Translation missing --]]
 	L["Down"] = "Down"
 	--[[Translation missing --]]
 	L["Drag to move"] = "Drag to move"
@@ -279,6 +281,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Dynamic information from Trigger %i"] = "Dynamic information from Trigger %i"
 	--[[Translation missing --]]
 	L["Dynamic text tooltip"] = "Dynamic text tooltip"
+	--[[Translation missing --]]
+	L["Enable"] = "Enable"
 	L["Enabled"] = "Habilitado"
 	--[[Translation missing --]]
 	L["End Angle"] = "End Angle"
@@ -408,6 +412,8 @@ WeakAuras → Opções → Opções ]=]
 	--[[Translation missing --]]
 	L["If"] = "If"
 	--[[Translation missing --]]
+	L["If checked, then this space will span across multiple lines."] = "If checked, then this space will span across multiple lines."
+	--[[Translation missing --]]
 	L["If this option is enabled, you are no longer able to import auras."] = "If this option is enabled, you are no longer able to import auras."
 	--[[Translation missing --]]
 	L["If Trigger %s"] = "If Trigger %s"
@@ -421,8 +427,6 @@ WeakAuras → Opções → Opções ]=]
 	L["Ignore Self"] = "Ignore Self"
 	--[[Translation missing --]]
 	L["Ignore self"] = "Ignore self"
-	--[[Translation missing --]]
-	L["Ignore this Update"] = "Ignore this Update"
 	L["Ignored"] = "Ignorado"
 	L["Import"] = "Importar"
 	L["Import a display from an encoded string"] = "Importar um display de um string codificado"
@@ -534,8 +538,6 @@ WeakAuras → Opções → Opções ]=]
 	--[[Translation missing --]]
 	L["Only match auras cast by the player or his pet"] = "Only match auras cast by the player or his pet"
 	L["Operator"] = "Operador"
-	--[[Translation missing --]]
-	L["Option #"] = "Option #"
 	--[[Translation missing --]]
 	L["Option #%i"] = "Option #%i"
 	--[[Translation missing --]]
@@ -695,6 +697,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Simple"] = "Simple"
 	L["Size"] = "Tamanho"
 	--[[Translation missing --]]
+	L["Skip this Version"] = "Skip this Version"
+	--[[Translation missing --]]
 	L["Slant Amount"] = "Slant Amount"
 	--[[Translation missing --]]
 	L["Slant Mode"] = "Slant Mode"
@@ -751,8 +755,6 @@ WeakAuras → Opções → Opções ]=]
 	L["Step Size"] = "Step Size"
 	--[[Translation missing --]]
 	L["Sticky Duration"] = "Sticky Duration"
-	--[[Translation missing --]]
-	L["Stop ignoring this Update"] = "Stop ignoring this Update"
 	--[[Translation missing --]]
 	L["Stop ignoring Updates"] = "Stop ignoring Updates"
 	--[[Translation missing --]]
@@ -877,8 +879,6 @@ WeakAuras → Opções → Opções ]=]
 	L["Values are in normalized rgba format."] = "Values are in normalized rgba format."
 	--[[Translation missing --]]
 	L["Values:"] = "Values:"
-	--[[Translation missing --]]
-	L["Variable Size"] = "Variable Size"
 	--[[Translation missing --]]
 	L["Version: "] = "Version: "
 	--[[Translation missing --]]

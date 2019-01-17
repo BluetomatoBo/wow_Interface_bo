@@ -594,6 +594,8 @@ L["If you require additional assistance, please open a ticket on GitHub or visit
 --[[Translation missing --]]
 L["Ignore Rune CD"] = "Ignore Rune CD"
 --[[Translation missing --]]
+L["Ignore Spell Known"] = "Ignore Spell Known"
+--[[Translation missing --]]
 L["Immune"] = "Immune"
 --[[Translation missing --]]
 L["Import"] = "Import"
@@ -1271,6 +1273,8 @@ L["Timed"] = "Timed"
 L["Timewalking"] = "Timewalking"
 --[[Translation missing --]]
 L["Toggle"] = "Toggle"
+--[[Translation missing --]]
+L["Toggle List"] = "Toggle List"
 --[[Translation missing --]]
 L["Toggle Options Window"] = "Toggle Options Window"
 --[[Translation missing --]]

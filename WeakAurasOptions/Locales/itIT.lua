@@ -340,6 +340,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Done"] = "Done"
 	--[[Translation missing --]]
+	L["Don't skip this Version"] = "Don't skip this Version"
+	--[[Translation missing --]]
 	L["Down"] = "Down"
 	--[[Translation missing --]]
 	L["Drag to move"] = "Drag to move"
@@ -365,6 +367,8 @@ local L = WeakAuras.L
 	L["Dynamic information from Trigger %i"] = "Dynamic information from Trigger %i"
 	--[[Translation missing --]]
 	L["Dynamic text tooltip"] = "Dynamic text tooltip"
+	--[[Translation missing --]]
+	L["Enable"] = "Enable"
 	--[[Translation missing --]]
 	L["Enabled"] = "Enabled"
 	--[[Translation missing --]]
@@ -512,6 +516,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["If"] = "If"
 	--[[Translation missing --]]
+	L["If checked, then this space will span across multiple lines."] = "If checked, then this space will span across multiple lines."
+	--[[Translation missing --]]
 	L["If this option is enabled, you are no longer able to import auras."] = "If this option is enabled, you are no longer able to import auras."
 	--[[Translation missing --]]
 	L["If Trigger %s"] = "If Trigger %s"
@@ -525,8 +531,6 @@ local L = WeakAuras.L
 	L["Ignore Self"] = "Ignore Self"
 	--[[Translation missing --]]
 	L["Ignore self"] = "Ignore self"
-	--[[Translation missing --]]
-	L["Ignore this Update"] = "Ignore this Update"
 	--[[Translation missing --]]
 	L["Ignored"] = "Ignored"
 	--[[Translation missing --]]
@@ -661,8 +665,6 @@ local L = WeakAuras.L
 	L["Only match auras cast by the player or his pet"] = "Only match auras cast by the player or his pet"
 	--[[Translation missing --]]
 	L["Operator"] = "Operator"
-	--[[Translation missing --]]
-	L["Option #"] = "Option #"
 	--[[Translation missing --]]
 	L["Option #%i"] = "Option #%i"
 	--[[Translation missing --]]
@@ -850,6 +852,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Size"] = "Size"
 	--[[Translation missing --]]
+	L["Skip this Version"] = "Skip this Version"
+	--[[Translation missing --]]
 	L["Slant Amount"] = "Slant Amount"
 	--[[Translation missing --]]
 	L["Slant Mode"] = "Slant Mode"
@@ -921,8 +925,6 @@ local L = WeakAuras.L
 	L["Step Size"] = "Step Size"
 	--[[Translation missing --]]
 	L["Sticky Duration"] = "Sticky Duration"
-	--[[Translation missing --]]
-	L["Stop ignoring this Update"] = "Stop ignoring this Update"
 	--[[Translation missing --]]
 	L["Stop ignoring Updates"] = "Stop ignoring Updates"
 	--[[Translation missing --]]
@@ -1051,8 +1053,6 @@ local L = WeakAuras.L
 	L["Values are in normalized rgba format."] = "Values are in normalized rgba format."
 	--[[Translation missing --]]
 	L["Values:"] = "Values:"
-	--[[Translation missing --]]
-	L["Variable Size"] = "Variable Size"
 	--[[Translation missing --]]
 	L["Version: "] = "Version: "
 	--[[Translation missing --]]

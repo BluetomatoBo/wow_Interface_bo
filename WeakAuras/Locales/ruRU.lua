@@ -372,6 +372,8 @@ L["Id"] = "ID"
 --[[Translation missing --]]
 L["If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"] = "If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"
 L["Ignore Rune CD"] = "Игнорировать задержку руны"
+--[[Translation missing --]]
+L["Ignore Spell Known"] = "Ignore Spell Known"
 L["Immune"] = "Невосприимчивость"
 L["Import"] = "Импорт"
 L["Import as Copy"] = "Копировать"
@@ -772,6 +774,8 @@ L["Timed"] = "По истечении времени"
 L["Timewalking"] = "Путешествие во времени"
 --[[Translation missing --]]
 L["Toggle"] = "Toggle"
+--[[Translation missing --]]
+L["Toggle List"] = "Toggle List"
 L["Toggle Options Window"] = "Переключение окна параметров"
 --[[Translation missing --]]
 L["Tooltip"] = "Tooltip"
