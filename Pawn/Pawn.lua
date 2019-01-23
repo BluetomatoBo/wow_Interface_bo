@@ -384,7 +384,7 @@ function PawnInitialize()
 		LinkWrangler.RegisterCallback("Pawn", PawnLinkWranglerOnTooltip, "refreshcomp")
 	end
 
-	-- WoW 7.1 in-bag upgrade icons
+	-- In-bag upgrade icons
 	PawnOriginalIsContainerItemAnUpgrade = IsContainerItemAnUpgrade
 	IsContainerItemAnUpgrade = function(bagID, slot, ...)
 		if PawnCommon.ShowBagUpgradeAdvisor then
@@ -395,7 +395,7 @@ function PawnInitialize()
 		else
 			return PawnOriginalIsContainerItemAnUpgrade(bagID, slot, ...)
 		end
-		-- FUTURE: Consider hooking ContainerFrameItemButton_UpdateItemUpgradeIcon instead, but then Pawn would need its own "retry when not enough information is available" logic.  But then Pawn also would no longer automatically integrate with other bag addons.
+		-- FUTURE: Consider hooking ContainerFrameItemButton_UpdateItemUpgradeIcon instead, but then Pawn would need its own "retry when not enough information is available" logic.  And Pawn also would no longer automatically integrate with other bag addons.
 	end
 
 	-- We're now effectively initialized.  Just the last steps of scale initialization remain.
@@ -412,6 +412,12 @@ function PawnInitialize()
 	-- Go through the user's scales and check them for errors.
 	for ScaleName, _ in pairs(PawnCommon.Scales) do
 		PawnCorrectScaleErrors(ScaleName)
+	end
+
+	-- Warn them if Pawn might be broken due to changing the thousands or decimal separator
+	if (LARGE_NUMBER_SEPERATOR and PawnLocal.ThousandsSeparator ~= LARGE_NUMBER_SEPERATOR) or
+	(DECIMAL_SEPERATOR and PawnLocal.DecimalSeparator ~= DECIMAL_SEPERATOR) then
+		VgerCore.Fail("Pawn may provide incorrect advice due to a potential addon conflict: Pawn is not compatible with Combat Numbers Separator, Titan Panel Artifact Power, or other addons that change the way that numbers appear.")
 	end
 
 	-- If auto-spec is on, check their spec now in case they switched on a different PC.
