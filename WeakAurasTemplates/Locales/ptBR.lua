@@ -64,6 +64,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Charge and Debuff Tracking"] = "Charge and Debuff Tracking"
 	--[[Translation missing --]]
+	L["Charge and Duration Tracking"] = "Charge and Duration Tracking"
+	--[[Translation missing --]]
 	L["Charge Tracking"] = "Charge Tracking"
 	--[[Translation missing --]]
 	L["cooldown"] = "cooldown"
@@ -82,6 +84,10 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Health"] = "Health"
 	--[[Translation missing --]]
+	L["Highlight while active, red when out of range."] = "Highlight while active, red when out of range."
+	--[[Translation missing --]]
+	L["Highlight while active."] = "Highlight while active."
+	--[[Translation missing --]]
 	L["Highlight while buffed, red when out of range."] = "Highlight while buffed, red when out of range."
 	--[[Translation missing --]]
 	L["Highlight while buffed."] = "Highlight while buffed."
@@ -90,15 +96,17 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Highlight while debuffed."] = "Highlight while debuffed."
 	--[[Translation missing --]]
+	L["Highlight while spell is active."] = "Highlight while spell is active."
+	--[[Translation missing --]]
 	L["Hold CTRL to create multiple auras at once"] = "Hold CTRL to create multiple auras at once"
 	--[[Translation missing --]]
 	L["Keeps existing triggers intact"] = "Keeps existing triggers intact"
 	--[[Translation missing --]]
 	L["Next"] = "Next"
 	--[[Translation missing --]]
-	L["On Procc Trinkets (Buff)"] = "On Procc Trinkets (Buff)"
+	L["On Procc Trinkets (Aura)"] = "On Procc Trinkets (Aura)"
 	--[[Translation missing --]]
-	L["On Use Trinkets (Buff)"] = "On Use Trinkets (Buff)"
+	L["On Use Trinkets (Aura)"] = "On Use Trinkets (Aura)"
 	--[[Translation missing --]]
 	L["On Use Trinkets (CD)"] = "On Use Trinkets (CD)"
 	--[[Translation missing --]]
@@ -118,7 +126,7 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["PvP Talents"] = "PvP Talents"
 	--[[Translation missing --]]
-	L["PVP Trinkets (Buff)"] = "PVP Trinkets (Buff)"
+	L["PVP Trinkets (Aura)"] = "PVP Trinkets (Aura)"
 	--[[Translation missing --]]
 	L["PVP Trinkets (CD)"] = "PVP Trinkets (CD)"
 	--[[Translation missing --]]
@@ -164,6 +172,12 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Show Cooldown and Debuff and Check for Target"] = "Show Cooldown and Debuff and Check for Target"
 	--[[Translation missing --]]
+	L["Show Cooldown and Duration"] = "Show Cooldown and Duration"
+	--[[Translation missing --]]
+	L["Show Cooldown and Duration and Check for Target"] = "Show Cooldown and Duration and Check for Target"
+	--[[Translation missing --]]
+	L["Show Cooldown and Duration and Check Usable"] = "Show Cooldown and Duration and Check Usable"
+	--[[Translation missing --]]
 	L["Show Cooldown and Proc Tracking"] = "Show Cooldown and Proc Tracking"
 	--[[Translation missing --]]
 	L["Show Cooldown and Totem Information"] = "Show Cooldown and Totem Information"
@@ -185,6 +199,8 @@ local L = WeakAuras.L
 	L["Tracks the charge and the buff, highlight while the buff is active, blue on insufficient resources."] = "Tracks the charge and the buff, highlight while the buff is active, blue on insufficient resources."
 	--[[Translation missing --]]
 	L["Tracks the charge and the debuff, highlight while the debuff is active, blue on insufficient resources."] = "Tracks the charge and the debuff, highlight while the debuff is active, blue on insufficient resources."
+	--[[Translation missing --]]
+	L["Tracks the charge and the duration of spell, highlight while the spell is active, blue on insufficient resources."] = "Tracks the charge and the duration of spell, highlight while the spell is active, blue on insufficient resources."
 	--[[Translation missing --]]
 	L["Unknown Item"] = "Unknown Item"
 	--[[Translation missing --]]

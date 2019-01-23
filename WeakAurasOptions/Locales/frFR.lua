@@ -6,7 +6,6 @@ local L = WeakAuras.L
 
 -- WeakAuras/Options
 	L[" by "] = "de"
-	L[" Configuration"] = "Configuration"
 	L["-- Do not remove this comment, it is part of this trigger: "] = "-- Ne retirez pas ce commentaire, il fait partie de ce déclencheur : "
 	L[" to version "] = "vers version"
 	L["% of Progress"] = "% de progression"
@@ -14,6 +13,8 @@ local L = WeakAuras.L
 	L["%i Matches"] = "%i Correspondances"
 	L["%s Color"] = "%s Couleur"
 	L["%s total auras"] = "%s auras au total"
+	--[[Translation missing --]]
+	L["|cFFFF0000Duplicate Keys Found!|nPlease change the keys of the following options!|r"] = "|cFFFF0000Duplicate Keys Found!|nPlease change the keys of the following options!|r"
 	L["1 Match"] = "1 Correspondance"
 	L["1. Text"] = "1. Texte"
 	L["1. Text Settings"] = "1. Paramètres du Texte"
@@ -323,6 +324,8 @@ Si le nombre entré est decimal (ex. 0.5), une fraction (ex. 1/2), ou un pourcen
 	L["Icon Settings"] = "Icon Settings"
 	L["If"] = "Si"
 	--[[Translation missing --]]
+	L["If checked, then this separator will include text. Otherwise, it will be just a horizontal line."] = "If checked, then this separator will include text. Otherwise, it will be just a horizontal line."
+	--[[Translation missing --]]
 	L["If checked, then this space will span across multiple lines."] = "If checked, then this space will span across multiple lines."
 	L["If this option is enabled, you are no longer able to import auras."] = "Si cette option est activé, vous ne pourrez plus importé des auras."
 	L["If Trigger %s"] = "Si Déclencheur %s"
@@ -506,6 +509,12 @@ Seule une unique valeur peut être choisie]=]
 	L["Search"] = "Chrecher"
 	L["Select the auras you always want to be listed first"] = "Choisissez les auras que vous voulez toujours voir apparaître en premier dans la liste"
 	L["Send To"] = "Envoyer vers"
+	--[[Translation missing --]]
+	L["Separator"] = "Separator"
+	--[[Translation missing --]]
+	L["Separator Text"] = "Separator Text"
+	--[[Translation missing --]]
+	L["Separator text"] = "Separator text"
 	L["Set Parent to Anchor"] = "Définir Parent à l'Ancrage"
 	L["Set tooltip description"] = "Définir la description de l'info-bulle"
 	--[[Translation missing --]]

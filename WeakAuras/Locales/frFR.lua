@@ -101,6 +101,12 @@ L["Anticlockwise"] = "Sens anti-horaire"
 L["Any"] = "N'importe lequel"
 L["Any Triggers"] = "Au moins un déclencheur"
 L["Arena"] = "Arène"
+--[[Translation missing --]]
+L["Armor (%)"] = "Armor (%)"
+--[[Translation missing --]]
+L["Armor against Target (%)"] = "Armor against Target (%)"
+--[[Translation missing --]]
+L["Armor Rating"] = "Armor Rating"
 L["Ascending"] = "Croissant"
 L["Assist"] = "Assistant"
 L["At Least One Enemy"] = "Au moins un ennemi"
@@ -130,6 +136,10 @@ L["Autocast Shine"] = "Autocast Shine"
 L["Auto-Clone (Show all Matches)"] = "Clonage Automatique (Afficher tous les résultats)"
 L["Automatic"] = "Automatique"
 L["Automatic Rotation"] = "Rotation automatique"
+--[[Translation missing --]]
+L["Avoidance (%)"] = "Avoidance (%)"
+--[[Translation missing --]]
+L["Avoidance Rating"] = "Avoidance Rating"
 L["Back"] = "Dos"
 L["Back and Forth"] = "D'avant en arrière"
 L["Backdrop Color"] = "Couleur de Fond"
@@ -147,6 +157,10 @@ L["BigWigs Message"] = "Message BigWigs"
 L["BigWigs Timer"] = "Temps BigWigs"
 L["Blizzard Combat Text"] = "Texte de Combat Blizzard"
 L["Block"] = "Bloc"
+--[[Translation missing --]]
+L["Block (%)"] = "Block (%)"
+--[[Translation missing --]]
+L["Block against Target (%)"] = "Block against Target (%)"
 L["Blocked"] = "Bloqué"
 L["Border Color"] = "Couleur de Bordure"
 L["Boss"] = "Boss"
@@ -180,6 +194,8 @@ L["Challenge"] = "Défi"
 L["Changed"] = "Modifié"
 L["Channel"] = "Canal"
 L["Channel (Spell)"] = "Canalisation"
+--[[Translation missing --]]
+L["Character Stats"] = "Character Stats"
 L["Character Type"] = "Type de Personnage"
 L["Charge gained/lost"] = "Charge gagné/perdu"
 L["Charges"] = "Charges"
@@ -215,6 +231,10 @@ L["Counter Clockwise"] = "Sens Antihoraire"
 L["Create"] = "Créer"
 L["Create a Copy"] = "Créer une Copie"
 L["Critical"] = "Critique"
+--[[Translation missing --]]
+L["Critical (%)"] = "Critical (%)"
+--[[Translation missing --]]
+L["Critical Rating"] = "Critical Rating"
 L["Cross"] = "Croix"
 L["Crowd Controlled"] = "Contrôlé"
 L["Crushing"] = "Ecrasant"
@@ -254,6 +274,10 @@ L["Dispel Failed"] = "Dissipation échouée"
 L["Display"] = "Affichage"
 L["Distance"] = "Distance"
 L["Dodge"] = "Esquive"
+--[[Translation missing --]]
+L["Dodge (%)"] = "Dodge (%)"
+--[[Translation missing --]]
+L["Dodge Rating"] = "Dodge Rating"
 L["Done"] = "Fait"
 L["Down"] = "Bas"
 L["Drain"] = "Drain"
@@ -334,6 +358,10 @@ L["Hands"] = "Mains"
 L["Has Target"] = "A une Cible"
 L["Has Vehicle UI"] = "A l'UI véhicule"
 L["HasPet"] = "Avoir un familier (vivant)"
+--[[Translation missing --]]
+L["Haste (%)"] = "Haste (%)"
+--[[Translation missing --]]
+L["Haste Rating"] = "Haste Rating"
 L["Head"] = "Tête"
 L["Heal"] = "Soin"
 L["Healer"] = "Soigneur"
@@ -405,6 +433,10 @@ L["Lava"] = "Lave"
 L["Least remaining time"] = "Least remaining time"
 L["Leaving"] = "Quitter"
 L["Leech"] = "Drain"
+--[[Translation missing --]]
+L["Leech (%)"] = "Leech (%)"
+--[[Translation missing --]]
+L["Leech Rating"] = "Leech Rating"
 L["Left"] = "Gauche"
 L["Left to Right"] = "De Gauche à Droite"
 --[[Translation missing --]]
@@ -421,12 +453,18 @@ L["Low Damage"] = "Dégâts faibles"
 L["Lower Than Tank"] = "Plus bas que le tank"
 L["Magic"] = "Magique"
 L["Main Hand"] = "Main droite"
+--[[Translation missing --]]
+L["Main Stat"] = "Main Stat"
 L["Make sure you can trust the person who sent it!"] = "Assurez-vous de pouvoir faire confiance à la personne qui l'a envoyé !"
 L["Malformed WeakAuras link"] = "Lien WeakAuras mal formé"
 L["Manual Rotation"] = "Rotation manuelle"
 L["Marked First"] = "Marqué en premier"
 L["Marked Last"] = "Marqué en dernier"
 L["Master"] = "Maître"
+--[[Translation missing --]]
+L["Mastery (%)"] = "Mastery (%)"
+--[[Translation missing --]]
+L["Mastery Rating"] = "Mastery Rating"
 --[[Translation missing --]]
 L["Match Count"] = "Match Count"
 L["Matches (Pattern)"] = "Correspond (format)"
@@ -460,7 +498,9 @@ L["Most remaining time"] = "Most remaining time"
 L["Mounted"] = "En monture"
 L["Mouse Cursor"] = "Curseur de Souris"
 --[[Translation missing --]]
-L["Multi-Line"] = "Multi-Line"
+L["Movement Speed (%)"] = "Movement Speed (%)"
+--[[Translation missing --]]
+L["Movement Speed Rating"] = "Movement Speed Rating"
 L["Multi-target"] = "Multi-cibles"
 L["Music"] = "Musique"
 L["Mythic"] = "Mythique"
@@ -517,6 +557,10 @@ L["Overlay %s"] = "Recouvrir %s"
 --[[Translation missing --]]
 L["Overlay Cost of Casts"] = "Overlay Cost of Casts"
 L["Parry"] = "Parade"
+--[[Translation missing --]]
+L["Parry (%)"] = "Parry (%)"
+--[[Translation missing --]]
+L["Parry Rating"] = "Parry Rating"
 L["Party"] = "Groupe"
 L["Party Kill"] = "Tué par le groupe"
 L["Passive"] = "Passif"
@@ -633,6 +677,8 @@ L["Second Value of Tooltip Text"] = "Second Value of Tooltip Text"
 L["Seconds"] = "Secondes"
 L["Select Frame"] = "Sélectionner le cadre"
 --[[Translation missing --]]
+L["Separator"] = "Separator"
+--[[Translation missing --]]
 L["Set Glow Visibility"] = "Set Glow Visibility"
 L["Set Maximum Progress"] = "Progression maximale"
 L["Set Minimum Progress"] = "Progression minimum"
@@ -663,8 +709,6 @@ L["Show lowest time left over all units"] = "Show lowest time left over all unit
 --[[Translation missing --]]
 L["Show lowest time left per unit"] = "Show lowest time left per unit"
 L["Shrink"] = "Rétrécir"
---[[Translation missing --]]
-L["Single-Line"] = "Single-Line"
 L["Size & Position"] = "Taille & Position"
 L["Skull"] = "Crâne"
 L["Slide from Bottom"] = "Glisser d'en bas"
@@ -728,6 +772,8 @@ L["Stacks Text Color"] = "Stacks Text Color"
 L["Stacks Text Size"] = "Stacks Text Size"
 --[[Translation missing --]]
 L["Stagger Scale"] = "Stagger Scale"
+--[[Translation missing --]]
+L["Stamina"] = "Stamina"
 L["Stance/Form/Aura"] = "Posture/Forme/Aura"
 L["Star"] = "Étoile"
 L["Start Profiling"] = "Démarrer le profilage"
@@ -830,6 +876,10 @@ L["Use /wa minimap to show the minimap icon again"] = "Use /wa minimap to show t
 L["Use Custom Glow Color"] = "Use Custom Glow Color"
 L["Values/Remaining Time above this value are displayed as full progress."] = "Les valeurs/temps restant au-dessus de cette valeur sont affichés en tant que progrès complets."
 L["Values/Remaining Time below this value are displayed as no progress."] = "Les valeurs/temps restant en-dessous de cette valeur sont affichés en tant que progrès complets."
+--[[Translation missing --]]
+L["Versatility (%)"] = "Versatility (%)"
+--[[Translation missing --]]
+L["Versatility Rating"] = "Versatility Rating"
 L["Version: "] = "Version: "
 L["Waist"] = "Taille"
 L["War Mode Active"] = "Mode de Guerre Actif"

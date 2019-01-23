@@ -115,6 +115,12 @@ L["Anticlockwise"] = "Anti-horário"
 L["Any"] = "Qualquer"
 L["Any Triggers"] = "Quaisquer gatilhos"
 L["Arena"] = "Arena"
+--[[Translation missing --]]
+L["Armor (%)"] = "Armor (%)"
+--[[Translation missing --]]
+L["Armor against Target (%)"] = "Armor against Target (%)"
+--[[Translation missing --]]
+L["Armor Rating"] = "Armor Rating"
 L["Ascending"] = "Ascendente"
 --[[Translation missing --]]
 L["Assist"] = "Assist"
@@ -156,6 +162,10 @@ L["Automatic"] = "Automático"
 --[[Translation missing --]]
 L["Automatic Rotation"] = "Automatic Rotation"
 --[[Translation missing --]]
+L["Avoidance (%)"] = "Avoidance (%)"
+--[[Translation missing --]]
+L["Avoidance Rating"] = "Avoidance Rating"
+--[[Translation missing --]]
 L["Back"] = "Back"
 --[[Translation missing --]]
 L["Back and Forth"] = "Back and Forth"
@@ -179,6 +189,10 @@ L["BigWigs Message"] = "BigWigs Message"
 L["BigWigs Timer"] = "BigWigs Timer"
 L["Blizzard Combat Text"] = "Texto de Combate da Blizzard"
 L["Block"] = "Bloquear"
+--[[Translation missing --]]
+L["Block (%)"] = "Block (%)"
+--[[Translation missing --]]
+L["Block against Target (%)"] = "Block against Target (%)"
 L["Blocked"] = "Bloqueado"
 --[[Translation missing --]]
 L["Border Color"] = "Border Color"
@@ -221,6 +235,8 @@ L["Challenge"] = "Challenge"
 L["Changed"] = "Changed"
 L["Channel"] = "Canal"
 L["Channel (Spell)"] = "Canal (Feitiço)"
+--[[Translation missing --]]
+L["Character Stats"] = "Character Stats"
 L["Character Type"] = "Tipo de personagem"
 --[[Translation missing --]]
 L["Charge gained/lost"] = "Charge gained/lost"
@@ -270,6 +286,10 @@ L["Create"] = "Criar"
 --[[Translation missing --]]
 L["Create a Copy"] = "Create a Copy"
 L["Critical"] = "Crítico"
+--[[Translation missing --]]
+L["Critical (%)"] = "Critical (%)"
+--[[Translation missing --]]
+L["Critical Rating"] = "Critical Rating"
 --[[Translation missing --]]
 L["Cross"] = "Cross"
 L["Crowd Controlled"] = "Sob efeito de C/C"
@@ -335,6 +355,10 @@ L["Display"] = "Display"
 L["Distance"] = "Distance"
 --[[Translation missing --]]
 L["Dodge"] = "Dodge"
+--[[Translation missing --]]
+L["Dodge (%)"] = "Dodge (%)"
+--[[Translation missing --]]
+L["Dodge Rating"] = "Dodge Rating"
 --[[Translation missing --]]
 L["Done"] = "Done"
 --[[Translation missing --]]
@@ -484,6 +508,10 @@ L["Has Vehicle UI"] = "Has Vehicle UI"
 --[[Translation missing --]]
 L["HasPet"] = "HasPet"
 --[[Translation missing --]]
+L["Haste (%)"] = "Haste (%)"
+--[[Translation missing --]]
+L["Haste Rating"] = "Haste Rating"
+--[[Translation missing --]]
 L["Head"] = "Head"
 --[[Translation missing --]]
 L["Heal"] = "Heal"
@@ -612,6 +640,10 @@ L["Least remaining time"] = "Least remaining time"
 --[[Translation missing --]]
 L["Leaving"] = "Leaving"
 L["Leech"] = "Sugar"
+--[[Translation missing --]]
+L["Leech (%)"] = "Leech (%)"
+--[[Translation missing --]]
+L["Leech Rating"] = "Leech Rating"
 L["Left"] = "Esquerda"
 L["Left to Right"] = "Da esquerda para direita"
 --[[Translation missing --]]
@@ -638,6 +670,8 @@ L["Lower Than Tank"] = "Menor que o tanque"
 L["Magic"] = "Mágico"
 L["Main Hand"] = "Mão principal"
 --[[Translation missing --]]
+L["Main Stat"] = "Main Stat"
+--[[Translation missing --]]
 L["Make sure you can trust the person who sent it!"] = "Make sure you can trust the person who sent it!"
 --[[Translation missing --]]
 L["Malformed WeakAuras link"] = "Malformed WeakAuras link"
@@ -648,6 +682,10 @@ L["Marked First"] = "Marked First"
 --[[Translation missing --]]
 L["Marked Last"] = "Marked Last"
 L["Master"] = "Mestre"
+--[[Translation missing --]]
+L["Mastery (%)"] = "Mastery (%)"
+--[[Translation missing --]]
+L["Mastery Rating"] = "Mastery Rating"
 --[[Translation missing --]]
 L["Match Count"] = "Match Count"
 --[[Translation missing --]]
@@ -698,7 +736,9 @@ L["Mounted"] = "Montado"
 --[[Translation missing --]]
 L["Mouse Cursor"] = "Mouse Cursor"
 --[[Translation missing --]]
-L["Multi-Line"] = "Multi-Line"
+L["Movement Speed (%)"] = "Movement Speed (%)"
+--[[Translation missing --]]
+L["Movement Speed Rating"] = "Movement Speed Rating"
 L["Multi-target"] = "Multi-alvo"
 L["Music"] = "Música"
 --[[Translation missing --]]
@@ -774,6 +814,10 @@ L["Overlay %s"] = "Overlay %s"
 --[[Translation missing --]]
 L["Overlay Cost of Casts"] = "Overlay Cost of Casts"
 L["Parry"] = "Aparar"
+--[[Translation missing --]]
+L["Parry (%)"] = "Parry (%)"
+--[[Translation missing --]]
+L["Parry Rating"] = "Parry Rating"
 L["Party"] = "Grupo"
 L["Party Kill"] = "Assassinato do grupo"
 --[[Translation missing --]]
@@ -914,6 +958,8 @@ L["Seconds"] = "Segundos"
 --[[Translation missing --]]
 L["Select Frame"] = "Select Frame"
 --[[Translation missing --]]
+L["Separator"] = "Separator"
+--[[Translation missing --]]
 L["Set Glow Visibility"] = "Set Glow Visibility"
 --[[Translation missing --]]
 L["Set Maximum Progress"] = "Set Maximum Progress"
@@ -952,8 +998,6 @@ L["Show lowest time left over all units"] = "Show lowest time left over all unit
 --[[Translation missing --]]
 L["Show lowest time left per unit"] = "Show lowest time left per unit"
 L["Shrink"] = "Encolher"
---[[Translation missing --]]
-L["Single-Line"] = "Single-Line"
 --[[Translation missing --]]
 L["Size & Position"] = "Size & Position"
 --[[Translation missing --]]
@@ -1031,6 +1075,8 @@ L["Stacks Text Color"] = "Stacks Text Color"
 L["Stacks Text Size"] = "Stacks Text Size"
 --[[Translation missing --]]
 L["Stagger Scale"] = "Stagger Scale"
+--[[Translation missing --]]
+L["Stamina"] = "Stamina"
 L["Stance/Form/Aura"] = "Postura/Forma/Aura"
 --[[Translation missing --]]
 L["Star"] = "Star"
@@ -1168,6 +1214,10 @@ L["Use Custom Glow Color"] = "Use Custom Glow Color"
 L["Values/Remaining Time above this value are displayed as full progress."] = "Values/Remaining Time above this value are displayed as full progress."
 --[[Translation missing --]]
 L["Values/Remaining Time below this value are displayed as no progress."] = "Values/Remaining Time below this value are displayed as no progress."
+--[[Translation missing --]]
+L["Versatility (%)"] = "Versatility (%)"
+--[[Translation missing --]]
+L["Versatility Rating"] = "Versatility Rating"
 --[[Translation missing --]]
 L["Version: "] = "Version: "
 --[[Translation missing --]]
