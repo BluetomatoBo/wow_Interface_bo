@@ -1,7 +1,7 @@
 --[[
 ********************************************************************************
 Routes
-v1.6.0
+v1.6.1
 16 October 2014
 (Originally written for Live Servers v4.3.0.15050)
 (Hotfixed for v6.0.2.19034)
@@ -3503,6 +3503,8 @@ function G:DrawLine(C, sx, sy, ex, ey, w, color, layer)
 
 	local T = tremove(C.Routes_Lines) or C:CreateTexture(nil, "ARTWORK")
 	T:SetTexture("Interface\\AddOns\\Routes\\line")
+	T:SetTexelSnappingBias(0)
+	T:SetSnapToPixelGrid(false)
 	tinsert(C.Routes_Lines_Used,T)
 
 	T:SetDrawLayer(layer or "ARTWORK")
