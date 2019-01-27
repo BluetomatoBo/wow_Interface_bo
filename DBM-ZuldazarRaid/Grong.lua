@@ -1,23 +1,23 @@
 local dungeonID, creatureID
-local coreSpellId, energyAOESpellId, slamSpellId, addSpawnId, addCastId, tankComboId
+local coreSpellId, energyAOESpellId, slamSpellId, addSpawnId, addCastId, addProjectileId, tankComboId
 if UnitFactionGroup("player") == "Alliance" then
 	dungeonID, creatureID = 2340, 144638--Grong the Revenant
-	coreSpellId, energyAOESpellId, slamSpellId, addSpawnId, addCastId, tankComboId = 286434, 282399, 282543, 282526, 282533, 286450
+	coreSpellId, energyAOESpellId, slamSpellId, addSpawnId, addCastId, addProjectileId, tankComboId = 286434, 282399, 282543, 282526, 282533, 282467, 286450
 else--Horde
 	dungeonID, creatureID = 2325, 147268--King Grong
-	coreSpellId, energyAOESpellId, slamSpellId, addSpawnId, addCastId, tankComboId = 285659, 281936, 282179, 282247, 282243, 282082
+	coreSpellId, energyAOESpellId, slamSpellId, addSpawnId, addCastId, addProjectileId, tankComboId = 285659, 281936, 282179, 282247, 282243, 282190, 282082
 end
 local mod	= DBM:NewMod(dungeonID, "DBM-ZuldazarRaid", 1, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18156 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18187 $"):sub(12, -3))
 mod:SetCreatureID(creatureID)
 mod:SetEncounterID(2263, 2284)--2263 Alliance, 2284 Horde
 --mod:DisableESCombatDetection()
 mod:SetZone()
 --mod:SetBossHPInfoToHighest()
 --mod:SetUsedIcons(1, 2, 8)
---mod:SetHotfixNoticeRev(17775)
+mod:SetHotfixNoticeRev(18176)
 --mod:SetMinSyncRevision(16950)
 --mod.respawnTime = 35
 
@@ -29,9 +29,9 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 285671 285875 286434 285659",
 	"SPELL_AURA_APPLIED_DOSE 285875 285671",
 	"SPELL_AURA_REMOVED 286434 285659",
-	"SPELL_ENERGIZE 282533 282243",
-	"UNIT_DIED"
---	"UNIT_SPELLCAST_SUCCEEDED boss1"
+--	"SPELL_ENERGIZE 282533 282243",
+	"UNIT_DIED",
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 --[[
@@ -44,15 +44,13 @@ mod:RegisterEventsInCombat(
 --]]
 --TODO, detect Voodoo Blast targets and add runout?
 --TODO, add exploding soon and now warnings?
---local warnXorothPortal				= mod:NewSpellAnnounce(244318, 2, nil, nil, nil, nil, nil, 7)
 local warnCrushed						= mod:NewStackAnnounce(285671, 3, nil, "Tank")
 local warnRendingBite					= mod:NewStackAnnounce(285875, 2, nil, "Tank")
 local warnCore							= mod:NewTargetNoFilterAnnounce(coreSpellId, 2)
---local warnRupturingBlood				= mod:NewStackAnnounce(274358, 2, nil, "Tank")
 
 local specWarnEnergyAOE					= mod:NewSpecialWarningCount(energyAOESpellId, nil, nil, nil, 2, 2)
 local specWarnSlam						= mod:NewSpecialWarningDodge(slamSpellId, nil, nil, nil, 2, 2)
---local specWarnFerociousRoar				= mod:NewSpecialWarningSpell(285994, nil, nil, nil, 2, 2)
+local specWarnFerociousRoar				= mod:NewSpecialWarningSpell(285994, nil, nil, nil, 2, 2)
 local specWarnAdd						= mod:NewSpecialWarningSwitch(addSpawnId, "Dps", nil, nil, 1, 2)
 local specWarnAddInterrupt				= mod:NewSpecialWarningInterruptCount(addCastId, "HasInterrupt", nil, nil, 1, 2)
 local specWarnCrushedTaunt				= mod:NewSpecialWarningTaunt(285671, nil, nil, nil, 1, 2)--After any crush that isn't 3rd cast
@@ -63,11 +61,12 @@ local specWarnThrow						= mod:NewSpecialWarningTaunt(289292, nil, nil, nil, 1, 
 --local specWarnGTFO					= mod:NewSpecialWarningGTFO(238028, nil, nil, nil, 1, 8)
 
 --mod:AddTimerLine(DBM:EJ_GetSectionInfo(18527))
-local timerEnergyAOECD					= mod:NewCDCountTimer(100, energyAOESpellId, nil, nil, nil, 2)
+--local timerEnergyAOECD					= mod:NewCDCountTimer(100, energyAOESpellId, nil, nil, nil, 2)
 local timerTankComboCD					= mod:NewCDTimer(30.3, tankComboId, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)
-local timerSlamCD						= mod:NewCDTimer(29.1, slamSpellId, nil, nil, nil, 3)
---local timerFerociousRoarCD				= mod:NewCDTimer(21.9, 285994, nil, nil, nil, 2)
+local timerSlamCD						= mod:NewCDTimer(28, slamSpellId, nil, nil, nil, 3)
+local timerFerociousRoarCD				= mod:NewCDTimer(37, 285994, nil, nil, nil, 2)--27-33
 local timerAddCD						= mod:NewCDTimer(120, addSpawnId, nil, nil, nil, 1)
+local timerAddAttackCD					= mod:NewCDTimer(23.8, addProjectileId, nil, nil, nil, 3)--12-32
 
 --local berserkTimer					= mod:NewBerserkTimer(600)
 
@@ -86,6 +85,13 @@ mod.vb.EnergyAOECount = 0
 mod.vb.comboCount = 0
 local coreTargets = {}
 local castsPerGUID = {}
+
+--[[
+local function fearRepeater(self)
+	timerFerociousRoarCD:Start()
+	self:Schedule(5.5, fearRepeater, self)
+end
+--]]
 
 local updateInfoFrame
 do
@@ -126,11 +132,14 @@ function mod:OnCombatStart(delay)
 	self.vb.comboCount = 0
 	table.wipe(coreTargets)
 	table.wipe(castsPerGUID)
-	timerSlamCD:Start(13.2-delay)
-	timerAddCD:Start(16.8-delay)
-	timerTankComboCD:Start(18-delay)
-	--timerFerociousRoarCD:Start(27.7-delay)--VERIFY
-	timerEnergyAOECD:Start(100-delay, 1)
+	timerTankComboCD:Start(3.2-delay)
+	timerSlamCD:Start(25-delay)
+	timerAddCD:Start(57.8-delay)--One add spawns with boss?
+	if self:IsHard() then
+		timerAddAttackCD:Start(10.6-delay)
+		timerFerociousRoarCD:Start(16.5-delay)--VERIFY
+	end
+--	timerEnergyAOECD:Start(100-delay, 1)
 --	if self.Options.NPAuraOnPresence then
 --		DBM:FireEvent("BossMod_EnableHostileNameplates")
 --	end
@@ -138,6 +147,9 @@ function mod:OnCombatStart(delay)
 		DBM.InfoFrame:SetHeader(OVERVIEW)
 		DBM.InfoFrame:Show(8, "function", updateInfoFrame, false, false)
 	end
+--	if DBM.Options.DebugMode then
+--		self:Schedule(5.5, fearRepeater, self)
+--	end
 end
 
 function mod:OnCombatEnd()
@@ -158,12 +170,12 @@ function mod:SPELL_CAST_START(args)
 		self.vb.EnergyAOECount = self.vb.EnergyAOECount + 1
 		specWarnEnergyAOE:Show(self.vb.EnergyAOECount)
 		specWarnEnergyAOE:Play("aesoon")
-		timerEnergyAOECD:Stop()
-		timerEnergyAOECD:Start(100, self.vb.EnergyAOECount+1)
+		--timerEnergyAOECD:Stop()
+		--timerEnergyAOECD:Start(100, self.vb.EnergyAOECount+1)
 	elseif spellId == 285994 then
-		--specWarnFerociousRoar:Show()
-		--specWarnFerociousRoar:Play("fearsoon")
-		--timerFerociousRoarCD:Start()
+		specWarnFerociousRoar:Show()
+		specWarnFerociousRoar:Play("fearsoon")
+		timerFerociousRoarCD:Start()
 	elseif spellId == 282533 or spellId == 282243 then
 		if not castsPerGUID[args.sourceGUID] then
 			castsPerGUID[args.sourceGUID] = 0
@@ -278,7 +290,6 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spell
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
---]]
 
 function mod:SPELL_ENERGIZE(_, _, _, _, destGUID, _, _, _, spellId, _, _, amount)
 	if (spellId == 282533 or spellId == 282243) and destGUID == UnitGUID("boss1") then
@@ -295,6 +306,7 @@ function mod:SPELL_ENERGIZE(_, _, _, _, destGUID, _, _, _, spellId, _, _, amount
 		end
 	end
 end
+--]]
 
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
@@ -304,8 +316,10 @@ function mod:UNIT_DIED(args)
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
+	if spellId == 282467 or spellId == 282190 then
+		timerAddAttackCD:Start()
 	--Backup add spawn triggers in case CLEU stuff gets purged
-	if spellId == 286450 or spellId == 282082 then
+--	elseif spellId == 286450 or spellId == 282082 then
 
 	end
 end
