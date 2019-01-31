@@ -735,8 +735,7 @@ L["Status"] = "상태"
 L["Stolen"] = "훔침"
 L["Stop"] = "중지"
 L["Stop Profiling"] = "프로필 중지"
---[[Translation missing --]]
-L["String"] = "String"
+L["String"] = "문자열"
 L["Summon"] = "소환"
 L[ [=[Supports multiple entries, separated by commas
 ]=] ] = "여러 항목을 쉼표로 구분하여 지원합니다."

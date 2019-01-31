@@ -1,45 +1,34 @@
-# [2.11.1](https://github.com/WeakAuras/WeakAuras2/tree/2.11.1) (2019-01-22)
+# [2.11.2](https://github.com/WeakAuras/WeakAuras2/tree/2.11.2) (2019-01-27)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.11.0...2.11.1)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.11.1...2.11.2)
 
 ## Highlights
 
- Bugfixes! 
+ Bug fixes, especially around Masque integration 
 
 ## Commits
 
-Causese (1):
+InfusOnWoW (6):
 
-- adds battle for dazar'alor raid trinkets
-
-InfusOnWoW (4):
-
-- Fix a few issues around MSQ integration
-- Tweak GetSpellCooldownUnified again
-- Fix Bloodlust Heroism templates
-- Fix duration template
+- Fix masque integration
+- Partily revert 7f62571f434c, Masque integration fixes
+- Preview sound on the right channel
+- Add a spellId condition to buff trigger 2
+- Fix Cooldown setting not being enabled for some settings
+- Fix Show only if Buffed templates for multi
 
 Stanzilla (3):
 
-- add a space
-- add projectDateInt packager replacement
-- Update README.md
+- add Reaping M+ affix
+- change buildTime format
+- add WeakAuras.buildTime and remove WeakAuras.projectDateInt
 
-emptyrivers (5):
+emptyrivers (2):
 
-- guard against invalid inputs to auraspellids
-- add warning for duplicate keys
-- add separator option type
-- reconfigure user mode to merge options
-- improve coroutine error handling
+- fix ingame transmission
+- reset glow on size change
 
-mrbuds (7):
+mrbuds (1):
 
-- fix feral spirit and starfall duration templates
-- add duration trigger to some templates
-- add support for static duration on spell success
-- status cast trigger: fix handling of PLAYER_FOCUS_CHANGED
-- add stamina, blocktargetpercent, armortargetpercent rename movement speed add event for player moving and target changed
-- removed block rating
-- New status trigger "Character Stats"
+- don't show a default value for unit type condition #1135
 

@@ -254,8 +254,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Event Type"] = "이벤트 유형"
 	L["Event(s)"] = "이벤트"
 	L["Everything"] = "모두"
-	--[[Translation missing --]]
-	L["Exact Spell ID(s)"] = "Exact Spell ID(s)"
+	L["Exact Spell ID(s)"] = "정확한 주문 ID"
 	--[[Translation missing --]]
 	L["Exact Spell Match"] = "Exact Spell Match"
 	L["Expand"] = "확장"
@@ -311,8 +310,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Group Member Count"] = "그룹원 수"
 	L["Group Role"] = "그룹 역할"
 	L["Group Scale"] = "그룹 크기 비율"
-	--[[Translation missing --]]
-	L["Group Settings"] = "Group Settings"
+	L["Group Settings"] = "그룹 설정"
 	L["Grow"] = "성장"
 	L["Hawk"] = "매"
 	L["Height"] = "높이"
@@ -330,8 +328,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Icon Color"] = "아이콘 색상"
 	L["Icon Info"] = "아이콘 정보"
 	L["Icon Inset"] = "아이템 축소"
-	--[[Translation missing --]]
-	L["Icon Settings"] = "Icon Settings"
+	L["Icon Settings"] = "아이콘 설정"
 	--[[Translation missing --]]
 	L["If"] = "If"
 	--[[Translation missing --]]
@@ -358,8 +355,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Invalid Spell Name/ID/Link"] = "잘못된 주문 이름/ID/링크"
 	L["Inverse"] = "반대로"
 	L["Inverse Slant"] = "역 경사"
-	--[[Translation missing --]]
-	L["Is Stealable"] = "Is Stealable"
+	L["Is Stealable"] = "훔치기 가능할 때"
 	L["Justify"] = "정렬"
 	L["Keep Aspect Ratio"] = "종횡비 유지"
 	--[[Translation missing --]]
@@ -424,12 +420,10 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["On Hide"] = "숨겨질 때"
 	L["On Init"] = "초기 실행 시"
 	L["On Show"] = "표시될 때"
-	L["Only match auras cast by people other than the player"] = "플레이어가 아닌 다른 사람이 시전한 효과와 일치할때만"
-	--[[Translation missing --]]
-	L["Only match auras cast by people other than the player or his pet"] = "Only match auras cast by people other than the player or his pet"
-	L["Only match auras cast by the player"] = "플레이어가 시전한 효과와 일치할때만"
-	--[[Translation missing --]]
-	L["Only match auras cast by the player or his pet"] = "Only match auras cast by the player or his pet"
+	L["Only match auras cast by people other than the player"] = "플레이어가 아닌 다른 사람이 시전한 효과와 일치할 때만"
+	L["Only match auras cast by people other than the player or his pet"] = "플레이어나 소환수 이외의 사람들이 시전한 효과와 일치할 때만"
+	L["Only match auras cast by the player"] = "플레이어가 시전한 효과와 일치할 때만"
+	L["Only match auras cast by the player or his pet"] = "플레이어나 소환수가 시전한 효과와 일치할 때만"
 	L["Operator"] = "연산자"
 	L["Option #%i"] = "옵션 #%i"
 	L["Option %i"] = "옵션 %i"
@@ -531,8 +525,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Shift-click to create chat link"] = "Shift+클릭 - 대화 링크 만들기"
 	L["Show all matches (Auto-clone)"] = "모든 일치 표시 (자동 복제)"
 	L["Show Cooldown Text"] = "재사용 대기시간 문자 표시"
-	--[[Translation missing --]]
-	L["Show Glow Effect"] = "Show Glow Effect"
+	L["Show Glow Effect"] = "반짝임 효과 표시"
 	--[[Translation missing --]]
 	L["Show If Unit Does Not Exist"] = "Show If Unit Does Not Exist"
 	L["Show If Unit Is Invalid"] = "유닛이 유효하지 않은 경우 표시"
@@ -632,10 +625,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Tooltip"] = "툴팁"
 	L["Tooltip Content"] = "툴팁 내용"
 	L["Tooltip on Mouseover"] = "마우스오버 툴팁"
-	--[[Translation missing --]]
-	L["Tooltip Pattern Match"] = "Tooltip Pattern Match"
-	--[[Translation missing --]]
-	L["Tooltip Text"] = "Tooltip Text"
+	L["Tooltip Pattern Match"] = "툴팁 패턴 일치"
+	L["Tooltip Text"] = "툴팁 문자"
 	L["Tooltip Value"] = "툴팁 값"
 	L["Tooltip Value #"] = "툴팁 값 #"
 	L["Top HUD position"] = "상단 HUD 위치"
