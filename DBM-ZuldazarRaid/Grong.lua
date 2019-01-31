@@ -10,7 +10,7 @@ end
 local mod	= DBM:NewMod(dungeonID, "DBM-ZuldazarRaid", 1, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18187 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18243 $"):sub(12, -3))
 mod:SetCreatureID(creatureID)
 mod:SetEncounterID(2263, 2284)--2263 Alliance, 2284 Horde
 --mod:DisableESCombatDetection()
@@ -24,8 +24,8 @@ mod:SetHotfixNoticeRev(18176)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 282399 285994 282533 286435 282243 285660 281936",
-	"SPELL_CAST_SUCCESS 282543 282526 286450 282179 282247 282082 289292 285875 282083",
+	"SPELL_CAST_START 282399 285994 282533 286435 282243 285660 281936 290574",
+	"SPELL_CAST_SUCCESS 282543 282526 286450 282179 282247 282082 289292 285875 282083 289307",
 	"SPELL_AURA_APPLIED 285671 285875 286434 285659",
 	"SPELL_AURA_APPLIED_DOSE 285875 285671",
 	"SPELL_AURA_REMOVED 286434 285659",
@@ -35,10 +35,10 @@ mod:RegisterEventsInCombat(
 )
 
 --[[
-(ability.id = 282399 or ability.id = 281936 or ability.id = 285994 or ability.id = 286435 or ability.id = 285660) and type = "begincast"
+(ability.id = 282399 or ability.id = 281936 or ability.id = 285994 or ability.id = 286435 or ability.id = 285660 or ability.id = 290574) and type = "begincast"
  or (ability.id = 282543 or ability.id = 282179 or ability.id = 282526 or ability.id = 282247 or ability.id = 286450 or ability.id = 282082) and type = "cast"
  or (ability.id = 282533 or ability.id = 282243) and type = "begincast"
- or (ability.id = 286434 or ability.id) = 285659 and type = "applydebuff"
+ or (ability.id = 286434 or ability.id = 285659) and type = "applydebuff"
  --Tank Combo Only
 (ability.id = 285875 or ability.id = 286450 or ability.id = 282082 or ability.id = 282083 or ability.id = 289292) and type = "cast" or ability.id = 285671 and type = "applydebuff"
 --]]
@@ -47,6 +47,8 @@ mod:RegisterEventsInCombat(
 local warnCrushed						= mod:NewStackAnnounce(285671, 3, nil, "Tank")
 local warnRendingBite					= mod:NewStackAnnounce(285875, 2, nil, "Tank")
 local warnCore							= mod:NewTargetNoFilterAnnounce(coreSpellId, 2)
+local warnThrowTarget					= mod:NewTargetNoFilterAnnounce(289307, 2)
+local warnAddProjectile					= mod:NewSpellAnnounce(addProjectileId, 2)
 
 local specWarnEnergyAOE					= mod:NewSpecialWarningCount(energyAOESpellId, nil, nil, nil, 2, 2)
 local specWarnSlam						= mod:NewSpecialWarningDodge(slamSpellId, nil, nil, nil, 2, 2)
@@ -56,15 +58,16 @@ local specWarnAddInterrupt				= mod:NewSpecialWarningInterruptCount(addCastId, "
 local specWarnCrushedTaunt				= mod:NewSpecialWarningTaunt(285671, nil, nil, nil, 1, 2)--After any crush that isn't 3rd cast
 local specWarnRendingBiteTaunt			= mod:NewSpecialWarningTaunt(285875, nil, nil, nil, 1, 2)--At 2 stacks, but only if it's first two casts of combo
 local specWarnThrow						= mod:NewSpecialWarningTaunt(289292, nil, nil, nil, 1, 2)
---local yellDarkRevolation				= mod:NewPosYell(273365)
---local yellDarkRevolationFades			= mod:NewIconFadesYell(273365)
+local specWarnThrowTarget				= mod:NewSpecialWarningMoveAway(289307, nil, nil, nil, 3, 2)
+local yellThrowTarget					= mod:NewYell(289307)
+local yellThrowTargetFades				= mod:NewShortFadesYell(289307)
 --local specWarnGTFO					= mod:NewSpecialWarningGTFO(238028, nil, nil, nil, 1, 8)
 
 --mod:AddTimerLine(DBM:EJ_GetSectionInfo(18527))
 --local timerEnergyAOECD					= mod:NewCDCountTimer(100, energyAOESpellId, nil, nil, nil, 2)
 local timerTankComboCD					= mod:NewCDTimer(30.3, tankComboId, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)
-local timerSlamCD						= mod:NewCDTimer(28, slamSpellId, nil, nil, nil, 3)
-local timerFerociousRoarCD				= mod:NewCDTimer(37, 285994, nil, nil, nil, 2)--27-33
+local timerSlamCD						= mod:NewCDTimer(27, slamSpellId, nil, nil, nil, 3)
+local timerFerociousRoarCD				= mod:NewCDTimer(36.5, 285994, nil, nil, nil, 2)
 local timerAddCD						= mod:NewCDTimer(120, addSpawnId, nil, nil, nil, 1)
 local timerAddAttackCD					= mod:NewCDTimer(23.8, addProjectileId, nil, nil, nil, 3)--12-32
 
@@ -85,13 +88,6 @@ mod.vb.EnergyAOECount = 0
 mod.vb.comboCount = 0
 local coreTargets = {}
 local castsPerGUID = {}
-
---[[
-local function fearRepeater(self)
-	timerFerociousRoarCD:Start()
-	self:Schedule(5.5, fearRepeater, self)
-end
---]]
 
 local updateInfoFrame
 do
@@ -132,12 +128,12 @@ function mod:OnCombatStart(delay)
 	self.vb.comboCount = 0
 	table.wipe(coreTargets)
 	table.wipe(castsPerGUID)
-	timerTankComboCD:Start(3.2-delay)
-	timerSlamCD:Start(25-delay)
-	timerAddCD:Start(57.8-delay)--One add spawns with boss?
+	timerSlamCD:Start(15-delay)
+	timerAddCD:Start(16.5-delay)
+	timerTankComboCD:Start(22-delay)
 	if self:IsHard() then
 		timerAddAttackCD:Start(10.6-delay)
-		timerFerociousRoarCD:Start(16.5-delay)--VERIFY
+		timerFerociousRoarCD:Start(35.5-delay)--First one can be between 35.5-39
 	end
 --	timerEnergyAOECD:Start(100-delay, 1)
 --	if self.Options.NPAuraOnPresence then
@@ -147,9 +143,6 @@ function mod:OnCombatStart(delay)
 		DBM.InfoFrame:SetHeader(OVERVIEW)
 		DBM.InfoFrame:Show(8, "function", updateInfoFrame, false, false)
 	end
---	if DBM.Options.DebugMode then
---		self:Schedule(5.5, fearRepeater, self)
---	end
 end
 
 function mod:OnCombatEnd()
@@ -172,7 +165,7 @@ function mod:SPELL_CAST_START(args)
 		specWarnEnergyAOE:Play("aesoon")
 		--timerEnergyAOECD:Stop()
 		--timerEnergyAOECD:Start(100, self.vb.EnergyAOECount+1)
-	elseif spellId == 285994 then
+	elseif spellId == 285994 or spellId == 290574 then
 		specWarnFerociousRoar:Show()
 		specWarnFerociousRoar:Play("fearsoon")
 		timerFerociousRoarCD:Start()
@@ -229,6 +222,15 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self.vb.comboCount = self.vb.comboCount + 1
 	elseif spellId == 285875 then--Rending Bite
 		self.vb.comboCount = self.vb.comboCount + 1
+	elseif spellId == 289307 then
+		if args:IsPlayer() then
+			specWarnThrowTarget:Show()
+			specWarnThrowTarget:Play("runout")
+			yellThrowTarget:Yell()
+			yellThrowTargetFades:Countdown(6, 3)
+		else
+			warnThrowTarget:Show(args.destName)
+		end
 	end
 end
 
@@ -317,6 +319,7 @@ end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
 	if spellId == 282467 or spellId == 282190 then
+		warnAddProjectile:Show()
 		timerAddAttackCD:Start()
 	--Backup add spawn triggers in case CLEU stuff gets purged
 --	elseif spellId == 286450 or spellId == 282082 then

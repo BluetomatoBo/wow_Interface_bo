@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2342, "DBM-ZuldazarRaid", 2, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18196 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18244 $"):sub(12, -3))
 --mod:SetCreatureID(138967)--145261 or 147564
 mod:SetEncounterID(2271)
 --mod:DisableESCombatDetection()
@@ -18,10 +18,11 @@ mod:SetWipeTime(30)
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 282939 287659 287070 285995 284941 283947 283606 289906 289155",
 	"SPELL_CAST_SUCCESS 283507 287648 284470 287072 285014 287037 285505 286541",
-	"SPELL_AURA_APPLIED 284798 283507 287648 284470 287072 285014 287037 284105 287424 289776",
+	"SPELL_AURA_APPLIED 284798 283507 287648 284470 287072 285014 287037 284105 287424 289776 284664 284814 284881 284527",
+	"SPELL_AURA_APPLIED_DOSE 284664",
 	"SPELL_AURA_REFRESH 284470",
---	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_AURA_REMOVED 284798 283507 287648 284470 287072 285014 287424 289776",
+	"SPELL_AURA_REMOVED 284798 283507 287648 284470 287072 285014 287424 289776 284664 284527",
+	"SPELL_AURA_REMOVED_DOSE 284664",
 	"UNIT_DIED"
 --	"UNIT_SPELLCAST_START boss1 boss2 boss3"
 )
@@ -30,7 +31,6 @@ mod:RegisterEventsInCombat(
 (ability.id = 282939 or ability.id = 287659 or ability.id = 287070 or ability.id = 285995 or ability.id = 284941 or ability.id = 283947 or ability.id = 283606 or ability.id = 289906 or ability.id = 289155) and type = "begincast"
  or (ability.id = 283507 or ability.id = 287648 or ability.id = 284470 or ability.id = 287072 or ability.id = 285014 or ability.id = 287037 or ability.id = 285505 or ability.id = 286541) and type = "cast"
 --]]
---Figure out right crush idea, too many to guess right, also need to see how it's done by source
 --TODO, more trap work, especially ruby beam targetting
 --TODO, auto correction code (for tank ability at least)
 --The Zandalari Crown Jewels
@@ -91,12 +91,12 @@ local timerRubyBeam						= mod:NewBuffActiveTimer(8, 284081, nil, nil, nil, 3)
 local timerHexofLethargyCD					= mod:NewCDTimer(21.8, 284470, nil, nil, nil, 3, nil, DBM_CORE_MAGIC_ICON)
 --Stage Two: Toppling the Guardian
 local timerDrawPower					= mod:NewCastTimer(5, 282939, nil, nil, nil, 6)
-local timerLiquidGoldCD					= mod:NewCDTimer(8.5, 287072, nil, nil, nil, 3)
+local timerLiquidGoldCD					= mod:NewCDTimer(15.6, 287072, nil, nil, nil, 3)
 local timerSpiritsofGoldCD				= mod:NewCDTimer(65.6, 285995, nil, nil, nil, 1)
 local timerCoinShowerCD					= mod:NewCDTimer(30.3, 285014, nil, nil, nil, 5, nil, DBM_CORE_DEADLY_ICON)
-local timerWailofGreedCD				= mod:NewCDTimer(55, 284941, nil, nil, nil, 2, nil, DBM_CORE_HEALER_ICON)--Timer still needed beyond first cast
+local timerWailofGreedCD				= mod:NewCDTimer(71, 284941, nil, nil, nil, 2, nil, DBM_CORE_HEALER_ICON)--71-75
 local timerCoinSweepCD					= mod:NewCDTimer(10.9, 287037, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)
-local timerSurgingGoldCD				= mod:NewAITimer(23, 289155, nil, nil, nil, 3)--Real timer needed, using AI tech for now
+local timerSurgingGoldCD				= mod:NewCDTimer(42.5, 289155, nil, nil, nil, 3)--Real timer needed, using AI tech for now
 
 --local berserkTimer					= mod:NewBerserkTimer(600)
 
@@ -106,18 +106,21 @@ local timerSurgingGoldCD				= mod:NewAITimer(23, 289155, nil, nil, nil, 3)--Real
 
 --mod:AddSetIconOption("SetIconGift", 255594, true)
 --mod:AddRangeFrameOption("8/10")
---mod:AddInfoFrameOption(258040, true)
+mod:AddInfoFrameOption(284664, true)
 mod:AddNamePlateOption("NPAuraOnGoldenRadiance", 289776)
 --mod:AddSetIconOption("SetIconDarkRev", 273365, true)
 
 mod.vb.phase = 1
 mod.vb.wailCast = 0
 mod.vb.bulwarkCrush = 0
+local incandescentStacks = {}
 local grosslyIncandescentTargets = {}
+local diamondTargets = {}
+local trackedGemBuff = nil
 
 local updateInfoFrame
 do
-	local grosslyIncan = DBM:GetSpellInfo(284798)
+	local Incan, grosslyIncan = DBM:GetSpellInfo(284664), DBM:GetSpellInfo(284798)
 	local lines = {}
 	local sortedLines = {}
 	local function addLine(key, value)
@@ -128,54 +131,58 @@ do
 	updateInfoFrame = function()
 		table.wipe(lines)
 		table.wipe(sortedLines)
-		--Boss Power
-		--[[local currentPower, maxPower = UnitPower("boss1"), UnitPowerMax("boss1")
-		if maxPower and maxPower ~= 0 then
-			if currentPower / maxPower * 100 >= 1 then
-				addLine(UnitName("boss1"), currentPower)
-			end
-		end--]]
 		--The Zandalari Crown Jewels Helper
+		--Incandescent Stacks/Diamond Absorb Checks
+		for uId in DBM:GetGroupMembers() do
+			local unitName = DBM:GetUnitFullName(uId)
+			local count = incandescentStacks[unitName]
+			local absorb = diamondTargets[unitName]
+			if count then
+				addLine(unitName, Incan.."-"..count)
+			elseif absorb then
+				local absorbAmount = select(16, DBM:UnitDebuff(uId, 284527)) or 0
+				addLine(unitName, DBM_CORE_SHIELD.."-"..math.floor(absorbAmount))
+			end
+		end
+		--Incandescent Full
 		for i=1, #grosslyIncandescentTargets do
 			local name = grosslyIncandescentTargets[i]
 			local uId = DBM:GetRaidUnitId(name)
 			if not uId then break end
-			addLine(grosslyIncan, UnitName(uId))
+			local spellName, _, _, _, _, expireTime = DBM:UnitDebuff(uId, 284798)
+			if expireTime then
+				local remaining = expireTime-GetTime()
+				addLine(name, grosslyIncan.."-"..math.floor(remaining))
+			end
 		end
-		----Player personal checks
-		local spellName1, _, _, _, _, expireTime = DBM:UnitDebuff("player", 284556)
-		if spellName1 and expireTime then--Personal Shadow-Touched
-			local remaining = expireTime-GetTime()
-			addLine(spellName1, math.floor(remaining))
+		--Player personal checks (Always Tracked)
+		local spellName2, _, currentStack2, _, _, expireTime2 = DBM:UnitDebuff("player", 284573)
+		if spellName2 and currentStack2 then--Personal Tailwinds count
+			local remaining2 = expireTime2-GetTime()
+			addLine(spellName2.." ("..currentStack2..")", math.floor(remaining2))
 		end
-		local spellName2, _, currentStack, _, _, expireTime2 = DBM:UnitDebuff("player", 284573)
-		if spellName2 and currentStack then--Personal Tailwinds count
-			local remaining = expireTime2-GetTime()
-			addLine(spellName2.." ("..currentStack..")", math.floor(remaining))
+		--Player personal checks (Checked if you have that gem)
+		if trackedGemBuff then
+			local spellName3, _, currentStack3 = DBM:UnitDebuff("player", 284817, 284883)
+			if spellName3 and currentStack3 then--Personal Earthen Roots/Unleashed Rage count
+				addLine(spellName3.." ("..currentStack2..")", "")
+			end
 		end
-		local spellName3, _, currentStack2, _, _, expireTime3 = DBM:UnitDebuff("player", 284614)
-		if spellName3 and currentStack2 then--Personal Focused Animus count
-			local remaining = expireTime3-GetTime()
-			addLine(spellName3.." ("..currentStack2..")", math.floor(remaining))
-		end
-		local spellName4, _, currentStack3 = DBM:UnitDebuff("player", 284817)
-		if spellName4 and currentStack3 then--Personal Earthen Roots count
-			addLine(spellName4.." ("..currentStack3..")", "")
-		end
-		local spellName5, _, currentStack4 = DBM:UnitDebuff("player", 284883)
-		if spellName5 and currentStack4 then--Personal Opal of the unleashed Rage count
-			addLine(spellName5.." ("..currentStack4..")", "")
-		end
-		local spellName6, _, _, _, _, expireTime4 = DBM:UnitDebuff("player", 284519)
+		--Other Considerations
+		--[[local spellName6, _, _, _, _, expireTime4 = DBM:UnitDebuff("player", 284519)
 		if spellName6 and expireTime4 then--Personal Quickened Pulse remaining
 			local remaining = expireTime4-GetTime()
 			addLine(spellName6, math.floor(remaining))
-		end
+		end--]]
 		return lines, sortedLines
 	end
 end
 
 function mod:OnCombatStart(delay)
+	table.wipe(incandescentStacks)
+	table.wipe(grosslyIncandescentTargets)
+	table.wipe(diamondTargets)
+	trackedGemBuff = nil
 	self.vb.phase = 1
 	self.vb.wailCast = 0
 	self.vb.bulwarkCrush = 0
@@ -191,9 +198,9 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
---	if self.Options.RangeFrame then
---		DBM.RangeCheck:Hide()
---	end
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Hide()
+	end
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:Hide()
 	end
@@ -219,14 +226,14 @@ function mod:SPELL_CAST_START(args)
 		warnPhase2:Show()
 		timerDrawPower:Start()
 		--Normal Mode, may differ elsewhere
-		timerLiquidGoldCD:Start(4.5)
+		timerLiquidGoldCD:Start(14.5)
 		timerCoinSweepCD:Start(16.3)
 		timerSpiritsofGoldCD:Start(26.7)
 		timerWailofGreedCD:Start(60.7)
 		if not self:IsLFR() then
 			timerCoinShowerCD:Start(17)
 			if self:IsMythic() then
-				timerSurgingGoldCD:Start(2)
+				timerSurgingGoldCD:Start(46.2)
 			end
 		end
 	elseif spellId == 285995 then
@@ -265,7 +272,11 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif spellId == 284470 then
 		timerHexofLethargyCD:Start(21.8, args.sourceGUID)
 	elseif spellId == 287072 then
-		timerLiquidGoldCD:Start()
+		if self:IsMythic() then
+			timerLiquidGoldCD:Start(5)
+		else
+			timerLiquidGoldCD:Start()--15.6
+		end
 	elseif spellId == 285014 then
 		timerCoinShowerCD:Start()
 	elseif spellId == 287037 then
@@ -283,7 +294,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerFlamesofPunishmentCD:Stop()
 			timerCrushCD:Stop(L.Bulwark)
 			timerCrushCD:Start(14.5, L.Bulwark)
-			timerFlamesofPunishmentCD:Start(24.5)
+			timerFlamesofPunishmentCD:Start(24.2)
 		end
 	end
 end
@@ -360,6 +371,13 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.NPAuraOnGoldenRadiance then
 			DBM.Nameplate:Show(true, args.sourceGUID, spellId)
 		end
+	elseif spellId == 284664 then
+		local amount = args.amount or 1
+		incandescentStacks[args.destName] = amount
+	elseif (spellId == 284814 or spellId == 284881) and args:IsPlayer() then
+		trackedGemBuff = true
+	elseif spellId == 284527 then--Diamond
+		diamondTargets[args.destName] = true
 	end
 end
 mod.SPELL_AURA_REFRESH = mod.SPELL_AURA_APPLIED
@@ -390,6 +408,17 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.NPAuraOnGoldenRadiance then
 			DBM.Nameplate:Hide(true, args.sourceGUID, spellId)
 		end
+	elseif spellId == 284664 then
+		incandescentStacks[args.destName] = nil
+	elseif spellId == 284527 then--Diamond
+		diamondTargets[args.destName] = nil
+	end
+end
+
+function mod:SPELL_AURA_REMOVED_DOSE(args)
+	local spellId = args.spellId
+	if spellId == 284664 then
+		incandescentStacks[args.destName] = args.amount or 1
 	end
 end
 

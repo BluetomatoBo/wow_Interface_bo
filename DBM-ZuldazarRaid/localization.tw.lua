@@ -1,9 +1,4 @@
--- Mini Dragon(projecteurs@gmail.com)
--- 夏一可
--- Blizzard Entertainment
--- Last update: 2018/01/28
-
-if GetLocale() ~= "zhCN" then return end
+if GetLocale() ~= "zhTW" then return end
 local L
 
 ---------------------------
@@ -30,7 +25,7 @@ L= DBM:GetModLocalization(2323)--Grimfang and Firecaller (Alliance)
 L= DBM:GetModLocalization(2341)--Flamefist and the Illuminated (Horde)
 
 ---------------------------
---  Opulence (Alliance) -- 宝藏守护者
+--  Opulence (Alliance) --
 ---------------------------
 L= DBM:GetModLocalization(2342)
 
@@ -47,8 +42,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Bulwark =	"壁垒",
-	Hand	=	"手"
+	Bulwark =	"Bulwark",
+	Hand	=	"Hand"
 })
 
 ---------------------------
@@ -57,9 +52,9 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(2330)
 
 L:SetMiscLocalization({
-	BwonsamdiWrath =	"既然你们这么想死，干嘛不早点来找我？",
-	BwonsamdiWrath2 =	"迟早……所有人都会臣服于我！",
-	Bird			 =	"鸟"
+	BwonsamdiWrath =	"Well, if ya so eager for death, ya shoulda come see me sooner!",
+	BwonsamdiWrath2 =	"Sooner or later... everybody serves me!",
+	Bird			 =	"Bird"
 })
 
 ---------------------------
@@ -68,7 +63,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(2335)
 
 L:SetOptionLocalization({
-	AnnounceAlternatePhase	= "即使你不在对应位面也显示警告 (计时条不受影响)"
+	AnnounceAlternatePhase	= "Show general warnings for phase you aren't in as well (timers will always be shown regardless of this option)"
 })
 
 ---------------------------
@@ -77,12 +72,12 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization(2332)
 
 ---------------------------
---  Sea Priest Blockade (Both) --
+--  Sea Priest Blockade (Horde) --
 ---------------------------
 L= DBM:GetModLocalization(2337)
 
 ---------------------------
---  Jaina Proudmoore (Both?) --
+--  Jaina Proudmoore (Horde) --
 ---------------------------
 L= DBM:GetModLocalization(2343)
 
@@ -92,5 +87,5 @@ L= DBM:GetModLocalization(2343)
 L = DBM:GetModLocalization("ZuldazarRaidTrash")
 
 L:SetGeneralLocalization({
-	name =	"达萨罗之战小怪"
+	name =	"達薩亞洛小怪"
 })

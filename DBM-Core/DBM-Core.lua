@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 18196 $"):sub(12, -3)),
-	DisplayVersion = "8.1.5", -- the string that is shown as version
-	ReleaseRevision = 18196 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 18245 $"):sub(12, -3)),
+	DisplayVersion = "8.1.7", -- the string that is shown as version
+	ReleaseRevision = 18245 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -412,7 +412,7 @@ local delayedFunction
 local dataBroker
 local voiceSessionDisabled = false
 
-local fakeBWVersion, fakeBWHash = 125, "4a2a88a"
+local fakeBWVersion, fakeBWHash = 130, "de5280d"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -11012,17 +11012,21 @@ function bossModPrototype:AddNamePlateOption(name, spellId, default)
 	self.localization.options[name] = DBM_CORE_AUTO_NAMEPLATE_OPTION_TEXT:format(spellId)
 end
 
-function bossModPrototype:AddInfoFrameOption(spellId, default)
-	self.DefaultOptions["InfoFrame"] = (default == nil) or default
+function bossModPrototype:AddInfoFrameOption(spellId, default, optionVersion)
+	local oVersion = ""
+	if optionVersion then
+		optionVersion = tostring(optionVersion)
+	end
+	self.DefaultOptions["InfoFrame"..oVersion] = (default == nil) or default
 	if default and type(default) == "string" then
 		default = self:GetRoleFlagValue(default)
 	end
-	self.Options["InfoFrame"] = (default == nil) or default
-	self:SetOptionCategory("InfoFrame", "misc")
+	self.Options["InfoFrame"..oVersion] = (default == nil) or default
+	self:SetOptionCategory("InfoFrame"..oVersion, "misc")
 	if spellId then
-		self.localization.options["InfoFrame"] = DBM_CORE_AUTO_INFO_FRAME_OPTION_TEXT:format(spellId)
+		self.localization.options["InfoFrame"..oVersion] = DBM_CORE_AUTO_INFO_FRAME_OPTION_TEXT:format(spellId)
 	else
-		self.localization.options["InfoFrame"] = DBM_CORE_AUTO_INFO_FRAME_OPTION_TEXT2
+		self.localization.options["InfoFrame"..oVersion] = DBM_CORE_AUTO_INFO_FRAME_OPTION_TEXT2
 	end
 end
 
