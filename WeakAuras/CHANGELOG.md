@@ -1,34 +1,21 @@
-# [2.11.2](https://github.com/WeakAuras/WeakAuras2/tree/2.11.2) (2019-01-27)
+# [2.11.3](https://github.com/WeakAuras/WeakAuras2/tree/2.11.3) (2019-02-02)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.11.1...2.11.2)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.11.2...2.11.3)
 
 ## Highlights
 
- Bug fixes, especially around Masque integration 
+ Bug fixes! 
 
 ## Commits
 
-InfusOnWoW (6):
+InfusOnWoW (3):
 
-- Fix masque integration
-- Partily revert 7f62571f434c, Masque integration fixes
-- Preview sound on the right channel
-- Add a spellId condition to buff trigger 2
-- Fix Cooldown setting not being enabled for some settings
-- Fix Show only if Buffed templates for multi
+- Fix Glow animation missing if the aura was hidden but glowing
+- Fix duration function not wrapped in xpcall
+- Fix groups making childs misaligned
 
-Stanzilla (3):
+mrbuds (2):
 
-- add Reaping M+ affix
-- change buildTime format
-- add WeakAuras.buildTime and remove WeakAuras.projectDateInt
-
-emptyrivers (2):
-
-- fix ingame transmission
-- reset glow on size change
-
-mrbuds (1):
-
-- don't show a default value for unit type condition #1135
+- cast trigger with unit=multi: check if sourceGUID match before hiding state #1142
+- fix cooldown setting disabled for timed duration #1141
 

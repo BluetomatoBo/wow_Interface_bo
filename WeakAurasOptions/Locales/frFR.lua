@@ -133,8 +133,7 @@ Souhaitez-vous que ce graphiques soit placé dans un nouveau |cFF22AA22Groupe Dy
 	L["Color"] = "Couleur"
 	L["color"] = "couleur"
 	L["Combinations"] = "Combinaisons"
-	--[[Translation missing --]]
-	L["Combine Matches Per Unit"] = "Combine Matches Per Unit"
+	L["Combine Matches Per Unit"] = "Combiner toutes les Correspondances Par Unité"
 	L["Compare against the number of units affected."] = "Comparer contre le nombre d'unités affectées."
 	L["Compress"] = "Compresser"
 	L["Condition %i"] = "Condition %i"
@@ -656,25 +655,18 @@ Seule une unique valeur peut être choisie]=]
 	--[[Translation missing --]]
 	L["Update "] = "Update "
 	L["Update Custom Text On..."] = "Mettre à jour Texte Perso sur..."
-	--[[Translation missing --]]
-	L["Update in Group"] = "Update in Group"
-	--[[Translation missing --]]
-	L["Update this Aura"] = "Update this Aura"
+	L["Update in Group"] = "Mettre à jour dans le Groupe"
+	L["Update this Aura"] = "Mettre à jour cette Aura"
 	L["Use Full Scan (High CPU)"] = "Utiliser Scan Complet (CPU élevé)"
 	L["Use nth value from tooltip:"] = "Utilisez la nième valeur de l'info-bulle:"
 	L["Use SetTransform"] = "Utiliser SetTransform"
 	L["Use tooltip \"size\" instead of stacks"] = "Utiliser la \"taille\" de l'infobulle plutôt que la pile"
-	--[[Translation missing --]]
-	L["Use Tooltip Information"] = "Use Tooltip Information"
-	--[[Translation missing --]]
-	L["Used in Auras:"] = "Used in Auras:"
+	L["Use Tooltip Information"] = "Utiliser l'information de la boite de dialogue"
+	L["Used in Auras:"] = "Utilisé(e) dans les Auras:"
 	L["Used in auras:"] = "Utilisé dans les auras:"
-	--[[Translation missing --]]
-	L["Value %i"] = "Value %i"
-	--[[Translation missing --]]
-	L["Values are in normalized rgba format."] = "Values are in normalized rgba format."
-	--[[Translation missing --]]
-	L["Values:"] = "Values:"
+	L["Value %i"] = "Valeur %i"
+	L["Values are in normalized rgba format."] = "Les valeurs sont normalisées dans le format rvba"
+	L["Values:"] = "Valeurs:"
 	L["Version: "] = "Version: "
 	L["Vertical Align"] = "Aligner verticalement"
 	L["Vertical Bar"] = "Barre verticale"
