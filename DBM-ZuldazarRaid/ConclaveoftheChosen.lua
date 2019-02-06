@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2330, "DBM-ZuldazarRaid", 2, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18211 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18279 $"):sub(12, -3))
 mod:SetCreatureID(144747, 144767, 144963, 144941)--Mythic need other 2 IDs?
 mod:SetEncounterID(2268)
 --mod:DisableESCombatDetection()
@@ -36,6 +36,7 @@ mod:RegisterEventsInCombat(
  or (ability.id = 282444 or ability.id = 285878 or ability.id = 282636) and type = "cast"
  or (ability.id = 282209 or ability.id = 282834 or ability.id = 286811 or ability.id = 284663) and type = "applydebuff"
  or (ability.id = 282135) and type = "applydebuff"
+ or ability.id = 282109 and target.name = "Omegall"
 --]]
 --General
 local warnActivated						= mod:NewTargetAnnounce(118212, 3, 78740, nil, nil, nil, nil, nil, true)
@@ -56,8 +57,8 @@ local warnBwonsamdisWrath				= mod:NewTargetNoFilterAnnounce(284663, 4, nil, fal
 local specWarnActivated					= mod:NewSpecialWarningSwitchCount(118212, "Tank", DBM_CORE_AUTO_SPEC_WARN_OPTIONS.switch:format(118212), nil, 3, 2)
 --local specWarnGTFO					= mod:NewSpecialWarningGTFO(238028, nil, nil, nil, 1, 8)
 --Pa'ku's Aspect
-local specWarnHasteningWinds			= mod:NewSpecialWarningCount(270447, nil, DBM_CORE_AUTO_SPEC_WARN_OPTIONS.stack:format(12, 270447), nil, 1, 2)
-local specWarnHasteningWindsOther		= mod:NewSpecialWarningTaunt(270447, nil, nil, nil, 1, 2)--Should be dispelled vs tank swapped, but in super low case a 10 man group has no dispeller, we need tank warning
+local specWarnHasteningWinds			= mod:NewSpecialWarningCount(285945, nil, DBM_CORE_AUTO_SPEC_WARN_OPTIONS.stack:format(12, 270447), nil, 1, 2)
+local specWarnHasteningWindsOther		= mod:NewSpecialWarningTaunt(285945, nil, nil, nil, 1, 2)--Should be dispelled vs tank swapped, but in super low case a 10 man group has no dispeller, we need tank warning
 local specWarnPakusWrath				= mod:NewSpecialWarningMoveTo(282107, nil, nil, nil, 3, 2)
 --Gonk's Aspect
 local specWarnCrawlingHex				= mod:NewSpecialWarningYou(282135, nil, nil, nil, 1, 2)
@@ -113,7 +114,7 @@ local timerBwonsamdisWrathCD			= mod:NewCDCountTimer(50, 284666, nil, nil, nil, 
 
 local countdownPakusWrath				= mod:NewCountdown(70, 282107, true, nil, 5)
 --local countdownLaceratingClaws		= mod:NewCountdown("Alt12", 244016, false, 2, 3)
---local countdownFelstormBarrage		= mod:NewCountdown("AltTwo32", 244000, nil, nil, 3)
+local countdownKragwasWrath				= mod:NewCountdown("AltTwo32", 282636, "Ranged", nil, 3)
 
 --mod:AddSetIconOption("SetIconGift", 255594, true)
 --mod:AddRangeFrameOption("8/10")
@@ -128,6 +129,7 @@ mod.vb.hexIcon = 1
 mod.vb.hexIgnore = false
 mod.vb.ignoredActivate = true
 mod.vb.pakuWrathCount = 0
+mod.vb.pakuDead = false
 mod.vb.wrathCount = 0
 mod.vb.kragwaCast = 0
 local raptorsSeen = {}
@@ -146,6 +148,7 @@ function mod:OnCombatStart(delay)
 	self.vb.hexIgnore = false
 	self.vb.ignoredActivate = true
 	self.vb.pakuWrathCount = 0
+	self.vb.pakuDead = false
 	self.vb.wrathCount = 0
 	self.vb.kragwaCast = 0
 	self:Schedule(3, clearActivateIgnore, self)
@@ -156,11 +159,12 @@ function mod:OnCombatStart(delay)
 		DBM.InfoFrame:SetHeader(DBM_CORE_INFOFRAME_POWER)
 		DBM.InfoFrame:Show(4, "enemypower", 2)
 	end
-	if self:IsMythic() then
-		timerBwonsamdisWrathCD:Start(51-delay, 1)
-	end
 	if self:IsHard() then
-		timerKragwasWrathCD:Start(29.7-delay)
+		timerKragwasWrathCD:Start(29.3-delay)
+		countdownKragwasWrath:Start(29.3-delay)
+		if self:IsMythic() then
+			timerBwonsamdisWrathCD:Start(51-delay, 1)
+		end
 	end
 end
 
@@ -190,7 +194,7 @@ function mod:SPELL_CAST_START(args)
 		--countdownPakusWrath:Start()
 	elseif spellId == 285889 then
 		timerRaptorFormCD:Start()
-		for i = 1, 2 do
+		for i = 1, 4 do
 			local bossUnitID = "boss"..i
 			if UnitExists(bossUnitID) and UnitGUID(bossUnitID) == args.sourceGUID and UnitDetailedThreatSituation("player", bossUnitID) then--We are highest threat target
 				specWarnRaptorForm:Show()
@@ -224,6 +228,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self.vb.kragwaCast = self.vb.kragwaCast + 1
 		if self.vb.kragwaCast == 1 or (self.vb.kragwaCast-1) % 3 == 0 then--1, 4, 7, 10, etc
 			timerKragwasWrathCD:Start()
+			countdownKragwasWrath:Start(49.8)
 		end
 	end
 end
@@ -401,7 +406,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
 		self.vb.pakuWrathCount = self.vb.pakuWrathCount + 1
 		specWarnPakusWrath:Show(L.Bird)
 		specWarnPakusWrath:Play("gathershare")
-		if self:IsMythic() then
+		if self.vb.pakuDead then
 			warnPakuWrath:Schedule(50)
 			timerPakusWrathCD:Start(60, self.vb.pakuWrathCount+1)
 			countdownPakusWrath:Start(60)
@@ -413,9 +418,14 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
 	end
 end
 
-function mod:CHAT_MSG_MONSTER_YELL(msg, npc, _, _, target)
-	if msg:find(L.BwonsamdiWrath) or msg == L.BwonsamdiWrath or msg:find(L.BwonsamdiWrath2) or msg == L.BwonsamdiWrath2 then
-		self:SendSync("BwonsamdiWrath")
+do
+	local Bwonsamdi = DBM:EJ_GetSectionInfo(19195)
+	function mod:CHAT_MSG_MONSTER_YELL(msg, npc, _, _, target)
+		--IF Bwonsamdi is yeller, and target is nil, it's always a wrath. If there is a target, it's someone dying and Bwonsamdi taunting them.
+		--The actual string matches for text shouldn't be needed any longer but being kept around in event Bwonsamdi's non english name in joural doesn't match non english name in yell sender
+		if (not target and npc == Bwonsamdi) or msg:find(L.BwonsamdiWrath) or msg == L.BwonsamdiWrath or msg:find(L.BwonsamdiWrath2) or msg == L.BwonsamdiWrath2 then
+			self:SendSync("BwonsamdiWrath")
+		end
 	end
 end
 
@@ -423,6 +433,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
 	if spellId == 130966 then--Permanent Feign Death (dying/leaving) (slightly faster than UNIT_DIED)
 		local cid = self:GetUnitCreatureId(uId)
 		if cid == 144747 then--Pa'ku's Aspect
+			self.vb.pakuDead = true
 			timerGiftofWindCD:Stop()
 			--local pakusWrathRemaining = timerPakusWrathCD:GetRemaining(self.vb.pakuWrathCount+1) or 0
 			--if pakusWrathRemaining >= 14 then
@@ -454,12 +465,11 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
 		--Start Timers
 		local cid = self:GetUnitCreatureId(uId)
 		if cid == 144747 then--Pa'ku's Aspect
-			--self.vb.pakuWrathCount = 0
 			timerGiftofWindCD:Start(4.8)--Assuming he always starts at 90 energy even when he isn't spawned on pull
-			timerPakusWrathCD:Start(73.5, self.vb.pakuWrathCount+1)--When actual aoe starts, first event we can detect
+			timerPakusWrathCD:Start(73.5, self.vb.pakuWrathCount+1)--When actual emote fires, first event we can detect
 			countdownPakusWrath:Start(73.5)
 		elseif cid == 144767 then--Gonk's Aspect
-			timerCrawlingHexCD:Start(14)--Assuming starting at 70 energy is always true
+			timerCrawlingHexCD:Start(13.4)--Assuming starting at 70 energy is always true
 			timerRaptorFormCD:Start(15.7)
 			timerGonksWrathCD:Start(31)
 		elseif cid == 144963 then--Kimbul's Aspect
