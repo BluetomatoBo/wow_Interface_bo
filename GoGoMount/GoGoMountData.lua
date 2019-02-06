@@ -806,7 +806,7 @@ function GoGo_GetMountDB()
 		[242896] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67},  -- Vicious War Fox
 		[242897] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67},  -- Vicious War Fox
 		[243201] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Demonic Gladiator's Storm Dragon
-		[243512] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67},  -- Luminous Starseeker
+		[243512] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Luminous Starseeker
 		[243651] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Shackled Ur'zul
 		[243652] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67},  -- Vile Fiend
 		[245723] = {[2] = true, [9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Stormwind Skychaser
@@ -846,7 +846,7 @@ function GoGo_GetMountDB()
 		[239049] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67},  -- Obsidian Krolusk
 		[239766] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67, [50000]=151626},  -- Blue Qiraji War Tank
 		[239767] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67, [50000]=151625},  -- Red Qiraji War Tank
-		[243795] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67},  -- Leaping Veinseeker
+		[243795] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Leaping Veinseeker
 		[250735] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67},  -- Bloodgorged Crawg
 		[254811] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Squawks
 		[254813] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Summon Sharkbait
@@ -956,7 +956,14 @@ function GoGo_GetMountDB()
 
 		-- 8.1.0.28724
 		[290133] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Vulpine Familiar
-		
+
+		-- 8.1.5.28938
+		[282682] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67},  -- Kul Tiran Charger
+		[289639] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67},  -- Bruce
+
+		-- 8.1.5.28938
+		[290134] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Hogrus, Swine of Good Fortune
+
 --		[123456] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10004]=67},  -- Standard Ground Mount template
 --		[123456] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [701]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Standard Air & Ground Mount template
 --		[123456] = {[36] = true, [53] = true, [404] = true, [10001]=108, [10004]=108},  -- Standard Water (surface and submerged) Mount template

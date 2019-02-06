@@ -1,18 +1,40 @@
-lightweight tag 2f257c174feb03d74c27c59fde85501f880c51f3 v8.1.3
-Author:	tiker <tiker-github-239819@funkymonkey.org>
-Date:	Thu Dec 13 16:01:39 2018 -0500
+lightweight tag 69013b3e6b6c7ddd2edd711244a7ad6499f71298 8.1.4
+Author:	GitHub <noreply@github.com>
+Date:	Fri Feb 1 06:58:21 2019 -0500
 
-commit 2f257c174feb03d74c27c59fde85501f880c51f3
-Author: tiker <tiker-github-239819@funkymonkey.org>
-Date:   Thu Dec 13 16:01:39 2018 -0500
+commit 69013b3e6b6c7ddd2edd711244a7ad6499f71298
+Author: Rob <tiker@funkymonkey.org>
+Date:   Fri Feb 1 06:58:21 2019 -0500
 
-    Quick version update
+    Update version
 
-commit b5ed2ea18e84dc1fb773dd020712d62663602a03
-Author: tiker <tiker-github-239819@funkymonkey.org>
-Date:   Thu Dec 13 16:00:30 2018 -0500
+commit faed1974a06f1f225ee6e9613bb54541e2ce346d
+Author: Rob <tiker@funkymonkey.org>
+Date:   Fri Feb 1 06:21:00 2019 -0500
 
-    Added Vulpine Familiar
+    Added Hogrus, Swine of Good Fortune mount
     
-    New mount added to the Blizzard store today.
+    New mount in the Blizzard shop for purchase
+
+commit aa368a641639057d817b92f39e380e1d4db46934
+Author: Rob <tiker@funkymonkey.org>
+Date:   Tue Jan 22 08:52:17 2019 -0500
+
+    Leaping Veinseeker can fly (fix #7)
+    
+    Leaping Veinseeker can fly (fix #7)
+
+commit b2a61b255433ed945da847507121cab46c4828e3
+Author: Rob <tiker@funkymonkey.org>
+Date:   Tue Jan 22 08:48:44 2019 -0500
+
+    Luminous Starseeker can fly (fix #9)
+    
+    Luminous Starseeker can fly (fix #9)
+
+commit 5c7342c5268d5faf96102f3c0b10a1ae079946d4
+Author: Rob <tiker@funkymonkey.org>
+Date:   Mon Jan 21 21:15:30 2019 -0500
+
+    Added a couple new mounts for 8.1.5 patch
 
