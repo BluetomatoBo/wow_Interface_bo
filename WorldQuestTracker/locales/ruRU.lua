@@ -65,10 +65,8 @@ L["S_MAPBAR_OPTIONSMENU_EQUIPMENTICONS"] = "Знaчки экипировки"
 L["S_MAPBAR_OPTIONSMENU_QUESTTRACKER"] = "Включить World Quest Tracker"
 L["S_MAPBAR_OPTIONSMENU_REFRESH"] = "Обновить"
 L["S_MAPBAR_OPTIONSMENU_SOUNDENABLED"] = "Включить звуки"
---[[Translation missing --]]
---[[ L["S_MAPBAR_OPTIONSMENU_STATUSBAR_ONDISABLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_MAPBAR_OPTIONSMENU_STATUSBAR_VISIBILITY"] = ""--]] 
+L["S_MAPBAR_OPTIONSMENU_STATUSBAR_ONDISABLE"] = "введите команду '/wqt statusbar' или воспользуйтесь меню аддона в управлении интерфейса для восстановления статус бара."
+L["S_MAPBAR_OPTIONSMENU_STATUSBAR_VISIBILITY"] = "Показать статус бар "
 L["S_MAPBAR_OPTIONSMENU_STATUSBARANCHOR"] = "Привязать к верху"
 L["S_MAPBAR_OPTIONSMENU_TOMTOM_WPPERSISTENT"] = "Постоянная путевая точка"
 L["S_MAPBAR_OPTIONSMENU_TRACKER_CURRENTZONE"] = "Только текущая зона"
