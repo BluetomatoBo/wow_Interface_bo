@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2337, "DBM-ZuldazarRaid", 3, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18277 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18332 $"):sub(12, -3))
 mod:SetCreatureID(146251, 146253, 146256)--Sister Katherine 146251, Brother Joseph 146253, Laminaria 146256
 mod:SetEncounterID(2280)
 --mod:DisableESCombatDetection()
@@ -15,7 +15,7 @@ mod:SetHotfixNoticeRev(18175)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 284262 284106 284393 284383 285017 284362 288696",
+	"SPELL_CAST_START 284262 284106 284393 284383 285017 284362 288696 288941",
 	"SPELL_CAST_SUCCESS 285350 285426 285118 290694 289795",
 	"SPELL_AURA_APPLIED 286558 284405 285000 285382 285350 285426 287995",
 	"SPELL_AURA_REFRESH 285000 285382",
@@ -33,7 +33,7 @@ mod:RegisterEventsInCombat(
 --TODO, icons and stuff for storm's wail
 --TODO, add "watch wave" warning for Energized wake on mythic
 --[[
-(ability.id = 284262 or ability.id = 284106 or ability.id = 284393 or ability.id = 284383 or ability.id = 285017 or ability.id = 284362 or ability.id = 288696) and type = "begincast"
+(ability.id = 284262 or ability.id = 284106 or ability.id = 284393 or ability.id = 284383 or ability.id = 285017 or ability.id = 284362 or ability.id = 288696 or ability.id = 288941) and type = "begincast"
  or (ability.id = 285350 or ability.id = 285426 or ability.id = 285118 or ability.id = 290694 or ability.id = 289795) and type = "cast"
  or type = "interrupt"
  or ability.id = 284405 and type = "applydebuff"
@@ -74,19 +74,21 @@ local specWarnStormsWail				= mod:NewSpecialWarningMoveTo(285350, nil, nil, 2, 3
 local yellStormsWail					= mod:NewYell(285350)
 local yellStormsWailFades				= mod:NewShortFadesYell(285350)
 
---mod:AddTimerLine(DBM:EJ_GetSectionInfo(18527))
 --Stage One: Storm the Ships
-----General
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19257))
 ----Sister Katherine
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19261))
 local timerVoltaicFlashCD				= mod:NewCDTimer(17, 284262, nil, nil, nil, 3)--17-35 wtf?
 local timerCracklingLightningCD			= mod:NewCDTimer(12.1, 284106, nil, nil, nil, 3)--12.1 and 22 alternating
 --local timerThunderousBoomCD			= mod:NewCastTimer(55, 284120, nil, nil, nil, 2)--After timing is figured out after crackling
 local timerElecShroudCD					= mod:NewCDTimer(34, 287995, nil, nil, nil, 4, nil, DBM_CORE_DAMAGE_ICON..DBM_CORE_INTERRUPT_ICON)--34-41, maybe health based?
 ----Brother Joseph
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19262))
 local timerSeaStormCD					= mod:NewCDTimer(10.9, 284360, nil, nil, nil, 3)
 local timerSeasTemptationCD				= mod:NewCDCountTimer(34, 284383, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)--Might be health based
 local timerTidalShroudCD				= mod:NewCDTimer(36.5, 286558, nil, nil, nil, 4, nil, DBM_CORE_DAMAGE_ICON..DBM_CORE_INTERRUPT_ICON)--Probalby health based
 --Stage Two: Laminaria
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19258))
 local timerCataTides					= mod:NewCastTimer(15, 288696, nil, nil, nil, 4, nil, DBM_CORE_INTERRUPT_ICON)
 local timerSeaSwellCD					= mod:NewCDTimer(20.6, 285118, nil, nil, nil, 3)
 local timerIreoftheDeepCD				= mod:NewCDTimer(32.8, 285017, nil, nil, nil, 5)
@@ -99,11 +101,10 @@ local countdownSeaSwell					= mod:NewCountdown(20.6, 285118, true, 3, 3)
 --local countdownRupturingBlood				= mod:NewCountdown("Alt12", 244016, false, 2, 3)
 --local countdownFelstormBarrage			= mod:NewCountdown("AltTwo32", 244000, nil, nil, 3)
 
---mod:AddSetIconOption("SetIconGift", 255594, true)
-mod:AddRangeFrameOption(5, 285118)
-mod:AddInfoFrameOption(284760, true)
 mod:AddNamePlateOption("NPAuraOnKepWrapping", 285382)
 --mod:AddSetIconOption("SetIconDarkRev", 273365, true)
+mod:AddRangeFrameOption(5, 285118)
+mod:AddInfoFrameOption(284760, true)
 
 mod.vb.phase = 1
 mod.vb.bossesDied = 0
@@ -210,20 +211,30 @@ end
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if spellId == 284262 then
+		timerVoltaicFlashCD:Start()
 		if self:CheckTankDistance(args.sourceGUID, 43) then
 			specWarnVoltaicFlash:Show()
 			specWarnVoltaicFlash:Play("watchorb")
+			timerVoltaicFlashCD:SetFade(false)
+		else
+			timerVoltaicFlashCD:SetFade(true)
 		end
-		timerVoltaicFlashCD:Start()
+	elseif spellId == 288941 and self:AntiSpam(20, 2) then--AntiSpam must be at least 15 here, 20 for good measure
+		specWarnVoltaicFlash:Show()
+		specWarnVoltaicFlash:Play("watchorb")
+		timerVoltaicFlashCD:Start(42.5)
 	elseif spellId == 284106 then
-		if self:CheckTankDistance(args.sourceGUID, 43) then
-			warnCracklingLightning:Show()
-		end
 		self.vb.cracklingCast = self.vb.cracklingCast + 1
 		if self.vb.cracklingCast % 2 == 0 then
 			timerCracklingLightningCD:Start(21.9)--21.9 (usually 23.1 but I have one log showing 21.9)
 		else
 			timerCracklingLightningCD:Start(12.1)
+		end
+		if self:CheckTankDistance(args.sourceGUID, 43) then
+			warnCracklingLightning:Show()
+			timerCracklingLightningCD:SetFade(false)
+		else
+			timerCracklingLightningCD:SetFade(true)
 		end
 	elseif spellId == 284393 then
 		warnTranslocate:Show(args.sourceName)
@@ -233,7 +244,10 @@ function mod:SPELL_CAST_START(args)
 			timerVoltaicFlashCD:Stop()
 			timerCracklingLightningCD:Stop()
 			timerElecShroudCD:Stop()
-			
+			--Set all to false on teleport til we can refresh tank distance
+			timerCracklingLightningCD:SetFade(false)
+			timerVoltaicFlashCD:SetFade(false)
+			timerElecShroudCD:SetFade(false)
 			--This may be more complicated than this, like maybe a pause/resume more so than this
 			timerCracklingLightningCD:Start(12)
 			timerVoltaicFlashCD:Start(17)
@@ -242,18 +256,25 @@ function mod:SPELL_CAST_START(args)
 			timerSeaStormCD:Stop()
 			timerSeasTemptationCD:Stop()
 			timerTidalShroudCD:Stop()
-			
+
+			--Set all to false on teleport til we can refresh tank distance
+			timerSeaStormCD:SetFade(false)
+			timerSeasTemptationCD:SetFade(false)
+			timerTidalShroudCD:SetFade(false)
 			--This may be more complicated than this, like maybe a pause/resume more so than this
 			timerSeaStormCD:Start(12.1)
 			timerSeasTemptationCD:Start(26.7, self.vb.sirenCount+1)--Even less sure about this one
 			timerTidalShroudCD:Start(37.7)
 		end
 	elseif spellId == 284383 then
+		self.vb.sirenCount = self.vb.sirenCount + 1
 		if self:CheckTankDistance(args.sourceGUID, 43) then
 			specWarnSeasTemptation:Show()
 			specWarnSeasTemptation:Play("killmob")
+			timerSeasTemptationCD:SetFade(false)
+		else
+			timerSeasTemptationCD:SetFade(true)
 		end
-		self.vb.sirenCount = self.vb.sirenCount + 1
 		timerSeasTemptationCD:Start(nil, self.vb.sirenCount+1)
 	elseif spellId == 285017 then
 		specWarnIreoftheDeep:Show()
@@ -263,6 +284,9 @@ function mod:SPELL_CAST_START(args)
 		if self:CheckTankDistance(args.sourceGUID, 43) then
 			specWarnSeaStorm:Show()
 			specWarnSeaStorm:Play("watchstep")
+			timerSeaStormCD:SetFade(false)
+		else
+			timerSeaStormCD:SetFade(true)
 		end
 		if self:IsMythic() then
 			timerSeaStormCD:Start(9.7)
@@ -294,14 +318,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specWarnSeaSwell:Play("watchstep")
 		timerSeaSwellCD:Start(20)
 		countdownSeaSwell:Start(20)
-	elseif spellId == 289795 then--Zuldazar Reuse Spell 06 (P2 sirens spawning)
+	elseif spellId == 289795 and self.vb.phase == 2 then--Zuldazar Reuse Spell 06 (P2 sirens spawning)
 		self.vb.sirenCount = self.vb.sirenCount + 1
 		if self:AntiSpam(8, 8) then
 			specWarnSeasTemptation:Show()
 			specWarnSeasTemptation:Play("killmob")
 		end
 		if self.vb.sirenCount % 2 == 0 then
-			timerSeasTemptationCD:Start(38.7, self.vb.sirenCount+1)
+			timerSeasTemptationCD:Start(36.3, self.vb.sirenCount+1)
 		else
 			timerSeasTemptationCD:Start(5, self.vb.sirenCount+1)
 		end
@@ -335,11 +359,17 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 286558 then
 		if self:CheckTankDistance(args.destGUID, 43) then
 			warnTidalShroud:Show(args.destName)
+			timerTidalShroudCD:SetFade(false)
+		else
+			timerTidalShroudCD:SetFade(true)
 		end
 		timerTidalShroudCD:Start()
 	elseif spellId == 287995 then
 		if self:CheckTankDistance(args.destGUID, 43) then
 			warnElecShroud:Show(args.destName)
+			timerElecShroudCD:SetFade(false)
+		else
+			timerElecShroudCD:SetFade(true)
 		end
 		timerElecShroudCD:Start()
 	elseif spellId == 284405 then
@@ -357,10 +387,11 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 285350 or spellId == 285426 then
 		if args:IsPlayer() then
 			specWarnStormsWail:Show(freezingTidePod)
-			specWarnStormsWail:Schedule(7, DBM_CORE_BACK)
+			local timer = self:IsEasy() and 13 or 10
+			specWarnStormsWail:Schedule(timer-4.5, DBM_CORE_BACK)
 			specWarnStormsWail:Play("targetyou")
 			yellStormsWail:Yell()
-			yellStormsWailFades:Countdown(self:IsEasy() and 13 or 10)
+			yellStormsWailFades:Countdown(timer)
 		else
 			warnStormsWail:Show(args.destName)
 		end
@@ -424,7 +455,10 @@ function mod:SPELL_INTERRUPT(args)
 		timerSeaSwellCD:Start(7.2)--21.9
 		countdownSeaSwell:Start(7.2)
 		if self:IsMythic() then
-			timerSeasTemptationCD:Start(38.7)
+			timerVoltaicFlashCD:SetFade(false)
+			timerSeasTemptationCD:SetFade(false)
+			timerVoltaicFlashCD:Start(18.7)
+			timerSeasTemptationCD:Start(38.7, 1)
 		end
 	end
 end

@@ -10,7 +10,7 @@ end
 local mod	= DBM:NewMod(dungeonID, "DBM-ZuldazarRaid", 1, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18253 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18337 $"):sub(12, -3))
 mod:SetCreatureID(creatureID)
 mod:SetEncounterID(2263, 2284)--2263 Alliance, 2284 Horde
 --mod:DisableESCombatDetection()
@@ -64,10 +64,12 @@ local yellThrowTargetFades				= mod:NewShortFadesYell(289307)
 --local specWarnGTFO					= mod:NewSpecialWarningGTFO(238028, nil, nil, nil, 1, 8)
 
 --mod:AddTimerLine(DBM:EJ_GetSectionInfo(18527))
+mod:AddTimerLine(DBM_BOSS)
 --local timerEnergyAOECD					= mod:NewCDCountTimer(100, energyAOESpellId, nil, nil, nil, 2)
 local timerTankComboCD					= mod:NewCDTimer(30.3, tankComboId, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)
 local timerSlamCD						= mod:NewCDTimer(27, slamSpellId, nil, nil, nil, 3)
 local timerFerociousRoarCD				= mod:NewCDTimer(36.5, 285994, nil, nil, nil, 2)
+mod:AddTimerLine(DBM_ADDS)
 local timerAddCD						= mod:NewCDTimer(120, addSpawnId, nil, nil, nil, 1)
 local timerAddAttackCD					= mod:NewCDTimer(23.8, addProjectileId, nil, nil, nil, 3)--12-32
 
@@ -77,13 +79,9 @@ local countdownAdd						= mod:NewCountdown(120, addSpawnId, true, nil, 5)
 local countdownTankCombo				= mod:NewCountdown("Alt12", tankComboId, "Tank", nil, 4)
 local countdownFerociousRoar			= mod:NewCountdown("AltTwo32", 285994, nil, nil, 3)
 
---mod:AddSetIconOption("SetIconGift", 255594, true)
---mod:AddRangeFrameOption("8/10")
+mod:AddRangeFrameOption(8, 285994)
 mod:AddInfoFrameOption(energyAOESpellId, true)
---mod:AddNamePlateOption("NPAuraOnPresence", 276093)
---mod:AddSetIconOption("SetIconDarkRev", 273365, true)
 
---mod.vb.phase = 1
 mod.vb.EnergyAOECount = 0
 mod.vb.comboCount = 0
 local coreTargets = {}
@@ -139,9 +137,9 @@ function mod:OnCombatStart(delay)
 		countdownFerociousRoar:Start(35.5-delay)
 	end
 --	timerEnergyAOECD:Start(100-delay, 1)
---	if self.Options.NPAuraOnPresence then
---		DBM:FireEvent("BossMod_EnableHostileNameplates")
---	end
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Show(8, nil, nil, 2, true)
+	end
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:SetHeader(OVERVIEW)
 		DBM.InfoFrame:Show(8, "function", updateInfoFrame, false, false)
@@ -149,15 +147,12 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
---	if self.Options.RangeFrame then
---		DBM.RangeCheck:Hide()
---	end
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Hide()
+	end
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:Hide()
 	end
---	if self.Options.NPAuraOnPresence then
---		DBM.Nameplate:Hide(true, nil, nil, nil, true, true)
---	end
 end
 
 function mod:SPELL_CAST_START(args)

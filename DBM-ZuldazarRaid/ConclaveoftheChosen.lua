@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2330, "DBM-ZuldazarRaid", 2, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18279 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18318 $"):sub(12, -3))
 mod:SetCreatureID(144747, 144767, 144963, 144941)--Mythic need other 2 IDs?
 mod:SetEncounterID(2268)
 --mod:DisableESCombatDetection()
@@ -90,24 +90,29 @@ local yellAkundasWrathFades				= mod:NewFadesYell(286811)
 local specWarnBwonsamdisWrath			= mod:NewSpecialWarningYou(284663, nil, nil, nil, 3, 2)
 local specWarnBwonsamdisWrathDispel		= mod:NewSpecialWarningDispel(284663, "RemoveCurse", nil, nil, 1, 2)
 
---mod:AddTimerLine(DBM:EJ_GetSectionInfo(18527))
 --Pa'ku's Aspect
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19013))
 local timerGiftofWindCD					= mod:NewCDTimer(31.6, 282098, nil, nil, nil, 2)
 local timerPakusWrathCD					= mod:NewCDCountTimer(70, 282107, nil, nil, nil, 2, nil, DBM_CORE_DEADLY_ICON)
 --Gonk's Aspect
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19016))
 local timerCrawlingHexCD				= mod:NewCDTimer(25.4, 282135, nil, nil, nil, 3, nil, DBM_CORE_CURSE_ICON)
 local timerRaptorFormCD					= mod:NewCDTimer(15.8, 285889, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)--15.8-17
 local timerGonksWrathCD					= mod:NewCDTimer(60, 282155, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
 --Kimbul's Aspect
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19021))
 local timerLaceratingClawsCD			= mod:NewCDTimer(26.8, 282444, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)--26.8-31.6
 local timerKinbulsWrathCD				= mod:NewCDTimer(60, 282834, nil, nil, nil, 3)
 --Akunda's Aspect
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19024))
 local timerThunderingStormCD			= mod:NewCDTimer(19.5, 282411, nil, "Melee", nil, 3, nil, DBM_CORE_TANK_ICON)
 local timerMindWipeCD					= mod:NewCDTimer(33.7, 285878, nil, nil, nil, 3)
 local timerAkundasWrathCD				= mod:NewCDTimer(60, 283685, nil, nil, nil, 3)
 --Krag'wa
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19193))
 local timerKragwasWrathCD				= mod:NewCDTimer(49.8, 282636, nil, nil, nil, 3)
 --Bwonsamdi
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19195))
 local timerBwonsamdisWrathCD			= mod:NewCDCountTimer(50, 284666, nil, nil, nil, 3, nil, DBM_CORE_CURSE_ICON..DBM_CORE_HEALER_ICON)
 
 --local berserkTimer					= mod:NewBerserkTimer(600)
@@ -116,13 +121,12 @@ local countdownPakusWrath				= mod:NewCountdown(70, 282107, true, nil, 5)
 --local countdownLaceratingClaws		= mod:NewCountdown("Alt12", 244016, false, 2, 3)
 local countdownKragwasWrath				= mod:NewCountdown("AltTwo32", 282636, "Ranged", nil, 3)
 
---mod:AddSetIconOption("SetIconGift", 255594, true)
---mod:AddRangeFrameOption("8/10")
-mod:AddInfoFrameOption(282079, true)--Not real spellID, just filler for now
 mod:AddNamePlateOption("NPAuraOnPact", 282079)
 mod:AddNamePlateOption("NPAuraOnPackHunter", 286007)
 mod:AddNamePlateOption("NPAuraOnFixate", 282209)
 mod:AddSetIconOption("SetIconHex", 282135, false)
+--mod:AddRangeFrameOption("8/10")
+mod:AddInfoFrameOption(282079, true)--Not real spellID, just filler for now
 
 --mod.vb.phase = 1
 mod.vb.hexIcon = 1
@@ -226,9 +230,11 @@ function mod:SPELL_CAST_SUCCESS(args)
 		--timerBwonsamdisWrathCD:Start()
 	elseif spellId == 282636 then
 		self.vb.kragwaCast = self.vb.kragwaCast + 1
-		if self.vb.kragwaCast == 1 or (self.vb.kragwaCast-1) % 3 == 0 then--1, 4, 7, 10, etc
-			timerKragwasWrathCD:Start()
-			countdownKragwasWrath:Start(49.8)
+		if self.vb.kragwaCast % 4 == 0 then
+			timerKragwasWrathCD:Start(40)
+			countdownKragwasWrath:Start(40)
+		else
+			timerKragwasWrathCD:Start(3)
 		end
 	end
 end

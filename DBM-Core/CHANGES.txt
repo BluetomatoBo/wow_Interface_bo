@@ -1,256 +1,462 @@
-tag 7827ad71706a9a50b3c381ea15cf2506a10d8a76 8.1.8
+tag f88539f39e71949327e16595431e81364398bfc3 8.1.9
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Mon Feb 4 00:28:35 2019 +0100
+Date:	Tue Feb 12 21:37:00 2019 +0100
 
-Tagging as 8.1.8
+Tagging as 8.1.9
 
-commit e9420c9acec12bed182a8c2bbff0d7f5c9e75acf
+commit b7b9f1f4c5b5aaf3e7f96c7235334921ac0c90ce
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Feb 4 00:28:35 2019 +0100
+Date:   Tue Feb 12 21:37:00 2019 +0100
 
-    increment version number to 8.1.8
+    increment version number to 8.1.9
 
-commit a5ee417eb372ff7ebd9704aa5da864efc6313331
+commit c8d6f7a7c771548a79a088daca55561e37e95c4d
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Feb 4 00:09:40 2019 +0100
+Date:   Tue Feb 12 19:06:04 2019 +0100
 
-    Omega via svn r18279:
-    added new way to detect Bwonsamdi?\226?\128?\153s wrath casts without relying on localized text. Localized text is stilled as backup in the off chance Bwonsamdi?\226?\128?\153s name is translated different in two different places in another language (has happened before)
+    Omega via svn r18342:
+    don?\226?\128?\153t add shrunk header if 0 shrunk
 
-commit d01bfdfe8bd413b95ee716af383efea31b9b3623
+commit 0abf2c5b5a343afb0b674e438f127e10d7c81384
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Feb 3 19:59:35 2019 +0100
+Date:   Tue Feb 12 19:02:02 2019 +0100
 
-    Omega via svn r18278:
+    Omega via svn r18341:
+    Set keep flag on this timer
+
+commit e7c1f202e622de1e9f2dd7ceef4f23ab686656f4
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 12 18:58:54 2019 +0100
+
+    Omega via svn r18340:
+    update version check
+
+commit e60ea0275dabc5d9277b29c02008db2f5618fbd5
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 12 18:54:12 2019 +0100
+
+    Omega via svn r18339:
+    Second edition of mekkatorque frame, now with more shrunk
+    While at it, wtf was I thinking with this ghuun frame using name to get unitID so i could get name?
+
+commit 70327f1222617da3a2458c68ddeba9a045953c2a
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 12 05:01:46 2019 +0100
+
+    Omega via svn r18338:
+    Change how deploy spark bot warning works
+
+commit 06f56679516a2e081e9fc6ee954027510b22753e
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 12 04:46:59 2019 +0100
+
+    Omega via svn r18337:
+    Update Jaina timers, both heroic and mythic.
+    heroic, especially thankful for 15 minute wipe pull that helped confirm those 60 second timers aren?\226?\128?\153t just ice block flukes, but actually 60-62 seconds
+    Cleaned up unused across a bunch of mods
+
+commit 7cf2f7b62bd11f3b68298e9911e067a3550cc725
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 12 00:17:12 2019 +0100
+
+    Omega via svn r18336:
+    Add more test conditions and notes for authors who will use these tests to test callbacks
+
+commit bf134d0af53885e4dae4e532cecf01445e0d7a65
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 11 20:05:31 2019 +0100
+
+    Omega via svn r18335:
+    Add HasInterrupt to shadow priests
+
+commit c473dae06becf27f75176933fcca8b9f1c820ac3
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 11 19:42:35 2019 +0100
+
+    Omega via svn r18334:
+    Note update
+
+commit 351ec285dbad1620a746dfb2bd92d0c1853380c5
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 11 19:23:29 2019 +0100
+
+    Omega via svn r18333:
+    Add needed callbacks so weak auras (or other mods) can support timer fades
+
+commit 14c73e6afbea030f81e33092549a247309d66bcc
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 11 19:09:31 2019 +0100
+
+    Omega via svn r18332:
+    Optimize setfade usage so applyStyle isn?\226?\128?\153t applied an extra time for no good reason. If start is being called anyways, setfade before start and applystyle is already run on timer start. That way, no need to find existing timer and update a started timer on top of things.
+
+commit 5be763e68ecfc5298ee297d02b2e31c700e865a1
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 11 18:56:59 2019 +0100
+
+    Omega via svn r18331:
+    Fix setfade object to make sure it always handles both metatables correctly
+
+commit 464a37cb053505294c5986737014271644f9076e
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 11 18:30:25 2019 +0100
+
+    Omega via svn r18330:
+    Forgot to push this
+
+commit 6a22ec0947ba1900c94d9ad49d44b58e0f830740
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 11 00:14:40 2019 +0100
+
+    Omega via svn r18329:
+    Apply fading to blockade as well
+
+commit 8f604781d4c311bb92ef244b8bc807c2daed0b65
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Feb 10 23:50:33 2019 +0100
+
+    Omega via svn r18328:
+    Disable freezing blood special warning by default, based on feedback.
+    Add support for fading and unfading timers on a whim in core and apply this to rastakhan based on what phase player is in during stage 3.
+
+commit a08184a583fbc45f47786d942a8376fd9e519de6
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Feb 10 21:34:25 2019 +0100
+
+    Omega via svn r18327:
+    Change yells on mekkatorque so tampering yells are red text and shrunk yells (not in a robot) are still white.
+    Changed enormous yell from red to white..
+    
+    this way, the robot yells are the ONLY ones that are red.
+
+commit 22a77f1f97003a918974d488db63256e5ce16c51
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Feb 10 02:33:35 2019 +0100
+
+    Omega via svn r18326:
+    work around CLEU bug where same barrel would fire buff in log more than once. this should hopefully fix issue where sometimes ice icon doesn?\226?\128?\153t get cleared from barrel because mod thinks it still has another buff.
+
+commit d6ce3dcc49ac9acca8578afb1f8acb8d4ada8f53
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Feb 10 02:10:57 2019 +0100
+
+    Omega via svn r18325:
+    add studder cast protection
+
+commit 1d3b417288eb5c17fd816281608f352ce3307945
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Feb 10 02:04:40 2019 +0100
+
+    Omega via svn r18324:
+    Protections against duplicate entries and wipe table earlier. beyond that, no idea what causes it to act up.
+
+commit 7673e852699ed404f7d9312c8e6cfb67ea8439a3
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Feb 10 01:49:50 2019 +0100
+
+    Omega via svn r18323:
+    Enable keep setting on Crystalline Dust dust
+
+commit f369dd03051d7fadb8a46252f77bf0092f5d2bca
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 23:24:21 2019 +0100
+
+    Omega via svn r18322:
+    just disable grasp timer on normal/lfr. no idea what the hell is goin on there but sometimes she spam casts it.
+
+commit b17b571d48f14f1a37f035d750e83b2d20ead22f
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 23:14:12 2019 +0100
+
+    Omega via svn r18321:
+    Fix grasp collection
+    and fixed infoframe on mekkatorque
+
+commit a8553f4bc3acf388bdf4ac6a5dcea300e7c4108c
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 22:31:28 2019 +0100
+
+    Omega via svn r18320:
+    By default, decimal is now 10 and below. above 10 it?\226?\128?\153ll be truncated. will help have more room for actual timer text on smaller bars.
+
+commit e3deafd6f39b06f3ad5509f53d35c1eeb741d782
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 20:23:03 2019 +0100
+
+    Omega via svn r18319:
+    announce spawn too, not just the soon part
+
+commit 35bef8279f347b9d928fd831bcb614616c0081b4
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 20:08:26 2019 +0100
+
+    Omega via svn r18318:
+    Dungeon journal headers across zuldazar and crucible mod options
+
+commit 69eab4c11cc58bef8c9a4c5f3551f467744288aa
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 19:41:24 2019 +0100
+
+    Omega via svn r18317:
+    narrow scan window down
+
+commit 3ce9c0d98f999e880abb4f97634d899ea7b4def6
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 19:33:22 2019 +0100
+
+    Omega via svn r18316:
+    Faster grasp dispel warning and make it on by default again since it?\226?\128?\153s once again cast less often
+
+commit 777ecde7e4586d2d46a26951d3037606e97dd5b9
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 05:49:05 2019 +0100
+
+    Omega via svn r18315:
+    Updated 2 jaina timers which were nerfed at some point and latest logs confirm these are new minimums
+    Made heart of frost warning faster
+
+commit 2498199f522973c0703f3e3b9ef6c08fedef986a
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 05:09:18 2019 +0100
+
+    Omega via svn r18314:
+    This should fix last bug
+
+commit f7fa9e22258aae3b3e9a973c9840642e900d77d2
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 04:31:29 2019 +0100
+
+    Omega via svn r18313:
+    This one isn?\226?\128?\153t supposed to be a keep timer
+
+commit 98e4dab56a2cdf964f63b95c87a313820206ec58
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 04:12:08 2019 +0100
+
+    Omega via svn r18312:
+    I think this will nip problems
+
+commit 2778cfe88c3bd5d47d71fca2ca6dd24397cca255
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 03:54:50 2019 +0100
+
+    Omega via svn r18311:
+    Fix second bug, count timers wouldn?\226?\128?\153t be overwritten, so gotta call stop directly
+
+commit e72bd6c88162a86faf39c61cd327c4b58bbbc6aa
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 03:51:23 2019 +0100
+
+    Omega via svn r18310:
+    Fix first error, and wrote a test function to work on others
+
+commit 190fcc4fd59622b62edf5a2a3a2077f9f392e9b2
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 03:35:55 2019 +0100
+
+    Omega via svn r18309:
+    Prevent same problem affecting infoframe from affecting anything else the same way
+
+commit 46442a83210c86a545c37bc246362c2878751517
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Feb 9 02:59:37 2019 +0100
+
+    Omega via svn r18308:
     Kr Update
 
-commit 35dbb3f98f0895e50dc493783e7eec01bf0942d3
+commit 78dc389b3778b6c4c9cf5a5c973533fdc4f1ba14
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Feb 3 19:03:08 2019 +0100
+Date:   Sat Feb 9 02:54:46 2019 +0100
 
-    Omega via svn r18277:
-    Added P2 siren spawn event with support for warnings/timers to mythic blockade
-    Fixed bad spell ID on conclave of the chosen
+    Omega via svn r18307:
+    Added ability to keep timers on screen when defined by mod and enabled in core.
 
-commit 119862dc82f5b674fd8b1ea59d263cb8469cd7ea
+commit e5628fa2cd8e7c5729fe547e7099b8f3d9150651
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Feb 3 02:50:49 2019 +0100
+Date:   Fri Feb 8 20:47:01 2019 +0100
 
-    Omega via svn r18276:
-    fix a wrong option spellid
+    Omega via svn r18306:
+    Another debug
 
-commit 7e3e479d14b3fa037d05cefe7a66e0a0acd8c759
+commit 33c6ae6cd7623d91e10657cb3af0e012d09dfefd
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 20:20:21 2019 +0100
+Date:   Fri Feb 8 19:04:25 2019 +0100
 
-    Omega via svn r18275:
-    Fix bad copy paste
+    Omega via svn r18305:
+    Fix two bugs
+    add more debug
 
-commit 8da1c92a3bfaa5da0cde3a4ec91b80347db9d0af
+commit 9787b6c5617ad2adda9c879cebb9f1a486aebf1d
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 20:18:43 2019 +0100
+Date:   Fri Feb 8 03:02:51 2019 +0100
 
-    Omega via svn r18274:
-    Add the more completed Jaina range checker code
+    Omega via svn r18304:
+    Update notes
 
-commit c3e806827b64d169404d99d721f325ab9f2bee7a
+commit f8539be34a0149070d1ca05641fc7bab7c588096
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 19:55:27 2019 +0100
+Date:   Fri Feb 8 02:48:44 2019 +0100
 
-    Omega via svn r18273:
-    This needs to be truncated sadly
+    Omega via svn r18303:
+    Improve Mythic Jaina Stage 1 and 1.5 timers/warnings from partial transcriptor logs.
+    Fixed bug where infoframe wouldn?\226?\128?\153t close on a wipe if wiping during Howling Winds
+    Fixed a bug where stage 2 warnings would spam on transition into stage 2 on mythic.
 
-commit 92b2c22dfe8effeafb2dabbf5a9c45f9e83b68c5
+commit 2f8b4ae1a95203034787d1d5c5f217eedcd3cc3e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 19:46:56 2019 +0100
+Date:   Fri Feb 8 00:48:43 2019 +0100
 
-    Omega via svn r18272:
-    Use P not T
+    Omega via svn r18302:
+    Add support for P2 orbs to blockade
+    Fix double warnings for P1 sirens, since apparently 06 is used in P1 too
 
-commit b693d863c34cb00098f120383c8e18b19fc363e0
+commit 0255b774aab826a4fe44bc9559ab14b4868ff9eb
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 19:44:15 2019 +0100
+Date:   Thu Feb 7 21:19:18 2019 +0100
 
-    Omega via svn r18271:
-    While at it, change yd to D because depending on client it?\226?\128?\153s either yd or m, so at end of day ?\226?\128?\156distance?\226?\128?\157 makes more sense or ?\226?\128?\156D?\226?\128?\157
+    Omega via svn r18301:
+    Tweak debug/code
 
-commit ec5bc73e2312550a589bf3d6eb4393e7aabcf29b
+commit 691a73d50819497435668e698790ff9b0c1f5318
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 19:41:24 2019 +0100
+Date:   Thu Feb 7 20:31:31 2019 +0100
 
-    Omega via svn r18270:
-    Additional header info to make things clearer
+    Omega via svn r18300:
+    Increase warning level of freezing blood and fix range frame update
 
-commit 2bc85476535a7d359f119950b62380947351dc9c
+commit 237f6399941ac42e5e6bbeb6f99734d4362a0f03
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 19:26:11 2019 +0100
+Date:   Thu Feb 7 20:22:09 2019 +0100
 
-    Omega via svn r18269:
-    Add text range check summary and additional features to filter names as an option (will apply to mythic jaina)
+    Omega via svn r18299:
+    More debug for later
 
-commit e9056d80ef6a27e630eadb156c69333f1cb749f4
+commit f3b6e25da4aa2d02ad31b605c5f699a37421b9a4
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 17:47:25 2019 +0100
+Date:   Thu Feb 7 19:39:55 2019 +0100
 
-    Omega via svn r18268:
-    Fix prototype so it has class color
+    Omega via svn r18298:
+    Even better, allow custom alpha per bar type and make small bars 0.8 by default, large 1.0
 
-commit eebdf44ca544b5741be3c78bbf721312f8c2ebba
+commit 676b577ee118d0465394835a8235f2b130669046
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 17:42:03 2019 +0100
+Date:   Thu Feb 7 19:16:51 2019 +0100
 
-    Omega via svn r18267:
-    Added Bwomsandi Pact stuff to trash mod
-    Added new source and target combo warning prototype
+    Omega via svn r18297:
+    Add ability to control DBM bar frame alpha via slider
 
-commit 5bf29f238a80f5eceb935d441b2bac967457cd90
+commit 5fdc85b168dd1b92b3a5c62a78a269dc22bcb150
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 05:51:23 2019 +0100
+Date:   Thu Feb 7 06:16:25 2019 +0100
 
-    Omega via svn r18266:
-    Couple P1 mythic jaina timer updates
+    Omega via svn r18296:
+    This should work too
 
-commit 9c13125a85282c5026970537b177b6e7739eef37
+commit 7e3da9a112301f9204695236a618965fa19ff23f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 05:40:54 2019 +0100
+Date:   Thu Feb 7 06:14:28 2019 +0100
 
-    Omega via svn r18265:
-    Additional timer data for mekkatorque
-    Added support for P1 mythic Sea Swell and shorter cd for P2 sea swell on mythic
+    Omega via svn r18295:
+    Why blizz has to over complicate shit, more fixes because destflags returns false for player for debuffs on player, because debuff actually goes on players pet/vehicle that has same name as player.
 
-commit 26cd4bb6e1f7d6900383f0e5dbab9dc10dfa698a
+commit fd029c5c5045c84cdd2b8e8e62f8ed06fb030ec5
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 2 00:42:30 2019 +0100
+Date:   Thu Feb 7 06:01:08 2019 +0100
 
-    Omega via svn r18264:
-    Move sea swell to cast success instead of cast start
+    Omega via svn r18294:
+    add prints
 
-commit 83319f60a1866817670a2ad2c3770a9b15b3ea6d
+commit 42bf72b21ed1bb9588e953969a9001452e49ca21
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 1 22:02:24 2019 +0100
+Date:   Thu Feb 7 05:54:35 2019 +0100
 
-    Omega via svn r18263:
-    voice change
+    Omega via svn r18293:
+    Add MisTeleports to mythic Mekkatorque
+    Some infoframe debug
 
-commit a5a9096d5e0d9f14a76db04fcb430a4c8c6bb7ca
+commit a1dac85a11eaf45d468cff8a17725dd625f5ab7f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 1 04:53:24 2019 +0100
+Date:   Thu Feb 7 05:01:49 2019 +0100
 
-    Omega via svn r18262:
-    Correct text and audio on specWarnHexofLethargy
+    Omega via svn r18292:
+    Change P2 trigger to fix bug where previous P2 trigger triggered a little too early and would break timers if another P1 ability was cast. This new P2 trigger slower but avoids problems with timers
 
-commit acd86f583f26110946e04058c98837fa33284dae
+commit 2573eb134e457301e14e053ec303fe00118130a2
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 1 04:18:19 2019 +0100
+Date:   Thu Feb 7 04:35:40 2019 +0100
 
-    Omega via svn r18261:
-    Added short text to 3 timers on mekkatorque
-    Changed all timers from ?\226?\128?\156CD?\226?\128?\157 timers to ?\226?\128?\156next?\226?\128?\157 timers since they are perfected now and have no inaccuracies anywhere
-    Added audio countdowns to world enlarger, gigavolt charge, and wormhole generator.
+    Omega via svn r18291:
+    Fix bad spellID
 
-commit bc534e2fc88e6a9d2e5de8520acf7ccabb8c1b57
+commit 627ef0831f7e05eadf19838b61cc874ef8d90c95
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 1 03:52:21 2019 +0100
+Date:   Wed Feb 6 04:57:30 2019 +0100
 
-    Omega via svn r18260:
-    Dry code some extended timers a little based on patterns for those abilities
+    Omega via svn r18290:
+    Fix kragwaCast timer. (not sure when it was changed to 4, it was 3 when i made timer :\)
+    While at it, add timer for sub casts as well
 
-commit 164743dbe4b0ccda4feece0febbc9aa3fc6cdfa1
+commit 145015780f6f09c594c9a5e24e3f7b737a329a6f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 1 02:58:34 2019 +0100
+Date:   Wed Feb 6 04:35:40 2019 +0100
 
-    Omega via svn r18259:
-    Push preliminary mythic timers for mekkatorque so far. They are different from heroic/normal with some abilities removed and others added and in one case flipped.
+    Omega via svn r18289:
+    probably not needed, but I feel safer with the extra nil check
 
-commit d9c520643c5968a2490085d272c6bf4749ee970f
+commit eaf0aadcd978cf34f64514ac82e4ee9ba20d5a91
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 1 00:40:48 2019 +0100
+Date:   Tue Feb 5 07:19:23 2019 +0100
 
-    Omega via svn r18258:
-    Spanish update
+    Omega via svn r18288:
+    Add a LOT more timer data to mekkatorque with some really long heroic, mythic and normal kills on WCL
 
-commit 9ac04f0d6eb79553ff445d7515c1688be2d244f9
+commit 61efc11f39aa569676f3a2bf77738f2572d722c7
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 31 23:45:40 2019 +0100
+Date:   Mon Feb 4 22:59:27 2019 +0100
 
-    Omega via svn r18257:
-    Here too
+    Omega via svn r18287:
+    Announce jaina?\226?\128?\153s ice block
 
-commit 38ca2077da7ba3a54a1041823e5aff8e4b846b02
+commit ab8c07ed33a6582518041754155952b2afe5abf8
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 31 23:45:00 2019 +0100
+Date:   Mon Feb 4 19:55:20 2019 +0100
 
-    Omega via svn r18256:
-    Remove message on difficulties that are long done
+    Omega via svn r18286:
+    Uniformity
 
-commit 5cacc50cb041c3df8c7c5f54c7c2b9fb749e02dd
+commit db9a3caf1b1f4d470910a92030ead3d3f31e7902
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 31 23:43:45 2019 +0100
+Date:   Mon Feb 4 19:53:02 2019 +0100
 
-    Omega via svn r18255:
-    Input some old missing mekkatorque mythic timers, still may be totally wrong if they changed on live. awaiting live logs still
+    Omega via svn r18285:
+    Actually, do this a better way, globally and once and for all way
 
-commit 2a9d75b94c2986c05076e84780871212b7b00719
+commit acc54c5f2fd575e88368811a696fd32a914be114
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 31 22:49:50 2019 +0100
+Date:   Mon Feb 4 19:31:14 2019 +0100
 
-    Omega via svn r18254:
-    Slightly less efficient but better sorted infoframe on Opulence
+    Omega via svn r18284:
+    Begin option tidy process
 
-commit 6766180859400a0640f8825dbd8a58466bd7a183
+commit 29a650317ca0be8831edc17b2855d9a998f5eb7c
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 31 22:23:32 2019 +0100
+Date:   Mon Feb 4 18:42:08 2019 +0100
 
-    Omega via svn r18253:
-    Added audio countdown for Prayer of fallen to first boss
-    Added audio countdown for Kragwas Wrath to conclave
-    Added audio countdowns for Adds, Tank Combo, and fear to Grong
-    Fixed lua error spam on Opulence if you personally have stacks of Earthen Roots or Unleashed Rage
+    Omega via svn r18283:
+    Spanish Update
 
-commit bd2b9d52404339dc86d7b40ac1ab5b9cb62938a7
+commit edbb59398ca5b003b6f87217a3d705e99446f848
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 31 21:49:10 2019 +0100
+Date:   Mon Feb 4 01:47:30 2019 +0100
 
-    Omega via svn r18252:
-    Fixed detection of grievous axe on mythic
-    Fixed timer for scorching detonation in P3 which got mis-entered somehow
-    Added audio countdown for scorching detonation and Inevitable End
-    Cleaned up all unused stuff
-    Added count to Inevitable End timers
-    Fixed count in scorching detonation timers
+    Omega via svn r18282:
+    Add tampering helper infoframe to Mekkatorque
+    Fixed player yell spam bug that caused it to stop when player entered a robot on Mekkatorque
 
-commit 65395598a914ca88f0f8f3fe384a34055c186cad
+commit cbd984c7b3957ebcbc717a65e154e46c53dd17d7
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 31 06:33:39 2019 +0100
+Date:   Mon Feb 4 00:29:38 2019 +0100
 
-    Omega via svn r18251:
-    Tweaks
-
-commit f0abb61edc059f9832ccfe513bf122e68e399095
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 31 06:29:47 2019 +0100
-
-    Omega via svn r18250:
-    Add support for Chaotic Displacement on mythic treasure duder
-
-commit bdc07ba180021d816dd21de37ebae380e1a822ee
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 30 06:22:15 2019 +0100
-
-    ultrashining via svn r18249:
-    zhTW update
-
-commit 1e336119b9e6bd8e3c4548f75192d06b7c800a77
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 30 04:50:46 2019 +0100
-
-    Omega via svn r18248:
-    Fix another lua error, mythic only
-
-commit e8618a1d93428f641bba61588482765ec60e42e8
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 30 04:15:38 2019 +0100
-
-    tandanu via svn r18247:
+    tandanu via svn r18281:
     increment alpha version
 

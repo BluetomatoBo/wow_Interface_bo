@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2335, "DBM-ZuldazarRaid", 2, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18252 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18336 $"):sub(12, -3))
 mod:SetCreatureID(145616)--145644 Bwonsamdi
 mod:SetEncounterID(2272)
 --mod:DisableESCombatDetection()
@@ -15,12 +15,12 @@ mod:SetZone()
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 284831 284933 284686 283504 287116 287333 286695 286742",
+	"SPELL_CAST_START 284831 284933 284686 287116 287333 286695 286742",
 	"SPELL_CAST_SUCCESS 284662 284781 290955 288449 285347 285172 284521",
 	"SPELL_SUMMON 285003 285402",
-	"SPELL_AURA_APPLIED 284831 285195 284662 285349 288415 288449 284446 289162 286779 284455",
+	"SPELL_AURA_APPLIED 284831 285195 284662 285349 288415 288449 284446 289162 286779 284455 284376",
 	"SPELL_AURA_APPLIED_DOSE 285195",
-	"SPELL_AURA_REMOVED 284831 285195 288449 289162 286779 284276 284455",
+	"SPELL_AURA_REMOVED 284831 285195 288449 289162 286779 284455",
 	"SPELL_AURA_REMOVED_DOSE 285195",
 	"UNIT_DIED",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
@@ -33,6 +33,7 @@ mod:RegisterEventsInCombat(
  or (ability.id = 285003 or ability.id = 285402) and type = "summon"
  or (ability.id = 284276 or ability.id = 284446) and (type = "applybuff" or type = "removebuff")
  or ability.id = 288117 and type = "applydebuff"
+ or ability.id = 284376 and type = "applydebuff"
 --]]
 --TODO, is serpent totem a kill target or a reposition raid one in most strats?
 --TODO, dread reaping fix?
@@ -96,11 +97,12 @@ local specWarnNecroticSmashOther		= mod:NewSpecialWarningTaunt(286742, nil, nil,
 --local specWarnGTFO						= mod:NewSpecialWarningGTFO(286772, nil, nil, nil, 1, 8)
 local specWarnFocusedDimise				= mod:NewSpecialWarningInterrupt(286779, nil, nil, nil, 1, 2)
 
---mod:AddTimerLine(DBM:EJ_GetSectionInfo(18527))
 --Stage One: Zandalari Honor Guard
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19172))
 local timerScorchingDetonationCD		= mod:NewCDCountTimer(23.1, 284831, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)
 local timerPlagueofToadsCD				= mod:NewCDTimer(21.1, 284933, nil, nil, nil, 1)
 local timerSerpentTotemCD				= mod:NewCDTimer(31.6, 285172, nil, nil, nil, 1)
+mod:AddTimerLine(DBM_ADDS)
 ----Prelate Za'lan
 local timerSealofPurificationCD			= mod:NewCDTimer(25.4, 284662, nil, nil, nil, 3)
 ----Siegebreaker Roka
@@ -108,16 +110,19 @@ local timerMeteorLeapCD					= mod:NewCDTimer(33.3, 284686, nil, nil, nil, 3)
 ----Headhunter Gal'wana
 local timerGrievousAxeCD				= mod:NewCDTimer(17.1, 284781, nil, nil, nil, 3, nil, DBM_CORE_HEALER_ICON)
 --Stage Two: Bwonsamdi's Pact
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19242))
 local timerPlagueofFireCD				= mod:NewCDTimer(23, 285347, nil, nil, nil, 3)
 local timerZombieDustTotemCD			= mod:NewCDTimer(44.9, 285003, nil, nil, nil, 1)
 ----Bwonsamdi
 local timerDeathsDoorCD					= mod:NewCDTimer(27.9, 288449, nil, nil, nil, 3)
 --Stage Three: Enter the Death Realm
+mod:AddTimerLine(DBM:EJ_GetSectionInfo(19243))
 local timerSpiritVortex					= mod:NewCastTimer(5, 284478, nil, nil, nil, 6)
 local timerDreadReapingCD				= mod:NewCDTimer(14.1, 287116, nil, nil, nil, 3)
 local timerInevitableEndCD				= mod:NewCDCountTimer(62.5, 287333, nil, nil, nil, 2, nil, DBM_CORE_DEADLY_ICON)--62-75?
-local timerAddsCD						= mod:NewAddsTimer(120, 284446, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)--Generic Timer only used on Mythic
+local timerAddsCD						= mod:NewAddsTimer(120, 284446, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)--Single use at start of Stage 3
 ----Spirits
+mod:AddTimerLine(DBM_ADDS)
 local timerSealofBwonCD					= mod:NewCDTimer(25.5, 286695, nil, nil, nil, 5)
 local timerNecroticSmashCD				= mod:NewCDTimer(34.6, 286742, nil, nil, nil, 2)
 
@@ -126,11 +131,11 @@ local timerNecroticSmashCD				= mod:NewCDTimer(34.6, 286742, nil, nil, nil, 2)
 local countdownScorchingDet				= mod:NewCountdown("Alt12", 284831, "Tank", nil, 4)
 local countdownInevitableEnd			= mod:NewCountdown(50, 287333, nil, nil, 5)
 
+mod:AddNamePlateOption("NPAuraOnRelentlessness", 289162)
+mod:AddNamePlateOption("NPAuraOnFocusedDemise", 286779)
 --mod:AddSetIconOption("SetIconGift", 255594, true)
 mod:AddRangeFrameOption(8, 285349)
 mod:AddInfoFrameOption(285195, true)
-mod:AddNamePlateOption("NPAuraOnRelentlessness", 289162)
-mod:AddNamePlateOption("NPAuraOnFocusedDemise", 286779)
 mod:AddBoolOption("AnnounceAlternatePhase", false, "announce")
 
 mod.vb.phase = 1
@@ -157,12 +162,87 @@ function mod:MeteorLeapTarget(targetname, uId)
 	end
 end
 
+--/run DBM:GetModByName("2335"):TestLiveRealm()
+--Run me to test starting bars who already have fade variable set
+function mod:TestLiveRealm()
+	--Set fade defaults to fade bwonsamdi's timers
+	timerInevitableEndCD:SetFade(true)
+	timerDreadReapingCD:SetFade(true)
+	timerZombieDustTotemCD:SetFade(false)
+	timerScorchingDetonationCD:SetFade(false)
+	timerPlagueofFireCD:SetFade(false)
+	--Rasta
+	timerZombieDustTotemCD:Start(10)
+	timerDeathsDoorCD:Start(27.5)
+	timerScorchingDetonationCD:Start(32.8, 1)
+	timerPlagueofFireCD:Start(40)
+	--Bwon
+	timerDreadReapingCD:Start(7.6)
+	timerInevitableEndCD:Start(35.8, 1)
+end
+
+--/run DBM:GetModByName("2335"):TestDeathRealm()
+--Run me to do same as above but on alternate timers
+function mod:TestDeathRealm()
+	--Set fade defaults to fade bwonsamdi's timers
+	timerInevitableEndCD:SetFade(false)
+	timerDreadReapingCD:SetFade(false)
+	timerZombieDustTotemCD:SetFade(true)
+	timerScorchingDetonationCD:SetFade(true)
+	timerPlagueofFireCD:SetFade(true)
+	--Rasta
+	timerZombieDustTotemCD:Start(10)
+	timerDeathsDoorCD:Start(27.5)
+	timerScorchingDetonationCD:Start(32.8, 1)
+	timerPlagueofFireCD:Start(40)
+	--Bwon
+	timerDreadReapingCD:Start(7.6)
+	timerInevitableEndCD:Start(35.8, 1)
+end
+
+--/run DBM:GetModByName("2335"):TestLiveUpdate()
+--Run me to test fade running on an already running timer (fade update event)
+function mod:TestLiveUpdate()
+	--Rasta
+	timerZombieDustTotemCD:Start(10)
+	timerDeathsDoorCD:Start(27.5)
+	timerScorchingDetonationCD:Start(32.8, 1)
+	timerPlagueofFireCD:Start(40)
+	--Bwon
+	timerDreadReapingCD:Start(7.6)
+	timerInevitableEndCD:Start(35.8, 1)
+	--Set fade defaults to fade bwonsamdi's timers
+	timerInevitableEndCD:SetFade(false, 1)
+	timerDreadReapingCD:SetFade(false)
+	timerZombieDustTotemCD:SetFade(true)
+	timerScorchingDetonationCD:SetFade(true, 1)
+	timerPlagueofFireCD:SetFade(true)
+end
+
+--/run DBM:GetModByName("2335"):EndTests()
+function mod:EndTest()
+	--Rasta
+	timerZombieDustTotemCD:Stop()
+	timerDeathsDoorCD:Stop(5)
+	timerScorchingDetonationCD:Stop()
+	timerPlagueofFireCD:Stop()
+	--Bwon
+	timerDreadReapingCD:Stop()
+	timerInevitableEndCD:Stop()
+end
+
 function mod:OnCombatStart(delay)
 	self.vb.phase = 1
 	self.vb.scorchingDetCount = 0
 	self.vb.InevitableEndCount = 0
 	playerDeathPhase = false
 	table.wipe(infoframeTable)
+	--Reset Fades
+	timerInevitableEndCD:SetFade(false)
+	timerDreadReapingCD:SetFade(false)
+	timerZombieDustTotemCD:SetFade(false)
+	timerScorchingDetonationCD:SetFade(false)
+	timerPlagueofFireCD:SetFade(false)
 	if not self:IsLFR() then
 		timerSealofPurificationCD:Start(8.8-delay)
 	end
@@ -195,6 +275,13 @@ end
 function mod:OnTimerRecovery()
 	if DBM:UnitDebuff("player", 284455) then
 		playerDeathPhase = true
+		--unfade Bwonsamdi timers
+		timerInevitableEndCD:SetFade(false, self.vb.InevitableEndCount+1)
+		timerDreadReapingCD:SetFade(false)
+		--fade rastakhan timers
+		timerZombieDustTotemCD:SetFade(true)
+		timerScorchingDetonationCD:SetFade(true, self.vb.InevitableEndCount+1)
+		timerPlagueofFireCD:SetFade(true)
 	end
 end
 
@@ -204,7 +291,9 @@ function mod:SPELL_CAST_START(args)
 		self.vb.scorchingDetCount = self.vb.scorchingDetCount + 1
 		if self.vb.phase == 3 then
 			timerScorchingDetonationCD:Start(32, self.vb.scorchingDetCount+1)
-			countdownScorchingDet:Start(32)
+			if not playerDeathPhase then
+				countdownScorchingDet:Start(32)
+			end
 		elseif self.vb.phase == 4 then
 			if self.vb.scorchingDetCount % 2 == 0 then
 				timerScorchingDetonationCD:Start(27.8, self.vb.scorchingDetCount+1)
@@ -233,8 +322,6 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 284686 then
 		timerMeteorLeapCD:Start()
 		self:ScheduleMethod(0.2, "BossTargetScanner", args.sourceGUID, "MeteorLeapTarget", 0.1, 8, true, nil, nil, nil, true)
-	elseif spellId == 283504 then
-		DBM:AddMsg("Blizzard added Suffering Spirits, alert DBM Author")
 	elseif spellId == 287116 and self:AntiSpam(5, 1) then
 		if not playerDeathPhase then
 			if self.Options.AnnounceAlternatePhase then
@@ -312,6 +399,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self.vb.phase = 4
 		self.vb.scorchingDetCount = 0
 		self.vb.InevitableEndCount = 0
+		--
 		warnPhase:Show(DBM_CORE_AUTO_ANNOUNCE_TEXTS.stage:format(4))
 		warnPhase:Play("pfour")
 		timerDeathsDoorCD:Stop()
@@ -320,6 +408,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerPlagueofFireCD:Stop()
 		timerInevitableEndCD:Stop()
 		countdownInevitableEnd:Cancel()
+		--unfade everything used in stage 4
+		timerInevitableEndCD:SetFade(false)
+		timerScorchingDetonationCD:SetFade(false)
+		timerPlagueofFireCD:SetFade(false)
 		timerDeathsDoorCD:Start(9.3)
 		timerPlagueofToadsCD:Start(15.1)
 		timerScorchingDetonationCD:Start(19.2, 1)
@@ -403,6 +495,33 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			warnDeathsDoor:Show(args.destName)
 		end
+	--"<66.15 22:33:35> [CLEU] SPELL_AURA_REMOVED#Vehicle-0-3019-2070-28900-145616-0000493177#King Rastakhan#Vehicle-0-3019-2070-28900-145616-0000493177#King Rastakhan#284276#Bind Souls#BUFF#nil", -- [1068]
+	--"<73.39 22:33:42> [CLEU] SPELL_AURA_APPLIED#Vehicle-0-3019-2070-28900-145644-0000493216#Unknown#Pet-0-3019-2070-28900-25867-04035496FD#Apok#284376#Death's Presence#DEBUFF#nil", -- [1197]
+	elseif spellId == 284376 and self.vb.phase < 2 then--Bind Souls (P2 Start)
+		self.vb.phase = 2
+		self.vb.scorchingDetCount = 0
+		warnPhase:Show(DBM_CORE_AUTO_ANNOUNCE_TEXTS.stage:format(2))
+		warnPhase:Play("ptwo")
+		timerPlagueofToadsCD:Stop()
+		timerSerpentTotemCD:Stop()
+		timerScorchingDetonationCD:Stop()
+		countdownScorchingDet:Cancel()
+		
+		--Rasta
+		timerZombieDustTotemCD:Start(19.2)
+		timerScorchingDetonationCD:Start(26.5, 1)
+		countdownScorchingDet:Start(26.5)
+		timerPlagueofFireCD:Start(33.7)--33-35.5
+		timerPlagueofToadsCD:Start(39.8)
+		--Bwon
+		timerDeathsDoorCD:Start(52.8)--52-56
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Show(8)
+		end
+		if self.Options.InfoFrame then
+			DBM.InfoFrame:SetHeader(DBM:GetSpellInfo(285195))
+			DBM.InfoFrame:Show(5, "table", infoframeTable, 1)
+		end
 	elseif spellId == 284446 and self.vb.phase < 3 then--Bwonsamdi's Boon (shouldn't be needed but good to have)
 		self.vb.phase = 3
 		self.vb.scorchingDetCount = 0
@@ -414,7 +533,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerPlagueofFireCD:Stop()
 		timerZombieDustTotemCD:Stop()
 		timerDeathsDoorCD:Stop()
-		
+		--Set fade defaults to fade bwonsamdi's timers
+		timerInevitableEndCD:SetFade(true)
+		timerDreadReapingCD:SetFade(true)
 		--Rasta
 		timerSpiritVortex:Start(5)
 		timerAddsCD:Start(6)
@@ -458,6 +579,13 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 284455 and args:IsPlayer() then
 		playerDeathPhase = true
+		--unfade Bwonsamdi timers
+		timerInevitableEndCD:SetFade(false, self.vb.InevitableEndCount+1)
+		timerDreadReapingCD:SetFade(false)
+		--fade rastakhan timers
+		timerZombieDustTotemCD:SetFade(true)
+		timerScorchingDetonationCD:SetFade(true, self.vb.scorchingDetCount+1)
+		timerPlagueofFireCD:SetFade(true)
 		--Start countdown for countdownInevitableEnd
 		local elapsed, total = timerInevitableEndCD:GetTime(self.vb.InevitableEndCount+1)
 		local remaining = total-elapsed
@@ -491,33 +619,17 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.NPAuraOnFocusedDemise then
 			DBM.Nameplate:Hide(true, args.sourceGUID, spellId)
 		end
-	elseif spellId == 284276 then--Bind Souls (P2 Start)
-		self.vb.phase = 2
-		self.vb.scorchingDetCount = 0
-		warnPhase:Show(DBM_CORE_AUTO_ANNOUNCE_TEXTS.stage:format(2))
-		warnPhase:Play("ptwo")
-		timerPlagueofToadsCD:Stop()
-		timerSerpentTotemCD:Stop()
-		timerScorchingDetonationCD:Stop()
-		countdownScorchingDet:Cancel()
-		
-		--Rasta
-		timerZombieDustTotemCD:Start(26.2)
-		timerScorchingDetonationCD:Start(33.5, 1)
-		countdownScorchingDet:Start(33.5)
-		timerPlagueofFireCD:Start(40.7)--40-42
-		timerPlagueofToadsCD:Start(46.8)
-		--Bwon
-		timerDeathsDoorCD:Start(59.8)
-		if self.Options.RangeFrame then
-			DBM.RangeCheck:Show(8)
-		end
-		if self.Options.InfoFrame then
-			DBM.InfoFrame:SetHeader(DBM:GetSpellInfo(285195))
-			DBM.InfoFrame:Show(5, "table", infoframeTable, 1)
-		end
 	elseif spellId == 284455 and args:IsPlayer() then
 		playerDeathPhase = false
+		--fade Bwonsamdi timers
+		if self.vb.phase == 3 then--Only unfaded if we leave death realm in P3, if we're leaving cause it's now P4, don't fade
+			timerInevitableEndCD:SetFade(true, self.vb.InevitableEndCount+1)
+		end
+		timerDreadReapingCD:SetFade(true)
+		--unfade rastakhan timers
+		timerZombieDustTotemCD:SetFade(false)
+		timerScorchingDetonationCD:SetFade(false, self.vb.scorchingDetCount+1)
+		timerPlagueofFireCD:SetFade(false)
 	end
 end
 
@@ -570,7 +682,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
 		timerPlagueofFireCD:Stop()
 		timerZombieDustTotemCD:Stop()
 		timerDeathsDoorCD:Stop()
-		
+		--Set fade defaults to fade bwonsamdi's timers
+		timerInevitableEndCD:SetFade(true)
+		timerDreadReapingCD:SetFade(true)
 		--Rasta
 		timerSpiritVortex:Start(11)
 		timerAddsCD:Start(12)

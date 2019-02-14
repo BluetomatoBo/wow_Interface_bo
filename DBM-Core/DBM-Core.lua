@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 18279 $"):sub(12, -3)),
-	DisplayVersion = "8.1.8", -- the string that is shown as version
-	ReleaseRevision = 18279 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 18342 $"):sub(12, -3)),
+	DisplayVersion = "8.1.9", -- the string that is shown as version
+	ReleaseRevision = 18342 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -412,7 +412,7 @@ local delayedFunction
 local dataBroker
 local voiceSessionDisabled = false
 
-local fakeBWVersion, fakeBWHash = 130, "de5280d"
+local fakeBWVersion, fakeBWHash = 135, "28bca4e"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -7310,7 +7310,7 @@ do
 				subTab = modSubTab,
 				optionCategories = {
 				},
-				categorySort = {"announce", "announceother", "announcepersonal", "announcerole", "timer", "sound", "misc"},
+				categorySort = {"announce", "announceother", "announcepersonal", "announcerole", "timer", "sound", "yell", "nameplate", "icon", "misc"},
 				id = name,
 				announces = {},
 				specwarns = {},
@@ -8130,6 +8130,7 @@ do
 			["SpellCaster"] = true,
 			["CasterDps"] = true,
 			["MagicDispeller"] = true,
+			["HasInterrupt"] = true,
 		},
 		[259] = {	--Assassination Rogue
 			["Dps"] = true,
@@ -9505,10 +9506,10 @@ do
 		)
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, "misc")
+			self:AddBoolOption(obj.option, optionDefault, "yell")
 		elseif not (optionName == false) then
 			obj.option = "Yell"..(spellId or yellText)..(yellType ~= "yell" and yellType or "")..(optionVersion or "")
-			self:AddBoolOption(obj.option, optionDefault, "misc")
+			self:AddBoolOption(obj.option, optionDefault, "yell")
 			self.localization.options[obj.option] = DBM_CORE_AUTO_YELL_OPTION_TEXT[yellType]:format(spellId)
 		end
 		return obj
@@ -10406,7 +10407,7 @@ do
 			elseif self.colorType and type(self.colorType) == "string" then--No option for specific timer, but another bool option given that tells us where to look for TColor
 				colorId = self.mod.Options[self.colorType .. "TColor"] or 0
 			end
-			local bar = DBM.Bars:CreateBar(timer, id, self.icon, nil, nil, nil, nil, colorId)
+			local bar = DBM.Bars:CreateBar(timer, id, self.icon, nil, nil, nil, nil, colorId, nil, self.keep, self.fade)
 			if not bar then
 				return false, "error" -- creating the timer failed somehow, maybe hit the hard-coded timer limit of 15
 			end
@@ -10430,16 +10431,47 @@ do
 			--spellId: Raw spellid if available (most timers will have spellId or EJ ID unless it's a specific timer not tied to ability such as pull or combat start or rez timers. EJ id will be in format ej%d
 			--colorID: Type classification (1-Add, 2-Aoe, 3-targeted ability, 4-Interrupt, 5-Role, 6-Stage, 7-User(custom))
 			--Mod ID: Encounter ID as string, or a generic string for mods that don't have encounter ID (such as trash, dummy/test mods)
-			fireEvent("DBM_TimerStart", id, msg, timer, self.icon, self.type, self.spellId, colorId, self.mod.id)
+			--Keep: true or nil, whether or not to keep bar on screen when it expires (if true, timer should be retained until an actual TimerStop occurs or a new TimerStart with same barId happens (in which case you replace bar with new one)
+			--fade: true or nil, whether or not to fade a bar (set alpha to usersetting/2)
+			fireEvent("DBM_TimerStart", id, msg, timer, self.icon, self.type, self.spellId, colorId, self.mod.id, self.keep, self.fade)
 			tinsert(self.startedTimers, id)
-			self.mod:Unschedule(removeEntry, self.startedTimers, id)
-			self.mod:Schedule(timer, removeEntry, self.startedTimers, id)
+			if not self.keep then--Don't ever remove startedTimers on a schedule, if it's a keep timer
+				self.mod:Unschedule(removeEntry, self.startedTimers, id)
+				self.mod:Schedule(timer, removeEntry, self.startedTimers, id)
+			end
 			return bar
 		else
 			return false, "disabled"
 		end
 	end
 	timerPrototype.Show = timerPrototype.Start
+	
+	--A way to set the fade to yes or no, overriding hardcoded value in NewTimer object with temporary one
+	--If this method is used, it WILL persist until reload or changing it back
+	function timerPrototype:SetFade(fadeOn, ...)
+		--Done this way so SetFade can be used with :Start without needless performance cost (ie, ApplyStyle won't run unless it needs to)
+		if fadeOn and not self.fade then
+			self.fade = true--set timer object metatable, which will make sure next bar started uses fade
+			--Find and Update an existing bar that's already started
+			local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+			local bar = DBM.Bars:GetBar(id)
+			if bar and not bar.fade then
+				fireEvent("DBM_TimerFadeUpdate", id, self.spellId, self.mod.id, true)--Timer ID, spellId, modId, true/nil (new callback only needed if we update an existing timers fade, self.fade is passed in timer start object for new timers)
+				bar.fade = true--Set bar object metatable, which is copied from timer metatable at bar start only
+				bar:ApplyStyle()
+			end
+		elseif not fadeOn and self.fade then
+			self.fade = nil--set timer object metatable, which will make sure next bar started does NOT use fade
+			--Find and Update an existing bar that's already started
+			local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+			local bar = DBM.Bars:GetBar(id)
+			if bar and bar.fade then
+				fireEvent("DBM_TimerFadeUpdate", id, self.spellId, self.mod.id, nil)--Timer ID, spellId, modId, true/nil (new callback only needed if we update an existing timers fade, self.fade is passed in timer start object for new timers)
+				bar.fade = nil--Set bar object metatable, which is copied from timer metatable at bar start only
+				bar:ApplyStyle()
+			end
+		end
+	end
 
 	function timerPrototype:DelayedStart(delay, ...)
 		unschedule(self.Start, self.mod, self, ...)
@@ -10577,7 +10609,7 @@ do
 		end
 	end
 
-	function bossModPrototype:NewTimer(timer, name, icon, optionDefault, optionName, colorType, inlineIcon, r, g, b)
+	function bossModPrototype:NewTimer(timer, name, icon, optionDefault, optionName, colorType, inlineIcon, keep, r, g, b)
 		if r and type(r) == "string" then
 			DBM:Debug("|cffff0000r probably has inline icon in it and needs to be fixed for |r"..name..r)
 			r = nil--Fix it for users
@@ -10595,6 +10627,7 @@ do
 				icon = icon,
 				colorType = colorType,
 				inlineIcon = inlineIcon,
+				keep = keep,
 				r = r,
 				g = g,
 				b = b,
@@ -10610,7 +10643,7 @@ do
 
 	-- new constructor for the new auto-localized timer types
 	-- note that the function might look unclear because it needs to handle different timer types, especially achievement timers need special treatment
-	local function newTimer(self, timerType, timer, spellId, timerText, optionDefault, optionName, colorType, texture, inlineIcon, r, g, b)
+	local function newTimer(self, timerType, timer, spellId, timerText, optionDefault, optionName, colorType, texture, inlineIcon, keep, r, g, b)
 		if type(timer) == "string" and timer:match("OptionVersion") then
 			DBM:Debug("|cffff0000OptionVersion hack depricated, remove it from: |r"..spellId)
 			return
@@ -10679,6 +10712,7 @@ do
 				icon = icon,
 				colorType = colorType,
 				inlineIcon = inlineIcon,
+				keep = keep,
 				r = r,
 				g = g,
 				b = b,
@@ -10946,7 +10980,7 @@ function bossModPrototype:AddSetIconOption(name, spellId, default, isHostile)
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options[name] = (default == nil) or default
-	self:SetOptionCategory(name, "misc")
+	self:SetOptionCategory(name, "icon")
 	if isHostile then
 		if not self.findFastestComputer then
 			self.findFastestComputer = {}
@@ -11012,7 +11046,7 @@ function bossModPrototype:AddNamePlateOption(name, spellId, default)
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options[name] = (default == nil) or default
-	self:SetOptionCategory(name, "misc")
+	self:SetOptionCategory(name, "nameplate")
 	self.localization.options[name] = DBM_CORE_AUTO_NAMEPLATE_OPTION_TEXT:format(spellId)
 end
 
@@ -11812,6 +11846,9 @@ do
 			announcepersonal	= DBM_CORE_OPTION_CATEGORY_WARNINGS_YOU,
 			announcerole		= DBM_CORE_OPTION_CATEGORY_WARNINGS_ROLE,
 			sound				= DBM_CORE_OPTION_CATEGORY_SOUNDS,
+			yell				= DBM_CORE_OPTION_CATEGORY_YELLS,
+			icon				= DBM_CORE_OPTION_CATEGORY_ICONS,
+			nameplate			= DBM_CORE_OPTION_CATEGORY_NAMEPLATES,
 			misc				= MISCELLANEOUS
 		}, returnKey)
 	}

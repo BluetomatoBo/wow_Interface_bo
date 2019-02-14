@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2334, "DBM-ZuldazarRaid", 3, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18265 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18342 $"):sub(12, -3))
 mod:SetCreatureID(144796)
 mod:SetEncounterID(2276)
 --mod:DisableESCombatDetection()
@@ -16,24 +16,27 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 282205 287952 287929 282153 288410 287751 287797 287757 286693 288041 288049 289537 287691 286597",
-	"SPELL_CAST_SUCCESS 287757 286597",
-	"SPELL_AURA_APPLIED 287757 287167 284168 289023 286051 289699 286646 282406",
+	"SPELL_CAST_SUCCESS 287757 286597 286152 286219 286215 286226 286192",
+	"SPELL_AURA_APPLIED 287757 287167 284168 289023 286051 289699 286646 282406 286105 287114",
 	"SPELL_AURA_APPLIED_DOSE 289699",
-	"SPELL_AURA_REMOVED 287757 284168 286646"
---	"UNIT_DIED"
---	"UNIT_SPELLCAST_SUCCEEDED boss1"
+	"SPELL_AURA_REMOVED 287757 284168 286646 286105"
 )
 
 --[[
 (ability.id = 282205 or ability.id = 287952 or ability.id = 287929 or ability.id = 282153 or ability.id = 288410 or ability.id = 287751 or ability.id = 287797 or ability.id = 286693 or ability.id = 288041 or ability.id = 288049 or ability.id = 289537 or ability.id = 287691) and type = "begincast"
  or (ability.id = 287757 or ability.id = 286597) and type = "cast"
 --]]
+--https://www.warcraftlogs.com/reports/3tgVRc1ZdApqw8yT#fight=13&view=events&pins=2%24Off%24%23244F4B%24expression%24(ability.id%20%3D%20282205%20or%20ability.id%20%3D%20287952%20or%20ability.id%20%3D%20287929%20or%20ability.id%20%3D%20282153%20or%20ability.id%20%3D%20288410%20or%20ability.id%20%3D%20287751%20or%20ability.id%20%3D%20287797%20or%20ability.id%20%3D%20286693%20or%20ability.id%20%3D%20288041%20or%20ability.id%20%3D%20288049%20or%20ability.id%20%3D%20289537%20or%20ability.id%20%3D%20287691)%20and%20type%20%3D%20%22begincast%22%20%20or%20(ability.id%20%3D%20287757%20or%20ability.id%20%3D%20286597)%20and%20type%20%3D%20%22cast%22
+--https://www.warcraftlogs.com/reports/1WvLk2yzwK48CmHM#fight=last&view=events&pins=2%24Off%24%23244F4B%24expression%24(ability.id%20%3D%20282205%20or%20ability.id%20%3D%20287952%20or%20ability.id%20%3D%20287929%20or%20ability.id%20%3D%20282153%20or%20ability.id%20%3D%20288410%20or%20ability.id%20%3D%20287751%20or%20ability.id%20%3D%20287797%20or%20ability.id%20%3D%20286693%20or%20ability.id%20%3D%20288041%20or%20ability.id%20%3D%20288049%20or%20ability.id%20%3D%20289537%20or%20ability.id%20%3D%20287691)%20and%20type%20%3D%20%22begincast%22%20%20or%20(ability.id%20%3D%20287757%20or%20ability.id%20%3D%20286597)%20and%20type%20%3D%20%22cast%22&translate=true
+--https://www.warcraftlogs.com/reports/GXfwVbyY4cDRd37K#fight=last&view=events&pins=2%24Off%24%23244F4B%24expression%24(ability.id%20%3D%20282205%20or%20ability.id%20%3D%20287952%20or%20ability.id%20%3D%20287929%20or%20ability.id%20%3D%20282153%20or%20ability.id%20%3D%20288410%20or%20ability.id%20%3D%20287751%20or%20ability.id%20%3D%20287797%20or%20ability.id%20%3D%20286693%20or%20ability.id%20%3D%20288041%20or%20ability.id%20%3D%20288049%20or%20ability.id%20%3D%20289537%20or%20ability.id%20%3D%20287691)%20and%20type%20%3D%20%22begincast%22%20%20or%20(ability.id%20%3D%20287757%20or%20ability.id%20%3D%20286597)%20and%20type%20%3D%20%22cast%22
 --TODO, nameplate aura for tampering protocol, if it has actual debuff diration (wowhead does not)
 --TODO, wormhole generator target scan? hidden aura scan?
 --TODO, adjust electroshock stacks?
 local warnPhase							= mod:NewPhaseChangeAnnounce(2, nil, nil, nil, nil, nil, 2)
 --Ground Phase
 local warnShrunk						= mod:NewTargetNoFilterAnnounce(284168, 1)
+local warnMisTele						= mod:NewTargetNoFilterAnnounce(287114, 3)
+local warnDeploySparkbot				= mod:NewCountAnnounce(288410, 2)
 --Intermission: Evasive Maneuvers!
 
 --Final Push
@@ -52,13 +55,16 @@ local specWarnGigaVoltChargeFading		= mod:NewSpecialWarningMoveTo(286646, nil, n
 local specWarnGigaVoltChargeTaunt		= mod:NewSpecialWarningTaunt(286646, nil, nil, nil, 1, 2)
 local specWarnWormholeGenerator 		= mod:NewSpecialWarningCount(287952, nil, nil, nil, 2, 5)
 local specWarnDiscombobulation			= mod:NewSpecialWarningDispel(287167, "Healer", nil, nil, 1, 2)--Mythic
-local specWarnDeploySparkBot			= mod:NewSpecialWarningSwitch(288410, nil, nil, nil, 1, 2)
+local specWarnDeploySparkBot			= mod:NewSpecialWarningSwitchCount(288410, false, nil, nil, 1, 2)
 local specWarnShrunk					= mod:NewSpecialWarningYou(284168, nil, nil, nil, 1, 2)
 local yellShrunk						= mod:NewShortYell(284168)--Shrunk will just say with white letters
 local yellShrunkRepeater				= mod:NewYell(284168, UnitName("player"))
+local yellTamperingRepeater				= mod:NewYell(286105, UnitName("player"), nil, nil, "YELL")
 local specWarnShrunkTaunt				= mod:NewSpecialWarningTaunt(284168, nil, nil, nil, 1, 2)
 local specWarnEnormous					= mod:NewSpecialWarningYou(289023, nil, nil, nil, 1, 2)--Mythic
-local yellEnormous						= mod:NewYell(289023, nil, nil, nil, "YELL")--Enormous will shout with red letters
+local yellEnormous						= mod:NewYell(289023)--Enormous will shout with red letters
+local specWarnMisCalcTele				= mod:NewSpecialWarningYou(287114, nil, nil, nil, 1, 2)--Mythic
+local yellMisCalcTele					= mod:NewYell(287114)
 --Intermission: Evasive Maneuvers!
 local specWarnExplodingSheep			= mod:NewSpecialWarningDodge(287929, nil, nil, nil, 2, 2)
 --local specWarnGTFO					= mod:NewSpecialWarningGTFO(238028, nil, nil, nil, 1, 8)
@@ -73,7 +79,7 @@ local timerWormholeGeneratorCD			= mod:NewNextCountTimer(55, 287952, 67833, nil,
 local timerDeploySparkBotCD				= mod:NewNextCountTimer(55, 288410, nil, nil, nil, 1)
 local timerWorldEnlargerCD				= mod:NewNextCountTimer(90, 288049, nil, nil, nil, 3)
 --Intermission: Evasive Maneuvers!
-local timerIntermission					= mod:NewPhaseTimer(49.9)
+local timerIntermission					= mod:NewPhaseTimer(64.8)
 local timerExplodingSheepCD				= mod:NewNextCountTimer(55, 287929, 222529, nil, nil, 3)--Shorttext "Exploding Sheep"
 
 --local berserkTimer					= mod:NewBerserkTimer(600)
@@ -84,10 +90,7 @@ local countdownWormhole					= mod:NewCountdown("AltTwo32", 287952, nil, nil, 4)
 
 mod:AddSetIconOption("SetIconGigaVolt", 286646, true)
 mod:AddSetIconOption("SetIconBot", 288410, true, true)
---mod:AddRangeFrameOption("8/10")
---mod:AddInfoFrameOption(258040, true)
---mod:AddNamePlateOption("NPAuraOnPresence", 276093)
---mod:AddSetIconOption("SetIconDarkRev", 273365, true)
+mod:AddInfoFrameOption(286105, true)
 
 mod.vb.phase = 1
 --Count variables for every timer, because stupid sequence mod
@@ -101,127 +104,127 @@ mod.vb.botIcon = 4
 mod.vb.shrinkCount = 0
 mod.vb.sheepCount = 0
 mod.vb.difficultyName = "None"
---Most difficulties are identical, and in earlier weeks they were even more identical
---However, Blizz has already shown they are willing to adjust lower difficulties (such as removing one of buster cannon casts on week 2 from non mythic)
+local shrunkTargets = {}
+local playersInRobots = {}
+local robotCount = 0
+--Normal and heroic seem identical, at least so far, but blizz has been making tweeks to fight multiple times. Even this week they made additional timer alterations from last week on heroic
 --As such, need to have duplicate tables across board so it's easy to update mod on wim if they adjust specific difficulties only.
---Currently there are 3 differences between difficulties.
---Mythic has extra buster Cannon (after they removed one of them from other 3)
---Heroic and Mythic only have an additional Bot in intermission
---Heroic and mythic have additional sheep casts in Phase 2
---Mythic has one less gigavolt charge at (176)
+--Mythic seems to have a TON of differencecs from heroic/normal
+--Last Timer Update 02/04/2019
 local sparkBotTimers = {
+	--All difficulties seem identical (at this time) but left in indivdual tables since on a dime blizz might change it
 	["lfr"] = {
-		[1] = {5, 22, 27.5, 42.5, 22.5, 25, 42, 22.5, 22.5},
+		[1] = {5, 22, 27.5, 42.4, 22.5, 25, 42, 22.5, 22.5, 54.9, 22.5},
 		[1.5] = {},
-		[2] = {15.7, 40, 42.5, 47.5},
+		[2] = {15.7, 39.9, 42.5, 47.5, 41.5, 45, 55, 47.5, 42.5},--P2 timers very diff from P1, unlike other abilities
 	},
 	["normal"] = {
-		[1] = {5, 22, 27.5, 42.5, 22.5, 25, 42, 22.5, 22.5},
+		[1] = {5, 22, 27.5, 42.4, 22.5, 25, 42, 22.5, 22.5, 54.9, 22.5},
 		[1.5] = {},
-		[2] = {15.7, 40, 42.5, 47.5},
+		[2] = {15.7, 39.9, 42.5, 47.5, 41.5, 45, 55, 47.5, 42.5},--P2 timers very diff from P1, unlike other abilities
 	},
 	["heroic"] = {
-		[1] = {5, 22, 27.5, 42.5, 22.5, 25, 42, 22.5, 22.5},
+		[1] = {5, 22, 27.5, 42.5, 22.5, 25, 42, 22.5, 22.5, 54.9, 22.5},
 		[1.5] = {19.8},--Actual difference on heroic/mythic
-		[2] = {15.7, 40, 42.5, 47.5},
+		[2] = {15.7, 39.9, 42.5, 47.5, 41.5, 45, 55, 47.5, 42.5},--P2 timers very diff from P1, unlike other abilities
 	},
 	["mythic"] = {
-		[1] = {5, 22, 27.5, 42.5, 22.5, 25, 42, 22.5, 22.5},
+		[1] = {5, 22, 27.5, 42.5, 22.5, 25, 42, 22.5, 22.5, 54.9, 22.5},
 		[1.5] = {19.8},--Actual difference on heroic/mythic
-		[2] = {15.7, 40, 42.5, 47.5},
+		[2] = {15.7, 39.9, 42.5, 47.5, 41.5, 45, 55, 47.5, 42.5},--P2 timers very diff from P1, unlike other abilities
 	},
 }
 local busterCannonTimers = {
 	["lfr"] = {
-		[1] = {13, 32.9, 64.5, 40, 26.4, 65},
-		[2] = {17.7, 29.0, 64.5, 40, 26.5, 65},--Extra 65 Assumed
+		[1] = {13, 32.9, 64.5, 40, 26.4, 65, 28, 30.5},
+		[2] = {17.7, 28.9, 64.5, 40, 26.5, 65, 28, 30.5, 40, 26.5},
 	},
 	["normal"] = {
-		[1] = {13, 32.9, 64.5, 40, 26.4, 65},
-		[2] = {17.7, 29.0, 64.5, 40, 26.5, 65},--Extra 65 Assumed
+		[1] = {13, 32.9, 64.5, 40, 26.4, 65, 28, 30.5},
+		[2] = {17.7, 28.9, 64.5, 40, 26.5, 65, 28, 30.5, 40, 26.5},
 	},
 	["heroic"] = {
-		[1] = {13, 32.9, 64.5, 40, 26.5, 65},
-		[2] = {17.7, 29.0, 64.5, 40, 26.5, 65},--Extra 65 Assumed
+		[1] = {13, 32.9, 64.5, 40, 26.4, 65, 28, 30.5},
+		[2] = {17.7, 28.9, 64.5, 40, 26.5, 65, 28, 30.5, 40, 26.5},--(E 40, 26.5)
 	},
 	["mythic"] = {
-		[1] = {13, 32.9, 33.5, 31, 40, 26.4, 65},--There is an ADDITIONAL cast on Mythic difficulty only at 1:19 (79sec into fight)
-		[2] = {17.7, 29.0, 33.5, 31, 40, 26.5, 65},--Extra 65 Assumed--There is an ADDITIONAL cast on Mythic difficulty only here as well
+		[1] = {13, 32.9, 33.4, 31, 40, 26.4, 65, 28, 30.5},--There is an ADDITIONAL cast on Mythic difficulty only at 1:19 (79sec into fight)
+		[2] = {17.7, 29, 33.4, 31, 40, 26.5, 65, 28, 30.5, 40, 26.5},--(E 28, 30.5, 40, 26.5)(Also has additional cast not seen in mother modes
 	},
 }
 local blastOffTimers = {
 	["lfr"] = {
-		[1] = {37.1, 31.0, 37.5, 34.1, 50.4},
-		[2] = {41.7, 29.0, 35.5, 34.1, 50.4},--Extra 50.4 assumed
+		[1] = {37.1, 31, 37.5, 34.1, 50.3, 75, 30.5},--Cast sooner on normal/LFR do to having no Wormhole Generator
+		[2] = {41.7, 28.9, 35.5, 34, 50.4, 75, 30.5, 34, 50.4},
 	},
 	["normal"] = {
-		[1] = {37.1, 31.0, 37.5, 34.1, 50.4},
-		[2] = {41.7, 29.0, 35.5, 34.1, 50.4},--Extra 50.4 assumed
+		[1] = {37.1, 31, 37.5, 34.1, 50.3, 75, 30.5},--Cast sooner on normal/LFR do to having no Wormhole Generator
+		[2] = {41.7, 28.9, 35.5, 34, 50.4, 75, 30.5, 34, 50.4},
 	},
 	["heroic"] = {
-		[1] = {37.1, 31.0, 37.5, 34.1, 50.4},
-		[2] = {41.7, 29.0, 35.5, 34.1, 50.4},--Extra 50.4 assumed
+		[1] = {41.1, 26.9, 37.5, 34.1, 50.4, 75.4, 30.5},--(E 30.5)Slightly Different between Heroic and Mythic
+		[2] = {41.7, 28.9, 35.5, 34.3, 50.2, 75, 30.4, 34, 50.4},--(E 34, 50.4)
 	},
 	["mythic"] = {
-		[1] = {37.1, 31.0, 37.5, 34.1, 50.4},
-		[2] = {41.7, 29.0, 35.5, 34.1, 50.4},--Extra 50.4 assumed
+		[1] = {41.5, 28.5, 35.5, 34.6, 49.9, 75.6, 30.5},--(E 30.5)Slightly Different between Heroic and Mythic do to the extra buster cannon on mythic affecting 2nd and 3rd casts
+		[2] = {41.7, 29, 35.5, 34.1, 50.2, 75, 30.4, 34, 50.4},--(E 50.2, 75, 30.4, 34, 50.4)
 	},
 }
 local wormholeTimers = {
 	--Not used on normal/lfr
 	["heroic"] = {
-		[1] = {38, 98.7},
+		[1] = {38, 98.7, 125.7},
 		[1.5] = {46.8},
-		[2] = {38.8, 88.6},
+		[2] = {38.8, 98.6, 122.7},
 	},
 	["mythic"] = {
-		[1] = {38, 98.7},
+		[1] = {38, 98.7, 125.7},
 		[1.5] = {50.3},--This cast is flipped with gigavolt charge on mythic
-		[2] = {38.8, 88.6},
+		[2] = {38.8, 98.6},
 	},
 }
 local gigaVoltTimers = {
 	["lfr"] = {
 		[1] = {21.5, 40, 40, 33, 41.9, 40},
 		[1.5] = {16.9, 33.5},
-		[2] = {22.2, 40, 40, 35, 39.9, 40},--Extra 40 assumed
+		[2] = {22.2, 40, 40, 35, 39.9, 40, 47, 28, 35, 40},
 	},
 	["normal"] = {
 		[1] = {21.5, 40, 40, 33, 41.9, 40},
 		[1.5] = {16.9, 33.5},
-		[2] = {22.2, 40, 40, 35, 39.9, 40},--Extra 40 assumed
+		[2] = {22.2, 40, 40, 35, 39.9, 40, 47, 28, 35, 40},
 	},
 	["heroic"] = {
-		[1] = {21.5, 40, 40, 33, 41.9, 40},
+		[1] = {21.5, 40, 40, 33, 41.9, 40, 44.4},
 		[1.5] = {16.9, 33.5},
-		[2] = {22.2, 40, 40, 35, 39.9, 40},--Extra 40 assumed
+		[2] = {22.2, 40, 40, 35, 39.9, 39.9, 47.5, 27.5, 35, 40},--(E 35, 40)
 	},
 	["mythic"] = {
-		[1] = {21.5, 40, 40, 33, 82},--One cast is removed on Mythic Difficulty
+		[1] = {21.5, 40, 40, 33, 82, 44.4, 30.4},--One cast is removed on Mythic Difficulty
 		[1.5] = {16.9, 32},--Cast sooner on mythic do to swap with wormhole
-		[2] = {22.2, 40, 40, 35, 82},--Assumed, don't know if one cast is removed or not
+		[2] = {22.2, 40, 40, 35, 40, 40, 47.5, 27.5, 35, 40},--(E 47.5, 27.5, 35, 40)One cast is NOT removed in P2 though
 	},
 }
 local worldEnlargerTimers = {
 	["lfr"] = {
 		[1] = {75, 90, 90},
 		[1.5] = {7.4, 31},
-		[2] = {75.8, 90, 90},--Extra 90 assumed
+		[2] = {75.8, 90, 90, 100},
 	},
 	["normal"] = {
 		[1] = {75, 90, 90},
 		[1.5] = {7.4, 31},
-		[2] = {75.8, 90, 90},--Extra 90 assumed
+		[2] = {75.8, 90, 90, 100},
 	},
 	["heroic"] = {
 		[1] = {75, 90, 90},
 		[1.5] = {7.4, 31},
-		[2] = {75.8, 90, 90},--Extra 90 assumed
+		[2] = {75.8, 90, 90, 100},--(E 100)
 	},
 	["mythic"] = {
 		[1] = {75, 90, 90},
 		[1.5] = {7.4, 31},
-		[2] = {75.8, 90, 90},--Extra 90 assumed
+		[2] = {75.8, 90, 90, 100},--(E 100)
 	},
 }
 local explodingSheepTimers = {
@@ -233,17 +236,89 @@ local explodingSheepTimers = {
 	},
 	["heroic"] = {
 		[1.5] = {12.5, 29.9, 12},
-		[2] = {28.3, 100},--Heroic/Mythic Only
+		[2] = {28.3, 100, 82, 108},--Different on heroic than mythic
 	},
 	["mythic"] = {
 		[1.5] = {12.5, 29.9, 12},
-		[2] = {28.3, 100},
+		[2] = {28.3, 92.4, 90},--Different on heroic than mythic
 	},
 }
 
-local function shrunkYellRepeater(self, icon)
-	yellShrunkRepeater:Yell()
-	self:Schedule(2, shrunkYellRepeater, self)
+local function shrunkYellRepeater(self, tampering)
+	if tampering then
+		yellTamperingRepeater:Yell()
+	else
+		yellShrunkRepeater:Yell()
+	end
+	self:Schedule(2, shrunkYellRepeater, self, tampering)
+end
+
+local updateInfoFrame
+do
+	local shrunkName = DBM:GetSpellInfo(284168)
+	local floor = math.floor
+	local lines = {}
+	local sortedLines = {}
+	local function addLine(key, value)
+		-- sort by insertion order
+		lines[key] = value
+		sortedLines[#sortedLines + 1] = key
+	end
+	updateInfoFrame = function()
+		table.wipe(lines)
+		table.wipe(sortedLines)
+		--Players in Robots
+		if robotCount > 0 then
+			--Tampering First
+			for uId in DBM:GetGroupMembers() do
+				local unitName = DBM:GetUnitFullName(uId)
+				if playersInRobots[unitName] then--Matched a unitID and playername to one of them
+					local count = playersInRobots[unitName]--Check successful code entries
+					local spellName, _, _, _, _, expireTime = DBM:UnitDebuff(uId, 286105)--Check remaining time on tampering
+					if spellName and expireTime then
+						local remaining = expireTime-GetTime()
+						addLine(unitName, count.."/3 - "..floor(remaining))--Display playername, disarm code of 3, and remaining Tampering
+					else
+						addLine(unitName, count.."/3")
+					end
+				end
+			end
+		end
+		--Shrunk Second
+		if #shrunkTargets > 0 then
+			addLine(shrunkName)
+			local name, name2, name3, name4, name5, name6, name7, name8 = shrunkTargets[1], shrunkTargets[2], shrunkTargets[3], shrunkTargets[4], shrunkTargets[5], shrunkTargets[6], shrunkTargets[7], shrunkTargets[8]
+			if name then
+				if name2 then
+					addLine(name, name2)
+				else
+					addLine(name)
+				end
+			end
+			if name3 then
+				if name4 then
+					addLine(name3, name4)
+				else
+					addLine(name3)
+				end
+			end
+			if name5 then
+				if name6 then
+					addLine(name5, name6)
+				else
+					addLine(name5)
+				end
+			end
+			if name7 then
+				if name8 then
+					addLine(name7, name8)
+				else
+					addLine(name7)
+				end
+			end
+		end
+		return lines, sortedLines
+	end
 end
 
 function mod:OnCombatStart(delay)
@@ -256,6 +331,9 @@ function mod:OnCombatStart(delay)
 	self.vb.gigaIcon = 1
 	self.vb.botIcon = 4
 	self.vb.shrinkCount = 0
+	table.wipe(playersInRobots)
+	table.wipe(shrunkTargets)
+	robotCount = 0
 	--Same across board (at least for now, LFR not out yet)
 	timerDeploySparkBotCD:Start(5-delay, 1)
 	timerBusterCannonCD:Start(13-delay, 1)
@@ -279,21 +357,16 @@ function mod:OnCombatStart(delay)
 			self.vb.difficultyName = "lfr"
 		end
 	end
---	if self.Options.NPAuraOnPresence then
---		DBM:FireEvent("BossMod_EnableHostileNameplates")
---	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:SetHeader(DBM:GetSpellInfo(286105))
+		DBM.InfoFrame:Show(8, "function", updateInfoFrame, false, false)
+	end
 end
 
 function mod:OnCombatEnd()
---	if self.Options.RangeFrame then
---		DBM.RangeCheck:Hide()
---	end
---	if self.Options.InfoFrame then
---		DBM.InfoFrame:Hide()
---	end
---	if self.Options.NPAuraOnPresence then
---		DBM.Nameplate:Hide(true, nil, nil, nil, true, true)
---	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
+	end
 end
 
 function mod:SPELL_CAST_START(args)
@@ -334,9 +407,11 @@ function mod:SPELL_CAST_START(args)
 		end
 	elseif spellId == 288410 or spellId == 287691 then
 		self.vb.botCount = self.vb.botCount + 1
-		if DBM:UnitDebuff("player", 284168) then--Shrunk
-			specWarnDeploySparkBot:Show()
+		if self.Options.SpecWarn288410switchcount then
+			specWarnDeploySparkBot:Show(self.vb.botCount)
 			specWarnDeploySparkBot:Play("targetchange")
+		else
+			warnDeploySparkbot:Show(self.vb.botCount)
 		end
 		local timer = sparkBotTimers[self.vb.difficultyName][self.vb.phase][self.vb.botCount+1]
 		if timer then
@@ -377,7 +452,7 @@ function mod:SPELL_CAST_START(args)
 				countdownWormhole:Start(46.8)
 			end
 		end
-		timerIntermission:Start(49.9)--Seems time based but journal says when generators die
+		timerIntermission:Start(64.8)
 	elseif spellId == 287797 then--Crash Down (intermission end)
 		self.vb.phase = 2
 		--Reset everything but sheep, for next ground phase
@@ -431,6 +506,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerGigaVoltChargeCD:Start(timer, self.vb.gigaCount+1)
 			countdownGigavoltCharge:Start(timer)
 		end
+	elseif spellId == 286152 or spellId == 286219 or spellId == 286215 or spellId == 286226 or spellId == 286192 then--Disarm Codes
+		if playersInRobots[args.sourceName] then
+			playersInRobots[args.sourceName] = playersInRobots[args.sourceName] + 1
+		end
 	end
 end
 
@@ -476,6 +555,9 @@ function mod:SPELL_AURA_APPLIED(args)
 				specWarnShrunkTaunt:Play("tauntboss")
 			end
 		end
+		if not tContains(shrunkTargets, args.destName) then
+			table.insert(shrunkTargets, args.destName)
+		end
 	elseif spellId == 289023 then
 		if args:IsPlayer() then
 			specWarnEnormous:Show()
@@ -501,6 +583,23 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		self.vb.botIcon = self.vb.botIcon + 1
 		if self.vb.botIcon == 9 then self.vb.botIcon = 4 end--Icons 4-8
+	elseif spellId == 286105 then--Tampering
+		local type = strsplit("-", args.destGUID or "")
+		if type and type ~= "Vehicle" then
+			playersInRobots[args.destName] = 0
+			robotCount = robotCount + 1
+			if args:IsPlayer() then
+				self:Unschedule(shrunkYellRepeater)
+				self:Schedule(2, shrunkYellRepeater, self, true)
+			end
+		end
+	elseif spellId == 287114 then
+		warnMisTele:CombinedShow(0.3, args.destName)
+		if args:IsPlayer() then
+			specWarnMisCalcTele:Show()
+			specWarnMisCalcTele:Play("carefly")
+			yellMisCalcTele:Yell()
+		end
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -517,8 +616,18 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif spellId == 284168 then
+		tDeleteItem(shrunkTargets, args.destName)
 		if args:IsPlayer() then
 			self:Unschedule(shrunkYellRepeater)
+		end
+	elseif spellId == 286105 then--Tampering
+		local type = strsplit("-", args.destGUID or "")
+		if type and type ~= "Vehicle" then
+			playersInRobots[args.destName] = nil
+			robotCount = robotCount - 1
+			if args:IsPlayer() then
+				self:Unschedule(shrunkYellRepeater)
+			end
 		end
 	end
 end
@@ -531,19 +640,4 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spell
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
-
-function mod:UNIT_DIED(args)
-	local cid = self:GetCIDFromGUID(args.destGUID)
-	if cid == 146440 then--Shield Generator
-	
-	--elseif cid == 148123 then--Evil Twin (Mythic)
-
-	end
-end
-
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
-	if spellId == 274315 then
-
-	end
-end
 --]]
