@@ -29,6 +29,7 @@ function ScrollFrame.__init(self)
 	self.__super:__init(frame)
 
 	frame:EnableMouseWheel(true)
+	frame:SetClipsChildren(true)
 	frame:SetScript("OnUpdate", private.FrameOnUpdate)
 	frame:SetScript("OnMouseWheel", private.FrameOnMouseWheel)
 	private.frameScrollFrameLookup[frame] = self
@@ -78,7 +79,7 @@ function ScrollFrame.Draw(self)
 	self._scrollbar:SetPoint("TOPRIGHT", -self:_GetStyle("scrollbarMargin"), -self:_GetStyle("scrollbarMargin"))
 	self._scrollbar:SetPoint("BOTTOMRIGHT", -self:_GetStyle("scrollbarMargin"), self:_GetStyle("scrollbarMargin"))
 	self._scrollbar.thumb:SetWidth(self:_GetStyle("scrollbarThumbWidth"))
-	self._scrollbar.thumb:SetHeight(min(self:_GetDimension("HEIGHT") / 2, self:_GetStyle("scrollbarThumbHeight")))
+	self._scrollbar.thumb:SetHeight(min(self:_GetDimension("HEIGHT") / 3, self:_GetStyle("scrollbarThumbHeight")))
 	self._scrollbar.thumb:SetColorTexture(TSM.UI.HexToRGBA(self:_GetStyle("scrollbarThumbBackground")))
 
 	local width = self:_GetDimension("WIDTH")
@@ -195,6 +196,39 @@ end
 
 function private.FrameOnMouseWheel(frame, direction)
 	local self = private.frameScrollFrameLookup[frame]
-	local scrollAmount = min(self:_GetDimension("HEIGHT") / 3, MOUSE_WHEEL_SCROLL_AMOUNT)
-	self._scrollbar:SetValue(self._scrollbar:GetValue() + -1 * direction * scrollAmount)
+
+	local parentScroll = nil
+	local parent = self:GetParentElement()
+	while parent do
+		if parent:__isa(ScrollFrame) then
+			parentScroll = parent
+			break
+		else
+			parent = parent:GetParentElement()
+		end
+	end
+
+	if parentScroll then
+		local minValue, maxValue = self._scrollbar:GetMinMaxValues()
+		if direction > 0 then
+			if self._scrollbar:GetValue() == minValue then
+				local scrollAmount = min(parentScroll:_GetDimension("HEIGHT") / 3, MOUSE_WHEEL_SCROLL_AMOUNT)
+				parentScroll._scrollbar:SetValue(parentScroll._scrollbar:GetValue() + -1 * direction * scrollAmount)
+			else
+				local scrollAmount = min(self:_GetDimension("HEIGHT") / 3, MOUSE_WHEEL_SCROLL_AMOUNT)
+				self._scrollbar:SetValue(self._scrollbar:GetValue() + -1 * direction * scrollAmount)
+			end
+		else
+			if self._scrollbar:GetValue() == maxValue then
+				local scrollAmount = min(parentScroll:_GetDimension("HEIGHT") / 3, MOUSE_WHEEL_SCROLL_AMOUNT)
+				parentScroll._scrollbar:SetValue(parentScroll._scrollbar:GetValue() + -1 * direction * scrollAmount)
+			else
+				local scrollAmount = min(self:_GetDimension("HEIGHT") / 3, MOUSE_WHEEL_SCROLL_AMOUNT)
+				self._scrollbar:SetValue(self._scrollbar:GetValue() + -1 * direction * scrollAmount)
+			end
+		end
+	else
+		local scrollAmount = min(self:_GetDimension("HEIGHT") / 3, MOUSE_WHEEL_SCROLL_AMOUNT)
+		self._scrollbar:SetValue(self._scrollbar:GetValue() + -1 * direction * scrollAmount)
+	end
 end

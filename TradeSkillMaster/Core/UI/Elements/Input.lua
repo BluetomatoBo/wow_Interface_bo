@@ -32,6 +32,8 @@ function Input.__init(self)
 	self._settingKey = nil
 	self._validation = nil
 	self._clearBtn = nil
+	self._allowEnter = nil
+	self._spacing = nil
 	self._multiLine = nil
 	self._compStart = nil
 	self._userScriptHandlers = {}
@@ -62,12 +64,6 @@ function Input.__init(self)
 end
 
 function Input.Acquire(self)
-	self:_GetBaseFrame():Enable()
-	self:_GetBaseFrame():EnableMouse(true)
-	self:_GetBaseFrame():EnableKeyboard(true)
-	self:_GetBaseFrame():SetMultiLine(false)
-	self:_GetBaseFrame():SetHitRectInsets(0, 0, 0, 0)
-	self:_GetBaseFrame():SetMaxLetters(2147483647)
 	self._hintText = TSMAPI_FOUR.UI.NewElement("Text", self._id.."_HintText")
 	self._hintText:_GetBaseFrame():SetParent(self:_GetBaseFrame())
 	self._hintText:_GetBaseFrame():SetPoint("TOPLEFT", 8, 0)
@@ -85,10 +81,19 @@ end
 function Input.Release(self)
 	wipe(self._userScriptHandlers)
 	self:_GetBaseFrame():ClearFocus()
+	self:_GetBaseFrame():Enable()
+	self:_GetBaseFrame():EnableMouse(true)
+	self:_GetBaseFrame():EnableKeyboard(true)
+	self:_GetBaseFrame():SetSpacing(0)
+	self:_GetBaseFrame():SetMultiLine(false)
+	self:_GetBaseFrame():SetHitRectInsets(0, 0, 0, 0)
+	self:_GetBaseFrame():SetMaxLetters(2147483647)
 	self._hintText:Release()
 	self._hintText = nil
 	self._clearBtn:Release()
 	self._clearBtn = nil
+	self._allowEnter = nil
+	self._spacing = nil
 	self._multiLine = nil
 	self._compStart = nil
 	self._settingTable = nil
@@ -181,12 +186,13 @@ end
 -- @tparam Input self The input object
 -- @tparam boolean multiLine Whether or not this input is multiline
 -- @treturn Input The input object
-function Input.SetMultiLine(self, multiLine)
+function Input.SetMultiLine(self, multiLine, allowEnter)
 	local frame = self:_GetBaseFrame()
 	self._multiLine = multiLine
+	self._allowEnter = allowEnter
 	frame:SetText("")
 	frame:SetMultiLine(multiLine)
-	if self._multiLine then
+	if self._multiLine and not self._allowEnter then
 		frame:SetScript("OnEnterPressed", nil)
 	end
 	frame:SetText(self._textStr)
@@ -205,11 +211,27 @@ function Input.SetHitRectInsets(self, left, right, top, bottom)
 	return self
 end
 
+--- Gets the input height.
+-- @tparam Input self The input object
+-- @treturn number The input height
+function Input.GetHeight(self)
+	return self:_GetBaseFrame():GetHeight()
+end
+
 --- Gets the input text.
 -- @tparam Input self The input object
 -- @treturn string The input text
 function Input.GetText(self)
 	return self:_GetBaseFrame():GetText()
+end
+
+--- Sets the input spacing.
+-- @tparam Input self The input object
+-- @treturn Input The input object
+function Input.SetSpacing(self, spacing)
+	self._spacing = spacing
+	self:_GetBaseFrame():SetSpacing(spacing)
+	return self
 end
 
 function Input.SetScript(self, script, handler)

@@ -44,17 +44,65 @@ function private.GetSniperOperationSettings(operationName)
 			:SetStyle("padding.top", -8)
 			:AddChild(TSM.MainUI.Operations.CreateHeadingLine("settings", L["Sniper Settings"]))
 			:AddChild(TSM.MainUI.Operations.CreateLinkedSettingLine("belowPrice", L["Below custom price:"]))
-			:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "input")
-				:SetStyle("height", 26)
-				:SetStyle("background", "#5c5c5c")
-				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
-				:SetStyle("fontHeight", 16)
-				:SetStyle("justifyH", "LEFT")
-				:SetStyle("textColor", "#ffffff")
-				:SetDisabled(TSM.Operations.HasRelationship("Sniper", private.currentOperationName, "belowPrice"))
-				:SetSettingInfo(operation, "belowPrice", TSM.MainUI.Operations.CheckCustomPrice)
-				:SetText(TSM.Money.ToString(operation.belowPrice) or operation.belowPrice)
+			:AddChild(TSMAPI_FOUR.UI.NewElement("BorderedFrame", "sniperPrice")
+				:SetLayout("HORIZONTAL")
+				:SetStyle("borderTheme", "roundLight")
+				:AddChild(TSMAPI_FOUR.UI.NewElement("ScrollFrame", "scroll")
+					:SetStyle("height", 99)
+					:SetStyle("margin.bottom", 2)
+					:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "input")
+						:SetStyle("height", 97)
+						:SetStyle("margin", { left = 2, right = 8 })
+						:SetStyle("font", TSM.UI.Fonts.MontserratRegular)
+						:SetStyle("fontHeight", 14)
+						:SetStyle("justifyH", "LEFT")
+						:SetDisabled(TSM.Operations.HasRelationship("Sniper", private.currentOperationName, "belowPrice"))
+						:SetSettingInfo(operation, "belowPrice", TSM.MainUI.Operations.CheckCustomPrice)
+						:SetText(TSM.Money.ToString(operation.belowPrice) or operation.belowPrice)
+						:SetSpacing(6)
+						:SetMultiLine(true, true)
+						:SetScript("OnSizeChanged", private.SniperPriceOnSizeChanged)
+						:SetScript("OnCursorChanged", private.SniperPriceOnCursorChanged)
+						:SetScript("OnEnterPressed", private.SniperPriceOnEnterPressed)
+					)
+				)
+				:SetScript("OnMouseUp", private.SniperPriceOnMouseUp)
 			)
 			:AddChild(TSM.MainUI.Operations.GetOperationManagementElements("Sniper", private.currentOperationName))
 		)
 end
+
+
+
+-- ============================================================================
+-- Local Script Handlers
+-- ============================================================================
+
+function private.SniperPriceOnSizeChanged(input, width, height)
+	if input:HasFocus() then
+		input:SetText(input:GetText())
+	end
+
+	input:SetStyle("height", height)
+	input:GetParentElement():Draw()
+end
+
+function private.SniperPriceOnCursorChanged(input, _, y)
+	local scrollFrame = input:GetParentElement()
+	scrollFrame._scrollbar:SetValue(TSMAPI_FOUR.Util.Round(abs(y) / (input:_GetStyle("height") - 22) * scrollFrame:_GetMaxScroll()))
+end
+
+function private.SniperPriceOnMouseUp(frame)
+	frame:GetElement("scroll.input"):SetFocused(true)
+end
+
+function private.SniperPriceOnEnterPressed(input)
+	if not TSM.MainUI.Operations.CheckCustomPrice(input:GetText(), true) then
+		local operation = TSM.Operations.GetSettings("Sniper", private.currentOperationName)
+		input:SetText(TSM.Money.ToString(operation.belowPrice) or operation.belowPrice)
+		input:SetFocused(true)
+
+		private.SniperPriceOnSizeChanged(input, nil, input:GetHeight())
+	end
+end
+

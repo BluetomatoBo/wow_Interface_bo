@@ -1241,6 +1241,10 @@ local function MoreDialogRowIterator(_, prevIndex)
 		return 1, L["Select All Groups"], private.SelectAllBtnOnClick
 	elseif prevIndex == 1 then
 		return 2, L["Deselect All Groups"], private.DeselectAllBtnOnClick
+	elseif prevIndex == 2 then
+		return 3, L["Expand All Groups"], private.ExpandAllBtnOnClick
+	elseif prevIndex == 3 then
+		return 4, L["Collapse All Groups"], private.CollapseAllBtnOnClick
 	end
 end
 function private.MoreBtnOnClick(button)
@@ -1256,6 +1260,18 @@ end
 function private.DeselectAllBtnOnClick(button)
 	local baseFrame = button:GetBaseElement()
 	baseFrame:GetElement("content.shopping.selection.groupSelection.groupTree"):DeselectAll()
+	baseFrame:HideDialog()
+end
+
+function private.ExpandAllBtnOnClick(button)
+	local baseFrame = button:GetBaseElement()
+	baseFrame:GetElement("content.shopping.selection.groupSelection.groupTree"):ExpandAll()
+	baseFrame:HideDialog()
+end
+
+function private.CollapseAllBtnOnClick(button)
+	local baseFrame = button:GetBaseElement()
+	baseFrame:GetElement("content.shopping.selection.groupSelection.groupTree"):CollapseAll()
 	baseFrame:HideDialog()
 end
 
@@ -1417,6 +1433,7 @@ function private.StartFilterSearchHelper(viewContainer, filter, isSpecial, itemI
 	local mode = private.singleItemSearchType == "crafting" and "CRAFTING" or "NORMAL"
 	filter = TSM.Shopping.FilterSearch.PrepareFilter(strtrim(filter), mode, TSM.db.global.shoppingOptions.pctSource)
 	if not filter or filter == "" then
+		viewContainer:SetPath("scan", true)
 		TSM:Print(L["Invalid search filter"]..": "..originalFilter)
 		return
 	end
@@ -1770,11 +1787,7 @@ function private.PostButtonOnClick(button)
 		ClearCursor()
 		PickupContainerItem(postBag, postSlot)
 		ClickAuctionSellItemButton(AuctionsItemButton, "LeftButton")
-		if tonumber((select(2, GetBuildInfo()))) >= 27481 then
-			PostAuction(bid, buyout, postTime, stackSize, num)
-		else
-			StartAuction(bid, buyout, postTime, stackSize, num)
-		end
+		PostAuction(bid, buyout, postTime, stackSize, num)
 		ClearCursor()
 	end
 	frame:GetBaseElement():HideDialog()

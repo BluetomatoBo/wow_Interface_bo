@@ -109,6 +109,38 @@ function GroupTree.UpdateData(self, redraw)
 	return self
 end
 
+--- Expand every group.
+-- @tparam GroupTree self The application group tree object
+-- @treturn GroupTree The application group tree object
+function GroupTree.ExpandAll(self)
+	for _, row in ipairs(self._rows) do
+		local groupPath = row:GetData()
+		if groupPath ~= TSM.CONST.ROOT_GROUP_PATH and self._hasChildrenLookup[groupPath] then
+			local scrollingList = row._scrollingList
+			scrollingList:_SetCollapsed(row:GetData(), false)
+			scrollingList:_UpdateData()
+			scrollingList:Draw()
+		end
+	end
+	return self
+end
+
+--- Collapse every group.
+-- @tparam GroupTree self The application group tree object
+-- @treturn GroupTree The application group tree object
+function GroupTree.CollapseAll(self)
+	for _, row in ipairs(self._rows) do
+		local groupPath = row:GetData()
+		if groupPath ~= TSM.CONST.ROOT_GROUP_PATH and self._hasChildrenLookup[groupPath] then
+			local scrollingList = row._scrollingList
+			scrollingList:_SetCollapsed(row:GetData(), true)
+			scrollingList:_UpdateData()
+			scrollingList:Draw()
+		end
+	end
+	return self
+end
+
 
 
 -- ============================================================================

@@ -72,7 +72,6 @@ function private.GroupsMailThread(groupList, sendRepeat)
 		for name, items in pairs(targets) do
 			if not TSMAPI_FOUR.PlayerInfo.IsPlayer(name) and next(items) then
 				private.SendItems(name, items)
-				TSMAPI_FOUR.Thread.Sleep(0.5)
 			end
 			TSMAPI_FOUR.Thread.ReleaseSafeTempTable(items)
 		end

@@ -41,7 +41,7 @@ function Warehousing.OnInitialize()
 			end
 		end
 	end
-	TSM.Operations.Register("Warehousing", OPERATION_INFO, 12, private.GetOperationInfo)
+	TSM.Operations.Register("Warehousing", L["Warehousing"], OPERATION_INFO, 12, private.GetOperationInfo)
 end
 
 

@@ -71,7 +71,7 @@ function private.LoadTooltip(tooltip, itemString, options)
 	end
 
 	local smartBuyPrice, smartBuyNum, totalBuyNum = TSM.Accounting.Transactions.GetBuyStats(itemString)
-	local avgBuyPrice = smartBuyPrice and TSMAPI_FOUR.Util.Round(smartBuyPrice / smartBuyNum) or nil
+	local avgBuyPrice = (smartBuyPrice and smartBuyPrice > 0 and smartBuyNum and smartBuyNum > 0) and TSMAPI_FOUR.Util.Round(smartBuyPrice / smartBuyNum) or nil
 	if options.purchase and avgBuyPrice then
 		local lastBuyTime = TSM.Accounting.Transactions.GetLastBuyTime(itemString)
 		assert(lastBuyTime)

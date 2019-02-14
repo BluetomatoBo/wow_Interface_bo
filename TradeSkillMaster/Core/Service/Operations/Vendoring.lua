@@ -31,7 +31,7 @@ local OPERATION_INFO = {
 -- ============================================================================
 
 function Vendoring.OnInitialize()
-	TSM.Operations.Register("Vendoring", OPERATION_INFO, 1, private.GetOperationInfo)
+	TSM.Operations.Register("Vendoring", L["Vendoring"], OPERATION_INFO, 1, private.GetOperationInfo)
 end
 
 

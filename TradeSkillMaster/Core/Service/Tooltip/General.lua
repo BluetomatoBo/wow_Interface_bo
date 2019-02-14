@@ -35,7 +35,7 @@ function General.LoadTooltip(tooltip, itemString)
 						tinsert(operations, operationName)
 					end
 					if #operations > 0 then
-						tooltip:AddLine(format(L["%s |4operation:operations;"], moduleName), "|cffffffff"..table.concat(operations, ", ").."|r")
+						tooltip:AddLine(format(#operations == 1 and L["%s operation"] or L["%s operations"], TSM.Operations.GetLocalizedName(moduleName)), "|cffffffff"..table.concat(operations, ", ").."|r")
 					end
 					TSMAPI_FOUR.Util.ReleaseTempTable(operations)
 				end

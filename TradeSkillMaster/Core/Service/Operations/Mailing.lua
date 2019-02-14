@@ -26,7 +26,7 @@ local OPERATION_INFO = {
 -- ============================================================================
 
 function Mailing.OnInitialize()
-	TSM.Operations.Register("Mailing", OPERATION_INFO, 30, private.GetOperationInfo)
+	TSM.Operations.Register("Mailing", L["Mailing"], OPERATION_INFO, 30, private.GetOperationInfo)
 end
 
 

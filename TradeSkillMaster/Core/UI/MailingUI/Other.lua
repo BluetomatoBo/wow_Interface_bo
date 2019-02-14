@@ -11,9 +11,6 @@ local Groups = TSM.UI.MailingUI:NewPackage("Other")
 local L = TSM.L
 local private = {
 	frame = nil,
-	enchantRecipient = "",
-	goldRecipient = "",
-	goldKeep = 10000000000,
 }
 
 local PLAYER_NAME = UnitName("player")
@@ -79,7 +76,7 @@ function private.GetOtherFrame()
 					:SetStyle("autoComplete", TSMAPI_FOUR.PlayerInfo.GetAlts())
 					:SetStyle("font", TSM.UI.Fonts.FRIZQT)
 					:SetStyle("fontHeight", 13)
-					:SetText(private.enchantRecipient)
+					:SetText(TSM.db.factionrealm.internalData.mailDisenchantablesChar)
 					:SetScript("OnEnterPressed", private.EchantRecipientOnTextChanged)
 					:SetScript("OnTextChanged", private.EchantRecipientOnTextChanged)
 					:SetScript("OnTabPressed", private.EchantRecipientOnTabPressed)
@@ -143,7 +140,7 @@ function private.GetOtherFrame()
 					:SetStyle("autoComplete", TSMAPI_FOUR.PlayerInfo.GetAlts())
 					:SetStyle("font", TSM.UI.Fonts.FRIZQT)
 					:SetStyle("fontHeight", 13)
-					:SetText(private.goldRecipient)
+					:SetText(TSM.db.factionrealm.internalData.mailExcessGoldChar)
 					:SetScript("OnEnterPressed", private.GoldRecipientOnTextChanged)
 					:SetScript("OnTextChanged", private.GoldRecipientOnTextChanged)
 					:SetScript("OnTabPressed", private.GoldRecipientOnTabPressed)
@@ -152,7 +149,7 @@ function private.GetOtherFrame()
 					:SetStyle("margin.right", 16)
 					:SetStyle("height", 20)
 					:SetStyle("justifyH", "RIGHT")
-					:SetText(TSM.Money.ToString(private.goldKeep))
+					:SetText(TSM.Money.ToString(TSM.db.factionrealm.internalData.mailExcessGoldLimit))
 					:SetScript("OnTextChanged", private.MoneyOnTextChanged)
 					:SetScript("OnEnterPressed", private.MoneyValueConvert)
 					:SetScript("OnEscapePressed", private.MoneyValueConvert)
@@ -214,24 +211,23 @@ end
 function private.EchantRecipientOnTextChanged(input)
 	local text = strtrim(input:GetText())
 	if input._compStart then
-		if text == private.enchantRecipient then
+		if text == TSM.db.factionrealm.internalData.mailDisenchantablesChar then
 			input:HighlightText(input._compStart, #text)
 			input._compStart = nil
 		else
-			private.enchantRecipient = text
-
-			input:SetText(private.enchantRecipient)
+			TSM.db.factionrealm.internalData.mailDisenchantablesChar = text
+			input:SetText(TSM.db.factionrealm.internalData.mailDisenchantablesChar)
 				:Draw()
 
 			private.UpdateEnchantButton()
 		end
 		return
 	end
-	if text == private.enchantRecipient then
+	if text == TSM.db.factionrealm.internalData.mailDisenchantablesChar then
 		return
 	end
-	private.enchantRecipient = text
-	input:SetText(private.enchantRecipient)
+	TSM.db.factionrealm.internalData.mailDisenchantablesChar = text
+	input:SetText(TSM.db.factionrealm.internalData.mailDisenchantablesChar)
 		:Draw()
 
 	private.UpdateEnchantButton()
@@ -248,7 +244,7 @@ function private.EnchantSendBtnOnClick(button)
 		end
 	end
 
-	private.fsm:ProcessEvent("EV_BUTTON_CLICKED", private.enchantRecipient, 0, items)
+	private.fsm:ProcessEvent("EV_BUTTON_CLICKED", TSM.db.factionrealm.internalData.mailDisenchantablesChar, 0, items)
 end
 
 function private.GoldRecipientOnTabPressed(input)
@@ -259,24 +255,23 @@ end
 function private.GoldRecipientOnTextChanged(input)
 	local text = strtrim(input:GetText())
 	if input._compStart then
-		if text == private.goldRecipient then
+		if text == TSM.db.factionrealm.internalData.mailExcessGoldChar then
 			input:HighlightText(input._compStart, #text)
 			input._compStart = nil
 		else
-			private.goldRecipient = text
-
-			input:SetText(private.goldRecipient)
+			TSM.db.factionrealm.internalData.mailExcessGoldChar = text
+			input:SetText(TSM.db.factionrealm.internalData.mailExcessGoldChar)
 				:Draw()
 
 			private.UpdateGoldButton()
 		end
 		return
 	end
-	if text == private.goldRecipient then
+	if text == TSM.db.factionrealm.internalData.mailExcessGoldChar then
 		return
 	end
-	private.goldRecipient = text
-	input:SetText(private.goldRecipient)
+	TSM.db.factionrealm.internalData.mailExcessGoldChar = text
+	input:SetText(TSM.db.factionrealm.internalData.mailExcessGoldChar)
 		:Draw()
 
 	private.UpdateGoldButton()
@@ -284,7 +279,7 @@ end
 
 function private.GoldSendBtnOnClick(button)
 	local money = private.GetSendMoney()
-	private.fsm:ProcessEvent("EV_BUTTON_CLICKED", private.goldRecipient, money)
+	private.fsm:ProcessEvent("EV_BUTTON_CLICKED", TSM.db.factionrealm.internalData.mailExcessGoldChar, money)
 end
 
 function private.MoneyFocusGained(input)
@@ -293,14 +288,14 @@ end
 
 function private.MoneyOnTextChanged(input)
 	local text = gsub(strtrim(input:GetText()), TSMAPI_FOUR.Util.StrEscape(LARGE_NUMBER_SEPERATOR), "")
-	if text == "" or text == private.goldKeep then
+	if text == "" or text == TSM.db.factionrealm.internalData.mailExcessGoldLimit then
 		return
 	end
 
 	if tonumber(text) then
-		private.goldKeep = tonumber(text)
+		TSM.db.factionrealm.internalData.mailExcessGoldLimit = tonumber(text)
 	else
-		private.goldKeep = TSM.Money.FromString(text) or 0
+		TSM.db.factionrealm.internalData.mailExcessGoldLimit = TSM.Money.FromString(text) or 0
 	end
 
 	private.UpdateGoldButton()
@@ -308,7 +303,7 @@ end
 
 function private.MoneyValueConvert(input)
 	input:SetFocused(false)
-	input:SetText(TSM.Money.ToString(private.goldKeep))
+	input:SetText(TSM.Money.ToString(TSM.db.factionrealm.internalData.mailExcessGoldLimit))
 		:Draw()
 
 	private.UpdateGoldButton()
@@ -321,7 +316,7 @@ end
 -- ============================================================================
 
 function private.GetSendMoney()
-	local money = GetMoney() - 30 - private.goldKeep
+	local money = GetMoney() - 30 - TSM.db.factionrealm.internalData.mailExcessGoldLimit
 	if money < 0 then
 		money = 0
 	end
@@ -330,7 +325,7 @@ function private.GetSendMoney()
 end
 
 function private.UpdateEnchantButton()
-	local recipient = private.enchantRecipient
+	local recipient = TSM.db.factionrealm.internalData.mailDisenchantablesChar
 	local enchantButton = private.frame:GetElement("container.enchantHeader.send")
 
 	if recipient == "" or recipient == PLAYER_NAME or recipient == PLAYER_NAME_REALM then
@@ -344,7 +339,7 @@ function private.UpdateEnchantButton()
 end
 
 function private.UpdateGoldButton()
-	local recipient = private.goldRecipient
+	local recipient = TSM.db.factionrealm.internalData.mailExcessGoldChar
 	local goldButton = private.frame:GetElement("container.goldHeader.send")
 
 	if recipient == "" or recipient == PLAYER_NAME or recipient == PLAYER_NAME_REALM then
@@ -369,9 +364,8 @@ end
 -- ============================================================================
 
 function private.FSMCreate()
-	TSMAPI_FOUR.Event.Register("MAIL_CLOSED", function()
-		private.enchantRecipient = ""
-		private.goldRecipient = ""
+	TSMAPI_FOUR.Event.Register("PLAYER_MONEY", function()
+		private.fsm:ProcessEvent("EV_PLAYER_MONEY_UPDATE")
 	end)
 
 	local fsmContext = {
@@ -380,23 +374,13 @@ function private.FSMCreate()
 	}
 
 	local function UpdateEnchant(context)
-		if not context.sending then
-			private.enchantRecipient = ""
-			context.frame:GetElement("container.enchantHeader.recipient"):SetText("")
-				:Draw()
-		end
-
 		context.frame:GetElement("container.enchantHeader.send"):SetText(context.sending and L["SENDING..."] or L["SEND DISENCHANTABLES"])
 			:SetPressed(context.sending)
 			:Draw()
 	end
 
 	local function UpdateGold(context)
-		if not context.sending then
-			private.goldRecipient = ""
-			context.frame:GetElement("container.goldHeader.recipient"):SetText("")
-				:Draw()
-		end
+		private.UpdateGoldButton()
 
 		context.frame:GetElement("container.goldHeader.send"):SetText(context.sending and L["SENDING..."] or L["SEND GOLD"])
 			:SetPressed(context.sending)
@@ -420,6 +404,9 @@ function private.FSMCreate()
 			end)
 			:AddTransition("ST_HIDDEN")
 			:AddTransition("ST_SENDING_START")
+			:AddEvent("EV_PLAYER_MONEY_UPDATE", function(context)
+				UpdateGold(context)
+			end)
 			:AddEvent("EV_BUTTON_CLICKED", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_SENDING_START"))
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_SENDING_START")

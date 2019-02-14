@@ -14,6 +14,7 @@ local private = {
 	dbSummary = nil,
 	characters = {},
 	dataChanged = false,
+	baseStatsQuery = nil,
 	statsQuery = nil,
 	buyStatsCache = {
 		lastUpdate = 0,
@@ -106,10 +107,16 @@ function Transactions.OnInitialize()
 	private.LoadData("buy", TSM.db.realm.internalData.csvBuys, TSM.db.realm.internalData.saveTimeBuys)
 	private.db:BulkInsertEnd()
 	private.dbSummary = TSMAPI_FOUR.Database.New(SUMMARY_DB_SCHEMA, "TRANSACTIONS_SUMMARY")
+	private.baseStatsQuery = private.db:NewQuery()
+		:Select("quantity", "price")
+		:Equal("type", TSM.CONST.BOUND_QUERY_PARAM)
+		:Equal("baseItemString", TSM.CONST.BOUND_QUERY_PARAM)
+		:NotEqual("source", "Vendor")
 	private.statsQuery = private.db:NewQuery()
 		:Select("quantity", "price")
 		:Equal("type", TSM.CONST.BOUND_QUERY_PARAM)
 		:Equal("baseItemString", TSM.CONST.BOUND_QUERY_PARAM)
+		:Equal("itemString", TSM.CONST.BOUND_QUERY_PARAM)
 		:NotEqual("source", "Vendor")
 end
 
@@ -174,11 +181,17 @@ function Transactions.RemoveOldData(days)
 end
 
 function Transactions.GetSaleStats(itemString)
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
-	private.statsQuery:BindParams("sale", itemString)
-	private.statsQuery:ResetOrderBy()
-	local totalPrice = private.statsQuery:SumOfProduct("quantity", "price")
-	local totalNum = private.statsQuery:Sum("quantity")
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local isBaseItemString = itemString == baseItemString
+	local query = isBaseItemString and private.baseStatsQuery or private.statsQuery
+	if isBaseItemString then
+		query:BindParams("sale", baseItemString)
+	else
+		query:BindParams("sale", baseItemString, itemString)
+	end
+	query:ResetOrderBy()
+	local totalPrice = query:SumOfProduct("quantity", "price")
+	local totalNum = query:Sum("quantity")
 	if not totalNum or totalNum == 0 then
 		return
 	end
@@ -186,7 +199,8 @@ function Transactions.GetSaleStats(itemString)
 end
 
 function Transactions.GetBuyStats(itemString)
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local isBaseItemString = itemString == baseItemString
 
 	-- check if we need to clear our cache
 	if private.buyStatsCache.lastUpdate ~= GetTime() then
@@ -195,29 +209,33 @@ function Transactions.GetBuyStats(itemString)
 		wipe(private.buyStatsCache.smartTotalPrice)
 		private.buyStatsCache.lastUpdate = GetTime()
 	end
-
 	-- check if we have the values cached
 	if private.buyStatsCache.totalNum[itemString] then
 		return private.buyStatsCache.smartTotalPrice[itemString], private.buyStatsCache.smartTotalNum[itemString], private.buyStatsCache.totalNum[itemString]
 	end
 
-	-- need to query for the values
-	private.statsQuery:BindParams("buy", itemString)
-	private.statsQuery:ResetOrderBy()
+	local query = isBaseItemString and private.baseStatsQuery or private.statsQuery
+	if isBaseItemString then
+		query:BindParams("buy", baseItemString)
+	else
+		query:BindParams("buy", baseItemString, itemString)
+	end
+	query:ResetOrderBy()
+
 	local remainingNum = nil
 	if TSM.db.global.accountingOptions.smartBuyPrice then
 		local numHave = TSMAPI_FOUR.Inventory.GetTotalQuantity(itemString)
 		if numHave > 0 then
-			private.statsQuery:OrderBy("time", false)
+			query:OrderBy("time", false)
 			remainingNum = numHave
 		end
 	end
 	local smartTotalPrice, smartTotalNum, totalNum = 0, 0, 0
 	if remainingNum then
-		if private.statsQuery:Count() == 0 then
-			return
+		if query:Count() == 0 then
+			return nil, nil, nil
 		end
-		for _, quantity, price in private.statsQuery:Iterator() do
+		for _, quantity, price in query:Iterator() do
 			totalNum = totalNum + quantity
 			quantity = min(quantity, remainingNum)
 			if quantity > 0 then
@@ -227,12 +245,12 @@ function Transactions.GetBuyStats(itemString)
 			end
 		end
 	else
-		smartTotalNum = private.statsQuery:Sum("quantity")
-		totalNum = smartTotalNum
+		smartTotalNum = query:Sum("quantity")
 		if not smartTotalNum then
-			return
+			return nil, nil, nil
 		end
-		smartTotalPrice = private.statsQuery:SumOfProduct("quantity", "price")
+		totalNum = smartTotalNum
+		smartTotalPrice = query:SumOfProduct("quantity", "price")
 	end
 	private.buyStatsCache.totalNum[itemString] = totalNum
 	private.buyStatsCache.smartTotalPrice[itemString] = smartTotalPrice
@@ -241,47 +259,67 @@ function Transactions.GetBuyStats(itemString)
 end
 
 function Transactions.GetMaxSalePrice(itemString)
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
-	return private.db:NewQuery()
-		:Select("price")
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local isBaseItemString = itemString == baseItemString
+	local query = private.db:NewQuery():Select("price")
 		:Equal("type", "sale")
-		:Equal("baseItemString", itemString)
 		:NotEqual("source", "Vendor")
 		:OrderBy("price", false)
-		:GetFirstResultAndRelease()
+	if isBaseItemString then
+		query:Equal("baseItemString", itemString)
+	else
+		query:Equal("baseItemString", baseItemString)
+			:Equal("itemString", itemString)
+	end
+	return query:GetFirstResultAndRelease()
 end
 
 function Transactions.GetMaxBuyPrice(itemString)
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
-	return private.db:NewQuery()
-		:Select("price")
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local isBaseItemString = itemString == baseItemString
+	local query = private.db:NewQuery():Select("price")
 		:Equal("type", "buy")
-		:Equal("baseItemString", itemString)
 		:NotEqual("source", "Vendor")
 		:OrderBy("price", false)
-		:GetFirstResultAndRelease()
+	if isBaseItemString then
+		query:Equal("baseItemString", itemString)
+	else
+		query:Equal("baseItemString", baseItemString)
+			:Equal("itemString", itemString)
+	end
+	return query:GetFirstResultAndRelease()
 end
 
 function Transactions.GetMinSalePrice(itemString)
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
-	return private.db:NewQuery()
-		:Select("price")
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local isBaseItemString = itemString == baseItemString
+	local query = private.db:NewQuery():Select("price")
 		:Equal("type", "sale")
-		:Equal("baseItemString", itemString)
 		:NotEqual("source", "Vendor")
 		:OrderBy("price", true)
-		:GetFirstResultAndRelease()
+	if isBaseItemString then
+		query:Equal("baseItemString", itemString)
+	else
+		query:Equal("baseItemString", baseItemString)
+			:Equal("itemString", itemString)
+	end
+	return query:GetFirstResultAndRelease()
 end
 
 function Transactions.GetMinBuyPrice(itemString)
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
-	return private.db:NewQuery()
-		:Select("price")
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local isBaseItemString = itemString == baseItemString
+	local query = private.db:NewQuery():Select("price")
 		:Equal("type", "buy")
-		:Equal("baseItemString", itemString)
 		:NotEqual("source", "Vendor")
 		:OrderBy("price", true)
-		:GetFirstResultAndRelease()
+	if isBaseItemString then
+		query:Equal("baseItemString", itemString)
+	else
+		query:Equal("baseItemString", baseItemString)
+			:Equal("itemString", itemString)
+	end
+	return query:GetFirstResultAndRelease()
 end
 
 function Transactions.GetAverageSalePrice(itemString)
@@ -301,32 +339,48 @@ function Transactions.GetAverageBuyPrice(itemString)
 end
 
 function Transactions.GetLastSaleTime(itemString)
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
-	return private.db:NewQuery()
-		:Select("time")
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local isBaseItemString = itemString == baseItemString
+	local query = private.db:NewQuery():Select("time")
 		:Equal("type", "sale")
-		:Equal("baseItemString", itemString)
 		:NotEqual("source", "Vendor")
 		:OrderBy("time", false)
-		:GetFirstResultAndRelease()
+	if isBaseItemString then
+		query:Equal("baseItemString", itemString)
+	else
+		query:Equal("baseItemString", baseItemString)
+			:Equal("itemString", itemString)
+	end
+	return query:GetFirstResultAndRelease()
 end
 
 function Transactions.GetLastBuyTime(itemString)
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
-	return private.db:NewQuery()
-		:Select("time")
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local isBaseItemString = itemString == baseItemString
+	local query = private.db:NewQuery():Select("time")
 		:Equal("type", "buy")
-		:Equal("baseItemString", itemString)
 		:NotEqual("source", "Vendor")
 		:OrderBy("time", false)
-		:GetFirstResultAndRelease()
+	if isBaseItemString then
+		query:Equal("baseItemString", itemString)
+	else
+		query:Equal("baseItemString", baseItemString)
+			:Equal("itemString", itemString)
+	end
+	return query:GetFirstResultAndRelease()
 end
 
 function Transactions.GetQuantity(itemString, timeFilter, typeFilter)
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local isBaseItemString = itemString == baseItemString
 	local query = private.db:NewQuery()
 		:Equal("type", typeFilter)
-		:Equal("baseItemString", itemString)
+	if isBaseItemString then
+		query:Equal("baseItemString", itemString)
+	else
+		query:Equal("baseItemString", baseItemString)
+			:Equal("itemString", itemString)
+	end
 	if timeFilter then
 		query:GreaterThan("time", time() - timeFilter)
 	end
@@ -336,11 +390,17 @@ function Transactions.GetQuantity(itemString, timeFilter, typeFilter)
 end
 
 function Transactions.GetAveragePrice(itemString, timeFilter, typeFilter)
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local isBaseItemString = itemString == baseItemString
 	local query = private.db:NewQuery()
 		:Select("price", "quantity")
 		:Equal("type", typeFilter)
-		:Equal("baseItemString", itemString)
+	if isBaseItemString then
+		query:Equal("baseItemString", itemString)
+	else
+		query:Equal("baseItemString", baseItemString)
+			:Equal("itemString", itemString)
+	end
 	if timeFilter then
 		query:GreaterThan("time", time() - timeFilter)
 	end
@@ -354,11 +414,17 @@ function Transactions.GetAveragePrice(itemString, timeFilter, typeFilter)
 end
 
 function Transactions.GetTotalPrice(itemString, timeFilter, typeFilter)
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	local isBaseItemString = itemString == baseItemString
 	local query = private.db:NewQuery()
 		:Select("price", "quantity")
 		:Equal("type", typeFilter)
-		:Equal("baseItemString", itemString)
+	if isBaseItemString then
+		query:Equal("baseItemString", itemString)
+	else
+		query:Equal("baseItemString", baseItemString)
+			:Equal("itemString", itemString)
+	end
 	if timeFilter then
 		query:GreaterThan("time", time() - timeFilter)
 	end

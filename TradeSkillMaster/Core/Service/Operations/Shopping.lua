@@ -25,7 +25,7 @@ local OPERATION_INFO = {
 -- ============================================================================
 
 function Shopping.OnInitialize()
-	TSM.Operations.Register("Shopping", OPERATION_INFO, 1, private.GetOperationInfo)
+	TSM.Operations.Register("Shopping", L["Shopping"], OPERATION_INFO, 1, private.GetOperationInfo)
 end
 
 

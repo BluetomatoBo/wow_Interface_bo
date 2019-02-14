@@ -148,21 +148,17 @@ function PostScan.GetStatus()
 end
 
 function PostScan.DoProcess()
-	local success = nil
+	local success, noRetry = nil, false
 	local postRow = PostScan.GetCurrentRow()
 	local itemString, stackSize, bid, buyout, postTime = postRow:GetFields("itemString", "stackSize", "bid", "buyout", "postTime")
 	local bag, slot = private.GetPostBagSlot(itemString, stackSize)
-	if bag and slot then
+	if bag then
 		-- need to set the duration in the default UI to avoid Blizzard errors
 		AuctionFrameAuctions.duration = postTime
 		ClearCursor()
 		PickupContainerItem(bag, slot)
 		ClickAuctionSellItemButton(AuctionsItemButton, "LeftButton")
-		if tonumber((select(2, GetBuildInfo()))) >= 27481 then
-			PostAuction(bid, buyout, postTime, stackSize, 1)
-		else
-			StartAuction(bid, buyout, postTime, stackSize, 1)
-		end
+		PostAuction(bid, buyout, postTime, stackSize, 1)
 		ClearCursor()
 		local _, bagQuantity = GetContainerItemInfo(bag, slot)
 		TSM:LOG_INFO("Posting %s x %d from %d,%d (%d)", itemString, stackSize, bag, slot, bagQuantity or -1)
@@ -171,11 +167,15 @@ function PostScan.DoProcess()
 	else
 		-- we couldn't find this item, so mark this post as failed and we'll try again later
 		success = false
+		noRetry = slot
+		if noRetry then
+			TSM:Printf(L["Failed to post %sx%d as the item no longer exists in your bags."], TSMAPI_FOUR.Item.GetLink(itemString), stackSize)
+		end
 	end
 	postRow:SetField("numProcessed", postRow:GetField("numProcessed") + 1)
 		:Update()
 	postRow:Release()
-	return success
+	return success, noRetry
 end
 
 function PostScan.DoSkip()
@@ -687,7 +687,9 @@ function private.GetPostBagSlot(itemString, quantity)
 			:GetFirstResultAndRelease()
 	end
 	if not bag or not slot then
-		private.ErrorForItem(itemString, "Failed to initial find bag / slot")
+		-- this item was likely removed from the player's bags, so just give up
+		TSM:LOG_ERR("Failed to find initial bag / slot (%s, %d)", itemString, quantity)
+		return nil, true
 	end
 	local removeContext = TSMAPI_FOUR.Util.AcquireTempTable()
 	bag, slot = private.ItemBagSlotHelper(itemString, bag, slot, quantity, removeContext)
@@ -696,7 +698,7 @@ function private.GetPostBagSlot(itemString, quantity)
 		-- something changed with the player's bags so we can't post the item right now
 		TSMAPI_FOUR.Util.ReleaseTempTable(removeContext)
 		private.DebugLogInsert(itemString, "Bags changed")
-		return
+		return nil, nil
 	end
 	local _, _, _, quality = GetContainerItemInfo(bag, slot)
 	assert(quality)
@@ -704,7 +706,7 @@ function private.GetPostBagSlot(itemString, quantity)
 		-- the game client doesn't have item info cached for this item, so we can't post it yet
 		TSMAPI_FOUR.Util.ReleaseTempTable(removeContext)
 		private.DebugLogInsert(itemString, "No item info")
-		return
+		return nil, nil
 	end
 	for slotId, removeQuantity in pairs(removeContext) do
 		private.RemoveBagQuantity(slotId, removeQuantity)
@@ -782,7 +784,7 @@ function private.ItemBagSlotHelper(itemString, bag, slot, quantity, removeContex
 		:OrderBy("slotId", true)
 		:GetFirstResultAndRelease()
 	if not rowBag or not rowSlot then
-		private.ErrorForItem(itemString, "Failed to initial find bag / slot")
+		private.ErrorForItem(itemString, "Failed to find next highest bag / slot")
 	end
 	return private.ItemBagSlotHelper(itemString, rowBag, rowSlot, quantity, removeContext)
 end

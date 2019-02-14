@@ -18,7 +18,7 @@ local APP_INFO_REQUIRED_KEYS = { "version", "lastSync", "addonVersions", "messag
 local LOGOUT_TIME_WARNING_THRESHOLD_MS = 20
 do
 	-- show a message if we were updated
-	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.6.13" then
+	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.7" then
 		message("TSM was just updated and may not work properly until you restart WoW.")
 	end
 end
@@ -66,9 +66,11 @@ end
 -- [45] added char.internalData.auctionSaleHints
 -- [46] added global.shoppingOptions.{buyoutConfirm,buyoutAlertSource}
 -- [47] added factionrealm.internalData.expiringMail and factionrealm.internalData.expiringAuction
+-- [48] added profile.internalData.exportGroupTreeContext
+-- [49] added factionrealm.internalData.{mailDisenchantablesChar,mailExcessGoldChar,mailExcessGoldLimit}
 
 local SETTINGS_INFO = {
-	version = 47,
+	version = 49,
 	global = {
 		debug = {
 			chatLoggingEnabled = { type = "boolean", default = false, lastModifiedVersion = 19 },
@@ -193,6 +195,7 @@ local SETTINGS_INFO = {
 			mailingGroupTreeContext = { type = "table", default = {}, lastModifiedVersion = 39 },
 			vendoringGroupTreeContext = { type = "table", default = {}, lastModifiedVersion = 39 },
 			importGroupTreeContext = { type = "table", default = {}, lastModifiedVersion = 39 },
+			exportGroupTreeContext = { type = "table", default = {}, lastModifiedVersion = 48 },
 		},
 		userData = {
 			groups = { type = "table", default = {}, lastModifiedVersion = 10 },
@@ -210,6 +213,9 @@ local SETTINGS_INFO = {
 			pendingMail = { type = "table", default = {}, lastModifiedVersion = 10 },
 			expiringMail = { type = "table", default = {}, lastModifiedVersion = 47 },
 			expiringAuction = { type = "table", default = {}, lastModifiedVersion = 47 },
+			mailDisenchantablesChar = { type = "string", default = "", lastModifiedVersion = 49 },
+			mailExcessGoldChar = { type = "string", default = "", lastModifiedVersion = 49 },
+			mailExcessGoldLimit = { type = "number", default = 10000000000, lastModifiedVersion = 49 },
 			crafts = { type = "table", default = {}, lastModifiedVersion = 10 },
 			mats = { type = "table", default = {}, lastModifiedVersion = 10 },
 			guildGoldLog = { type = "table", default = {}, lastModifiedVersion = 25 },

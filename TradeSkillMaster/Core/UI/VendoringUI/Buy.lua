@@ -205,11 +205,7 @@ function private.RowOnClick(table, row, mouseButton)
 		private.splitFrame:SetParent(table:_GetBaseFrame())
 		private.splitFrame:SetAllPoints(table:_GetBaseFrame())
 		private.splitFrame.item = row:GetField("itemString")
-		if tonumber((select(2, GetBuildInfo()))) >= 28724 then
-			StackSplitFrame:OpenStackSplitFrame(math.huge, private.splitFrame, "TOPLEFT", "TOPRIGHT")
-		else
-			OpenStackSplitFrame(math.huge, private.splitFrame, "TOPLEFT", "TOPRIGHT")
-		end
+		StackSplitFrame:OpenStackSplitFrame(math.huge, private.splitFrame, "TOPLEFT", "TOPRIGHT")
 	elseif mouseButton == "RightButton" then
 		TSM.Vendoring.Buy.BuyItem(row:GetFields("itemString", "stackSize"))
 	end

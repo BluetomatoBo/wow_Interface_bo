@@ -130,6 +130,10 @@ local function MoreDialogRowIterator(_, prevIndex)
 		return 1, L["Select All Groups"], private.SelectAllBtnOnClick
 	elseif prevIndex == 1 then
 		return 2, L["Deselect All Groups"], private.DeselectAllBtnOnClick
+	elseif prevIndex == 2 then
+		return 3, L["Expand All Groups"], private.ExpandAllBtnOnClick
+	elseif prevIndex == 3 then
+		return 4, L["Collapse All Groups"], private.CollapseAllBtnOnClick
 	end
 end
 
@@ -146,6 +150,18 @@ end
 function private.DeselectAllBtnOnClick(button)
 	local baseFrame = button:GetBaseElement()
 	baseFrame:GetElement("content.groups.groupTree"):DeselectAll()
+	baseFrame:HideDialog()
+end
+
+function private.ExpandAllBtnOnClick(button)
+	local baseFrame = button:GetBaseElement()
+	baseFrame:GetElement("content.groups.groupTree"):ExpandAll()
+	baseFrame:HideDialog()
+end
+
+function private.CollapseAllBtnOnClick(button)
+	local baseFrame = button:GetBaseElement()
+	baseFrame:GetElement("content.groups.groupTree"):CollapseAll()
 	baseFrame:HideDialog()
 end
 

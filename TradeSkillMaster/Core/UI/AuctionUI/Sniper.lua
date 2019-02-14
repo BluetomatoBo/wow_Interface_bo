@@ -110,7 +110,7 @@ function private.GetScanFrame()
 				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
 				:SetStyle("fontHeight", 14)
 				:SetStyle("textColor", "#ffffff")
-				:SetText(L["Cancel Scan"])
+				:SetText(L["Stop Scan"])
 				:SetScript("OnClick", private.CancelButtonOnClick)
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "title")
@@ -354,10 +354,10 @@ function private.FSMCreate()
 		if not context.scanFrame then
 			return
 		end
-		if selection.seller == UnitName("player") then
+		if selection and selection.seller == UnitName("player") then
 			context.scanFrame:GetElement("bottom.actionBtn"):SetDisabled(true)
 				:Draw()
-		elseif selection.isHighBidder then
+		elseif selection and selection.isHighBidder then
 			if context.scanType == "buyout" then
 				context.scanFrame:GetElement("bottom.actionBtn"):SetDisabled(false)
 					:Draw()

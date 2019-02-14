@@ -24,7 +24,7 @@ local OPERATION_INFO = {
 -- ============================================================================
 
 function Crafting.OnInitialize()
-	TSM.Operations.Register("Crafting", OPERATION_INFO, 1, private.GetOperationInfo)
+	TSM.Operations.Register("Crafting", L["Crafting"], OPERATION_INFO, 1, private.GetOperationInfo)
 end
 
 

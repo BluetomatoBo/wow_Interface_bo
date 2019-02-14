@@ -40,7 +40,7 @@ function Operations.OnInitialize()
 	TSM.db:RegisterCallback("OnProfileUpdated", private.OnProfileUpdated)
 end
 
-function Operations.Register(moduleName, operationInfo, maxOperations, infoCallback)
+function Operations.Register(moduleName, localizedName, operationInfo, maxOperations, infoCallback)
 	for key, info in pairs(operationInfo) do
 		assert(type(key) == "string" and type(info) == "table")
 		assert(info.type == type(info.default))
@@ -52,6 +52,7 @@ function Operations.Register(moduleName, operationInfo, maxOperations, infoCallb
 	tinsert(private.operationModules, moduleName)
 	private.operationInfo[moduleName] = {
 		info = operationInfo,
+		localizedName = localizedName,
 		maxOperations = maxOperations,
 		infoCallback = infoCallback,
 	}
@@ -95,6 +96,10 @@ end
 
 function Operations.ModuleExists(moduleName)
 	return private.operationInfo[moduleName] and true or false
+end
+
+function Operations.GetLocalizedName(moduleName)
+	return private.operationInfo[moduleName].localizedName
 end
 
 function Operations.GetMaxNumber(moduleName)

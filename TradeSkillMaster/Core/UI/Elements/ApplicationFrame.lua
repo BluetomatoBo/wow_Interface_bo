@@ -177,14 +177,14 @@ function ApplicationFrame.__init(self)
 	frame.resizingContent:Hide()
 	frame.resizingContent.texture = frame.resizingContent:CreateTexture(nil, "ARTWORK")
 	frame.resizingContent.texture:SetAllPoints()
-	frame.resizingContent.texture:SetColorTexture(TSM.UI.HexToRGBA("#363636"))
+	frame.resizingContent.texture:SetColorTexture(TSM.UI.HexToRGBA("#373737"))
 	frame.resizingContent.texture:Show()
 
 	frame.topEdge = frame:CreateTexture(nil, "BACKGROUND")
 	frame.topEdge:SetPoint("BOTTOMLEFT", frame.innerBorderFrame, "TOPLEFT")
 	frame.topEdge:SetPoint("BOTTOMRIGHT", frame.innerBorderFrame, "TOPRIGHT")
 	frame.topEdge:SetPoint("TOP", frame.headerBgCenter, "BOTTOM")
-	frame.topEdge:SetColorTexture(TSM.UI.HexToRGBA("#363636"))
+	frame.topEdge:SetColorTexture(TSM.UI.HexToRGBA("#373737"))
 end
 
 function ApplicationFrame.Acquire(self)
@@ -690,7 +690,6 @@ end
 function private.FrameOnDragStop(self)
 	self:_GetBaseFrame():StopMovingOrSizing()
 	self:_SavePositionAndSize()
-	self:Draw()
 end
 
 function private.DialogOnMouseUp(dialog)

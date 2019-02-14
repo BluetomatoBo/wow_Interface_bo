@@ -155,9 +155,9 @@ function GroupImport.Commit(self, rootGroup)
 		rootGroup = newGroupName
 	end
 
-	-- get list of new groups which have items in them
+	-- get the list of valid groups
 	local newGroups = TSMAPI_FOUR.Util.AcquireTempTable()
-	for _, relativeGroupPath in pairs(self._items) do
+	for relativeGroupPath in pairs(self._groups) do
 		local groupPath = relativeGroupPath == TSM.CONST.ROOT_GROUP_PATH and rootGroup or TSM.Groups.Path.Join(rootGroup, relativeGroupPath)
 		if not newGroups[groupPath] and groupPath ~= TSM.CONST.ROOT_GROUP_PATH and not TSM.Groups.Exists(groupPath) then
 			newGroups[groupPath] = relativeGroupPath
@@ -277,6 +277,7 @@ function GroupImport.RemoveGroup(self, groupPath)
 end
 
 function GroupImport.RemoveGroupItem(self, groupPath, itemString)
+	assert(self._items[itemString] == groupPath)
 	self._items[itemString] = nil
 end
 

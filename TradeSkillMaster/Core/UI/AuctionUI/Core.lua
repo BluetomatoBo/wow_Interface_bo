@@ -204,7 +204,7 @@ end
 
 function private.SwitchBtnOnClick(button)
 	private.isSwitching = true
-	TSM.db.global.internalData.auctionUIFrameContext.showDefault = button ~= private.defaultUISwitchBtn
+	TSM.db.global.internalData.auctionUIFrameContext.showDefault = true
 	private.HideAuctionFrame()
 	UIParent_OnEvent(UIParent, "AUCTION_HOUSE_SHOW")
 	private.isSwitching = false

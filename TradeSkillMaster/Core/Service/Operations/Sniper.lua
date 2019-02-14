@@ -21,7 +21,7 @@ local OPERATION_INFO = {
 -- ============================================================================
 
 function Sniper.OnInitialize()
-	TSM.Operations.Register("Sniper", OPERATION_INFO, 1, private.GetOperationInfo)
+	TSM.Operations.Register("Sniper", L["Sniper"], OPERATION_INFO, 1, private.GetOperationInfo)
 end
 
 

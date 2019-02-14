@@ -44,7 +44,7 @@ local OPERATION_INFO = {
 -- ============================================================================
 
 function Auctioning.OnInitialize()
-	TSM.Operations.Register("Auctioning", OPERATION_INFO, 20, private.GetOperationInfo)
+	TSM.Operations.Register("Auctioning", L["Auctioning"], OPERATION_INFO, 20, private.GetOperationInfo)
 end
 
 

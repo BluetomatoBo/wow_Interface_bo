@@ -57,12 +57,23 @@ function private.GetGroupsFrame()
 		:SetMinWidth(250, 250)
 		:SetLeftChild(TSMAPI_FOUR.UI.NewElement("Frame", "groupSelection")
 			:SetLayout("VERTICAL")
-			:AddChild(TSMAPI_FOUR.UI.NewElement("SearchInput", "search")
+			:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "search")
+				:SetLayout("HORIZONTAL")
 				:SetStyle("height", 20)
 				:SetStyle("margin", { left = 12, right = 12, top = 35, bottom = 12 })
-				:SetText(private.groupSearch)
-				:SetHintText(L["Search Groups"])
-				:SetScript("OnTextChanged", private.GroupSearchOnTextChanged)
+				:AddChild(TSMAPI_FOUR.UI.NewElement("SearchInput", "input")
+					:SetStyle("height", 20)
+					:SetText(private.groupSearch)
+					:SetHintText(L["Search Groups"])
+					:SetScript("OnTextChanged", private.GroupSearchOnTextChanged)
+				)
+				:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "moreBtn")
+					:SetStyle("width", 18)
+					:SetStyle("height", 18)
+					:SetStyle("margin.left", 8)
+					:SetStyle("backgroundTexturePack", "iconPack.18x18/More")
+					:SetScript("OnClick", private.MoreBtnOnClick)
+				)
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Texture", "line")
 				:SetStyle("height", 2)
@@ -267,8 +278,8 @@ function private.GetGroupsPage(self, button)
 		TSM.Analytics.PageView("main/groups/operations")
 		return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "operations")
 			:SetStyle("background", "#1e1e1e")
-			:SetStyle("padding", { top = 10 })
-			:AddChild(private.GetModuleOperationFrame("Auctioning"):SetStyle("margin", nil))
+			:SetStyle("padding.top", 10)
+			:AddChild(private.GetModuleOperationFrame("Auctioning"))
 			:AddChild(private.GetModuleOperationFrame("Crafting"))
 			:AddChild(private.GetModuleOperationFrame("Mailing"))
 			:AddChild(private.GetModuleOperationFrame("Shopping"))
@@ -442,7 +453,7 @@ end
 -- ============================================================================
 
 function private.GroupSearchOnTextChanged(input)
-	local groupsContentFrame = input:GetElement("__parent.__parent.content")
+	local groupsContentFrame = input:GetElement("__parent.__parent.__parent.content")
 	-- Copy search filter
 	local text = strlower(strtrim(input:GetText()))
 
@@ -456,7 +467,7 @@ function private.GroupSearchOnTextChanged(input)
 	if not strmatch(strlower(private.currentGroupPath), searchStr) then
 		local titleFrame = groupsContentFrame:GetElement("header.title")
 		local buttonsFrame = groupsContentFrame:GetElement("buttons")
-		input:GetElement("__parent.groupTree"):SetSelectedGroup(TSM.CONST.ROOT_GROUP_PATH)
+		input:GetElement("__parent.__parent.groupTree"):SetSelectedGroup(TSM.CONST.ROOT_GROUP_PATH)
 		titleFrame:GetElement("text")
 			:SetText(L["No group selected"])
 			:SetEditing(false)
@@ -466,9 +477,33 @@ function private.GroupSearchOnTextChanged(input)
 		buttonsFrame:Draw()
 		titleFrame:Draw()
 	end
-	input:GetElement("__parent.groupTree")
+	input:GetElement("__parent.__parent.groupTree")
 		:SetSearchString(private.groupSearch)
 		:Draw()
+end
+
+local function MoreDialogRowIterator(_, prevIndex)
+	if prevIndex == nil then
+		return 1, L["Expand All Groups"], private.ExpandAllBtnOnClick
+	elseif prevIndex == 1 then
+		return 2, L["Collapse All Groups"], private.CollapseAllBtnOnClick
+	end
+end
+
+function private.MoreBtnOnClick(button)
+	button:GetBaseElement():ShowMoreButtonDialog(button, MoreDialogRowIterator)
+end
+
+function private.ExpandAllBtnOnClick(button)
+	local baseFrame = button:GetBaseElement()
+	baseFrame:GetElement("content.groups.groupSelection.groupTree"):ExpandAll()
+	baseFrame:HideDialog()
+end
+
+function private.CollapseAllBtnOnClick(button)
+	local baseFrame = button:GetBaseElement()
+	baseFrame:GetElement("content.groups.groupSelection.groupTree"):CollapseAll()
+	baseFrame:HideDialog()
 end
 
 function private.GroupTreeGetList(groups, headerNameLookup)
@@ -588,6 +623,7 @@ local function UngroupedMoreDialogRowIterator(_, prevIndex)
 		return 2, L["Deselect All Items"], private.UngroupedDeselectAllBtnOnClick
 	end
 end
+
 function private.UngroupedMoreBtnOnClick(button)
 	button:GetBaseElement():ShowMoreButtonDialog(button, UngroupedMoreDialogRowIterator)
 end
@@ -619,6 +655,7 @@ local function GroupedMoreDialogRowIterator(_, prevIndex)
 		return 2, L["Deselect All Items"], private.GroupedDeselectAllBtnOnClick
 	end
 end
+
 function private.GroupedMoreBtnOnClick(button)
 	button:GetBaseElement():ShowMoreButtonDialog(button, GroupedMoreDialogRowIterator)
 end

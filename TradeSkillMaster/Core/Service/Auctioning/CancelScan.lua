@@ -256,11 +256,10 @@ function private.AuctionScanOnFilterDone(_, filter)
 				:Equal("autoBaseItemString", itemString)
 				:Equal("saleStatus", 0)
 				:OrderBy("index", false)
-			for _, auctionsDBRow in auctionsDBQuery:Iterator() do
+			for _, auctionsDBRow in auctionsDBQuery:IteratorAndRelease() do
 				private.GenerateCancels(auctionsDBRow, itemString, query, groupPath)
 				TSMAPI_FOUR.Thread.Yield()
 			end
-			auctionsDBQuery:Release()
 		else
 			TSM:LOG_WARN("Item removed from group since start of scan: %s", itemString)
 		end

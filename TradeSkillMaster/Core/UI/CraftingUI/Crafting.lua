@@ -532,7 +532,11 @@ local function MoreDialogRowIterator(_, prevIndex)
 	elseif prevIndex == 1 then
 		return 2, L["Deselect All Groups"], private.DeselectAllBtnOnClick
 	elseif prevIndex == 2 then
-		return 3, L["Create Profession Group"], private.CreateProfessionBtnOnClick
+		return 3, L["Expand All Groups"], private.ExpandAllBtnOnClick
+	elseif prevIndex == 3 then
+		return 4, L["Collapse All Groups"], private.CollapseAllBtnOnClick
+	elseif prevIndex == 4 then
+		return 5, L["Create Profession Group"], private.CreateProfessionBtnOnClick
 	end
 end
 function private.MoreBtnOnClick(button)
@@ -548,6 +552,18 @@ end
 function private.DeselectAllBtnOnClick(button)
 	local baseFrame = button:GetBaseElement()
 	baseFrame:GetElement("content.crafting.left.viewContainer.main.content.group.groupTree"):DeselectAll()
+	baseFrame:HideDialog()
+end
+
+function private.ExpandAllBtnOnClick(button)
+	local baseFrame = button:GetBaseElement()
+	baseFrame:GetElement("content.crafting.left.viewContainer.main.content.group.groupTree"):ExpandAll()
+	baseFrame:HideDialog()
+end
+
+function private.CollapseAllBtnOnClick(button)
+	local baseFrame = button:GetBaseElement()
+	baseFrame:GetElement("content.crafting.left.viewContainer.main.content.group.groupTree"):CollapseAll()
 	baseFrame:HideDialog()
 end
 

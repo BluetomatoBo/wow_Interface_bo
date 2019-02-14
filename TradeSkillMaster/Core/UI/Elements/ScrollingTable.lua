@@ -291,20 +291,10 @@ function ScrollingTable.Draw(self)
 			row:SetVisible(false)
 			row:ClearData()
 		else
-			local topInset, bottomInset = 0, 0
-			if i == 1 then
-				-- this is the first visible row so might have an inset at the top
-				topInset = max(scrollOffset % rowHeight, 0)
-			end
-			if i == numVisibleRows then
-				-- this is the last visible row so might have an inset at the bottom
-				bottomInset = max((numVisibleRows + dataOffset) * rowHeight - (scrollOffset + visibleHeight), 0)
-			end
 			row:SetVisible(true)
 			self:_SetRowData(row, data)
 			row:SetBackgroundColor(dataIndex % 2 == 1 and "#00000000" or altBackground)
 			row:SetHeight(rowHeight)
-			row:SetHitRectInsets(0, 0, topInset, bottomInset)
 		end
 	end
 

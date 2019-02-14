@@ -83,7 +83,7 @@ function Operations.GetOperationManagementElements()
 		:AddChild(Operations.CreateHeadingLine("groupManagement", L["Group Management"]))
 		:AddChild(Operations.CreateSettingLine("applyNewGroup", L["Apply operation to group:"])
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Dropdown", "dropdown")
-				:SetHintText(L["None"])
+				:SetHintText(L["Select operation"])
 				:SetItems(private.groupList)
 				:SetScript("OnSelectionChanged", private.ApplyNewOnSelectionChanged)
 			)
@@ -135,12 +135,14 @@ function Operations.CreateSettingLine(id, labelText, disabled)
 		)
 end
 
-function Operations.CheckCustomPrice(value)
+function Operations.CheckCustomPrice(value, ignoreError)
 	if TSMAPI_FOUR.CustomPrice.Validate(value) then
 		return true
 	else
 		-- TODO: better error message
-		TSM:Print("Your custom price was incorrect. Please try again.")
+		if not ignoreError then
+			TSM:Print("Your custom price was incorrect. Please try again.")
+		end
 		return false
 	end
 end
@@ -404,25 +406,34 @@ function private.EditBtnOnClick(button)
 end
 
 function private.ApplyNewOnSelectionChanged(dropdown, groupPath)
-	TSM.Groups.SetOperationOverride(groupPath, private.currentModule, true)
-	local numOperations = 0
-	local lastOperationName = nil
-	for _, operationName in TSM.Groups.OperationIterator(groupPath, private.currentModule) do
-		lastOperationName = operationName
-		numOperations = numOperations + 1
+	local hasOperation = false
+	for _, operationName in TSM.Operations.GroupOperationIterator(private.currentModule, groupPath) do
+		if operationName == private.currentOperationName then
+			hasOperation = true
+			break
+		end
 	end
-	if numOperations == TSM.Operations.GetMaxNumber(private.currentModule) then
-		-- replace the last operation since we're already at the max number of operations
-		TSM.Groups.RemoveOperation(groupPath, private.currentModule, numOperations)
-		TSM:Printf(L["%s previously had the max number of operations, so removed %s."], TSM.Groups.Path.Format(groupPath, true), "|cff99ffff"..lastOperationName.."|r")
-	end
-	TSM.Groups.AppendOperation(groupPath, private.currentModule, private.currentOperationName)
-	TSM:Printf(L["Added %s to %s."], "|cff99ffff"..private.currentOperationName.."|r", TSM.Groups.Path.Format(groupPath, true))
-
-	-- add a new line
 	local parentElement = dropdown:GetParentElement():GetParentElement()
-	parentElement:AddChild(private.CreateGroupOperationLine(groupPath))
-	parentElement:GetParentElement():Draw()
+	if not hasOperation then
+		TSM.Groups.SetOperationOverride(groupPath, private.currentModule, true)
+		local numOperations = 0
+		local lastOperationName = nil
+		for _, operationName in TSM.Groups.OperationIterator(groupPath, private.currentModule) do
+			lastOperationName = operationName
+			numOperations = numOperations + 1
+		end
+		if numOperations == TSM.Operations.GetMaxNumber(private.currentModule) then
+			-- replace the last operation since we're already at the max number of operations
+			TSM.Groups.RemoveOperation(groupPath, private.currentModule, numOperations)
+			TSM:Printf(L["%s previously had the max number of operations, so removed %s."], TSM.Groups.Path.Format(groupPath, true), "|cff99ffff"..lastOperationName.."|r")
+		end
+		TSM.Groups.AppendOperation(groupPath, private.currentModule, private.currentOperationName)
+		TSM:Printf(L["Added %s to %s."], "|cff99ffff"..private.currentOperationName.."|r", TSM.Groups.Path.Format(groupPath, true))
+		parentElement:AddChild(private.CreateGroupOperationLine(groupPath))
+	end
+
+	dropdown:SetSelection(nil)
+	parentElement:Draw()
 end
 
 function private.ViewGroupOnClick(button)

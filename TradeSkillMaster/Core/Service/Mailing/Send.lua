@@ -49,6 +49,9 @@ function private.SendMailThread(recipient, subject, body, money, items, isGroup)
 	end
 
 	if not items then
+		if TSM.db.global.mailingOptions.sendMessages then
+			private.PrintMailMessage(money, items, recipient)
+		end
 		private.SendMail(recipient, subject, body, money)
 
 		return
@@ -61,7 +64,7 @@ function private.SendMailThread(recipient, subject, body, money, items, isGroup)
 		if isGroup and TSM.db.global.mailingOptions.sendItemsIndividually then
 			individually = true
 		end
-		private.PrintMailMessage(items, recipient, individually)
+		private.PrintMailMessage(money, items, recipient, individually)
 	end
 
 	local itemInfo = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
@@ -149,7 +152,12 @@ function private.SendMailThread(recipient, subject, body, money, items, isGroup)
 	TSMAPI_FOUR.Thread.ReleaseSafeTempTable(itemInfo)
 end
 
-function private.PrintMailMessage(items, target, individually)
+function private.PrintMailMessage(money, items, target, individually)
+	if money > 0 and not items then
+		TSM:Printf(L["Sending %s to %s"], TSM.Money.ToString(money), target)
+		return
+	end
+
 	local itemList = ""
 	for k, v in pairs(items) do
 		local coloredItem = TSMAPI_FOUR.Item.GetLink(k)
@@ -157,18 +165,18 @@ function private.PrintMailMessage(items, target, individually)
 	end
 	itemList = strtrim(itemList, ", ")
 
-	if private.isCOD then
-		TSM:Printf(L["Sending %s to %s with a COD of %s"], itemList, target, TSM.Money.ToString(private.money, "|cffff0000"))
-	elseif individually then
+	if next(items) and money < 0 then
+		TSM:Printf(L["Sending %s to %s with a COD of %s"], itemList, target, TSM.Money.ToString(money, "|cffff0000"))
+	elseif next(items) and individually then
 		TSM:Printf(L["Sending %s individually to %s"], itemList, target)
-	elseif items then
+	elseif next(items) then
 		TSM:Printf(L["Sending %s to %s"], itemList, target)
 	end
 end
 
 function private.SendMail(recipient, subject, body, money)
 	if subject == "" then
-		subject = "TSM Mailing"
+		subject = SendMailSubjectEditBox:GetText() or "TSM Mailing"
 	end
 
 	if money > 0 then
@@ -183,7 +191,11 @@ function private.SendMail(recipient, subject, body, money)
 	end
 
 	SendMail(recipient, subject, body)
-	TSMAPI_FOUR.Thread.WaitForEvent("MAIL_SUCCESS")
+	if TSMAPI_FOUR.Thread.WaitForEvent("MAIL_SUCCESS", "MAIL_FAILED") == "MAIL_SUCCESS" then
+		TSMAPI_FOUR.Thread.WaitForEvent("BAG_UPDATE_DELAYED")
+	else
+		TSMAPI_FOUR.Thread.Sleep(0.5)
+	end
 end
 
 function private.HasPendingAttachments()

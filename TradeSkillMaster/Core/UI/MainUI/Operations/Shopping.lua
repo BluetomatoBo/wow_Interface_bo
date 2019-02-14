@@ -46,20 +46,30 @@ function private.GetShoppingOperationSettings(operationName)
 			:SetStyle("padding.top", -8)
 			:AddChild(TSM.MainUI.Operations.CreateHeadingLine("generalOptions", L["General Options"]))
 			:AddChild(TSM.MainUI.Operations.CreateLinkedSettingLine("maxPrice", L["Maximum Auction Price (Per Item)"]))
-			:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "maxPriceFrame")
+			:AddChild(TSMAPI_FOUR.UI.NewElement("BorderedFrame", "maxPrice")
 				:SetLayout("HORIZONTAL")
-				:SetStyle("height", 20)
+				:SetStyle("borderTheme", "roundLight")
 				:SetStyle("margin.bottom", 16)
-				:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "maxPriceInput")
-					:SetStyle("background", "#1ae2e2e2")
-					:SetStyle("textColor", "#ffffff")
-					:SetStyle("margin.right", 10)
-					:SetStyle("height", 24)
-					:SetStyle("justifyH", "LEFT")
-					:SetText(TSM.Money.ToString(operation.maxPrice) or operation.maxPrice)
-					:SetDisabled(TSM.Operations.HasRelationship("Shopping", private.currentOperationName, "maxPrice"))
-					:SetSettingInfo(operation, "maxPrice", TSM.MainUI.Operations.CheckCustomPrice)
+				:AddChild(TSMAPI_FOUR.UI.NewElement("ScrollFrame", "scroll")
+					:SetStyle("height", 61)
+					:SetStyle("margin.bottom", 2)
+					:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "input")
+						:SetStyle("height", 59)
+						:SetStyle("margin", { left = 2, right = 8 })
+						:SetStyle("font", TSM.UI.Fonts.MontserratRegular)
+						:SetStyle("fontHeight", 14)
+						:SetStyle("justifyH", "LEFT")
+						:SetText(TSM.Money.ToString(operation.maxPrice) or operation.maxPrice)
+						:SetDisabled(TSM.Operations.HasRelationship("Shopping", private.currentOperationName, "maxPrice"))
+						:SetSettingInfo(operation, "maxPrice", TSM.MainUI.Operations.CheckCustomPrice)
+						:SetSpacing(6)
+						:SetMultiLine(true, true)
+						:SetScript("OnSizeChanged", private.OperationOnSizeChanged)
+						:SetScript("OnCursorChanged", private.OperationOnCursorChanged)
+						:SetScript("OnEnterPressed", private.MaxPriceOnEnterPressed)
+					)
 				)
+				:SetScript("OnMouseUp", private.OperationOnMouseUp)
 			)
 			:AddChild(TSM.MainUI.Operations.CreateLinkedSettingLine("showAboveMaxPrice", L["Show auctions above max price?"])
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "showAboveMaxPriceSettingFrame")
@@ -115,3 +125,38 @@ function private.GetShoppingOperationSettings(operationName)
 			:AddChild(TSM.MainUI.Operations.GetOperationManagementElements("Shopping", private.currentOperationName))
 		)
 end
+
+
+
+-- ============================================================================
+-- Local Script Handlers
+-- ============================================================================
+
+function private.OperationOnSizeChanged(input, width, height)
+	if input:HasFocus() then
+		input:SetText(input:GetText())
+	end
+
+	input:SetStyle("height", height)
+	input:GetParentElement():Draw()
+end
+
+function private.OperationOnCursorChanged(input, _, y)
+	local scrollFrame = input:GetParentElement()
+	scrollFrame._scrollbar:SetValue(TSMAPI_FOUR.Util.Round(abs(y) / (input:_GetStyle("height") - 22) * scrollFrame:_GetMaxScroll()))
+end
+
+function private.OperationOnMouseUp(frame)
+	frame:GetElement("scroll.input"):SetFocused(true)
+end
+
+function private.MaxPriceOnEnterPressed(input)
+	if not TSM.MainUI.Operations.CheckCustomPrice(input:GetText(), true) then
+		local operation = TSM.Operations.GetSettings("Shopping", private.currentOperationName)
+		input:SetText(TSM.Money.ToString(operation.maxPrice) or operation.maxPrice)
+		input:SetFocused(true)
+
+		private.OperationOnSizeChanged(input, nil, input:GetHeight())
+	end
+end
+
