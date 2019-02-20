@@ -1,14 +1,14 @@
 local mod	= DBM:NewMod(2343, "DBM-ZuldazarRaid", 3, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18341 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18368 $"):sub(12, -3))
 --mod:SetCreatureID(138967)--146409 or 146416 probably
 mod:SetEncounterID(2281)
 --mod:DisableESCombatDetection()
 mod:SetZone()
 --mod:SetBossHPInfoToHighest()
 --mod:SetUsedIcons(1, 2, 8)
-mod:SetHotfixNoticeRev(18175)
+mod:SetHotfixNoticeRev(18363)
 --mod:SetMinSyncRevision(16950)
 --mod.respawnTime = 35
 
@@ -100,11 +100,12 @@ local yellHeartofFrost					= mod:NewYell(289220)
 local specWarnWaterBoltVolley			= mod:NewSpecialWarningInterruptCount(290084, "HasInterrupt", nil, nil, 1, 2)
 --Stage Three:
 local specWarnOrbofFrost				= mod:NewSpecialWarningDodgeCount(288619, nil, nil, nil, 2, 2)
-local specWarnPrismaticImage			= mod:NewSpecialWarningSwitchCount(288747, "Dps", nil, nil, 1, 2)
+local specWarnPrismaticImage			= mod:NewSpecialWarningSwitchCount(288747, nil, nil, 2, 1, 2)
 
 --General
 local timerPhaseTransition				= mod:NewPhaseTimer(55)
 local timerHowlingWindsCD				= mod:NewCDCountTimer(80, 288169, nil, nil, nil, 6)--Mythic
+local berserkTimer						= mod:NewBerserkTimer(900)
 --Stage One: Burning Seas
 mod:AddTimerLine(DBM:EJ_GetSectionInfo(19557))
 local timerCorsairCD					= mod:NewCDTimer(60.4, "ej19690", nil, nil, nil, 1, "Interface\\ICONS\\Inv_tabard_kultiran")
@@ -131,8 +132,6 @@ mod:AddTimerLine(DBM:EJ_GetSectionInfo(19624))
 local timerOrbofFrostCD					= mod:NewCDCountTimer(60, 288619, nil, nil, nil, 3, nil, DBM_CORE_HEROIC_ICON)
 local timerPrismaticImageCD				= mod:NewCDCountTimer(41.3, 288747, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
 local timerCrystallineDustCD			= mod:NewCDCountTimer(14.1, 289940, nil, nil, 2, 5, nil, DBM_CORE_TANK_ICON, true)
-
-local berserkTimer						= mod:NewBerserkTimer(900)
 
 --Stage One: Burning Seas
 local countdownRingofIce				= mod:NewCountdown(60, 285459, true)
@@ -344,7 +343,7 @@ function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if spellId == 287565 then
 		if self.vb.phase == 1 then
-			timerAvalancheCD:Start(self:IsMythic() and 45 and 60)
+			timerAvalancheCD:Start(self:IsMythic() and 45 or 60)
 		else
 			timerAvalancheCD:Start(self:IsMythic() and 81.5 or 75)--75-90
 		end
