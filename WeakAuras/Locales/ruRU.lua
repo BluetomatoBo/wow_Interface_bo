@@ -141,6 +141,8 @@ L["Auras:"] = "Эффекты:"
 --[[Translation missing --]]
 L["Author Options"] = "Author Options"
 --[[Translation missing --]]
+L["Auto"] = "Auto"
+--[[Translation missing --]]
 L["Autocast Shine"] = "Autocast Shine"
 --[[Translation missing --]]
 L["Auto-Clone (Show all Matches)"] = "Auto-Clone (Show all Matches)"
@@ -229,6 +231,8 @@ L["Combine all matches"] = "Combine all matches"
 L["Conditions"] = "Условия"
 L["Contains"] = "Содержит"
 --[[Translation missing --]]
+L["Cooldown"] = "Cooldown"
+--[[Translation missing --]]
 L["Cooldown Edge"] = "Cooldown Edge"
 L["Cooldown Progress (Equipment Slot)"] = "Восстановление (ячейка экипировки)"
 L["Cooldown Progress (Item)"] = "Восстановление (предмет)"
@@ -250,8 +254,12 @@ L["Cross"] = "Крест"
 L["Crowd Controlled"] = "Потеря контроля над персонажем (CC)"
 L["Crushing"] = "Сокрушительный удар"
 L["Cunning"] = "Хитрость"
-L["Current Zone Group ID: "] = "ID текущей группы: "
-L["Current Zone ID: "] = "ID текущей зоны: "
+--[[Translation missing --]]
+L["Current Zone Group"] = "Current Zone Group"
+--[[Translation missing --]]
+L[ [=[Current Zone
+]=] ] = [=[Current Zone
+]=]
 L["Curse"] = "Проклятие"
 L["Custom"] = "Самостоятельно"
 --[[Translation missing --]]
@@ -296,6 +304,8 @@ L["Drain"] = "Вытягивание"
 --[[Translation missing --]]
 L["Dropdown Menu"] = "Dropdown Menu"
 L["Drowning"] = "Утопление"
+--[[Translation missing --]]
+L["Dungeons"] = "Dungeons"
 L["Durability Damage"] = "Повреждение экипировки"
 L["Durability Damage All"] = "Повреждение всей экипировки"
 L["Elide"] = "Опускать"
@@ -321,6 +331,10 @@ L["Every Frame"] = "Каждый кадр"
 L["Extend Outside"] = "Выйти за границы"
 L["Extra Amount"] = "Доп-е количество"
 L["Extra Attacks"] = "Дополнительные атаки"
+--[[Translation missing --]]
+L["Extra Options: %s"] = "Extra Options: %s"
+--[[Translation missing --]]
+L["Extra Options: none"] = "Extra Options: none"
 L["Extra Spell Name"] = "Доп-е название заклинания"
 L["Fade In"] = "Появление"
 L["Fade Out"] = "Исчезновение"
@@ -401,7 +415,11 @@ L["Id"] = "ID"
 L["If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"] = "If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"
 L["Ignore Rune CD"] = "Игнорировать задержку руны"
 --[[Translation missing --]]
+L["Ignore Rune CDs"] = "Ignore Rune CDs"
+--[[Translation missing --]]
 L["Ignore Spell Known"] = "Ignore Spell Known"
+--[[Translation missing --]]
+L["Ignore Unknown Spell"] = "Ignore Unknown Spell"
 L["Immune"] = "Невосприимчивость"
 L["Import"] = "Импорт"
 L["Import as Copy"] = "Копировать"
@@ -538,7 +556,6 @@ L["Next"] = "Далее"
 L["No Children"] = "Нет индикаций"
 L["No Instance"] = "Не в подземелье"
 L["No Profiling information saved."] = "Нет данных профилирования."
-L["none"] = "нет"
 L["None"] = "Нет"
 L["Non-player Character"] = "Не игровой персонаж"
 L["Normal"] = "Обычный"
@@ -620,6 +637,8 @@ L["PvP Talent selected"] = "PvP талант выбран"
 L["Radius"] = "Радиус"
 L["Raid"] = "Рейд"
 L["Raid Warning"] = "Объявление рейду"
+--[[Translation missing --]]
+L["Raids"] = "Raids"
 L["Range"] = "Дальний бой"
 L["Range Check"] = "Проверка дистанции"
 L["Ready Check"] = "Проверка готовности"
@@ -703,6 +722,8 @@ L["Show all Matches"] = "Show all Matches"
 L["Show all Matches from all Units"] = "Show all Matches from all Units"
 L["Show CD of Charge"] = "Показать восстановление заряда"
 L["Show Code"] = "Показать код"
+--[[Translation missing --]]
+L["Show GCD"] = "Show GCD"
 L["Show Global Cooldown"] = "Показать общее время восстановления (GCD)"
 L["Show Incoming Heal"] = "Показать входящее исцеление"
 --[[Translation missing --]]
@@ -785,6 +806,8 @@ L["Stop Profiling"] = "Остановить профилирование"
 --[[Translation missing --]]
 L["String"] = "String"
 L["Summon"] = "Призыв"
+--[[Translation missing --]]
+L["Supports multiple entries, separated by commas"] = "Supports multiple entries, separated by commas"
 L[ [=[Supports multiple entries, separated by commas
 ]=] ] = [=[Можно указать несколько значений, разделенных запятыми.
 ]=]
@@ -792,9 +815,9 @@ L["Swing"] = "Ближний бой"
 L["Swing Timer"] = "Таймер Swing (время между атаками оружия)"
 L["System"] = "Система"
 L["Tabard"] = "Гербовая накидка"
+L["Talent selected"] = "Выбран талант"
 --[[Translation missing --]]
 L["Talent Selected"] = "Talent Selected"
-L["Talent selected"] = "Выбран талант"
 L["Talent Specialization"] = "Специализация"
 L["Tank"] = "Танк"
 L["Tanking And Highest"] = "Танкует и макс. угрозa"
@@ -847,6 +870,14 @@ L["Totem"] = "Тотем"
 L["Totem #%i"] = "Тотем #%i"
 L["Totem Name"] = "Название тотема"
 L["Totem Number"] = "Номер тотема"
+--[[Translation missing --]]
+L["Track Cooldowns"] = "Track Cooldowns"
+--[[Translation missing --]]
+L["Tracking Charge %i"] = "Tracking Charge %i"
+--[[Translation missing --]]
+L["Tracking Charge CDs"] = "Tracking Charge CDs"
+--[[Translation missing --]]
+L["Tracking Only Cooldown"] = "Tracking Only Cooldown"
 L["Transmission error"] = "Ошибка передачи"
 L["Triangle"] = "Треугольник"
 L["Trigger"] = "Триггер"

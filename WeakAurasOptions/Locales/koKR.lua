@@ -15,8 +15,7 @@ local L = WeakAuras.L
 	L["%i Matches"] = "%i개 일치"
 	L["%s Color"] = "%s 색상"
 	L["%s total auras"] = "총 %s개 효과"
-	--[[Translation missing --]]
-	L["|cFFFF0000Duplicate Keys Found!|nPlease change the keys of the following options!|r"] = "|cFFFF0000Duplicate Keys Found!|nPlease change the keys of the following options!|r"
+	L["|cFFFF0000Duplicate Keys Found!|nPlease change the keys of the following options!|r"] = "|cFFFF0000 중복 키를 찾았습니다!|n 다음 옵션의 키를 변경하십시오!|r"
 	L["1 Match"] = "1개 일치"
 	L["1. Text"] = "1. 문자"
 	L["1. Text Settings"] = "1. 문자 설정"
@@ -193,8 +192,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Delete children and group"] = "자식과 그룹 삭제"
 	L["Delete Trigger"] = "활성 조건 삭제"
 	L["Desaturate"] = "흑백"
-	--[[Translation missing --]]
-	L["Description"] = "Description"
+	L["Description"] = "기술"
 	--[[Translation missing --]]
 	L["Description Text"] = "Description Text"
 	--[[Translation missing --]]
@@ -211,8 +209,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Distribute Vertically"] = "세로로 퍼뜨리기"
 	L["Do not group this display"] = "이 디스플레이 그룹하지 않기"
 	L["Done"] = "완료"
-	--[[Translation missing --]]
-	L["Don't skip this Version"] = "Don't skip this Version"
+	L["Don't skip this Version"] = "이 버전을 건너 뛰지 마십시오."
 	L["Down"] = "아래로"
 	L["Drag to move"] = "끌기 - 이동"
 	L["Duplicate"] = "복제"
@@ -222,8 +219,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	--[[Translation missing --]]
 	L["Dynamic Duration"] = "Dynamic Duration"
 	L["Dynamic Group"] = "유동적 그룹"
-	--[[Translation missing --]]
-	L["Dynamic Group Settings"] = "Dynamic Group Settings"
+	L["Dynamic Group Settings"] = "유동적 그룹 셋팅"
 	L["Dynamic Information"] = "유동적 정보"
 	L["Dynamic information from first active trigger"] = "첫번째 활성화된 활성 조건의 유동적 정보"
 	L["Dynamic information from Trigger %i"] = "활성 조건 %i의 유동적 정보"
@@ -470,11 +466,9 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Prevents duration information from decreasing when an aura refreshes. May cause problems if used with multiple auras with different durations."] = "효과가 갱신 됐을 때 지속시간 정보가 감소하지 않게 방지합니다. 다른 지속시간을 가진 여러 효과들과 같이 사용하면 문제가 발생할 수 있습니다."
 	L["Processed %i chars"] = "%i 문자 복사됨"
 	L["Progress Bar"] = "진행 바"
-	--[[Translation missing --]]
-	L["Progress Bar Settings"] = "Progress Bar Settings"
+	L["Progress Bar Settings"] = "진행 바 설정"
 	L["Progress Texture"] = "진행 텍스쳐"
-	--[[Translation missing --]]
-	L["Progress Texture Settings"] = "Progress Texture Settings"
+	L["Progress Texture Settings"] = "진행 텍스쳐 설정"
 	L["Purple Rune"] = "보라색 룬"
 	L["Put this display in a group"] = "이 디스플레이를 그룹에 넣기"
 	L["Radius"] = "반경"

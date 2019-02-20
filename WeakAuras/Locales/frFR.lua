@@ -132,6 +132,8 @@ L["Aura:"] = "Aura:"
 L["Auras:"] = "Auras:"
 L["Author Options"] = "Options de l'Auteur"
 --[[Translation missing --]]
+L["Auto"] = "Auto"
+--[[Translation missing --]]
 L["Autocast Shine"] = "Autocast Shine"
 L["Auto-Clone (Show all Matches)"] = "Clonage Automatique (Afficher tous les résultats)"
 L["Automatic"] = "Automatique"
@@ -215,6 +217,8 @@ L["Combine all matches"] = "Combiner toutes les correspondances"
 L["Conditions"] = "Conditions"
 L["Contains"] = "Contient"
 --[[Translation missing --]]
+L["Cooldown"] = "Cooldown"
+--[[Translation missing --]]
 L["Cooldown Edge"] = "Cooldown Edge"
 L["Cooldown Progress (Equipment Slot)"] = "Progression recharge (Emplacement d'équipement)"
 L["Cooldown Progress (Item)"] = "Progression Recharge (Objet)"
@@ -237,8 +241,12 @@ L["Crowd Controlled"] = "Contrôlé"
 L["Crushing"] = "Ecrasant"
 --[[Translation missing --]]
 L["Cunning"] = "Cunning"
-L["Current Zone Group ID: "] = "ID du Groupe de Zone Actuelle:"
-L["Current Zone ID: "] = "ID de la Zone Actuelle:"
+--[[Translation missing --]]
+L["Current Zone Group"] = "Current Zone Group"
+--[[Translation missing --]]
+L[ [=[Current Zone
+]=] ] = [=[Current Zone
+]=]
 L["Curse"] = "Malédiction"
 L["Custom"] = "Personnalisé"
 L["Custom Configuration"] = "Configuration Personnalisée"
@@ -280,6 +288,8 @@ L["Down"] = "Bas"
 L["Drain"] = "Drain"
 L["Dropdown Menu"] = "Menu Déroulant"
 L["Drowning"] = "Noyade"
+--[[Translation missing --]]
+L["Dungeons"] = "Dungeons"
 L["Durability Damage"] = "Perte de durabilité"
 L["Durability Damage All"] = "Perte de durabilité sur tout"
 L["Elide"] = "Elider"
@@ -304,6 +314,10 @@ L["Every Frame"] = "Chaque image"
 L["Extend Outside"] = "Étendre à l'extérieur"
 L["Extra Amount"] = "Quantité extra"
 L["Extra Attacks"] = "Attaque extra"
+--[[Translation missing --]]
+L["Extra Options: %s"] = "Extra Options: %s"
+--[[Translation missing --]]
+L["Extra Options: none"] = "Extra Options: none"
 L["Extra Spell Name"] = "Nom de Sort supplémentaire"
 L["Fade In"] = "Fondu entrant"
 L["Fade Out"] = "Fondu sortant"
@@ -382,7 +396,11 @@ L["Id"] = "Id"
 L["If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"] = "If you require additional assistance, please open a ticket on GitHub or visit our Discord at https://discord.gg/wa2!"
 L["Ignore Rune CD"] = "Ignorer CD runes"
 --[[Translation missing --]]
+L["Ignore Rune CDs"] = "Ignore Rune CDs"
+--[[Translation missing --]]
 L["Ignore Spell Known"] = "Ignore Spell Known"
+--[[Translation missing --]]
+L["Ignore Unknown Spell"] = "Ignore Unknown Spell"
 L["Immune"] = "Insensible"
 L["Import"] = "Importer"
 L["Import as Copy"] = "Importer en tant que Copie"
@@ -519,7 +537,6 @@ L["No Children"] = "Pas d'Enfants"
 L["No Instance"] = "Pas d'instance"
 --[[Translation missing --]]
 L["No Profiling information saved."] = "No Profiling information saved."
-L["none"] = "aucun"
 L["None"] = "Aucun"
 L["Non-player Character"] = "Personnage non-joueur"
 L["Normal"] = "Normal"
@@ -607,6 +624,8 @@ L["PvP Talent selected"] = "Talent JcJ sélectionné"
 L["Radius"] = "Rayon"
 L["Raid"] = "Raid "
 L["Raid Warning"] = "Avertissement de Raid"
+--[[Translation missing --]]
+L["Raids"] = "Raids"
 L["Range"] = "Portée"
 L["Range Check"] = "Vérification de la portée"
 L["Ready Check"] = "Appel de Raid"
@@ -691,6 +710,8 @@ L["Show all Matches"] = "Show all Matches"
 L["Show all Matches from all Units"] = "Show all Matches from all Units"
 L["Show CD of Charge"] = "Afficher le Temps de Recharge de la charge"
 L["Show Code"] = "Montrer Code"
+--[[Translation missing --]]
+L["Show GCD"] = "Show GCD"
 L["Show Global Cooldown"] = "Afficher le Temps de Recharge Global"
 L["Show Incoming Heal"] = "Afficher les Soins en Cours"
 --[[Translation missing --]]
@@ -781,15 +802,17 @@ L["Stop Profiling"] = "Arrêter le Profilage"
 --[[Translation missing --]]
 L["String"] = "String"
 L["Summon"] = "Invocation"
+--[[Translation missing --]]
+L["Supports multiple entries, separated by commas"] = "Supports multiple entries, separated by commas"
 L[ [=[Supports multiple entries, separated by commas
 ]=] ] = "Prend en charge plusieurs entrées, séparées par des virgules"
 L["Swing"] = "Coup"
 L["Swing Timer"] = "Vitesse d'attaque"
 L["System"] = "Système"
 L["Tabard"] = "Tabard"
+L["Talent selected"] = "Talent sélectionné"
 --[[Translation missing --]]
 L["Talent Selected"] = "Talent Selected"
-L["Talent selected"] = "Talent sélectionné"
 L["Talent Specialization"] = "Spécialisation"
 L["Tank"] = "Tank"
 L["Tanking And Highest"] = "Tank et le plus haut"
@@ -839,6 +862,14 @@ L["Totem"] = "Totem"
 L["Totem #%i"] = "Totem #%i"
 L["Totem Name"] = "Nom Totem"
 L["Totem Number"] = "Numéro du Totem"
+--[[Translation missing --]]
+L["Track Cooldowns"] = "Track Cooldowns"
+--[[Translation missing --]]
+L["Tracking Charge %i"] = "Tracking Charge %i"
+--[[Translation missing --]]
+L["Tracking Charge CDs"] = "Tracking Charge CDs"
+--[[Translation missing --]]
+L["Tracking Only Cooldown"] = "Tracking Only Cooldown"
 L["Transmission error"] = "Erreur de transmission"
 L["Triangle"] = "Triangle"
 L["Trigger"] = "Déclencheur"

@@ -125,6 +125,8 @@ L["Aura:"] = "Aura:"
 L["Auras:"] = "Aure:"
 L["Author Options"] = "Opzioni Autore"
 --[[Translation missing --]]
+L["Auto"] = "Auto"
+--[[Translation missing --]]
 L["Autocast Shine"] = "Autocast Shine"
 L["Auto-Clone (Show all Matches)"] = "Auto-Clona (Mostra tutte le corrispondenze)"
 L["Automatic"] = "Automatico"
@@ -226,6 +228,8 @@ L["Combine all matches"] = "Combine all matches"
 L["Conditions"] = "Condizioni"
 L["Contains"] = "Contiene"
 --[[Translation missing --]]
+L["Cooldown"] = "Cooldown"
+--[[Translation missing --]]
 L["Cooldown Edge"] = "Cooldown Edge"
 --[[Translation missing --]]
 L["Cooldown Progress (Equipment Slot)"] = "Cooldown Progress (Equipment Slot)"
@@ -260,9 +264,11 @@ L["Crushing"] = "Crushing"
 --[[Translation missing --]]
 L["Cunning"] = "Cunning"
 --[[Translation missing --]]
-L["Current Zone Group ID: "] = "Current Zone Group ID: "
+L["Current Zone Group"] = "Current Zone Group"
 --[[Translation missing --]]
-L["Current Zone ID: "] = "Current Zone ID: "
+L[ [=[Current Zone
+]=] ] = [=[Current Zone
+]=]
 --[[Translation missing --]]
 L["Curse"] = "Curse"
 --[[Translation missing --]]
@@ -341,6 +347,8 @@ L["Dropdown Menu"] = "Dropdown Menu"
 --[[Translation missing --]]
 L["Drowning"] = "Drowning"
 --[[Translation missing --]]
+L["Dungeons"] = "Dungeons"
+--[[Translation missing --]]
 L["Durability Damage"] = "Durability Damage"
 --[[Translation missing --]]
 L["Durability Damage All"] = "Durability Damage All"
@@ -388,6 +396,10 @@ L["Extend Outside"] = "Extend Outside"
 L["Extra Amount"] = "Extra Amount"
 --[[Translation missing --]]
 L["Extra Attacks"] = "Extra Attacks"
+--[[Translation missing --]]
+L["Extra Options: %s"] = "Extra Options: %s"
+--[[Translation missing --]]
+L["Extra Options: none"] = "Extra Options: none"
 --[[Translation missing --]]
 L["Extra Spell Name"] = "Extra Spell Name"
 --[[Translation missing --]]
@@ -532,7 +544,11 @@ L["If you require additional assistance, please open a ticket on GitHub or visit
 --[[Translation missing --]]
 L["Ignore Rune CD"] = "Ignore Rune CD"
 --[[Translation missing --]]
+L["Ignore Rune CDs"] = "Ignore Rune CDs"
+--[[Translation missing --]]
 L["Ignore Spell Known"] = "Ignore Spell Known"
+--[[Translation missing --]]
+L["Ignore Unknown Spell"] = "Ignore Unknown Spell"
 --[[Translation missing --]]
 L["Immune"] = "Immune"
 --[[Translation missing --]]
@@ -770,8 +786,6 @@ L["No Instance"] = "No Instance"
 --[[Translation missing --]]
 L["No Profiling information saved."] = "No Profiling information saved."
 --[[Translation missing --]]
-L["none"] = "none"
---[[Translation missing --]]
 L["None"] = "None"
 --[[Translation missing --]]
 L["Non-player Character"] = "Non-player Character"
@@ -920,6 +934,8 @@ L["Raid"] = "Raid"
 --[[Translation missing --]]
 L["Raid Warning"] = "Raid Warning"
 --[[Translation missing --]]
+L["Raids"] = "Raids"
+--[[Translation missing --]]
 L["Range"] = "Range"
 --[[Translation missing --]]
 L["Range Check"] = "Range Check"
@@ -1039,6 +1055,8 @@ L["Show all Matches from all Units"] = "Show all Matches from all Units"
 L["Show CD of Charge"] = "Show CD of Charge"
 --[[Translation missing --]]
 L["Show Code"] = "Show Code"
+--[[Translation missing --]]
+L["Show GCD"] = "Show GCD"
 --[[Translation missing --]]
 L["Show Global Cooldown"] = "Show Global Cooldown"
 --[[Translation missing --]]
@@ -1176,6 +1194,8 @@ L["String"] = "String"
 --[[Translation missing --]]
 L["Summon"] = "Summon"
 --[[Translation missing --]]
+L["Supports multiple entries, separated by commas"] = "Supports multiple entries, separated by commas"
+--[[Translation missing --]]
 L[ [=[Supports multiple entries, separated by commas
 ]=] ] = [=[Supports multiple entries, separated by commas
 ]=]
@@ -1188,9 +1208,9 @@ L["System"] = "System"
 --[[Translation missing --]]
 L["Tabard"] = "Tabard"
 --[[Translation missing --]]
-L["Talent Selected"] = "Talent Selected"
---[[Translation missing --]]
 L["Talent selected"] = "Talent selected"
+--[[Translation missing --]]
+L["Talent Selected"] = "Talent Selected"
 --[[Translation missing --]]
 L["Talent Specialization"] = "Talent Specialization"
 --[[Translation missing --]]
@@ -1267,6 +1287,14 @@ L["Totem #%i"] = "Totem #%i"
 L["Totem Name"] = "Totem Name"
 --[[Translation missing --]]
 L["Totem Number"] = "Totem Number"
+--[[Translation missing --]]
+L["Track Cooldowns"] = "Track Cooldowns"
+--[[Translation missing --]]
+L["Tracking Charge %i"] = "Tracking Charge %i"
+--[[Translation missing --]]
+L["Tracking Charge CDs"] = "Tracking Charge CDs"
+--[[Translation missing --]]
+L["Tracking Only Cooldown"] = "Tracking Only Cooldown"
 --[[Translation missing --]]
 L["Transmission error"] = "Transmission error"
 --[[Translation missing --]]

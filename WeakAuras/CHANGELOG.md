@@ -1,21 +1,39 @@
-# [2.11.3](https://github.com/WeakAuras/WeakAuras2/tree/2.11.3) (2019-02-02)
+# [2.11.4](https://github.com/WeakAuras/WeakAuras2/tree/2.11.4) (2019-02-17)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.11.2...2.11.3)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.11.3...2.11.4)
 
 ## Highlights
 
- Bug fixes! 
+ Rewritten Spell Cooldown tracking and bug fixes! 
 
 ## Commits
 
-InfusOnWoW (3):
+InfusOnWoW (12):
 
-- Fix Glow animation missing if the aura was hidden but glowing
-- Fix duration function not wrapped in xpcall
-- Fix groups making childs misaligned
+- AuraBar: Add a SetIcon method whether Icon is enabled or not
+- Fix regressions in Cooldown tracking
+- Fix Texts width Fixed Width in Dynamic Groups
+- Fix Spell Charges being overwritten by GetSpellCount
+- Rewrite Spell Cooldown Tracking
+- Add a way to add collapsed options to triggers
+- Reorder Cooldown Progress Options
+- Fix Cooldown + Charges Spells switch from CD to charge CD
+- Try fixing the Item Equipment Slot Cooldown Tracking initial state
+- BuffTrigger2: Fix Multi Target clearing too much data
+- Fix collapse setting on multi selection
+- Wrap more functions in xpcall
 
-mrbuds (2):
+emptyrivers (3):
 
-- cast trigger with unit=multi: check if sourceGUID match before hiding state #1142
-- fix cooldown setting disabled for timed duration #1141
+- Fix userValue generation
+- fix user mode value retrieval
+- enforce that max >= min
+
+mrbuds (5):
+
+- Merge pull request #1173 from mrbuds/smallfix2
+- Templates: add overlayGlow for Lava Burst
+- Fix cast trigger not untriggering correctly Fix UNIT_TARGET event registered when not needed
+- add current tier zoneId and zoneGroupId list in tooltips #1151
+- Templates: sham elem buffs update #1153 (#1154)
 
