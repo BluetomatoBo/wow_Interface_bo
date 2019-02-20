@@ -152,7 +152,7 @@ end
 
 function private.RestockItem(itemString, operationSettings)
 	local cheapestSpellId, cheapestCost = nil, nil
-	for _, spellId in TSM.Crafting.GetSpellIdsByItem(itemString) do
+	for _, spellId in TSM.Crafting.GetSpellIdsByItem(itemString, TSM.db.global.craftingOptions.ignoreCDCraftCost) do
 		local cost = TSM.Crafting.Cost.GetCraftingCostBySpellId(spellId)
 		if cost and (not cheapestCost or cost < cheapestCost) then
 			cheapestSpellId = spellId

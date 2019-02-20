@@ -185,9 +185,7 @@ end
 
 function private.FrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)
-	local baseFrame = frame:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", 36)
-	baseFrame:Draw()
+	frame:GetBaseElement():SetBottomPadding(36)
 
 	private.UpdateEnchantButton()
 	private.UpdateGoldButton()
@@ -196,10 +194,6 @@ function private.FrameOnUpdate(frame)
 end
 
 function private.FrameOnHide(frame)
-	local baseFrame = frame:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", nil)
-	baseFrame:Draw()
-
 	private.fsm:ProcessEvent("EV_FRAME_HIDE")
 end
 
@@ -292,8 +286,9 @@ function private.MoneyOnTextChanged(input)
 		return
 	end
 
-	if tonumber(text) then
-		TSM.db.factionrealm.internalData.mailExcessGoldLimit = tonumber(text)
+	local limit = tonumber(text)
+	if limit then
+		TSM.db.factionrealm.internalData.mailExcessGoldLimit = limit >= 0 and limit or 0
 	else
 		TSM.db.factionrealm.internalData.mailExcessGoldLimit = TSM.Money.FromString(text) or 0
 	end

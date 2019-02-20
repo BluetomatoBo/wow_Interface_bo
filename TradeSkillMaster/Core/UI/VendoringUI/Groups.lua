@@ -119,16 +119,11 @@ end
 
 function private.FrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)
-	local baseFrame = frame:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", 32)
-	baseFrame:Draw()
+	frame:GetBaseElement():SetBottomPadding(32)
 	private.fsm:ProcessEvent("EV_FRAME_SHOW", frame)
 end
 
 function private.FrameOnHide(frame)
-	local baseFrame = frame:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", nil)
-	baseFrame:Draw()
 	private.fsm:ProcessEvent("EV_FRAME_HIDE")
 end
 

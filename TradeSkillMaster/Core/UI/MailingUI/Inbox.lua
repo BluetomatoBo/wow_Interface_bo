@@ -638,9 +638,7 @@ end
 
 function private.InboxFrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)
-	local baseFrame = frame:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", 55)
-	baseFrame:Draw()
+	frame:GetBaseElement():SetBottomPadding(55)
 
 	private.UpdateCountDown(true)
 	TSMAPI_FOUR.Delay.AfterTime("mailUpdateCounter", 0, private.UpdateCountDown, 1)
@@ -650,9 +648,7 @@ end
 
 function private.InboxItemsFrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)
-	local baseFrame = frame:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", 34)
-	baseFrame:Draw()
+	frame:GetBaseElement():SetBottomPadding(34)
 end
 
 function private.InboxFrameOnHide(frame)

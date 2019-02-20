@@ -530,9 +530,7 @@ end
 
 function private.SendFrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)
-	local baseFrame = frame:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", 36)
-	baseFrame:Draw()
+	frame:GetBaseElement():SetBottomPadding(36)
 
 	private.fsm:ProcessEvent("EV_FRAME_SHOW", frame)
 end
@@ -813,6 +811,7 @@ function private.SendMail(button)
 		money = private.money * -1
 	end
 
+	button:GetElement("__parent.__parent.container.name.input"):SetFocused(false)
 	private.UpdateRecentlyMailed(private.recipient)
 
 	if private.query:Count() > 0 then

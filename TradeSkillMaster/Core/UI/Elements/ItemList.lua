@@ -190,7 +190,6 @@ function ItemList._GetListRow(self)
 	text:SetFont(self:_GetStyle("font"), self:_GetStyle("fontHeight"))
 	text:SetJustifyH("LEFT")
 	text:SetJustifyV("MIDDLE")
-	text:SetText("TEST")
 	row._texts.text = text
 
 	local icon = row:_GetTexture()

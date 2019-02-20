@@ -200,7 +200,7 @@ function FastScrollingList._OnScrollValueChanged(self, value, noDraw)
 	if not noDraw then
 		self:Draw()
 		for _, row in ipairs(self._rows) do
-			if row._frame:IsVisible() and row._frame:IsMouseOver() then
+			if row._frame:IsVisible() and row._frame:IsMouseOver() and not self._scrollbar:IsMouseOver(4, -4, -6, 10) then
 				row._frame:GetScript("OnLeave")(row._frame)
 				row._frame:GetScript("OnEnter")(row._frame)
 			end
@@ -299,23 +299,18 @@ function ListRow.Acquire(self, scrollingList)
 end
 
 function ListRow.Release(self)
-	self._scrollingList = nil
-	self._rowData = nil
-	self._frame:ClearAllPoints()
-	self._frame:SetParent(nil)
-	self._frame:SetScript("OnEnter", nil)
-	self._frame:SetScript("OnLeave", nil)
-	self._frame:SetScript("OnClick", nil)
+	self._frame:Hide()
 	for _, text in pairs(self._texts) do
+		text:Hide()
 		text:ClearAllPoints()
 		text:SetWidth(0)
 		text:SetHeight(0)
 		text:SetTextColor(1, 1, 1, 1)
-		text:Hide()
 		tinsert(self._recycled.texts, text)
 	end
 	wipe(self._texts)
 	for _, icon in pairs(self._icons) do
+		icon:Hide()
 		icon:SetTexture(nil)
 		icon:SetTexCoord(0, 0, 0, 1, 1, 0, 1, 1)
 		icon:SetColorTexture(0, 0, 0, 0)
@@ -323,22 +318,27 @@ function ListRow.Release(self)
 		icon:ClearAllPoints()
 		icon:SetWidth(0)
 		icon:SetHeight(0)
-		icon:Hide()
 		tinsert(self._recycled.icons, icon)
 	end
 	wipe(self._icons)
 	for _, tooltip in pairs(self._buttons) do
+		tooltip:Hide()
 		tooltip:SetScript("OnEnter", nil)
 		tooltip:SetScript("OnLeave", nil)
 		tooltip:SetScript("OnClick", nil)
 		tooltip:ClearAllPoints()
 		tooltip:SetWidth(0)
 		tooltip:SetHeight(0)
-		tooltip:Hide()
 		tinsert(self._recycled.buttons, tooltip)
 	end
 	wipe(self._buttons)
-	self._frame:Hide()
+
+	self._scrollingList = nil
+	self._rowData = nil
+	self._frame:ClearAllPoints()
+	self._frame:SetScript("OnEnter", nil)
+	self._frame:SetScript("OnLeave", nil)
+	self._frame:SetScript("OnClick", nil)
 end
 
 function ListRow.SetData(self, data)

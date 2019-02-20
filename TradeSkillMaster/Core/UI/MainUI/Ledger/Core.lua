@@ -92,6 +92,7 @@ function private.GetLedgerFrame()
 				:AddPath("itemDetail")
 			)
 		)
+		:SetScript("OnHide", private.NavButtonOnHide)
 
 
 	local content = frame:GetElement("contentFrame.content")
@@ -129,6 +130,7 @@ function private.GetLedgerFrame()
 	navFrame:AddChild(TSMAPI_FOUR.UI.NewElement("Spacer", "spacer"))
 
 	private.UpdateNavFrame(navFrame, defaultPage)
+	private.contextPath = L["Inventory"]
 	return frame
 end
 
@@ -149,19 +151,25 @@ end
 
 function private.NavButtonOnClick(button)
 	local path = button:GetContext()
+	if private.contextPath == path then
+		return
+	end
 	if private.childPages[path] then
 		-- select the first child
 		path = path..PAGE_PATH_SEP..private.childPages[path][1]
 	end
-
-	private.contextPath = path
 
 	local ledgerFrame = button:GetParentElement():GetParentElement()
 	local contentFrame = ledgerFrame:GetElement("contentFrame")
 	local navFrame = ledgerFrame:GetElement("navigation")
 	private.UpdateNavFrame(navFrame, path)
 	navFrame:Draw()
-	contentFrame:GetElement("content"):SetPath(path, true)
+	contentFrame:GetElement("content"):SetPath(path, private.contextPath ~= path)
+	private.contextPath = path
+end
+
+function private.NavButtonOnHide(button)
+	private.contextPath = nil
 end
 
 

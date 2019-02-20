@@ -72,6 +72,7 @@ function private.GroupsMailThread(groupList, sendRepeat)
 		for name, items in pairs(targets) do
 			if not TSMAPI_FOUR.PlayerInfo.IsPlayer(name) and next(items) then
 				private.SendItems(name, items)
+				TSMAPI_FOUR.Thread.Sleep(0.5)
 			end
 			TSMAPI_FOUR.Thread.ReleaseSafeTempTable(items)
 		end
@@ -119,7 +120,11 @@ function private.GetItemQuantity(itemString, reserved, operationSettings)
 				numToSend = min(numAvailable, operationSettings.maxQty)
 			end
 		else
-			numToSend = numAvailable
+			if TSMAPI_FOUR.PlayerInfo.IsPlayer(operationSettings.target) then
+				numToSend = 0
+			else
+				numToSend = numAvailable
+			end
 		end
 	end
 

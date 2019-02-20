@@ -17,6 +17,7 @@ local private = {
 	xInterval = nil,
 	xNumInterval = nil,
 	playerList = {},
+	charGuildList = {},
 	selectedGraphCharacter = L["All Characters and Guilds"],
 	selectedGraphTime = L["Past Year"],
 	selectedSummaryCharacter = nil,
@@ -54,6 +55,15 @@ function private.GetDashboardFrame()
 	tinsert(private.playerList, L["All Characters and Guilds"])
 	for characterGuild in TSM.Accounting.GoldTracker.CharacterGuildIterator() do
 		tinsert(private.playerList, characterGuild)
+	end
+
+	wipe(private.charGuildList)
+	tinsert(private.charGuildList, L["All Characters and Guilds"])
+	for character in pairs(TSMAPI_FOUR.PlayerInfo.GetCharacters()) do
+		tinsert(private.charGuildList, character)
+	end
+	for guild in pairs(TSMAPI_FOUR.PlayerInfo.GetGuilds()) do
+		tinsert(private.charGuildList, guild)
 	end
 
 	local frame = TSMAPI_FOUR.UI.NewElement("DividedContainer", "dashboard")
@@ -201,7 +211,7 @@ function private.GetDashboardFrame()
 					:SetStyle("openFont", TSM.UI.Fonts.MontserratBold)
 					:SetStyle("openFontHeight", 12)
 					:SetHintText(L["All Characters and Guilds"])
-					:SetItems(private.playerList, L["All Characters and Guilds"])
+					:SetItems(private.charGuildList, L["All Characters and Guilds"])
 					:SetScript("OnSelectionChanged", private.UpdateSummaryCharacter)
 				)
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Spacer")

@@ -134,17 +134,17 @@ function Cost.GetLowestCostByItem(itemString)
 	local lowestCost, lowestSpellId = nil, nil
 	local cdCost, cdSpellId = nil, nil
 	local numSpells = 0
-	for _, spellId, hasCD in TSM.Crafting.GetSpellIdsByItem(itemString) do
+	for _, spellId, hasCD in TSM.Crafting.GetSpellIdsByItem(itemString, TSM.db.global.craftingOptions.ignoreCDCraftCost) do
 		numSpells = numSpells + 1
 		local cost = Cost.GetCraftingCostBySpellId(spellId)
 		if cost and (not lowestCost or cost < lowestCost) then
 			-- exclude spells with cooldown if option to ignore is enabled and there is more than one way to craft
-			if not hasCD or not TSM.db.global.craftingOptions.ignoreCDCraftCost then
-				lowestCost = cost
-				lowestSpellId = spellId
-			else
+			if hasCD then
 				cdCost = cost
 				cdSpellId = spellId
+			else
+				lowestCost = cost
+				lowestSpellId = spellId
 			end
 		end
 	end

@@ -572,6 +572,13 @@ function ApplicationFrame.Draw(self)
 	titleFrame:Draw()
 end
 
+function ApplicationFrame.SetBottomPadding(self, padding)
+	self:SetStyle("bottomPadding", padding)
+	local frame = self:_GetBaseFrame()
+	frame.innerBorderFrame:SetPoint("BOTTOMRIGHT", -INNER_FRAME_OFFSET, INNER_FRAME_OFFSET + (padding or 0))
+end
+
+
 
 
 -- ============================================================================

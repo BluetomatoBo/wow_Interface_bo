@@ -98,7 +98,6 @@ function TableRow.Release(self)
 		tooltip:SetScript("OnEnter", nil)
 		tooltip:SetScript("OnLeave", nil)
 		tooltip:SetScript("OnClick", nil)
-		tooltip:SetParent(nil)
 		tooltip:ClearAllPoints()
 		tooltip:SetWidth(0)
 		tooltip:SetHeight(0)
@@ -118,7 +117,6 @@ function TableRow.Release(self)
 	self._scrollingTable = nil
 	self._tableInfo = nil
 	self._rowData = nil
-	self._frame:SetParent(nil)
 	self._frame:ClearAllPoints()
 	self._frame:SetScript("OnEnter", nil)
 	self._frame:SetScript("OnLeave", nil)

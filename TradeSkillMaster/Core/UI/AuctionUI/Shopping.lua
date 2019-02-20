@@ -167,9 +167,15 @@ function private.GetSelectionFrame()
 			:AddPath("search", true)
 			:AddPath("advanced")
 		)
-	local noGroupSelected = frame:GetElement("groupSelection.groupTree"):IsSelectionCleared(true)
-	frame:GetElement("groupSelection.scanBtn"):SetDisabled(noGroupSelected)
+		:SetScript("OnUpdate", private.SelectionFrameOnUpdate)
+
 	return frame
+end
+
+function private.SelectionFrameOnUpdate(frame)
+	frame:SetScript("OnUpdate", nil)
+	frame:GetBaseElement():SetBottomPadding(nil)
+	frame:GetElement("groupSelection.scanBtn"):SetDisabled(frame:GetElement("groupSelection.groupTree"):IsSelectionCleared(true))
 end
 
 function private.GetSelectionContent(viewContainer, path)
@@ -1483,9 +1489,6 @@ function private.DisenchantButtonOnClick(button)
 end
 
 function private.ScanBackButtonOnClick(button)
-	local baseFrame = button:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", nil)
-	baseFrame:Draw()
 	button:GetParentElement():GetParentElement():GetParentElement():SetPath("selection", true)
 	private.fsm:ProcessEvent("EV_SCAN_BACK_BUTTON_CLICKED")
 end
@@ -1504,9 +1507,7 @@ end
 
 function private.ScanFrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)
-	local baseFrame = frame:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", 38)
-	baseFrame:Draw()
+	frame:GetBaseElement():SetBottomPadding(38)
 	private.fsm:ProcessEvent("EV_SCAN_FRAME_SHOWN", frame)
 end
 

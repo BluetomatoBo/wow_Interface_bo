@@ -283,6 +283,7 @@ function private.DestroyThread(button, row)
 
 	-- wait for the loot window to close
 	TSMAPI_FOUR.Thread.WaitForEvent("LOOT_CLOSED")
+	TSMAPI_FOUR.Thread.WaitForEvent("BAG_UPDATE_DELAYED")
 
 	-- we're done
 	private.destroyThreadRunning = false

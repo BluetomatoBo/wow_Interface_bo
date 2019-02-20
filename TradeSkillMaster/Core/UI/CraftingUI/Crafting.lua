@@ -570,10 +570,19 @@ end
 function private.CreateProfessionBtnOnClick(button)
 	local baseFrame = button:GetBaseElement()
 	local profName = TSM.Crafting.ProfessionState.GetCurrentProfession()
-	if not TSM.Groups.Exists(profName) then
+	local items = profName..TSM.CONST.GROUP_SEP..L["Items"]
+	local mats = profName..TSM.CONST.GROUP_SEP..L["Materials"]
+	if TSM.Groups.Exists(profName) then
+		if not TSM.Groups.Exists(items) then
+			TSM.Groups.Create(items)
+		end
+		if not TSM.Groups.Exists(mats) then
+			TSM.Groups.Create(mats)
+		end
+	else
 		TSM.Groups.Create(profName)
-		TSM.Groups.Create(profName..TSM.CONST.GROUP_SEP..L["Items"])
-		TSM.Groups.Create(profName..TSM.CONST.GROUP_SEP..L["Materials"])
+		TSM.Groups.Create(items)
+		TSM.Groups.Create(mats)
 	end
 
 	local numMats, numItems = 0, 0
@@ -583,8 +592,8 @@ function private.CreateProfessionBtnOnClick(button)
 
 	for _, itemString in query:IteratorAndRelease() do
 		local classId = TSMAPI_FOUR.Item.GetClassId(itemString)
-		if not TSM.Groups.IsItemInGroup(itemString) and classId ~= LE_ITEM_CLASS_WEAPON and classId ~= LE_ITEM_CLASS_ARMOR then
-			TSM.Groups.SetItemGroup(itemString, profName..TSM.CONST.GROUP_SEP..L["Materials"])
+		if itemString and not TSM.Groups.IsItemInGroup(itemString) and not TSMAPI_FOUR.Item.IsSoulbound(itemString) and classId ~= LE_ITEM_CLASS_WEAPON and classId ~= LE_ITEM_CLASS_ARMOR then
+			TSM.Groups.SetItemGroup(itemString, mats)
 			numMats = numMats + 1
 		end
 	end
@@ -594,14 +603,16 @@ function private.CreateProfessionBtnOnClick(button)
 
 	for _, spellId in query:IteratorAndRelease() do
 		local itemString = TSM.Crafting.GetItemString(spellId)
-		if itemString and not TSM.Groups.IsItemInGroup(itemString) then
-			TSM.Groups.SetItemGroup(itemString, profName..TSM.CONST.GROUP_SEP..L["Items"])
+		if itemString and not TSM.Groups.IsItemInGroup(itemString) and not TSMAPI_FOUR.Item.IsSoulbound(itemString) then
+			TSM.Groups.SetItemGroup(itemString, items)
 			numItems = numItems + 1
 		end
 	end
 
 	if numMats > 0 or numItems > 0 then
 		TSM:Printf(L["%s group updated with %d items and %d materials."], profName, numItems, numMats)
+	else
+		TSM:Printf(L["%s group is already up to date."], profName)
 	end
 
 	baseFrame:GetElement("content.crafting.left.viewContainer.main.content.group.groupTree"):UpdateData(true)

@@ -96,5 +96,5 @@ end
 function private.OnButtonClicked(button)
 	local self = button:GetContext()
 	local path = button:GetText()
-	self:SetPath(path, true)
+	self:SetPath(path, self:GetPath() ~= path)
 end

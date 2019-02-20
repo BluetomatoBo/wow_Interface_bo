@@ -259,17 +259,24 @@ function Crafting.SpellIterator()
 		:IteratorAndRelease()
 end
 
-function Crafting.GetSpellIdsByItem(itemString)
-	return private.spellDB:NewQuery()
-		:Select("spellId", "hasCD")
+function Crafting.GetSpellIdsByItem(itemString, ignoreCD)
+	local query = private.spellDB:NewQuery()
 		:Equal("itemString", itemString)
-		:IteratorAndRelease()
+
+	if ignoreCD then
+		query:Select("spellId")
+		query:Equal("hasCD", false)
+	else
+		query:Select("spellId", "hasCD")
+	end
+
+	return query:IteratorAndRelease()
 end
 
 function Crafting.GetMostProfitableSpellIdByItem(itemString, playerFilter)
 	local maxProfit, bestSpellId = nil, nil
 	local maxProfitCD, bestSpellIdCD = nil, nil
-	for _, spellId, hasCD in Crafting.GetSpellIdsByItem(itemString) do
+	for _, spellId, hasCD in Crafting.GetSpellIdsByItem(itemString, TSM.db.global.craftingOptions.ignoreCDCraftCost) do
 		if not playerFilter or TSMAPI_FOUR.Util.In(playerFilter, Crafting.GetPlayers(spellId)) then
 			local profit = TSM.Crafting.Cost.GetProfitBySpellId(spellId)
 			if hasCD then

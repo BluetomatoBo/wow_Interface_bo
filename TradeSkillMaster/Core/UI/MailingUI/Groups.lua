@@ -96,9 +96,7 @@ end
 
 function private.FrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)
-	local baseFrame = frame:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", 34)
-	baseFrame:Draw()
+	frame:GetBaseElement():SetBottomPadding(34)
 
 	private.GroupTreeOnGroupSelectionChanged(frame:GetElement("groupTree"))
 
@@ -106,10 +104,6 @@ function private.FrameOnUpdate(frame)
 end
 
 function private.FrameOnHide(frame)
-	local baseFrame = frame:GetBaseElement()
-	baseFrame:SetStyle("bottomPadding", nil)
-	baseFrame:Draw()
-
 	private.fsm:ProcessEvent("EV_FRAME_HIDE")
 end
 
