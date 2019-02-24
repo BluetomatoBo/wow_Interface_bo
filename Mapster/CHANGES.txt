@@ -1,54 +1,30 @@
-tag c50479aef726602ef53d1b7388a54ee64d24d09c 1.8.1
+tag e174cde746ead87d84f5c9b7c372368b234b2499 1.8.2
 Author:	Hendrik Leppkes <h.leppkes@gmail.com>
-Date:	Tue Aug 21 11:44:21 2018 +0200
+Date:	Wed Feb 20 23:16:38 2019 +0100
 
-Tag as 1.8.1
+Tag as 1.8.2
 
-commit d710a95fa6f261edd5e2e9fdb9f161a4a7da1dae
+commit 6b9b0e0cf7d7ef22d5729f152863da994326e530
 Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Tue Aug 21 11:42:45 2018 +0200
+Date:   Wed Feb 20 23:16:30 2019 +0100
 
-    Re-implement configuring the map fade alpha
+    Update FogClear data
 
-commit b29cd18bf87df5db343b4229ffa520996b719b88
+commit 8e81aaa7f35a2f2f1adf7690850b1b395e8f63a2
 Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Tue Aug 21 11:36:30 2018 +0200
+Date:   Wed Feb 20 14:10:48 2019 +0100
 
-    Re-implement Quest POI scaling
+    Update TOC to 8.1
 
-commit 636af525f260c4b3acdf760c42b80a8bd97f1676
+commit c512eca840846d4be1812f81f461837ab72c0696
 Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Sun Aug 19 18:01:44 2018 +0200
+Date:   Wed Feb 20 14:10:28 2019 +0100
 
-    Remove UIPanel scale handling
+    Fix position of Mapster options button
 
-commit caae3d3d511a32ab1f0a292034446d2aadd32f6f
+commit 09f4095ac644e8a192aa152ceedd884531799efc
 Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Sun Aug 19 14:13:10 2018 +0200
+Date:   Tue Aug 21 11:51:28 2018 +0200
 
-    Restore Player Arrow scale functionality
-
-commit 4e12ef7b93f7c3edfdab8310326ec0b77c9b9424
-Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Sun Aug 19 14:06:34 2018 +0200
-
-    Restore EJ Icon scale functionality
-
-commit 85f9757104b4e7cd154eab8e15782dd73e035431
-Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Sun Aug 19 13:50:21 2018 +0200
-
-    Restore closing the map on ESC
-
-commit 53fe23981c3aa1573b63866067ff24ad56755a15
-Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Sun Aug 19 13:46:00 2018 +0200
-
-    Restore position when loading a profile
-
-commit a3712a50d36c69578446342f3a1745de9c51b8be
-Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Sun Aug 19 13:38:03 2018 +0200
-
-    Restore the ability to move the map
+    Cleanup a few upvalues
 
