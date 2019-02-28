@@ -1,226 +1,337 @@
-tag 9dc78555b9e5f4961f42b4e5adf48875db1500fe 8.1.10
+tag 2a7c2a8930ebdf223c576049febb8df30dfc90f9 8.1.11
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Tue Feb 19 19:21:59 2019 +0100
+Date:	Tue Feb 26 21:51:12 2019 +0100
 
-Tagging as 8.1.10
+Tagging as 8.1.11
 
-commit 2c5d19e8bfad927653fabc7e9335e0ab9d9eda26
+commit e1cfcc5720f0a90e7b7231b43083b818e933e559
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 19 19:21:59 2019 +0100
+Date:   Tue Feb 26 21:51:12 2019 +0100
 
-    increment version number to 8.1.10
+    increment version number to 8.1.11
 
-commit 97746768229dec3db3b561fa591540278be6db15
+commit 16b7c5bd5a5f18d22feaf7e88d890c31b3e5ba2a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 19 18:53:28 2019 +0100
+Date:   Tue Feb 26 20:36:46 2019 +0100
 
-    Omega via svn r18372:
-    Just solve this a different way entirely
+    Omega via svn r18418:
+    Fixed bug where hex icon was never removed.
+    Fixed bug where LFR hex didn?\226?\128?\153t work at all
 
-commit 28faf107b07e32aa480c1a40a3dbcac5e52b3ddf
+commit 9c9cc099dd26c67f779b84227a2ed0c664b8c5ab
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 19 06:06:48 2019 +0100
+Date:   Tue Feb 26 20:24:53 2019 +0100
 
-    Omega via svn r18371:
-    Cancel this cast time on interrupt as well
+    Omega via svn r18417:
+    Update Jaina and blockade for LFR as well
 
-commit 81d096e43d5c0fea5432dfb08055f31f0d489f27
+commit 87bb7a112935fa40e808f6f247e454a6daeade6c
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 19 04:49:25 2019 +0100
+Date:   Tue Feb 26 18:48:24 2019 +0100
 
-    Omega via svn r18370:
-    Fix translocate bug that affected timer updates
+    Omega via svn r18416:
+    no gigavolt charge in LFR, but rest of timers same as normal, as expected
 
-commit 2c6d35e6329e0687626a705006293768cb7f7ba8
+commit 54413a3db0a3f04d75cabbec9edeff60073b38f1
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 19 03:50:46 2019 +0100
+Date:   Tue Feb 26 05:02:07 2019 +0100
 
-    Omega via svn r18369:
-    Tweaks for speed
+    Omega via svn r18415:
+    Minor tweak
 
-commit e7388ae7d987ca632ea7a32ab6d2ad035a72068b
+commit 43b9ff1eaa99a8d3254ec860029287855daa2ef0
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 19 03:28:43 2019 +0100
+Date:   Tue Feb 26 04:51:52 2019 +0100
 
-    Omega via svn r18368:
-    Update some revisions
+    Omega via svn r18414:
+    Fix first volley timer
 
-commit 56299c78ed60dd89886b52d79302e45cb0f504a2
+commit d0486c5eeda151a656ecaa08fda94b71ff33d21b
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 19 03:21:36 2019 +0100
+Date:   Tue Feb 26 00:47:58 2019 +0100
 
-    Omega via svn r18367:
-    Cancel P1 sea swell when both bosses are dead and main boss channeling 15 second cast, he doesn?\226?\128?\153t use P1 swell during this
+    Omega via svn r18413:
+    And fix shadow priests missing RemoveDisease option default flag
 
-commit e9fc699ea372b04c2cfbcc492c7177ee52f53aa6
+commit 6d051b1ec0c21f9a622479bbed867a671fee9852
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 19 03:15:49 2019 +0100
+Date:   Tue Feb 26 00:42:43 2019 +0100
 
-    Omega via svn r18366:
-    Slow first scan down too, because 2 definitely never works, then maybe redundant one won?\226?\128?\153t be needed
+    Omega via svn r18412:
+    Updated spell list for CheckDispelFilter function, and started using it again in all dungeon and raid content in BFA
+    (I honestly forgot about this filter and hadn?\226?\128?\153t used it all expansion.)
 
-commit be02be381c366089254c62bd3206d012bfd80769
+commit 65314ce8d1a289b7613ec149768d3f978dc01d3b
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 19 03:12:40 2019 +0100
+Date:   Mon Feb 25 23:29:06 2019 +0100
 
-    Omega via svn r18365:
-    Another tweak
+    Omega via svn r18411:
+    Just a notes update. the ?\226?\128?\156non existent?\226?\128?\157 stats type, exists in 8.1.5. Yay future proofing :D
 
-commit 6141dd5ce31bca533261032c0e2f9118f2f7abe7
+commit 5a0b8b973b96765ee8fdee4e337313c8e846d2c6
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 19 03:10:16 2019 +0100
+Date:   Mon Feb 25 20:48:09 2019 +0100
 
-    Omega via svn r18364:
-    Add a secondary scan
+    Omega via svn r18410:
+    timer tweak
 
-commit 1fc6e4b4e2611e22b7ae0d30616f11d6ba25207e
+commit 375b8055dfe42374ee8326b13fd56e4434917f75
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 19 00:27:10 2019 +0100
+Date:   Mon Feb 25 18:33:59 2019 +0100
 
-    Omega via svn r18363:
-    Fix timer regression
+    Omega via svn r18409:
+    applying fix to deal with situations where shrunk debuff will fade after tampering debuff applied, causing yell scheduler to stay unscheduled during tampering.
 
-commit 9711c0bb48fff5aa656b135bdc94c992f53993df
+commit 926f09b91c95c2f4b935ac79735d47ef82b45c11
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Feb 18 20:27:48 2019 +0100
+Date:   Sun Feb 24 23:35:45 2019 +0100
 
-    Omega via svn r18362:
-    Antispam tweak
+    Omega via svn r18408:
+    Add ice block target timer for jaina
 
-commit a3507906ada1bd47e123c24ba241eb89b261606f
+commit c0ca7970af44f2c7c4659f495fea4696532d89a4
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Feb 18 19:29:29 2019 +0100
+Date:   Sun Feb 24 23:17:07 2019 +0100
 
-    Omega via svn r18361:
-    Fix bug with timer starting on normal/lfr that shouldn?\226?\128?\153t
+    Omega via svn r18407:
+    And use collapse/expand instead of hide/show
 
-commit fb5aae5196e36da1aa54fd9ae5efb920b16a1cad
+commit 508103623e739c401ebce2553c173662ae02cb3d
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Feb 18 06:10:05 2019 +0100
+Date:   Sun Feb 24 23:08:36 2019 +0100
 
-    Omega via svn r18360:
-    Add preliminary magmatrap timer that accounts for different cd it has based on bossy energy
+    Omega via svn r18406:
+    Just avoid touching ObjectiveTrackerFrame while in combat. calling hide on it alone doesn?\226?\128?\153t taint it, but DBM gets blamed for tainting it if it was tainted by something else
 
-commit ed1b089ba74497269808d6530158e184b43f1db0
+commit 7f962b92af1db1d41dab7f05568bb4f8f09ae6cb
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Feb 17 02:39:25 2019 +0100
+Date:   Sun Feb 24 21:42:31 2019 +0100
 
-    Omega via svn r18359:
-    Fixed a bug where numBoss was basically always nil except where SetBossHPInfoToHighest was used. This will finally make the wipe messages include boss counts etc on global level, like intended years ago when it was added.
-    While at it, made the bosses left code more robust in core to avoid errors in off chance the variable gets accessed before it is recovered by timerrecovery (such as user DCing mid fight.
+    Omega via svn r18405:
+    Updated CheckAvailableMods for Dungeon changes as well as adding legion
 
-commit 4a547eb970e418840fd57ad8003c31ada796cc7e
+commit 71a413b830aa46c9f6e3bc6f219e2c0e1f22a856
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Feb 17 02:15:02 2019 +0100
+Date:   Sun Feb 24 19:58:39 2019 +0100
 
-    Omega via svn r18358:
-    Sometimes Jadefire masters gains shield but does NOT cast pyroblast, in these cases, don?\226?\128?\153t show interrupt warning when shield drops if no cast is in progress.
-    Tightened threshold on conclave for hex as well to further reduce chance of icons and yells happening on spreads because people are bad and dispel it less than 1 second from when it went out.
+    Omega via svn r18404:
+    Improve boss target scanner api to return scanTime for more precise countdown yells
 
-commit 768a5d4d63f2bea425e2e072b9c8843557999019
+commit 238fc75ac7ffab24fd5c534cc3f4606db25ff2be
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 15 05:35:16 2019 +0100
+Date:   Sun Feb 24 01:51:46 2019 +0100
 
-    Omega via svn r18357:
-    Fix some bad logic that had GetUnitIdFromGUID always return true if GUID was passed and always false if cid was.
+    Omega via svn r18403:
+    Fixed rising flames countdown fade yell to countdown from correct number
+    Removed countdown yells for kep wrapped since it?\226?\128?\153s bugged in combat log and does NOT fire SPELL_AURA_REFRESH(or any other CLEU event) for when it?\226?\128?\153s refreshed once it hits 5 stacks. Not important enough to spam UnitDebuff scans either just to see if it?\226?\128?\153s refreshing or not.
 
-commit fa41c28e62f6795554c77a0c1179e212c9ffa2a2
+commit 8a7d8b893aa0af49905a4842b38a793282fcd3a6
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 14 21:00:47 2019 +0100
+Date:   Sat Feb 23 19:36:39 2019 +0100
 
-    Omega via svn r18356:
-    Kr update
+    Omega via svn r18402:
+    Kr Update
 
-commit 58b98d630ef95bf40c0eff8c85029ddc38a52010
+commit da0a09e5d041a933f0249b80dc76296a2a5021ed
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 14 20:54:46 2019 +0100
+Date:   Sat Feb 23 05:44:12 2019 +0100
 
-    Omega via svn r18355:
-    Bug fixes and performance tweaks
-    Enabled prismatic image by default for everyone instead of just dps.
+    Omega via svn r18401:
+    Fix a bug that caused incandescent Stacks to stop counting past 1
 
-commit d7037919c6b19fd2e34a480a1e6cd5c4e373be35
+commit 207743dae6c272ba5599b4f993348f634e167b7c
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 14 08:47:35 2019 +0100
+Date:   Fri Feb 22 21:54:25 2019 +0100
 
-    Omega via svn r18354:
-    Another debug, but the pass off seems to be working well
+    Omega via svn r18400:
+    use this spellID (even though it?\226?\128?\153s wrong one) because it has an actual icon
 
-commit d3a227c04f9079b582a0076672a9b3e94c642dec
+commit c1a94a801465f5c490cfe5864540b7a6d1fa2f74
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 14 07:20:40 2019 +0100
+Date:   Fri Feb 22 20:13:47 2019 +0100
 
-    Omega via svn r18353:
-    Debug
+    Omega via svn r18399:
+    Spanish update
 
-commit bada6a703861dffe312d706555fe1aa3b9e5bce7
+commit b6b7a4b18d90ef4119d7098b77e4a98335b656a0
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 14 07:16:01 2019 +0100
+Date:   Fri Feb 22 04:06:36 2019 +0100
 
-    Omega via svn r18352:
-    Fixed bug in GetUnitIdFromGUID that caused it to never actually work for boss UnitIds, this will actually fix a minor bug in the ONLY mod that was using that function until now, triad.
-    Added support for CID as an option for GetUnitIdFromGUID as well
-    Added additional timer updates to blockade for pull and translocate, so the update doesn?\226?\128?\153t have to wait til first cast of fight or after translocate.
-    Added option to Changed boss distance check to check boss instead of tank, but with a fallback to revert to tank if item check fails(which it does depending on npc/boss flags)
-    Fixed bug where range radar had headers backwards between regular and reverse
-    Updated range checker to support a couple new ranges with some more item testing, and fixed two that were wrong
+    Omega via svn r18398:
+    CN update
 
-commit 239a1d3a62055eeb07f6700fe8cd55cb8e8bfa38
+commit 74c6151c66627b75a2da3761c93e814c991c95ef
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 14 03:22:35 2019 +0100
+Date:   Thu Feb 21 22:24:28 2019 +0100
 
-    Omega via svn r18351:
-    Try to fix infoframe color bug, again, although I don?\226?\128?\153t see how this is any different.
+    Omega via svn r18397:
+    use custom yell
+    Kr Update
 
-commit 5f39d90c82220933bf1e83bfe5d5ce7ea158d40e
+commit 35a66f2341bad2a71c5bd6649729bd05d9a30def
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 14 01:51:32 2019 +0100
+Date:   Thu Feb 21 21:36:35 2019 +0100
 
-    Omega via svn r18350:
-    Deal with rare cases where uId doesn?\226?\128?\153t exist by time it?\226?\128?\153s passed to DBM:UnitDebuff or DBM:UnitBuff (such as player leaving raid mid fight). Instead of handling this in mods all the time, it?\226?\128?\153ll just be handled in core now.
-    Full Uunat drycode
+    Omega via svn r18396:
+    Give glacial ray a bait warning and audio countdown
 
-commit 7acf11e495e23a5f8e3e6e9af4c11b8540a6d8d5
+commit 0c56670e276a7597762b7190729215287fc717f1
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 13 06:51:13 2019 +0100
+Date:   Thu Feb 21 21:07:29 2019 +0100
 
-    Omega via svn r18349:
-    expand from 8 names to 12 names. not sure what max is, but it looked like at least 11
+    Omega via svn r18395:
+    Added requested warning
 
-commit 3a2517ec8f0c7f96c01d787ae76f7c883233cd95
+commit a45f87c6f6064cb7c06522eda284770fbcba6222
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 13 06:44:01 2019 +0100
+Date:   Thu Feb 21 20:31:19 2019 +0100
 
-    Omega via svn r18348:
-    Fix a bug where a non class colored line after a class colored line, inherited the color of previous line
+    Omega via svn r18394:
+    Add experimental code to handle the 10 second extender on paku?\226?\128?\153s wrath
+    Fix missing count on howling winds on jaina
 
-commit e889e32bb334f9cdfb54dbdbdbff2998bd7ff079
+commit 08001c0025d268ec29803ca854d808f719899503
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 13 06:29:51 2019 +0100
+Date:   Thu Feb 21 19:39:37 2019 +0100
 
-    Omega via svn r18347:
-    Make header more distinct
+    Omega via svn r18393:
+    Make siege a keep timer
 
-commit b1fa16dd7ef13ef4bcc17cba7ca882adb1e44237
+commit ec0f87928abf43f217ae98a3830b6d54615f748e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 13 05:26:56 2019 +0100
+Date:   Thu Feb 21 04:32:16 2019 +0100
 
-    Omega via svn r18346:
-    Throttle mark of prey because more than 1 raptor can target you at once even if entire raid is up
+    Omega via svn r18392:
+    Change paku?\226?\128?\153s wrath to a static 60 second timer. cannot find explanation why it?\226?\128?\153s random between 60 and 70, but the previous theory has been proven wrong by new data, so dbm can no longer reliably tell when it?\226?\128?\153s 60 or 70 and thus will always assume it?\226?\128?\153s 60
 
-commit 3bf8add987ee37194b898249d3ecf3baccf06aee
+commit 125fd47671d8dcfda214963031d0020cf826db19
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 13 04:10:21 2019 +0100
+Date:   Thu Feb 21 04:12:12 2019 +0100
 
-    Omega via svn r18345:
-    Added new method to set fade only on a started timer as needed (such in case of crush timer that?\226?\128?\153s shared by two bosses.
-    Add fading to Opulence timers
-    Optimize event order on blockade some to avoid redundant applystyle calls
+    ultrashining via svn r18391:
+    zhTW update
 
-commit 701d0c11f1b0e22faad213b98998708ae92a3cfc
+commit 30fa256fbecfb6d19c9e33934e87f12ba5761ed2
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 12 21:37:38 2019 +0100
+Date:   Thu Feb 21 03:34:28 2019 +0100
 
-    tandanu via svn r18344:
-    increment alpha version
+    Omega via svn r18390:
+    Add requested jolting volley timer for stage 2 mythic. no timer for stage 1 or non mythic because it?\226?\128?\153s mostly spammed there. but in P2 it?\226?\128?\153s big burst damage with long gaps, timer/warning makes sense here
+    Fixed a bug where see swell cast at same time as temptation might cause one of them to fail/be filtered
+
+commit 0beee61b72f04dab9ae934f64d36a3e2b60e1d8c
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 20 23:12:18 2019 +0100
+
+    Omega via svn r18389:
+    Fix some bad logic in where increment was.
+    Also fix nameplate aura support for smaller elementals
+
+commit 0595871bba04943c638fdfd5279733a1ec7b8d01
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 20 23:05:17 2019 +0100
+
+    Omega via svn r18388:
+    shorten text some and put line, it?\226?\128?\153s needed if box above it is a double line
+
+commit e8189d2d8690179eaeed90fb45b1da46f6ecd07e
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 20 22:31:25 2019 +0100
+
+    Omega via svn r18387:
+    Fixed long standing problem with dropdowns exceeding area bounds (mostly if a mod has 2 or more such as coven)
+
+commit 0b607faabbd46d45ffec1b2fbb1f0a3078edb930
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 20 21:39:30 2019 +0100
+
+    Omega via svn r18386:
+    Let users and raid leader control interrupt order for elemental
+
+commit d2dd857aa14041a1fba02601deae8d3573ab3d54
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 20 20:40:56 2019 +0100
+
+    Omega via svn r18385:
+    Filter bwonsamdi?\226?\128?\153s wrath when not in combat with boss (such as sitting outside but in group)
+
+commit 03d20fa657ca7f8eb1d8da444be9a951fa56d970
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 20 19:20:03 2019 +0100
+
+    Omega via svn r18384:
+    Fix error in tank fallback
+
+commit 3de40ade3e4988c22fa605adee0c157defe25cd5
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 20 04:44:28 2019 +0100
+
+    Omega via svn r18383:
+    Update BonusFilter
+
+commit e8be44d50d08516b19bceb5e3250e20fe9d81d6b
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 20 04:28:35 2019 +0100
+
+    Omega via svn r18382:
+    do a forced update here too
+
+commit 8c08a9deebd2f8cd3615f8f71447218af51057c5
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 20 04:19:14 2019 +0100
+
+    Omega via svn r18381:
+    Fixed Opulence missing a CID/boss health reporting
+    Improved opulence with timer updates when player is teleported to other side on mythic
+
+commit 81a7cac1715cf9913fb87ed31b04d475b3d26ddc
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 20 03:37:10 2019 +0100
+
+    Omega via svn r18380:
+    Added optional fades yell to freezing blood, so users in guilds that require the yell aren?\226?\128?\153t forced to install redundant week auras and can just enable option in DBM
+    Fixed an inconsistency on rastakhan
+
+commit 802639bee0f44dd55886bdcef5769f7cac658df5
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 20 03:28:30 2019 +0100
+
+    Omega via svn r18379:
+    Change DBM out of date code to still run and disable mods if you?\226?\128?\153re using mods from a different patch version (come on now)
+    Also, changed it to still show reminders regardless of reminder setting if VERY out of of date, but removed forced disable from very out of date (if it?\226?\128?\153s at least for same patch version)
+
+commit 8291dd5dd1fee7424e9074b1e2ed94f7f0310fe8
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 19 22:45:04 2019 +0100
+
+    Omega via svn r18378:
+    Fix guid
+
+commit dcbf8695cb739716257e476317f1682f1e5dbfa2
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 19 22:43:39 2019 +0100
+
+    Omega via svn r18377:
+    add nameplate icon for interrupt casts on Jaina, icons are temp until I can find a texture that fits better
+
+commit 5f0fdc0e503a69d97cbf1caee1243b4371c7d219
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 19 21:36:42 2019 +0100
+
+    Omega via svn r18376:
+    Add new warning type
+
+commit a5b15cd23391f048d02d847412c5fd4d5e77f058
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 19 21:24:17 2019 +0100
+
+    Omega via svn r18375:
+    Option default tweak and reset interrupt count at 4 person instead of indefinite person.
+
+commit 484b346ffe0c2dfd9e396d12a28faf54edecc97a
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 19 19:39:37 2019 +0100
+
+    Omega via svn r18374:
+    Inc Alpha
 

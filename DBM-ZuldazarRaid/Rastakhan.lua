@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2335, "DBM-ZuldazarRaid", 2, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18368 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18404 $"):sub(12, -3))
 mod:SetCreatureID(145616)--145644 Bwonsamdi
 mod:SetEncounterID(2272)
 --mod:DisableESCombatDetection()
@@ -74,8 +74,8 @@ local specWarnSealofPurification		= mod:NewSpecialWarningRun(284662, nil, nil, n
 local yellSealofPurification			= mod:NewYell(284662)
 ----Siegebreaker Roka
 local specWarnMeteorLeap				= mod:NewSpecialWarningMoveTo(284686, nil, nil, nil, 1, 2)
-local yellMeteorLeap					= mod:NewYell(284686)
-local yellMeteorLeapFades				= mod:NewShortFadesYell(284686)
+local yellMeteorLeap					= mod:NewYell(284686, nil, nil, nil, "YELL")
+local yellMeteorLeapFades				= mod:NewShortFadesYell(284686, nil, nil, nil, "YELL")
 ----Headhunter Gal'wana
 local specWarnGrievousAxe				= mod:NewSpecialWarningDefensive(284781, false, nil, nil, 1, 2)
 --Stage Two: Bwonsamdi's Pact
@@ -147,13 +147,13 @@ local infoframeTable = {}
 --"<24.26 16:22:52> [CLEU] SPELL_CAST_START#Creature-0-2083-2070-6821-146322-00005225A8#Siegebreaker Roka##nil#284686#Meteor Leap#nil#nil", -- [107]
 --"<24.46 16:22:52> [DBM_Announce] Meteor Leap on >Lorn-Benedictus<#236171#target#284686#2335", -- [110]
 --"<29.28 16:22:57> [CLEU] SPELL_CAST_SUCCESS#Creature-0-2083-2070-6821-146322-00005225A8#Siegebreaker Roka#Player-3296-000AA073#Lorn-Benedictus#284686#Meteor Leap#nil#nil", -- [133]
-function mod:MeteorLeapTarget(targetname, uId)
+function mod:MeteorLeapTarget(targetname, uId, bossuid, scanningTime)
 	if not targetname then return end
 	if targetname == UnitName("player") then
 		specWarnMeteorLeap:Show(GROUP)
 		specWarnMeteorLeap:Play("gathershare")
 		yellMeteorLeap:Yell()
-		yellMeteorLeapFades:Countdown(4.8)--Target scan takes about 0.2 seconds
+		yellMeteorLeapFades:Countdown(5-scanningTime)
 	elseif not self:IsTank() then
 		specWarnMeteorLeap:Show(targetname)
 		specWarnMeteorLeap:Play("gathershare")

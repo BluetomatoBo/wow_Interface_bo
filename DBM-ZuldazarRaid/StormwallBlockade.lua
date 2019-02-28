@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2337, "DBM-ZuldazarRaid", 3, 1176)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 18371 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 18417 $"):sub(12, -3))
 mod:SetCreatureID(146251, 146253, 146256)--Sister Katherine 146251, Brother Joseph 146253, Laminaria 146256
 mod:SetEncounterID(2280)
 --mod:DisableESCombatDetection()
@@ -16,7 +16,7 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 284262 284106 284393 284383 285017 284362 288696 288941",
-	"SPELL_CAST_SUCCESS 285350 285426 285118 290694 289795",
+	"SPELL_CAST_SUCCESS 285350 285426 285118 290694 289795 287169",
 	"SPELL_AURA_APPLIED 286558 284405 285000 285382 285350 285426 287995",
 	"SPELL_AURA_REFRESH 285000 285382",
 	"SPELL_AURA_APPLIED_DOSE 285000 285382",
@@ -29,12 +29,11 @@ mod:RegisterEventsInCombat(
 )
 
 --TODO, switch to custom hybrid frame to show both shields and boss energy and storm's Wail
---TODO, add Tidal/Jolting Volleys? Just seems like general consistent aoe damage so not worth warning yet
 --TODO, icons and stuff for storm's wail
 --TODO, add "watch wave" warning for Energized wake on mythic
 --[[
 (ability.id = 284262 or ability.id = 284106 or ability.id = 284393 or ability.id = 284383 or ability.id = 285017 or ability.id = 284362 or ability.id = 288696 or ability.id = 288941) and type = "begincast"
- or (ability.id = 285350 or ability.id = 285426 or ability.id = 285118 or ability.id = 290694 or ability.id = 289795) and type = "cast"
+ or (ability.id = 285350 or ability.id = 285426 or ability.id = 285118 or ability.id = 290694 or ability.id = 289795 or ability.id = 287169) and type = "cast"
  or type = "interrupt"
  or ability.id = 284405 and type = "applydebuff"
 --]]
@@ -44,6 +43,7 @@ local warnTranslocate					= mod:NewTargetNoFilterAnnounce(284393, 2)
 ----Sister Katherine
 local warnCracklingLightning			= mod:NewCastAnnounce(284106, 3)
 local warnElecShroud					= mod:NewTargetAnnounce(287995, 4)
+local warnJoltingVolley					= mod:NewCountAnnounce(287169, 3)
 ----Brother Joseph
 local warnTemptingSong					= mod:NewTargetAnnounce(284405, 2)
 local warnTidalShroud					= mod:NewTargetAnnounce(286558, 4)
@@ -67,7 +67,7 @@ local specWarnTemptingSong				= mod:NewSpecialWarningRun(284405, nil, nil, nil, 
 local yellTemptingSong					= mod:NewYell(284405)
 --Stage Two: Laminaria
 local specWarnEnergizedStorm			= mod:NewSpecialWarningSwitch("ej19312", "RangedDps", nil, nil, 1, 2)
-local yellKepWrapped					= mod:NewFadesYell(285000)
+--local yellKepWrapped					= mod:NewFadesYell(285000)
 local specWarnSeaSwell					= mod:NewSpecialWarningDodge(285118, nil, nil, 2, 3, 2)
 local specWarnIreoftheDeep				= mod:NewSpecialWarningSoak(285017, "-Tank", nil, nil, 1, 2)
 local specWarnStormsWail				= mod:NewSpecialWarningMoveTo(285350, nil, nil, 2, 3, 2)
@@ -92,8 +92,9 @@ mod:AddTimerLine(DBM:EJ_GetSectionInfo(19258))
 local timerCataTides					= mod:NewCastTimer(15, 288696, nil, nil, nil, 4, nil, DBM_CORE_INTERRUPT_ICON)
 local timerSeaSwellCD					= mod:NewCDTimer(20.6, 285118, nil, nil, nil, 3, nil, DBM_CORE_DEADLY_ICON)
 local timerIreoftheDeepCD				= mod:NewCDTimer(32.8, 285017, nil, nil, nil, 5)
-local timerStormsWailCD					= mod:NewCDTimer(120.5, 285350, nil, nil, nil, 3)
+local timerStormsWailCD					= mod:NewCDTimer(120.2, 285350, nil, nil, nil, 3)
 local timerStormsWail					= mod:NewTargetTimer(12, 285350, nil, nil, nil, 5)
+local timerJoltingVolleyCD				= mod:NewCDCountTimer(43.6, 287169, nil, nil, nil, 2, nil, DBM_CORE_HEALER_ICON)
 
 --local berserkTimer					= mod:NewBerserkTimer(600)
 
@@ -110,6 +111,7 @@ mod.vb.phase = 1
 mod.vb.bossesDied = 0
 mod.vb.cracklingCast = 0
 mod.vb.sirenCount = 0
+mod.vb.joltingCast = 0
 local freezingTidePod = DBM:GetSpellInfo(285075)
 local stormTargets = {}
 
@@ -190,14 +192,24 @@ function mod:OnCombatStart(delay)
 	self.vb.bossesDied = 0
 	self.vb.cracklingCast = 0
 	self.vb.sirenCount = 0
-	--Sister
-	timerCracklingLightningCD:Start(3.9-delay)--3.9-8.8
-	timerElecShroudCD:Start(30-delay)
-	timerVoltaicFlashCD:Start(8.8-delay)
-	--Brother
-	--timerSeaStormCD:Start(7.6-delay)--0.3-8
-	timerSeasTemptationCD:Start(15.5-delay, 1)--Might be health based
-	timerTidalShroudCD:Start(30.1-delay)--30-32
+	self.vb.joltingCast = 0
+	if not self:IsLFR() then
+		--Sister
+		timerCracklingLightningCD:Start(3.9-delay)--3.9-8.8
+		timerVoltaicFlashCD:Start(8.8-delay)
+		timerElecShroudCD:Start(30-delay)
+		--Brother
+		timerSeaStormCD:Start(6-delay)--0.3-8
+		timerSeasTemptationCD:Start(15.5-delay, 1)--Might be health based
+		timerTidalShroudCD:Start(30.1-delay)--30-32
+	else
+		--Sister
+		timerCracklingLightningCD:Start(11.7-delay)--3.9-8.8
+		timerVoltaicFlashCD:Start(20-delay)
+		--Brother
+		timerSeaStormCD:Start(6-delay)--0.3-8
+		timerSeasTemptationCD:Start(12.1-delay, 1)--Might be health based
+	end
 	if self:IsMythic() then
 		timerSeaSwellCD:Start(19.8-delay)
 		countdownSeaSwell:Start(19.8-delay)
@@ -249,7 +261,11 @@ function mod:SPELL_CAST_START(args)
 		else
 			timerVoltaicFlashCD:SetFade(true)
 		end
-		timerVoltaicFlashCD:Start()
+		if self:IsLFR() then
+			timerVoltaicFlashCD:Start(29)
+		else
+			timerVoltaicFlashCD:Start()--12
+		end
 	elseif spellId == 288941 and self:AntiSpam(20, 2) then--AntiSpam must be at least 15 here, 20 for good measure
 		specWarnVoltaicFlash:Show()
 		specWarnVoltaicFlash:Play("watchorb")
@@ -262,10 +278,14 @@ function mod:SPELL_CAST_START(args)
 		else
 			timerCracklingLightningCD:SetFade(true)
 		end
-		if self.vb.cracklingCast % 2 == 0 then
-			timerCracklingLightningCD:Start(21.9)--21.9 (usually 23.1 but I have one log showing 21.9)
+		if self:IsLFR() then
+			timerCracklingLightningCD:Start(30)
 		else
-			timerCracklingLightningCD:Start(12.1)
+			if self.vb.cracklingCast % 2 == 0 then
+				timerCracklingLightningCD:Start(21.9)--21.9 (usually 23.1 but I have one log showing 21.9)
+			else
+				timerCracklingLightningCD:Start(12.1)
+			end
 		end
 	elseif spellId == 284393 then
 		warnTranslocate:Show(args.sourceName)
@@ -300,7 +320,7 @@ function mod:SPELL_CAST_START(args)
 		else
 			timerSeasTemptationCD:SetFade(true)
 		end
-		timerSeasTemptationCD:Start(nil, self.vb.sirenCount+1)
+		timerSeasTemptationCD:Start(34, self.vb.sirenCount+1)
 	elseif spellId == 285017 then
 		specWarnIreoftheDeep:Show()
 		specWarnIreoftheDeep:Play("helpsoak")
@@ -315,6 +335,8 @@ function mod:SPELL_CAST_START(args)
 		end
 		if self:IsMythic() then
 			timerSeaStormCD:Start(9.7)
+		elseif self:IsLFR() then
+			timerSeaStormCD:Start(17)
 		else
 			timerSeaStormCD:Start()--10.9
 		end
@@ -336,18 +358,21 @@ function mod:SPELL_CAST_SUCCESS(args)
 		if self:IsMythic() then
 			timerSeaSwellCD:Start(17)
 			countdownSeaSwell:Start(17)
+		elseif self:IsLFR() then
+			timerSeaSwellCD:Start(24.3)
+			countdownSeaSwell:Start(24.3)
 		else
 			timerSeaSwellCD:Start()
 			countdownSeaSwell:Start(20.6)
 		end
-	elseif spellId == 290694 and self:AntiSpam(5, 2) then--Mythic P1 Sea Swell
+	elseif spellId == 290694 and self:AntiSpam(5, 3) then--Mythic P1 Sea Swell
 		specWarnSeaSwell:Show()
 		specWarnSeaSwell:Play("watchstep")
 		timerSeaSwellCD:Start(20)
 		countdownSeaSwell:Start(20)
 	elseif spellId == 289795 and self.vb.phase == 2 then--Zuldazar Reuse Spell 06 (P2 sirens spawning)
 		self.vb.sirenCount = self.vb.sirenCount + 1
-		if self:AntiSpam(8, 8) then
+		if self:AntiSpam(8, 5) then
 			specWarnSeasTemptation:Show()
 			specWarnSeasTemptation:Play("killmob")
 		end
@@ -356,33 +381,22 @@ function mod:SPELL_CAST_SUCCESS(args)
 		else
 			timerSeasTemptationCD:Start(5, self.vb.sirenCount+1)
 		end
+	elseif spellId == 287169 and self.vb.phase == 2 and self:AntiSpam(12, 4) then--Only want to see timer for it in mythic, it's mostly spammed in P1 and doesn't need a timer there
+		self.vb.joltingCast = self.vb.joltingCast + 1
+		warnJoltingVolley:Show(self.vb.joltingCast)
+		timerJoltingVolleyCD:Start(43.6, self.vb.joltingCast+1)
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
 	if spellId == 285000 then
-		local uId = DBM:GetRaidUnitId(args.destName)
-		--if self:IsTanking(uId) then
-			local amount = args.amount or 1
-			--if amount >= 2 then
-				if args:IsPlayer() then
-					--specWarnRupturingBlood:Show(amount)
-					--specWarnRupturingBlood:Play("stackhigh")
-					yellKepWrapped:Cancel()
-					yellKepWrapped:Countdown(18)
-				--else
-					--if not UnitIsDeadOrGhost("player") and not DBM:UnitDebuff("player", spellId) then--Can't taunt less you've dropped yours off, period.
-						--specWarnRupturingBloodTaunt:Show(args.destName)
-						--specWarnRupturingBloodTaunt:Play("tauntboss")
-					--else
-						--warnKelpWrapped:Show(args.destName, amount)
-					--end
-				end
-			--else
-				warnKelpWrapped:Show(args.destName, amount)
-			--end
+		local amount = args.amount or 1
+		--if args:IsPlayer() then
+		--	yellKepWrapped:Cancel()
+			--yellKepWrapped:Countdown(18)
 		--end
+		warnKelpWrapped:Show(args.destName, amount)
 	elseif spellId == 286558 then
 		if self:CheckBossDistance(args.destGUID, true) then
 			warnTidalShroud:Show(args.destName)
@@ -438,10 +452,10 @@ function mod:SPELL_AURA_REMOVED(args)
 			specWarnTidalEmpowerment:Show(args.destName)
 			specWarnTidalEmpowerment:Play("kickcast")
 		end
-	elseif spellId == 285000 then
-		if args:IsPlayer() then
-			yellKepWrapped:Cancel()
-		end
+	--elseif spellId == 285000 then
+		--if args:IsPlayer() then
+		--	yellKepWrapped:Cancel()
+		--end
 	elseif spellId == 285382 then
 		if self.Options.NPAuraOnKepWrapping then
 			DBM.Nameplate:Hide(true, args.destGUID, spellId)
@@ -462,7 +476,7 @@ end
 
 --[[
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spellName)
-	if spellId == 285075 and destGUID == UnitGUID("player") and self:AntiSpam(2, 4) then
+	if spellId == 285075 and destGUID == UnitGUID("player") and self:AntiSpam(2, 6) then
 		specWarnGTFO:Show(spellName)
 		specWarnGTFO:Play("watchfeet")
 	end
@@ -477,16 +491,30 @@ function mod:SPELL_INTERRUPT(args)
 		timerSeaSwellCD:Stop()
 		timerCataTides:Stop()
 		countdownSeaSwell:Cancel()
-		--Same on all difficulties but some variation because they can actually come in different orders. in reality probably all start with same timer then randomized order by spell queue
-		timerIreoftheDeepCD:Start(3.2)--17.4
-		timerStormsWailCD:Start(6.6)--22.3
-		timerSeaSwellCD:Start(7.2)--21.9
-		countdownSeaSwell:Start(7.2)
 		if self:IsMythic() then
 			timerVoltaicFlashCD:SetFade(false)
 			timerSeasTemptationCD:SetFade(false)
+			--Same on all difficulties but some variation because they can actually come in different orders. in reality probably all start with same timer then randomized order by spell queue
+			timerIreoftheDeepCD:Start(3.2)
+			timerStormsWailCD:Start(6.6)
+			timerSeaSwellCD:Start(7.2)
+			countdownSeaSwell:Start(7.2)
+			--Mythic Only
+			timerJoltingVolleyCD:Start(10.2, 1)
 			timerVoltaicFlashCD:Start(18.7)
 			timerSeasTemptationCD:Start(38.7, 1)
+		elseif self:IsLFR() then
+			--LFR seems to do it's own thing with timers across the board
+			timerSeaSwellCD:Start(5.3)
+			countdownSeaSwell:Start(5.3)
+			timerIreoftheDeepCD:Start(7)
+			timerStormsWailCD:Start(16.7)
+		else
+			--Same on all difficulties but some variation because they can actually come in different orders. in reality probably all start with same timer then randomized order by spell queue
+			timerIreoftheDeepCD:Start(3.2)
+			timerStormsWailCD:Start(6.6)
+			timerSeaSwellCD:Start(7.2)
+			countdownSeaSwell:Start(7.2)
 		end
 	end
 end

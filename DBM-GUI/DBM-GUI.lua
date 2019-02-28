@@ -43,7 +43,7 @@
 --
 
 
-local revision =("$Revision: 18328 $"):sub(12, -3)
+local revision =("$Revision: 18411 $"):sub(12, -3)
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
 local PanelPrototype = {}
@@ -824,11 +824,11 @@ function PanelPrototype:CreateCreatureModelFrame(width, height, creatureid)
 	return ModelFrame
 end
 
-function PanelPrototype:AutoSetDimension()
+function PanelPrototype:AutoSetDimension(additionalHeight)
 	if not self.frame.mytype == "area" then return end
 	local height = self.frame:GetHeight()
-
-	local need_height = 25
+	local addHeight = additionalHeight or 0
+	local need_height = 25 + addHeight
 
 	local kids = { self.frame:GetChildren() }
 	for _, child in pairs(kids) do
@@ -3421,7 +3421,7 @@ do
 				bottom2value1:SetText( stats.mythicKills )
 				bottom2value2:SetText( stats.mythicPulls-stats.mythicKills )
 				bottom2value3:SetText( stats.mythicBestTime and ("%d:%02d"):format(mfloor(stats.mythicBestTime / 60), stats.mythicBestTime % 60) or "-" )
-			elseif statsType == 4 then--Party: Normal, heroic, mythic, mythic+ (Ie standard dungeons 6.2/7.x)
+			elseif statsType == 4 then--Party: Normal, heroic, mythic, mythic+ (Ie standard dungeons 6.2/7.x/8.x)
 				top1value1:SetText( stats.normalKills )
 				top1value2:SetText( stats.normalPulls - stats.normalKills )
 				top1value3:SetText( stats.normalBestTime and ("%d:%02d"):format(mfloor(stats.normalBestTime / 60), stats.normalBestTime % 60) or "-" )
@@ -3493,7 +3493,7 @@ do
 				top3value1:SetText( stats.timewalkerKills )
 				top3value2:SetText( stats.timewalkerPulls-stats.timewalkerKills )
 				top3value3:SetText( stats.timewalkerBestTime and ("%d:%02d"):format(mfloor(stats.timewalkerBestTime / 60), stats.timewalkerBestTime % 60) or "-" )
-			elseif statsType == 10 then--Party: Normal, Heroic, Mythic, Mythic+, TimeWalker instance (such a dungeon doesn't exist yet, but 7.x future proofing)
+			elseif statsType == 10 then--Party: Normal, Heroic, Mythic, Mythic+, TimeWalker instance (Wod timewalking Dungeon)
 				top1value1:SetText( stats.normalKills )
 				top1value2:SetText( stats.normalPulls - stats.normalKills )
 				top1value3:SetText( stats.normalBestTime and ("%d:%02d"):format(mfloor(stats.normalBestTime / 60), stats.normalBestTime % 60) or "-" )
@@ -4647,6 +4647,7 @@ do
 			if category then
 				local catpanel = panel:CreateArea(mod.localization.cats[catident], nil, nil, true)
 				local button, lastButton, addSpacer
+				local hasDropdowns = 0
 				for _, v in ipairs(category) do
 					if v == DBM_OPTION_SPACER then
 						addSpacer = true
@@ -4679,11 +4680,12 @@ do
 						for i, v in ipairs(mod.dropdowns[v]) do
 							dropdownOptions[#dropdownOptions + 1] = { text = mod.localization.options[v], value = v }
 						end
-						button = catpanel:CreateDropdown(mod.localization.options[v], dropdownOptions, mod, v, function(value) mod.Options[v] = value end)
+						button = catpanel:CreateDropdown(mod.localization.options[v], dropdownOptions, mod, v, function(value) mod.Options[v] = value end, nil, 32)
 						if addSpacer then
 							button:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -6)
 							addSpacer = false
 						else
+							hasDropdowns = hasDropdowns + 7--Add 7 extra pixels per dropdown, because autodims is only reserving 25 per line, and dropdowns are 32
 							button:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -10)
 						end
 						button:SetScript("OnShow", function(self)
@@ -4691,7 +4693,7 @@ do
 						end)
 					end
 				end
-				catpanel:AutoSetDimension()
+				catpanel:AutoSetDimension(hasDropdowns)
 				panel:SetMyOwnHeight()
 			end
 		end
