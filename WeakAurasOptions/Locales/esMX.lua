@@ -406,6 +406,8 @@ Con |cFF00CC00>= 0|r se activará siempre.]=]
 	L["Left HUD position"] = "Posición izquierda de visualización frontal (HUD)"
 	L["Left Text"] = "Texto a la izquierda"
 	--[[Translation missing --]]
+	L["Legacy Aura Trigger"] = "Legacy Aura Trigger"
+	--[[Translation missing --]]
 	L["Length"] = "Length"
 	L["Load"] = "Cargar"
 	L["Loaded"] = "Cargado"
@@ -682,6 +684,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["Then "] = "Then "
 	--[[Translation missing --]]
 	L["This adds %tooltip, %tooltip1, %tooltip2, %tooltip3 as text replacements."] = "This adds %tooltip, %tooltip1, %tooltip2, %tooltip3 as text replacements."
+	--[[Translation missing --]]
+	L["This aura has legacy aura trigger(s). Convert them to the new system to benefit from enhanced performance and features"] = "This aura has legacy aura trigger(s). Convert them to the new system to benefit from enhanced performance and features"
 	L["This display is currently loaded"] = "Esta aura está cargada"
 	L["This display is not currently loaded"] = "Esta aura no está cargada"
 	L["This region of type \"%s\" is not supported."] = "No soporta el tipo de región \"%s\"."
