@@ -99,7 +99,7 @@ end
 -- ============================================================================
 
 function private.GetGatheringFrame()
-	TSM.Analytics.PageView("crafting/gathering")
+	TSM.UI.AnalyticsRecordPathChange("crafting", "gathering")
 	assert(not private.query)
 	private.query = TSM.Crafting.Gathering.CreateQuery()
 		:SetUpdateCallback(private.UpdateButtonState)

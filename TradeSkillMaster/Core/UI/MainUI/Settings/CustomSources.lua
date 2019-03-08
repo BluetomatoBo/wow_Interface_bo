@@ -28,6 +28,7 @@ end
 -- ============================================================================
 
 function private.GetCustomSourcesSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "custom_sources")
 	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "content")
 		:SetStyle("padding.left", 12)
 		:SetStyle("padding.right", 12)

@@ -47,6 +47,7 @@ function TableRow.Acquire(self, scrollingTable, isHeader)
 	self._tableInfo = self._scrollingTable._tableInfo
 
 	self._frame:SetParent(isHeader and self._scrollingTable:_GetBaseFrame() or self._scrollingTable._content)
+	self._frame:SetHitRectInsets(0, 0, 0, 0)
 	self._frame:Show()
 	self._frame.highlight:SetColorTexture(TSM.UI.HexToRGBA(self._scrollingTable:_GetStyle("highlight")))
 	self._frame.highlight:Hide()
@@ -89,19 +90,20 @@ function TableRow.Release(self)
 		tinsert(self._recycled.icons, icon)
 	end
 	wipe(self._icons)
-	for _, tooltip in pairs(self._buttons) do
-		if tooltip.isShowingTooltip then
+	for _, button in pairs(self._buttons) do
+		if button.isShowingTooltip then
 			TSM.UI.HideTooltip()
-			tooltip.isShowingTooltip = nil
+			button.isShowingTooltip = nil
 		end
-		tooltip:Hide()
-		tooltip:SetScript("OnEnter", nil)
-		tooltip:SetScript("OnLeave", nil)
-		tooltip:SetScript("OnClick", nil)
-		tooltip:ClearAllPoints()
-		tooltip:SetWidth(0)
-		tooltip:SetHeight(0)
-		tinsert(self._recycled.buttons, tooltip)
+		button:Hide()
+		button:SetScript("OnEnter", nil)
+		button:SetScript("OnLeave", nil)
+		button:SetScript("OnClick", nil)
+		button:SetParent(nil)
+		button:ClearAllPoints()
+		button:SetWidth(0)
+		button:SetHeight(0)
+		tinsert(self._recycled.buttons, button)
 	end
 	wipe(self._buttons)
 	for _, icon in pairs(self._sortIcons) do
@@ -117,6 +119,7 @@ function TableRow.Release(self)
 	self._scrollingTable = nil
 	self._tableInfo = nil
 	self._rowData = nil
+	self._frame:SetParent(nil)
 	self._frame:ClearAllPoints()
 	self._frame:SetScript("OnEnter", nil)
 	self._frame:SetScript("OnLeave", nil)
@@ -259,6 +262,7 @@ function TableRow._GetButton(self)
 		button = CreateFrame("Button", nil, self._frame, nil)
 	end
 	button:SetParent(self._frame)
+	button:SetHitRectInsets(0, 0, 0, 0)
 	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	button:Show()
 	return button

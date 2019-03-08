@@ -51,7 +51,7 @@ end
 -- ============================================================================
 
 function private.GetAuctioningFrame()
-	TSM.Analytics.PageView("auction/auctioning")
+	TSM.UI.AnalyticsRecordPathChange("auction", "auctioning")
 	if not private.hasLastScan then
 		private.contentPath = "selection"
 	end
@@ -74,6 +74,7 @@ function private.GetAuctioningContentFrame(_, path)
 end
 
 function private.GetAuctioningSelectionFrame()
+	TSM.UI.AnalyticsRecordPathChange("auction", "auctioning", "selection")
 	local frame = TSMAPI_FOUR.UI.NewElement("DividedContainer", "selection")
 		:SetStyle("background", "#272727")
 		:SetContextTable(private.dividedContainerContext, DEFAULT_DIVIDED_CONTAINER_CONTEXT)
@@ -234,6 +235,7 @@ function private.GetScansElement(_, button)
 end
 
 function private.GetAuctioningScanFrame()
+	TSM.UI.AnalyticsRecordPathChange("auction", "auctioning", "scan")
 	return TSMAPI_FOUR.UI.NewElement("Frame", "scan")
 		:SetLayout("VERTICAL")
 		:SetStyle("background", "#272727")
@@ -463,6 +465,7 @@ end
 
 function private.ScanNavCallback(_, path)
 	if path == L["Auctioning Log"] then
+		TSM.UI.AnalyticsRecordPathChange("auction", "auctioning", "scan", "log")
 		private.logQuery = private.logQuery or TSM.Auctioning.Log.CreateQuery()
 		return TSMAPI_FOUR.UI.NewElement("Frame", "logFrame")
 			:SetLayout("VERTICAL")
@@ -534,6 +537,7 @@ function private.ScanNavCallback(_, path)
 				:SetSelectionDisabled(true)
 			)
 	elseif path == L["All Auctions"] then
+		TSM.UI.AnalyticsRecordPathChange("auction", "auctioning", "scan", "auctions")
 		return TSMAPI_FOUR.UI.NewElement("Frame", "auctionsFrame")
 			:SetLayout("VERTICAL")
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Texture", "line")

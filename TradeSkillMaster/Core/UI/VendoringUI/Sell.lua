@@ -31,7 +31,7 @@ end
 -- ============================================================================
 
 function private.GetFrame()
-	TSM.Analytics.PageView("vendoring/sell")
+	TSM.UI.AnalyticsRecordPathChange("vendoring", "sell")
 	private.filterText = ""
 	if private.query then
 		TSM.Vendoring.Sell.ResetBagsQuery(private.query)

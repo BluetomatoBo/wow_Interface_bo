@@ -159,7 +159,7 @@ function private.ToItemString(item)
 	-- test if it's an old style battle pet string (or if it was a link)
 	result = strjoin(":", strmatch(item, "^battle(p)et:(%d+:%d+:%d+)"))
 	if result then
-		return result
+		return private.RemoveExtra(result)
 	end
 	result = strjoin(":", strmatch(item, "^battle(p)et:(%d+)[:]*$"))
 	if result then
@@ -167,7 +167,7 @@ function private.ToItemString(item)
 	end
 	result = strjoin(":", strmatch(item, "^(p):(%d+:%d+:%d+)"))
 	if result then
-		return result
+		return private.RemoveExtra(result)
 	end
 
 	-- test if it's a long item string

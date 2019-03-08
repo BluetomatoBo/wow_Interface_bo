@@ -35,6 +35,7 @@ end
 -- ============================================================================
 
 function private.GetGeneralSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "general")
 	wipe(private.chatFrameList)
 	local defaultChatFrame = nil
 	for i = 1, NUM_CHAT_WINDOWS do

@@ -28,6 +28,7 @@ end
 -- ============================================================================
 
 function private.GetCraftingSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "crafting")
 	wipe(private.altCharacters)
 	wipe(private.altGuilds)
 	for name in pairs(TSMAPI_FOUR.PlayerInfo.GetCharacters(true)) do

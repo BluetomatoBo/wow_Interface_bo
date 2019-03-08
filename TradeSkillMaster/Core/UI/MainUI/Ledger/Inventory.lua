@@ -36,6 +36,7 @@ end
 -- ============================================================================
 
 function private.DrawInventoryPage()
+	TSM.UI.AnalyticsRecordPathChange("main", "ledger", "inventory")
 	if not private.query then
 		private.query = TSM.Inventory.CreateQuery()
 			:VirtualField("totalValue", "number", private.TotalValueVirtualField)

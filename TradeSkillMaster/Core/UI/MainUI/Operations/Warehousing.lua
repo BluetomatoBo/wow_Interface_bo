@@ -28,6 +28,7 @@ end
 -- ============================================================================
 
 function private.GetWarehousingOperationSettings(operationName)
+	TSM.UI.AnalyticsRecordPathChange("main", "operations", "warehousing")
 	private.currentOperationName = operationName
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")
 		:SetLayout("VERTICAL")

@@ -370,7 +370,7 @@ function Thread._Run(self, quantum)
 	end
 	if not noErr then
 		returnVal = returnVal or "UNKNOWN ERROR"
-		TSM:ShowError(returnVal, self._co)
+		TSM.ShowError(returnVal, self._co)
 		if self._isImmortal then
 			-- restart the immortal thread
 			TSM:LOG_WARN("Restarting immortal thread: %s", self:_ToLogStr())

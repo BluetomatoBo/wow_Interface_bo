@@ -49,7 +49,7 @@ end
 -- ============================================================================
 
 function private.GetInboxFrame()
-	TSM.Analytics.PageView("mailing/inbox")
+	TSM.UI.AnalyticsRecordPathChange("mailing", "inbox")
 	local frame = TSMAPI_FOUR.UI.NewElement("Frame", "frame")
 		:SetLayout("VERTICAL")
 		:AddChild(TSMAPI_FOUR.UI.NewElement("ViewContainer", "view")

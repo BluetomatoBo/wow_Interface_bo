@@ -46,7 +46,7 @@ end
 -- ============================================================================
 
 function private.CreateMainFrame()
-	TSM.Analytics.PageView("destroying")
+	TSM.UI.AnalyticsRecordPathChange("destroying")
 	private.query = private.query or TSM.Destroying.CreateBagQuery()
 	private.query:ResetOrderBy()
 	private.query:OrderBy("name", true)
@@ -135,6 +135,7 @@ end
 -- ============================================================================
 
 function private.FrameOnHide(frame)
+	TSM.UI.AnalyticsRecordClose("destroying")
 	private.fsm:ProcessEvent("EV_FRAME_TOGGLE")
 end
 

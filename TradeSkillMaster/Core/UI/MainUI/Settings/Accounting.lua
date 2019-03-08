@@ -41,6 +41,7 @@ end
 -- ============================================================================
 
 function private.GetAccountingSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "accounting")
 	wipe(private.marketValueItems)
 	wipe(private.marketValueKeys)
 	for key, _, label in TSMAPI_FOUR.CustomPrice.Iterator() do

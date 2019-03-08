@@ -28,7 +28,7 @@ end
 -- ============================================================================
 
 function private.GetCraftingReportsFrame()
-	TSM.Analytics.PageView("crafting/crafting_reports")
+	TSM.UI.AnalyticsRecordPathChange("crafting", "crafting_reports")
 	if not private.craftsQuery then
 		private.craftsQuery = TSM.Crafting.CreateCraftsQuery()
 		private.craftsQuery:VirtualField("firstOperation", "string", private.FirstOperationVirtualField, "itemString")
@@ -53,6 +53,7 @@ end
 
 function private.GetTabElements(self, path)
 	if path == L["Crafts"] then
+		TSM.UI.AnalyticsRecordPathChange("crafting", "crafting_reports", "crafts")
 		private.filterText = ""
 		wipe(private.craftProfessions)
 		tinsert(private.craftProfessions, L["All Professions"])
@@ -210,6 +211,7 @@ function private.GetTabElements(self, path)
 				:SetScript("OnRowClick", private.CraftsOnRowClick)
 			)
 	elseif path == L["Materials"] then
+		TSM.UI.AnalyticsRecordPathChange("crafting", "crafting_reports", "materials")
 		wipe(private.matProfessions)
 		tinsert(private.matProfessions, L["All Professions"])
 		for _, _, profession in TSM.Crafting.PlayerProfessions.Iterator() do

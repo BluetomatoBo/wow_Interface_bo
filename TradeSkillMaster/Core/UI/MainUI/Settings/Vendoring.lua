@@ -27,6 +27,7 @@ end
 -- ============================================================================
 
 function private.GetVendoringSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "vendoring")
 	return TSMAPI_FOUR.UI.NewElement("Frame", "vendoringSettings")
 		:SetLayout("VERTICAL")
 		:SetStyle("padding.left", 12)

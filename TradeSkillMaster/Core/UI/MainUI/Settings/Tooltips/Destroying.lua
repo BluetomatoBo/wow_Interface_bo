@@ -40,6 +40,7 @@ end
 -- ============================================================================
 
 function private.GetTooltipSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "tooltips", "destroying")
 	wipe(private.sources)
 	wipe(private.sourceKeys)
 	for key, _, label in TSMAPI_FOUR.CustomPrice.Iterator() do

@@ -53,7 +53,7 @@ end
 -- ============================================================================
 
 function private.GetCraftingFrame()
-	TSM.Analytics.PageView("crafting/crafting")
+	TSM.UI.AnalyticsRecordPathChange("crafting", "crafting")
 	return TSMAPI_FOUR.UI.NewElement("DividedContainer", "crafting")
 		:SetContextTable(private.dividedContainerContext, DEFAULT_DIVIDED_CONTAINER_CONTEXT)
 		:SetMinWidth(450, 250)
@@ -638,6 +638,7 @@ function private.PageToggleOnValueChanged(toggle, value)
 	else
 		error("Unexpected value: "..tostring(value))
 	end
+	TSM.UI.AnalyticsRecordPathChange("crafting", "crafting", page)
 	toggle:GetElement("__parent.__parent.content"):SetPath(page, true)
 	private.fsm:ProcessEvent("EV_PAGE_CHANGED", page)
 end

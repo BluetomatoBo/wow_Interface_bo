@@ -154,7 +154,7 @@ end
 -- ============================================================================
 
 function private.GetOperationsFrame()
-	TSM.Analytics.PageView("main/operations")
+	TSM.UI.AnalyticsRecordPathChange("main", "operations")
 	local frame = TSMAPI_FOUR.UI.NewElement("DividedContainer", "operations")
 		:SetStyle("background", "#272727")
 		:SetContextTable(private.dividedContainerContext, DEFAULT_DIVIDED_CONTAINER_CONTEXT)
@@ -366,6 +366,7 @@ function private.OperationTreeOnOperationSelected(self, moduleName, operationNam
 		titleFrame:GetElement("moreBtn"):Show()
 		contentFrame:AddChild(private.moduleCallbacks[moduleName](operationName))
 	else
+		TSM.UI.AnalyticsRecordPathChange("main", "operations", "none")
 		titleFrame:GetElement("text"):SetText(L["No Operation Selected"])
 		titleFrame:GetElement("editBtn"):Hide()
 		titleFrame:GetElement("moreBtn"):Hide()

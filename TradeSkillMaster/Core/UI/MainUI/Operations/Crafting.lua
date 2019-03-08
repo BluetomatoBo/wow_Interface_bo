@@ -28,6 +28,7 @@ end
 -- ============================================================================
 
 function private.GetCraftingOperationSettings(operationName)
+	TSM.UI.AnalyticsRecordPathChange("main", "operations", "crafting")
 	private.currentOperationName = operationName
 	local operation = TSM.Operations.GetSettings("Crafting", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")

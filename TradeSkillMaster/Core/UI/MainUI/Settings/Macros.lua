@@ -42,6 +42,7 @@ end
 -- ============================================================================
 
 function private.GetMacrosSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "macros")
 	local body = GetMacroBody(MACRO_NAME) or ""
 	local upEnabled, downEnabled, altEnabled, ctrlEnabled, shiftEnabled = false, false, false, false, false
 	for _, binding in TSMAPI_FOUR.Util.VarargIterator(GetBindingKey(BINDING_NAME)) do

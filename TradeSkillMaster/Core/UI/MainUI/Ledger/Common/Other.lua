@@ -52,10 +52,12 @@ end
 -- ============================================================================
 
 function private.DrawOtherExpensesPage()
+	TSM.UI.AnalyticsRecordPathChange("main", "ledger", "expenses", "other")
 	return private.DrawOtherPage("expense")
 end
 
 function private.DrawOtherRevenuePage()
+	TSM.UI.AnalyticsRecordPathChange("main", "ledger", "revenue", "other")
 	return private.DrawOtherPage("income")
 end
 

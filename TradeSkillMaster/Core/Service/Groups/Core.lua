@@ -93,7 +93,7 @@ function Groups.RebuildDatabase()
 			end
 		else
 			-- remove invalid group paths
-			TSM:LOG_ERR("Removing invalid group path: "..tostring(groupPath))
+			TSM:LOG_ERR("Removing invalid group path: %s", tostring(groupPath))
 			TSM.db.profile.userData.groups[groupPath] = nil
 		end
 	end
@@ -119,7 +119,7 @@ function Groups.RebuildDatabase()
 		local parentPath = TSM.Groups.Path.GetParent(groupPath)
 		if not TSM.db.profile.userData.groups[parentPath] then
 			-- the parent group doesn't exist, so remove this group
-			TSM:LOG_ERR("Removing group with non-existent parent: "..tostring(groupPath))
+			TSM:LOG_ERR("Removing group with non-existent parent: %s", tostring(groupPath))
 			TSM.db.profile.userData.groups[groupPath] = nil
 		else
 			for _, moduleName in TSM.Operations.ModuleIterator() do
@@ -199,9 +199,10 @@ function Groups.Move(groupPath, newGroupPath)
 	private.itemDB:SetQueryUpdatesPaused(true)
 
 	-- get a list of group path changes for this group and all its subgroups
+	local gsubEscapedNewGroupPath = gsub(newGroupPath, "%%", "%%%%")
 	for path in pairs(TSM.db.profile.userData.groups) do
 		if path == groupPath or TSM.Groups.Path.IsChild(path, groupPath) then
-			changes[path] = gsub(path, "^"..TSMAPI_FOUR.Util.StrEscape(groupPath), newGroupPath)
+			changes[path] = gsub(path, "^"..TSMAPI_FOUR.Util.StrEscape(groupPath), gsubEscapedNewGroupPath)
 		end
 	end
 

@@ -32,7 +32,7 @@ end
 -- ============================================================================
 
 function private.GetFrame()
-	TSM.Analytics.PageView("vendoring/groups")
+	TSM.UI.AnalyticsRecordPathChange("vendoring", "groups")
 	return TSMAPI_FOUR.UI.NewElement("Frame", "buy")
 		:SetLayout("VERTICAL")
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "groupsText")

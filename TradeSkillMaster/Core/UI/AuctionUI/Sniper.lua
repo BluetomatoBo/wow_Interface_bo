@@ -30,7 +30,7 @@ end
 -- ============================================================================
 
 function private.GetSniperFrame()
-	TSM.Analytics.PageView("auction/sniper")
+	TSM.UI.AnalyticsRecordPathChange("auction", "sniper")
 	if not private.hasLastScan then
 		private.contentPath = "selection"
 	end
@@ -53,6 +53,7 @@ function private.GetSniperContentFrame(viewContainer, path)
 end
 
 function private.GetSelectionFrame()
+	TSM.UI.AnalyticsRecordPathChange("auction", "sniper", "selection")
 	local frame = TSMAPI_FOUR.UI.NewElement("Frame", "selection")
 		:SetLayout("VERTICAL")
 		:SetStyle("background", "#272727")
@@ -98,6 +99,7 @@ function private.GetSelectionFrame()
 end
 
 function private.GetScanFrame()
+	TSM.UI.AnalyticsRecordPathChange("auction", "sniper", "scan")
 	return TSMAPI_FOUR.UI.NewElement("Frame", "scan")
 		:SetLayout("VERTICAL")
 		:SetStyle("background", "#272727")

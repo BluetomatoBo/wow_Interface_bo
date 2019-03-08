@@ -35,7 +35,7 @@ end
 -- ============================================================================
 
 function private.GetMyAuctionsFrame()
-	TSM.Analytics.PageView("auction/my_auctions")
+	TSM.UI.AnalyticsRecordPathChange("auction", "my_auctions")
 	private.query = private.query or TSM.MyAuctions.CreateQuery()
 	local frame = TSMAPI_FOUR.UI.NewElement("Frame", "myAuctions")
 		:SetLayout("VERTICAL")

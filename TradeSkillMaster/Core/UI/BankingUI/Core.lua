@@ -70,7 +70,7 @@ end
 -- ============================================================================
 
 function private.CreateMainFrame()
-	TSM.Analytics.PageView("banking")
+	TSM.UI.AnalyticsRecordPathChange("banking")
 	local frame = TSMAPI_FOUR.UI.NewElement("ApplicationFrame", "base")
 		:SetTextureSet("LARGE", "SMALL")
 		:SetParent(UIParent)
@@ -80,6 +80,7 @@ function private.CreateMainFrame()
 		:SetStyle("strata", "HIGH")
 		:SetStyle("bottomPadding", 170)
 		:SetTitle(L["TSM Banking"])
+		:SetScript("OnHide", private.BaseFrameOnHide)
 		:SetContentFrame(TSMAPI_FOUR.UI.NewElement("Frame", "content")
 			:SetLayout("VERTICAL")
 			:SetStyle("background", "#272727")
@@ -162,10 +163,13 @@ function private.UpdateCurrentModule(frame)
 	-- update group tree
 	local contextTable = nil
 	if private.currentModule == "Warehousing" then
+		TSM.UI.AnalyticsRecordPathChange("banking", "warehousing")
 		contextTable = TSM.db.profile.internalData.bankingWarehousingGroupTreeContext
 	elseif private.currentModule == "Auctioning" then
+		TSM.UI.AnalyticsRecordPathChange("banking", "auctioning")
 		contextTable = TSM.db.profile.internalData.bankingAuctioningGroupTreeContext
 	elseif private.currentModule == "Mailing" then
+		TSM.UI.AnalyticsRecordPathChange("banking", "mailing")
 		contextTable = TSM.db.profile.internalData.bankingMailingGroupTreeContext
 	else
 		error("Unexpected module: "..tostring(private.currentModule))
@@ -274,6 +278,10 @@ end
 -- ============================================================================
 -- Local Script Handlers
 -- ============================================================================
+
+function private.BaseFrameOnHide()
+	TSM.UI.AnalyticsRecordClose("banking")
+end
 
 function private.CloseBtnOnClick(button)
 	TSM:Print(L["Hiding the TSM Banking UI. Type '/tsm bankui' to reopen it."])

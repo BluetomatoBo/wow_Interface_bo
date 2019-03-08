@@ -8,10 +8,15 @@
 
 local _, TSM = ...
 local Analytics = TSM:NewPackage("Analytics")
-local private = { events = {}, lastEventTime = nil, argsTemp = {} }
+local private = {
+	events = {},
+	lastEventTime = nil,
+	argsTemp = {},
+	session = time(),
+	sequenceNumber = 1,
+}
 local MAX_ANALYTICS_AGE = 14 * 24 * 60 * 60 -- 2 weeks
 local HIT_TYPE_IS_VALID = {
-	PV = true,
 	AC = true,
 }
 
@@ -20,11 +25,6 @@ local HIT_TYPE_IS_VALID = {
 -- ============================================================================
 -- Module Functions
 -- ============================================================================
-
-function Analytics.PageView(path)
-	assert(type(path) == "string" and strmatch(path, "^[a-zA-Z_%-0-9/]+$"))
-	private.InsertHit("PV", path)
-end
 
 function Analytics.Action(name, ...)
 	private.InsertHit("AC", name, ...)
@@ -76,7 +76,12 @@ function private.InsertHit(hitType, ...)
 		tinsert(private.argsTemp, arg)
 	end
 	TSM:LOG_INFO("%s %s", hitType, strjoin(" ", tostringall(...)))
-	tinsert(private.events, "["..strjoin(",", private.AddQuotes(hitType), private.AddQuotes(TSM:GetVersion() or "???"), time(), unpack(private.argsTemp)).."]")
+	hitType = private.AddQuotes(hitType)
+	local version = private.AddQuotes(TSM:GetVersion() or "???")
+	local timeMs = TSMAPI_FOUR.Util.GetTimeMilliseconds()
+	local jsonStr = strjoin(",", hitType, version, timeMs, private.session, private.sequenceNumber, unpack(private.argsTemp))
+	tinsert(private.events, "["..jsonStr.."]")
+	private.sequenceNumber = private.sequenceNumber + 1
 	private.lastEventTime = time()
 end
 

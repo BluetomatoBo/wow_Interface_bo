@@ -53,11 +53,13 @@ end
 -- ============================================================================
 
 function private.DrawPurchasesPage()
+	TSM.UI.AnalyticsRecordPathChange("main", "ledger", "expenses", "purchases")
 	private.type = "buy"
 	return private.DrawTransactionPage()
 end
 
 function private.DrawSalesPage()
+	TSM.UI.AnalyticsRecordPathChange("main", "ledger", "revenue", "sales")
 	private.type = "sale"
 	return private.DrawTransactionPage()
 end

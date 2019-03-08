@@ -58,7 +58,6 @@ end
 -- ============================================================================
 
 function private.CreateMainFrame()
-	TSM.Analytics.PageView("debug/db_viewer")
 	private.selectedDBName = nil
 	return TSMAPI_FOUR.UI.NewElement("ApplicationFrame", "base")
 		:SetTextureSet("SMALL", "SMALL")

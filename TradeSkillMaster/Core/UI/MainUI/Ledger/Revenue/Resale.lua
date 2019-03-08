@@ -52,6 +52,7 @@ end
 -- ============================================================================
 
 function private.DrawResalePage()
+	TSM.UI.AnalyticsRecordPathChange("main", "ledger", "revenue", "resale")
 	wipe(private.characters)
 	tinsert(private.characters, ALL)
 	TSM.Accounting.Transactions.GetCharacters(private.characters)

@@ -30,6 +30,7 @@ end
 -- ============================================================================
 
 function private.GetShoppingOperationSettings(operationName)
+	TSM.UI.AnalyticsRecordPathChange("main", "operations", "shopping")
 	private.currentOperationName = operationName
 	local operation = TSM.Operations.GetSettings("Shopping", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")
@@ -159,4 +160,3 @@ function private.MaxPriceOnEnterPressed(input)
 		private.OperationOnSizeChanged(input, nil, input:GetHeight())
 	end
 end
-

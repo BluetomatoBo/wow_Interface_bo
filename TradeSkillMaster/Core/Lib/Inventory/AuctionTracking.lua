@@ -76,7 +76,7 @@ function AuctionTracking.OnInitialize()
 	private.db = TSMAPI_FOUR.Database.New(DB_SCHEMA, "AUCTION_TRACKING")
 	private.updateQuery = private.db:NewQuery()
 		:SetUpdateCallback(private.OnCallbackQueryUpdated)
-	for info, timestamp in ipairs(TSM.db.char.internalData.auctionSaleHints) do
+	for info, timestamp in pairs(TSM.db.char.internalData.auctionSaleHints) do
 		if time() > timestamp + SALE_HINT_EXPIRE_TIME then
 			TSM.db.char.internalData.auctionSaleHints[info] = nil
 		end

@@ -27,11 +27,12 @@ end
 
 
 -- ============================================================================
--- Vendoring Settings UI
+-- Shopping Settings UI
 -- ============================================================================
 
 function private.GetShoppingSettingsFrame()
-	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "vendoringSettings")
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "shopping")
+	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "shoppingSettings")
 		:SetStyle("padding.left", 12)
 		:SetStyle("padding.right", 12)
 		:AddChild(TSM.MainUI.Settings.CreateHeading("generalOptionsTitle", L["General Options"])

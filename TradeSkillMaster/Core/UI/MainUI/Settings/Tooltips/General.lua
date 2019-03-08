@@ -28,6 +28,7 @@ end
 -- ============================================================================
 
 function private.GetTooltipSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "tooltips", "main")
 	wipe(private.operationModules)
 	for _, moduleName in TSM.Operations.ModuleIterator() do
 		tinsert(private.operationModules, moduleName)

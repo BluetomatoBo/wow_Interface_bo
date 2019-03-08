@@ -37,6 +37,7 @@ end
 -- ============================================================================
 
 function private.GetAuctioningOperationSettings(operationName)
+	TSM.UI.AnalyticsRecordPathChange("main", "operations", "auctioning")
 	private.currentOperationName = operationName
 	return TSMAPI_FOUR.UI.NewElement("TabGroup", "tabs")
 		:SetStyle("margin.top", 16)
@@ -47,6 +48,7 @@ function private.GetAuctioningOperationSettings(operationName)
 end
 
 function private.GetDetailsSettings()
+	TSM.UI.AnalyticsRecordPathChange("main", "operations", "auctioning", "details")
 	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "content")
 		:SetStyle("background", "#1e1e1e")
@@ -75,6 +77,7 @@ function private.GetDetailsSettings()
 end
 
 function private.GetPostingSettings()
+	TSM.UI.AnalyticsRecordPathChange("main", "operations", "auctioning", "posting")
 	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "content")
 		:SetStyle("background", "#1e1e1e")
@@ -279,7 +282,8 @@ function private.GetPostingSettings()
 		)
 end
 
-function private.GetCancelSettings()
+function private.GetCancelingSettings()
+	TSM.UI.AnalyticsRecordPathChange("main", "operations", "auctioning", "canceling")
 	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "content")
 		:SetStyle("background", "#1e1e1e")
@@ -317,7 +321,7 @@ function private.GetAuctioningSettings(self, button)
 	elseif button == L["Posting"] then
 		return private.GetPostingSettings()
 	elseif button == L["Canceling"] then
-		return private.GetCancelSettings()
+		return private.GetCancelingSettings()
 	else
 		error("Unknown button!")
 	end
@@ -464,17 +468,15 @@ end
 
 function private.BidPercentOnEnterPressed(self)
 	local value = strmatch(strtrim(self:GetText()), "^([0-9]+) *%%?$")
-	value = tonumber(value)
-	if value then
-		value = min(value, 100)
-		value = TSMAPI_FOUR.Util.Round(value)
-		value = value / 100
-		local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
-		operation.bidPercent = value
+	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
+	value = max(tonumber(value) or (operation.bidPercent and operation.bidPercent * 100 or 100), 0)
+	value = min(value, 100)
+	value = TSMAPI_FOUR.Util.Round(value)
+	value = value / 100
+	operation.bidPercent = value
 
-		local percentValue = (value * 100) .. "%"
-		self:SetText(percentValue)
-	end
+	local percentValue = (value * 100) .. "%"
+	self:SetText(percentValue)
 
 	self:Draw()
 end

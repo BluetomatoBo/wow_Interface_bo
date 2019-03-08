@@ -1,7 +1,5 @@
-## v4.7.3 Changes
+## v4.7.5 Changes
 
-* Crafting/Group sync should work properly again.
-* Fixed some additional mailing sending issues.
-* Fixed some element drawing issues.
+* Fixed bug with group names ending in a %
 
 [Known Issues](http://support.tradeskillmaster.com/display/KB/TSM4+Currently+Known+Issues)

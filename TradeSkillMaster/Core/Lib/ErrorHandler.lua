@@ -10,9 +10,18 @@
 
 local _, TSM = ...
 local L = TSM.L
-local private = { errorFrame = nil, isSilent = nil, errorSuppressed = nil, errorReports = {}, num = 0 }
--- use strmatch does this string doesn't itself get replaced when we deploy
-local IS_DEV_VERSION = strmatch(GetAddOnMetadata("TradeSkillMaster", "version"), "^@tsm%-project%-version@$") and true or false
+local private = {
+	errorFrame = nil,
+	isSilent = nil,
+	errorSuppressed = nil,
+	errorReports = {},
+	num = 0,
+	localLinesTemp = {},
+	hitInternalError = false,
+}
+local TSM_VERSION = GetAddOnMetadata("TradeSkillMaster", "Version")
+-- use strmatch so this string doesn't itself get replaced when we deploy
+local IS_DEV_VERSION = strmatch(TSM_VERSION, "^@tsm%-project%-version@$") and true or false
 local MAX_ERROR_REPORT_AGE = 7 * 24 * 60 * 60 -- 1 week
 local MAX_STACK_DEPTH = 50
 local ADDON_SUITES = {
@@ -52,6 +61,7 @@ local ADDON_SUITES = {
 	"WowPro",
 	"ZOMGBuffs",
 }
+local ERROR_HEADING_COLOR = "|cff99ffff"
 
 
 
@@ -59,12 +69,12 @@ local ADDON_SUITES = {
 -- Module Functions
 -- ============================================================================
 
-function TSM:ShowManualError()
+function TSM.ShowManualError()
 	private.isManual = true
-	TSM:ShowError("Manually triggered error")
+	TSM.ShowError("Manually triggered error")
 end
 
-function TSM:ShowError(err, thread)
+function TSM.ShowError(err, thread)
 	if thread then
 		local stackLine = debugstack(thread, 0, 1, 0)
 		local oldModule = strmatch(stackLine, "(lMaster_[A-Za-z]+)")
@@ -75,7 +85,7 @@ function TSM:ShowError(err, thread)
 	end
 	-- show an error, but don't cause an exception to be thrown
 	private.isSilent = true
-	private.ErrorHandler(err, thread, debugprofilestop())
+	private.ErrorHandler(err, thread)
 end
 
 function TSM.SaveErrorReports(appDB)
@@ -92,7 +102,7 @@ function TSM.SaveErrorReports(appDB)
 		end
 	end
 	for _, report in ipairs(private.errorReports) do
-		local line = format("[\"%s\",\"%s\",%d]", report.errMsg, report.details, report.timestamp)
+		local line = format("[%s,\"%s\",%d]", TSMAPI_FOUR.JSON.Encode(report.errorInfo), report.details, report.timestamp)
 		tinsert(appDB.errorReports.data, line)
 	end
 end
@@ -103,7 +113,7 @@ end
 -- Error Handler
 -- ============================================================================
 
-function private.ErrorHandler(msg, thread, errorTime)
+function private.ErrorHandler(msg, thread)
 	-- ignore errors while we are handling this error
 	private.ignoreErrors = true
 	local isSilent = private.isSilent
@@ -115,199 +125,98 @@ function private.ErrorHandler(msg, thread, errorTime)
 		thread = nil
 	end
 
-	local color = "|cff99ffff"
-	local errMsgParts = {}
+	if private.errorFrame:IsVisible() and private.errorSuppressed then
+		-- already showing an error and suppressed another one, so silently ignore this one
+		private.ignoreErrors = false
+		return true
+	end
+
+	-- shorten the paths in the error message
+	msg = gsub(msg, "%.%.%.T?r?a?d?e?S?k?i?l?lM?a?ster([_A-Za-z]*)\\", "TradeSkillMaster%1\\")
+	msg = strsub(msg, strfind(msg, "TradeSkillMaster") or 1)
+	msg = gsub(msg, "TradeSkillMaster([^%.])", "TSM%1")
 
 	-- build stack trace with locals and get addon name
-	local addonName = nil
-	local errLocation = strmatch(msg, "[A-Za-z]+%.lua:[0-9]+")
-	local stackInfo = { color.."Stack Trace:|r" }
-	local stackStarted = false
-	for i = 0, MAX_STACK_DEPTH do
-		local stackLine = nil
-		if thread then
-			stackLine = debugstack(thread, i, 1, 0)
-		else
-			stackLine = debugstack(i, 1, 0)
-		end
-		if not stackStarted then
-			if errLocation then
-				stackStarted = strmatch(stackLine, "[A-Za-z]+%.lua:[0-9]+") == errLocation
-			else
-				stackStarted = (i > (thread and 1 or 4) and not strmatch(stackLine, "^%[C%]:"))
-			end
-		end
-		if not addonName and stackStarted and strmatch(stackLine, "[A-Za-z]+%.lua:[0-9]+") then
-			addonName = private.IsTSMAddon(stackLine) or (isSilent and "TradeSkillMaster")
-		end
-		if stackStarted then
-			stackLine = gsub(stackLine, "%.%.%.T?r?a?d?e?S?k?i?l?lM?a?ster([_A-Za-z]*)\\", "TradeSkillMaster%1\\")
-			stackLine = gsub(stackLine, "%.%.%.", "")
-			stackLine = strtrim(stackLine)
-			local strStart = strfind(stackLine, "in function")
-			local functionName = nil
-			if strStart then
-				stackLine = gsub(stackLine, "`", "<", 1)
-				stackLine = gsub(stackLine, "'", ">", 1)
-				local inFunction = strmatch(stackLine, "<[^>]*>", strStart)
-				if inFunction then
-					inFunction = gsub(gsub(inFunction, ".*\\", ""), "<", "")
-					if inFunction ~= "" then
-						local str = strsub(stackLine, 1, strStart-2)
-						str = strsub(str, strfind(str, "TradeSkillMaster") or 1)
-						if strfind(inFunction, "`") then
-							inFunction = strsub(inFunction, 2, -2)..">"
-						end
-						str = gsub(str, "TradeSkillMaster([^%.])", "TSM%1")
-						functionName = strsub(inFunction, 1, -2)
-						stackLine = str.." <"..inFunction
-					end
-				end
-			end
-			if strfind(stackLine, "Class%.lua:193") then
-				-- ignore stack frames from the class code's wrapper function
-				stackLine = ""
-				if functionName and not strmatch(functionName, "^.+:[0-9]+$") and #stackInfo > 0 then
-					local prevFunctionName = strmatch(stackInfo[#stackInfo], "[^\n]+<([^>]+)>\n")
-					if prevFunctionName and strmatch(prevFunctionName, "^.+:[0-9]+$") then
-						-- this stack frame includes the class method we were accessing in the previous one, so go back and fix it up
-						local locals = debuglocals(i)
-						local className = locals and strmatch(locals, "\n +str = \"([A-Za-z_0-9]+):[0-9A-F]+\"\n") or "?"
-						functionName = className.."."..functionName
-						stackInfo[#stackInfo] = gsub(stackInfo[#stackInfo], gsub(prevFunctionName, "%.", "%."), functionName)
-					end
-				end
-			end
-			if stackLine ~= "" then
-				local localsInfo = {}
-				-- add locals for addon functions (debuglocals() doesn't always work - or ever for threads)
-				local locals = debuglocals(i)
-				if locals and not strmatch(stackLine, "^%[") then
-					locals = gsub(locals, "<([a-z]+)> {[\n\t ]+}", "<%1> {}")
-					locals = gsub(locals, " = <function> defined @", "@")
-					locals = gsub(locals, "<table> {", "{")
-					local fileName = strmatch(stackLine, "([A-Za-z]+)%.lua")
-					local isPrivateTable, isLocaleTable, isPackageTable = false, false, false
-					for localLine in gmatch(locals, "[^\n]+") do
-						local shouldIgnoreLine = false
-						if strmatch(localLine, "^ *%(") then
-							shouldIgnoreLine = true
-						elseif strmatch(localLine, "Class%.lua:182") then
-							-- ignore class methods
-							shouldIgnoreLine = true
-						elseif strmatch(localLine, "<unnamed> {}$") then
-							-- ignore internal WoW frame members
-							shouldIgnoreLine = true
-						end
-						if not shouldIgnoreLine then
-							local level = #strmatch(localLine, "^ *")
-							localLine = strrep("  ", level + 4)..strtrim(localLine)
-							localLine = gsub(localLine, "Interface\\[aA]dd[Oo]ns\\TradeSkillMaster", "TSM")
-							localLine = gsub(localLine, "\124", "\\124")
-							if level > 0 then
-								if strmatch(stackLine, "Interface\\FrameXML\\") then
-									-- for Blizzard stack frames, only include level 0 locals
-									shouldIgnoreLine = true
-								elseif isPrivateTable and strmatch(localLine, "^ *[A-Z].+@TSM") then
-									-- ignore functions within the private table
-									shouldIgnoreLine = true
-								elseif isLocaleTable then
-									-- ignore everything within the locale table
-									shouldIgnoreLine = true
-								elseif isPackageTable then
-									-- ignore the package table completely
-									shouldIgnoreLine = true
-								end
-							end
-							if not shouldIgnoreLine then
-								tinsert(localsInfo, localLine)
-							end
-							if level == 0 then
-								isPackageTable = strmatch(localLine, "%s*"..fileName.." = {") and true or false
-								isPrivateTable = strmatch(localLine, "%s*private = {") and true or false
-								isLocaleTable = strmatch(localLine, "%s*L = {") and true or false
-							end
-						end
-					end
-				end
-				if #localsInfo > 0 then
-					stackLine = stackLine.."\n|cffaaaaaa"..table.concat(localsInfo, "\n").."|r"
-				end
-				tinsert(stackInfo, stackLine)
-			end
+	local stackInfo = private.GetStackInfo(msg, thread)
+	local addonName = isSilent and "TradeSkillMaster" or nil
+	for _, info in ipairs(stackInfo) do
+		if not addonName then
+			addonName = strmatch(info.file, "[A-Za-z]+%.lua") and private.IsTSMAddon(info.file) or nil
 		end
 	end
 	if not isManual and addonName ~= "TradeSkillMaster" then
+		-- not a TSM error
+		private.ignoreErrors = false
 		return false
 	end
 
-	-- add error message
-	tinsert(errMsgParts, color.."Message:|r "..msg)
-
-	-- add current date/time
-	tinsert(errMsgParts, color.."Time:|r "..date("%m/%d/%y %H:%M:%S").." ("..floor(errorTime)..")")
-
-	-- add current client version number
-	tinsert(errMsgParts, color.."Client:|r "..GetBuildInfo())
-
-	-- add locale name
-	tinsert(errMsgParts, color.."Locale:|r "..GetLocale())
-
-	-- is player in combat
-	tinsert(errMsgParts, color.."Combat:|r "..tostring(InCombatLockdown()))
-
-	-- add the error number
-	private.num = private.num + 1
-	tinsert(errMsgParts, color.."Error Count:|r "..private.num)
-
-	-- add stack info
-	tinsert(errMsgParts, table.concat(stackInfo, "\n    "))
-
-	-- add temp table info
-	local status, tempTableInfo = pcall(TSMAPI_FOUR.Util.GetTempTableDebugInfo)
-	if status then
-		tinsert(errMsgParts, color.."Temp Table Info:|r")
-		for _, info in ipairs(tempTableInfo) do
-			tinsert(errMsgParts, "  "..info)
-		end
+	if TSM.LOG_ERR and not IS_DEV_VERSION and not isManual then
+		-- use a format string in case there are '%' characters in the msg
+		TSM:LOG_ERR("%s", msg)
 	end
 
-	-- add object pool info
+	if private.errorFrame:IsVisible() then
+		-- already showing an error, so suppress this one and return
+		private.errorSuppressed = true
+		print("|cffff0000TradeSkillMaster:|r "..L["Additional error suppressed"])
+		return true
+	end
+
+	private.num = private.num + 1
+	local errorInfo = {
+		msg = #stackInfo > 0 and gsub(msg, TSMAPI_FOUR.Util.StrEscape(stackInfo[1].file)..":"..stackInfo[1].line..": ", "") or msg,
+		stackInfo = stackInfo,
+		time = time(),
+		debugTime = floor(debugprofilestop()),
+		client = GetBuildInfo(),
+		locale = GetLocale(),
+		inCombat = tostring(InCombatLockdown() and true or false),
+		version = IS_DEV_VERSION and "Dev" or TSM_VERSION,
+	}
+
+	-- temp table info
+	local status, tempTableInfo = pcall(TSMAPI_FOUR.Util.GetTempTableDebugInfo)
+	local tempTableLines = {}
+	if status then
+		for _, info in ipairs(tempTableInfo) do
+			tinsert(tempTableLines, info)
+		end
+	end
+	errorInfo.tempTableStr = table.concat(tempTableLines, "\n")
+
+	-- object pool info
 	local objectPoolInfo = nil
 	status, objectPoolInfo = pcall(TSMAPI_FOUR.ObjectPool.GetDebugInfo)
+	local objectPoolLines = {}
 	if status then
-		tinsert(errMsgParts, color.."Object Pool Info:|r")
 		for name, objectInfo in pairs(objectPoolInfo) do
-			tinsert(errMsgParts, format("  %s (%d created, %d in use)", name, objectInfo.numCreated, objectInfo.numInUse))
+			tinsert(objectPoolLines, format("%s (%d created, %d in use)", name, objectInfo.numCreated, objectInfo.numInUse))
 			for _, info in ipairs(objectInfo.info) do
-				tinsert(errMsgParts, "    "..info)
+				tinsert(objectPoolLines, "  "..info)
 			end
 		end
 	end
+	errorInfo.objectPoolStr = table.concat(objectPoolLines, "\n")
 
-	-- add TSM thread info
+	-- TSM thread info
 	local threadInfo = nil
 	status, threadInfo = pcall(TSMAPI_FOUR.Thread.GetDebugInfo)
-	if status then
-		tinsert(errMsgParts, color.."TSM Thread Info:|r\n    "..table.concat(threadInfo, "\n    "))
-	end
+	errorInfo.threadInfoStr = status and table.concat(threadInfo, "\n") or ""
 
-	-- add recent TSM debug log entries
+	-- recent debug log entries
 	local logEntries = nil
 	status, logEntries = pcall(function() return TSMAPI_FOUR.Logger.GetRecentLogEntries(200, 150) end)
-	if status then
-		tinsert(errMsgParts, color.."TSM Debug Log:|r\n    "..table.concat(logEntries, "\n    "))
-	end
+	errorInfo.debugLogStr = status and table.concat(logEntries, "\n") or ""
 
-	-- add addons
+	-- addons
 	local hasAddonSuite = {}
-	local addons = { color.."Addons:|r" }
+	local addonsLines = {}
 	for i = 1, GetNumAddOns() do
 		local name, _, _, loadable = GetAddOnInfo(i)
 		if loadable then
-			local version = GetAddOnMetadata(name, "X-Curse-Packaged-Version") or GetAddOnMetadata(name, "Version") or ""
+			local version = strtrim(GetAddOnMetadata(name, "X-Curse-Packaged-Version") or GetAddOnMetadata(name, "Version") or "")
 			local loaded = IsAddOnLoaded(i)
-			local isSuite
+			local isSuite = nil
 			for _, commonTerm in ipairs(ADDON_SUITES) do
 				if strsub(name, 1, #commonTerm) == commonTerm then
 					isSuite = commonTerm
@@ -317,39 +226,85 @@ function private.ErrorHandler(msg, thread, errorTime)
 			local commonTerm = "TradeSkillMaster"
 			if isSuite then
 				if not hasAddonSuite[isSuite] then
-					tinsert(addons, name.." ("..version..")"..(loaded and "" or " [Not Loaded]"))
+					tinsert(addonsLines, name.." ("..version..")"..(loaded and "" or " [Not Loaded]"))
 					hasAddonSuite[isSuite] = true
 				end
 			elseif strsub(name, 1, #commonTerm) == commonTerm then
 				name = gsub(name, "TradeSkillMaster", "TSM")
-				tinsert(addons, name.." ("..version..")"..(loaded and "" or " [Not Loaded]"))
+				tinsert(addonsLines, name.." ("..version..")"..(loaded and "" or " [Not Loaded]"))
 			else
-				tinsert(addons, name.." ("..version..")"..(loaded and "" or " [Not Loaded]"))
+				tinsert(addonsLines, name.." ("..version..")"..(loaded and "" or " [Not Loaded]"))
 			end
 		end
 	end
-	tinsert(errMsgParts, table.concat(addons, "\n    "))
+	errorInfo.addonsStr = table.concat(addonsLines, "\n")
 
-	-- show the error message if applicable
-	msg = gsub(msg, "%%", "%%%%")
-	if not private.errorFrame:IsVisible() then
-		if TSM.LOG_ERR and not IS_DEV_VERSION and not isManual then
-			TSM:LOG_ERR(msg)
-		end
-		print("|cffff0000TradeSkillMaster:|r "..L["Looks like TradeSkillMaster has encountered an error. Please help the author fix this error by following the instructions shown."])
-		private.errorFrame.error = table.concat(errMsgParts, "\n")
-		private.errorFrame.isManual = isManual
-		private.errorFrame:Show()
-	elseif not private.errorSuppressed then
-		private.errorSuppressed = true
-		if TSM.LOG_ERR then
-			TSM:LOG_ERR(msg)
-		end
-		print("|cffff0000TradeSkillMaster:|r "..L["Additional error suppressed"])
+	-- show this error
+	local stackInfoLines = {}
+	for _, info in ipairs(errorInfo.stackInfo) do
+		local localsStr = info.locals ~= "" and ("\n  |cffaaaaaa"..gsub(info.locals, "\n", "\n  ").."|r") or ""
+		local locationStr = info.line ~= 0 and strjoin(":", info.file, info.line) or info.file
+		tinsert(stackInfoLines, locationStr.." <"..info.func..">"..localsStr)
 	end
+	private.errorFrame.errorStr = strjoin("\n",
+		private.FormatErrorMessageSection("Message", msg),
+		private.FormatErrorMessageSection("Time", date("%m/%d/%y %H:%M:%S", errorInfo.time).." ("..floor(errorInfo.debugTime)..")"),
+		private.FormatErrorMessageSection("Client", errorInfo.client),
+		private.FormatErrorMessageSection("Locale", errorInfo.locale),
+		private.FormatErrorMessageSection("Combat", errorInfo.inCombat),
+		private.FormatErrorMessageSection("Error Count", private.num),
+		private.FormatErrorMessageSection("Stack Trace", table.concat(stackInfoLines, "\n"), true),
+		private.FormatErrorMessageSection("Temp Tables", errorInfo.tempTableStr, true),
+		private.FormatErrorMessageSection("Object Pools", errorInfo.objectPoolStr, true),
+		private.FormatErrorMessageSection("Threads", errorInfo.threadInfoStr, true),
+		private.FormatErrorMessageSection("Debug Log", errorInfo.debugLogStr, true),
+		private.FormatErrorMessageSection("Addons", errorInfo.addonsStr, true)
+	)
+	private.errorFrame.errorInfo = errorInfo
+	private.errorFrame.isManual = isManual
+	private.errorFrame:Show()
+	print("|cffff0000TradeSkillMaster:|r "..L["Looks like TradeSkillMaster has encountered an error. Please help the author fix this error by following the instructions shown."])
 
 	private.ignoreErrors = false
 	return true
+end
+
+
+
+-- ============================================================================
+-- Private Helper Functions
+-- ============================================================================
+
+function private.GetStackInfo(msg, thread)
+	-- build stack trace with locals and get addon name
+	local errLocation = strmatch(msg, "[A-Za-z]+%.lua:[0-9]+")
+	local stackInfo = {}
+	local stackStarted = false
+	for i = 1, MAX_STACK_DEPTH do
+		local prevStackFunc = #stackInfo > 0 and stackInfo[#stackInfo].func or nil
+		local file, line, func, localsStr, newPrevStackFunc = TSMAPI_FOUR.Util.GetStackLevelInfo(i, thread, prevStackFunc)
+		if newPrevStackFunc then
+			stackInfo[#stackInfo].func = newPrevStackFunc
+		end
+		if file then
+			if not stackStarted then
+				if errLocation then
+					stackStarted = strmatch(file..":"..line, "[A-Za-z]+%.lua:[0-9]+") == errLocation
+				else
+					stackStarted = i > (thread and 1 or 5) and file ~= "[C]"
+				end
+			end
+			if stackStarted then
+				tinsert(stackInfo, {
+					file = file,
+					line = line,
+					func = func,
+					locals = localsStr,
+				})
+			end
+		end
+	end
+	return stackInfo
 end
 
 function private.IsTSMAddon(str)
@@ -371,6 +326,8 @@ function private.IsTSMAddon(str)
 		return "TradeSkillMaster"
 	elseif strfind(str, "ster\\Core\\UI\\") then
 		return "TradeSkillMaster"
+	elseif strfind(str, "^TSM\\") then
+		return "TradeSkillMaster"
 	end
 	return nil
 end
@@ -383,11 +340,22 @@ function private.AddonBlockedEvent(event, addonName, addonFunc)
 	end
 end
 
-function private.SantizeErrorReportString(str)
+function private.SanitizeString(str)
 	str = gsub(str, "\124cff[0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f][0-9A-Fa-f]([^\124]+)\124r", "%1")
-	str = gsub(str, "\\", "/")
+	str = gsub(str, "[\\]+", "/")
 	str = gsub(str, "\"", "'")
 	return str
+end
+
+function private.FormatErrorMessageSection(heading, info, isMultiLine)
+	local prefix = nil
+	if isMultiLine then
+		prefix = info ~= "" and "\n  " or ""
+		info = gsub(info, "\n", "\n  ")
+	else
+		prefix = info ~= "" and " " or ""
+	end
+	return ERROR_HEADING_COLOR..heading..":|r"..prefix..info
 end
 
 
@@ -419,7 +387,7 @@ do
 			-- this is a dev version so show the error (only)
 			self.text:SetText("Looks like TradeSkillMaster has encountered an error.")
 			self.switchBtn:SetText("Hide Error")
-			self.editBox:SetText(self.error)
+			self.editBox:SetText(self.errorStr)
 		else
 			self.text:SetText("Looks like TradeSkillMaster has encountered an error. Please provide the steps which lead to this error to help the TSM team fix it, then click either button at the bottom of the window to automatically report this error.")
 			self.switchBtn:SetText("Show Error")
@@ -431,9 +399,9 @@ do
 		local changedDetails = details ~= STEPS_TEXT
 		if (not IS_DEV_VERSION and not private.errorFrame.isManual and (changedDetails or private.num == 1)) or IsShiftKeyDown() then
 			tinsert(private.errorReports, {
-				errMsg = private.SantizeErrorReportString(private.errorFrame.error),
-				details = private.SantizeErrorReportString(details),
-				timestamp = time()
+				errorInfo = private.errorFrame.errorInfo,
+				details = private.SanitizeString(details),
+				timestamp = time(),
 			})
 		end
 		private.errorSuppressed = nil
@@ -480,7 +448,7 @@ do
 		if private.errorFrame.showingError then
 			private.errorFrame.details = private.errorFrame.editBox:GetText()
 			self:SetText("Hide Error")
-			private.errorFrame.editBox:SetText(private.errorFrame.error)
+			private.errorFrame.editBox:SetText(private.errorFrame.errorStr)
 		else
 			self:SetText("Show Error")
 			private.errorFrame.editBox:SetText(private.errorFrame.details)
@@ -573,7 +541,6 @@ end
 do
 	private.origErrorHandler = geterrorhandler()
 	seterrorhandler(function(errMsg)
-		local errorTime = debugprofilestop()
 		local tsmErrMsg = strtrim(tostring(errMsg))
 		if private.ignoreErrors then
 			-- we're ignoring errors
@@ -600,9 +567,12 @@ do
 			end
 		end
 		if tsmErrMsg then
-			local status, ret = pcall(private.ErrorHandler, tsmErrMsg, nil, errorTime)
+			local status, ret = pcall(private.ErrorHandler, tsmErrMsg)
 			if status and ret then
 				return ret
+			elseif not status and not private.hitInternalError then
+				private.hitInternalError = true
+				TSM:Print("Internal TSM error: "..tostring(ret))
 			end
 		end
 		local oldModule = strmatch(errMsg, "(lMaster_[A-Za-z]+)")

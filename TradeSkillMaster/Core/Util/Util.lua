@@ -19,8 +19,9 @@ local private = {
 	sortValueLookup = nil,
 	keysTemp = {},
 	itemLinkedCallbacks = {},
+	localLinesTemp = {},
+	iterContext = { arg = {}, index = {}, helperFunc = {}, cleanupFunc = {} },
 }
-private.iterContext = { arg = {}, index = {}, helperFunc = {}, cleanupFunc = {} }
 setmetatable(private.iterContext.arg, { __mode = "k" })
 setmetatable(private.iterContext.index, { __mode = "k" })
 setmetatable(private.iterContext.helperFunc, { __mode = "k" })
@@ -580,8 +581,18 @@ function TSMAPI_FOUR.Util.IsAddonEnabled(name)
 	return GetAddOnEnableState(UnitName("player"), name) == 2 and select(4, GetAddOnInfo(name)) and true or false
 end
 
+--- Registers a function which is called when an item is linked.
+-- @tparam function callback The function to be called
+-- @within WoW Util
 function TSMAPI_FOUR.Util.RegisterItemLinkedCallback(callback)
 	tinsert(private.itemLinkedCallbacks, callback)
+end
+
+--- Gets the current time in milliseconds since epoch
+-- @treturn number The current time in milliseconds since epoch
+-- @within WoW Util
+function TSMAPI_FOUR.Util.GetTimeMilliseconds()
+	return time() * 1000 + (GetTime() * 1000) % 1000
 end
 
 
@@ -633,6 +644,66 @@ function TSMAPI_FOUR.Util.GetDebugStackInfo(targetLevel, thread)
 			end
 		end
 	end
+end
+
+--- Gets debug information about a given stack level.
+-- @tparam number level The stack level to get info for
+-- @tparam[opt] thread thread The thread to get info for
+-- @tparam[opt] string prevStackFunc The previous level's function
+-- @treturn string File path or `nil`
+-- @treturn number Line number or `nil`
+-- @treturn string Function name or `nil`
+-- @treturn string New value of the previous level's function name `nil`
+-- @within Misc
+function TSMAPI_FOUR.Util.GetStackLevelInfo(level, thread, prevStackFunc)
+	level = level + 1
+	local stackLine = nil
+	if thread then
+		stackLine = debugstack(thread, level, 1, 0)
+	else
+		stackLine = debugstack(level, 1, 0)
+	end
+	local locals = debuglocals(level)
+	stackLine = gsub(stackLine, "%.%.%.T?r?a?d?e?S?k?i?l?lM?a?ster([_A-Za-z]*)\\", "TradeSkillMaster%1\\")
+	stackLine = gsub(stackLine, "%.%.%.", "")
+	stackLine = gsub(stackLine, "`", "<", 1)
+	stackLine = gsub(stackLine, "'", ">", 1)
+	stackLine = strtrim(stackLine)
+	if stackLine == "" then
+		return
+	end
+
+	-- Parse out the file, line, and function name
+	local locationStr, functionStr = strmatch(stackLine, "^(.-): in function (<[^\n]*>)")
+	if not locationStr then
+		locationStr, functionStr = strmatch(stackLine, "^(.-): in (main chunk)")
+	end
+	if not locationStr then
+		return
+	end
+	locationStr = strsub(locationStr, strfind(locationStr, "TradeSkillMaster") or 1)
+	locationStr = gsub(locationStr, "TradeSkillMaster([^%.])", "TSM%1")
+	functionStr = functionStr and gsub(gsub(functionStr, ".*\\", ""), "[<>]", "") or ""
+	local file, line = strmatch(locationStr, "^(.+):(%d+)$")
+	file = file or locationStr
+	line = tonumber(line) or 0
+
+	local func = strsub(functionStr, strfind(functionStr, "`") and 2 or 1, -1) or "?"
+	func = func ~= "" and func or "?"
+
+	if strfind(locationStr, "Class%.lua:193") then
+		-- ignore stack frames from the class code's wrapper function
+		if func ~= "?" and prevStackFunc and not strmatch(func, "^.+:[0-9]+$") and strmatch(prevStackFunc, "^.+:[0-9]+$") then
+			-- this stack frame includes the class method we were accessing in the previous one, so go back and fix it up
+			local className = locals and strmatch(locals, "\n +str = \"([A-Za-z_0-9]+):[0-9A-F]+\"\n") or "?"
+			prevStackFunc = className.."."..func
+		end
+		return nil, nil, nil, nil, prevStackFunc
+	end
+
+	-- add locals for addon functions (debuglocals() doesn't always work - or ever for threads)
+	local localsStr = locals and private.ParseLocals(locals, file) or ""
+	return file, line, func, localsStr, nil
 end
 
 --- Combines a container and slot into a slotId.
@@ -712,4 +783,62 @@ function private.HandleItemLinked(name, itemLink)
 			return true
 		end
 	end
+end
+
+function private.ParseLocals(locals, file)
+	if strmatch(file, "^%[") then
+		return
+	end
+
+	local fileName = strmatch(file, "([A-Za-z]+)%.lua")
+	local isBlizzardFile = strmatch(file, "Interface\\FrameXML\\")
+	local isPrivateTable, isLocaleTable, isPackageTable = false, false, false
+	wipe(private.localLinesTemp)
+	locals = gsub(locals, "<([a-z]+)> {[\n\t ]+}", "<%1> {}")
+	locals = gsub(locals, " = <function> defined @", "@")
+	locals = gsub(locals, "<table> {", "{")
+
+	for localLine in gmatch(locals, "[^\n]+") do
+		local shouldIgnoreLine = false
+		if strmatch(localLine, "^ *%(") then
+			shouldIgnoreLine = true
+		elseif strmatch(localLine, "Class%.lua:182") then
+			-- ignore class methods
+			shouldIgnoreLine = true
+		elseif strmatch(localLine, "<unnamed> {}$") then
+			-- ignore internal WoW frame members
+			shouldIgnoreLine = true
+		end
+		if not shouldIgnoreLine then
+			local level = #strmatch(localLine, "^ *")
+			localLine = strrep("  ", level)..strtrim(localLine)
+			localLine = gsub(localLine, "Interface\\[aA]dd[Oo]ns\\TradeSkillMaster", "TSM")
+			localLine = gsub(localLine, "\124", "\\124")
+			if level > 0 then
+				if isBlizzardFile then
+					-- for Blizzard stack frames, only include level 0 locals
+					shouldIgnoreLine = true
+				elseif isPrivateTable and strmatch(localLine, "^ *[A-Z].+@TSM") then
+					-- ignore functions within the private table
+					shouldIgnoreLine = true
+				elseif isLocaleTable then
+					-- ignore everything within the locale table
+					shouldIgnoreLine = true
+				elseif isPackageTable then
+					-- ignore the package table completely
+					shouldIgnoreLine = true
+				end
+			end
+			if not shouldIgnoreLine then
+				tinsert(private.localLinesTemp, localLine)
+			end
+			if level == 0 then
+				isPackageTable = strmatch(localLine, "%s*"..fileName.." = {") and true or false
+				isPrivateTable = strmatch(localLine, "%s*private = {") and true or false
+				isLocaleTable = strmatch(localLine, "%s*L = {") and true or false
+			end
+		end
+	end
+
+	return #private.localLinesTemp > 0 and table.concat(private.localLinesTemp, "\n") or nil
 end

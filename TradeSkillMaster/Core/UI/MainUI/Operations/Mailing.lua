@@ -29,6 +29,7 @@ end
 -- ============================================================================
 
 function private.GetMailingOperationSettings(operationName)
+	TSM.UI.AnalyticsRecordPathChange("main", "operations", "mailing")
 	private.currentOperationName = operationName
 	local operation = TSM.Operations.GetSettings("Mailing", private.currentOperationName)
 

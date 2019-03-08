@@ -29,6 +29,7 @@ end
 -- ============================================================================
 
 function private.GetVendoringOperationSettings(operationName)
+	TSM.UI.AnalyticsRecordPathChange("main", "operations", "vendoring")
 	private.currentOperationName = operationName
 
 	local operation = TSM.Operations.GetSettings("Vendoring", private.currentOperationName)

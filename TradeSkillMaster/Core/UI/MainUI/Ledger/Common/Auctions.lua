@@ -53,11 +53,13 @@ end
 -- ============================================================================
 
 function private.DrawExpiredPage()
+	TSM.UI.AnalyticsRecordPathChange("main", "ledger", "failed_auctions", "expired")
 	private.type = "expire"
 	return private.DrawAuctionsPage()
 end
 
 function private.DrawCancelledPage()
+	TSM.UI.AnalyticsRecordPathChange("main", "ledger", "failed_auctions", "cancelled")
 	private.type = "cancel"
 	return private.DrawAuctionsPage()
 end

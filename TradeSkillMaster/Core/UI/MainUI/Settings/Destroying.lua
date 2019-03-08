@@ -30,6 +30,7 @@ end
 -- ============================================================================
 
 function private.GetDestroyingSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "destroying")
 	return TSMAPI_FOUR.UI.NewElement("Frame", "destroyingSettings")
 		:SetLayout("VERTICAL")
 		:SetStyle("padding.left", 12)

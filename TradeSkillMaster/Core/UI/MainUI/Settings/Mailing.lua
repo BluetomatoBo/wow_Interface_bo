@@ -34,6 +34,7 @@ end
 -- ============================================================================
 
 function private.GetMailingSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "mailing")
 	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "mailingSettings")
 		:SetStyle("padding.left", 12)
 		:SetStyle("padding.right", 12)

@@ -18,7 +18,7 @@ local APP_INFO_REQUIRED_KEYS = { "version", "lastSync", "addonVersions", "messag
 local LOGOUT_TIME_WARNING_THRESHOLD_MS = 20
 do
 	-- show a message if we were updated
-	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.7.3" then
+	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.7.5" then
 		message("TSM was just updated and may not work properly until you restart WoW.")
 	end
 end
@@ -826,7 +826,7 @@ function private.DebugSlashCommandHandler(arg)
 	if arg == "fstack" then
 		TSM.UI.ToggleFrameStack()
 	elseif arg == "error" then
-		TSM:ShowManualError()
+		TSM.ShowManualError()
 	elseif arg == "logging" then
 		TSM.db.global.debug.chatLoggingEnabled = not TSM.db.global.debug.chatLoggingEnabled
 		if TSM.db.global.debug.chatLoggingEnabled then

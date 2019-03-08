@@ -87,7 +87,7 @@ end
 -- ============================================================================
 
 function private.GetShoppingFrame()
-	TSM.Analytics.PageView("auction/shopping")
+	TSM.UI.AnalyticsRecordPathChange("auction", "shopping")
 	if not private.hasLastScan then
 		private.contentPath = "selection"
 	end
@@ -116,6 +116,7 @@ function private.GetShoppingContentFrame(viewContainer, path)
 end
 
 function private.GetSelectionFrame()
+	TSM.UI.AnalyticsRecordPathChange("auction", "shopping", "selection")
 	local frame = TSMAPI_FOUR.UI.NewElement("DividedContainer", "selection")
 		:SetStyle("background", "#272727")
 		:SetContextTable(private.dividedContainerContext, DEFAULT_DIVIDED_CONTAINER_CONTEXT)
@@ -542,6 +543,7 @@ function private.GetSearchesElement(self, button)
 end
 
 function private.GetScanFrame()
+	TSM.UI.AnalyticsRecordPathChange("auction", "shopping", "scan")
 	return TSMAPI_FOUR.UI.NewElement("Frame", "scan")
 		:SetLayout("VERTICAL")
 		:SetStyle("background", "#272727")

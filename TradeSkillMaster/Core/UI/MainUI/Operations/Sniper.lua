@@ -28,6 +28,7 @@ end
 -- ============================================================================
 
 function private.GetSniperOperationSettings(operationName)
+	TSM.UI.AnalyticsRecordPathChange("main", "operations", "sniper")
 	private.currentOperationName = operationName
 	local operation = TSM.Operations.GetSettings("Sniper", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")
@@ -105,4 +106,3 @@ function private.SniperPriceOnEnterPressed(input)
 		private.SniperPriceOnSizeChanged(input, nil, input:GetHeight())
 	end
 end
-

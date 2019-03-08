@@ -80,7 +80,7 @@ function private.CreateImportOptionToggle(name, labelText, optionTable)
 end
 
 function private.GetOuterFrame()
-	TSM.Analytics.PageView("main/import_export")
+	TSM.UI.AnalyticsRecordPathChange("main", "import_export")
 	return TSMAPI_FOUR.UI.NewElement("ViewContainer", "ImportExportOuterViewContainer")
 		:SetNavCallback(private.GetImportExportOuterViewContainerCallback)
 		:AddPath("import", true)

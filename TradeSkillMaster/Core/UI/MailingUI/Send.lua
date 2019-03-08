@@ -66,7 +66,7 @@ end
 -- ============================================================================
 
 function private.GetSendFrame()
-	TSM.Analytics.PageView("mailing/send")
+	TSM.UI.AnalyticsRecordPathChange("mailing", "send")
 	local frame = TSMAPI_FOUR.UI.NewElement("Frame", "send")
 		:SetLayout("VERTICAL")
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "container")
@@ -789,7 +789,8 @@ end
 
 function private.MoneyValueConvert(input)
 	local text = gsub(strtrim(input:GetText()), TSMAPI_FOUR.Util.StrEscape(LARGE_NUMBER_SEPERATOR), "")
-	local value = tonumber(text) or TSM.Money.FromString(text) or 0
+	local value = max(tonumber(text) or TSM.Money.FromString(text) or 0, 0)
+
 	private.money = private.isCOD and min(value, 100000000) or value
 
 	input:SetFocused(false)

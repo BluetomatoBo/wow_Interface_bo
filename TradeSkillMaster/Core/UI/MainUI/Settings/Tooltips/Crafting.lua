@@ -28,6 +28,7 @@ end
 -- ============================================================================
 
 function private.GetTooltipSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "tooltips", "crafting")
 	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "tooltipSettings")
 		:SetStyle("padding.left", 12)
 		:SetStyle("padding.right", 12)

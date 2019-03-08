@@ -32,6 +32,7 @@ end
 -- ============================================================================
 
 function private.GetAuctioningSettingsFrame()
+	TSM.UI.AnalyticsRecordPathChange("main", "settings", "auctioning")
 	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "auctioningSettings")
 		:SetStyle("padding.left", 12)
 		:SetStyle("padding.right", 12)

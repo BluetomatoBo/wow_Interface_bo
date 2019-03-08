@@ -49,7 +49,7 @@ end
 -- ============================================================================
 
 function private.GetGroupsFrame()
-	TSM.Analytics.PageView("main/groups")
+	TSM.UI.AnalyticsRecordPathChange("main", "groups")
 	private.currentGroupPath = TSM.CONST.ROOT_GROUP_PATH
 	local frame = TSMAPI_FOUR.UI.NewElement("DividedContainer", "groups")
 		:SetStyle("background", "#272727")
@@ -128,7 +128,7 @@ end
 
 function private.GetGroupsPage(self, button)
 	if button == L["Information"] then
-		TSM.Analytics.PageView("main/groups/information")
+		TSM.UI.AnalyticsRecordPathChange("main", "groups", "information")
 		return TSMAPI_FOUR.UI.NewElement("Frame", "items")
 			:SetLayout("VERTICAL")
 			:SetStyle("background", "#1e1e1e")
@@ -141,7 +141,7 @@ function private.GetGroupsPage(self, button)
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Spacer", "spacer"))
 	elseif button == L["Add / Remove Items"] then
-		TSM.Analytics.PageView("main/groups/items")
+		TSM.UI.AnalyticsRecordPathChange("main", "groups", "items")
 		assert(private.currentGroupPath ~= TSM.CONST.ROOT_GROUP_PATH)
 		return TSMAPI_FOUR.UI.NewElement("Frame", "items")
 			:SetLayout("VERTICAL")
@@ -275,7 +275,7 @@ function private.GetGroupsPage(self, button)
 				)
 			)
 	elseif button == L["Group Operations"] then
-		TSM.Analytics.PageView("main/groups/operations")
+		TSM.UI.AnalyticsRecordPathChange("main", "groups", "operations")
 		return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "operations")
 			:SetStyle("background", "#1e1e1e")
 			:SetStyle("padding.top", 10)

@@ -40,7 +40,7 @@ end
 -- ============================================================================
 
 function private.CreateMainFrame()
-	TSM.Analytics.PageView("main")
+	TSM.UI.AnalyticsRecordPathChange("main")
 	-- Always show the Dashboard first
 	TSM.db.global.internalData.mainUIFrameContext.page = 1
 	local frame = TSMAPI_FOUR.UI.NewElement("LargeApplicationFrame", "base")
@@ -66,4 +66,5 @@ function private.BaseFrameOnHide(frame)
 	assert(frame == private.frame)
 	frame:Release()
 	private.frame = nil
+	TSM.UI.AnalyticsRecordClose("main")
 end
