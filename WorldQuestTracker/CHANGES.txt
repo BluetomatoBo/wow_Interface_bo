@@ -1,7 +1,7 @@
-changeset:   360:c20b07c76328
-tag:         v8.1.0.360
+changeset:   362:50a860389853
+tag:         v8.1.0.362
 user:        Tercioo
-date:        Sat Feb 16 16:55:14 2019 -0200
-summary:     - Removed the News Button for now.
+date:        Fri Mar 01 17:25:10 2019 -0300
+summary:     - Added accessibility option for an extra icon above the quest location for color blind users.
 
 
