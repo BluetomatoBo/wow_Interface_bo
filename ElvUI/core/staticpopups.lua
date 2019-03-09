@@ -33,7 +33,7 @@ E.PopupDialogs['ELVUI_UPDATE_AVAILABLE'] = {
 		self.editBox:SetAutoFocus(false)
 		self.editBox.width = self.editBox:GetWidth()
 		self.editBox:Width(220)
-		self.editBox:SetText("http://www.tukui.org/dl.php")
+		self.editBox:SetText("https://tukui.org/dl.php")
 		self.editBox:HighlightText()
 		ChatEdit_FocusActiveWindow();
 	end,
@@ -53,8 +53,8 @@ E.PopupDialogs['ELVUI_UPDATE_AVAILABLE'] = {
 		self:GetParent():Hide();
 	end,
 	EditBoxOnTextChanged = function(self)
-		if(self:GetText() ~= "http://www.tukui.org/dl.php") then
-			self:SetText("http://www.tukui.org/dl.php")
+		if(self:GetText() ~= "https://tukui.org/dl.php") then
+			self:SetText("https://tukui.org/dl.php")
 		end
 		self:HighlightText()
 		self:ClearFocus()
@@ -183,6 +183,11 @@ E.PopupDialogs['UISCALE_CHANGE'] = {
 	timeout = 0,
 	whileDead = 1,
 	hideOnEscape = false,
+	hasCheckButton = true,
+	checkButtonText = L["Suppress In This Session"],
+	checkButtonOnClick = function(self) 
+		E.suppressScalePopup = self:GetChecked()
+	end,
 }
 
 E.PopupDialogs['PIXELPERFECT_CHANGED'] = {
@@ -550,6 +555,76 @@ E.PopupDialogs["UI_SCALE_CHANGES_INFORM"] = {
 	hideOnEscape = false,
 }
 
+E.PopupDialogs.SCRIPT_PROFILE = {
+	text = L["You are using CPU Profiling. This causes decreased performance. Do you want to disable it or continue?"],
+	button1 = L["Disable"],
+	button2 = L["Continue"],
+	OnAccept = function()
+		SetCVar('scriptProfile', 0)
+		ReloadUI()
+	end,
+	OnCancel = E.noop,
+	showAlert = 1,
+	timeout = 0,
+	whileDead = 1,
+	hideOnEscape = false,
+}
+
+E.PopupDialogs.MAJOR_RELEASE_NAMEPLATES = {
+	text = "A new major release of ElvUI is coming with patch 8.1.5 on March 12th. Nameplate settings will be reset in this release. Make sure you are prepared. Visit the link below for details.",
+	button1 = OKAY,
+	OnAccept = function()
+		E.global.nameplatesResetInformed = true
+	end,
+	OnShow = function(popup)
+		popup.button1:Disable()
+		E:Delay(10, function()
+			if popup then
+				popup.hideOnEscape = true
+				if popup.button1 then
+					popup.button1:Enable()
+				end
+			end
+		end)
+		popup.editBox.width = popup.editBox:GetWidth()
+		popup.editBox:Width(220)
+		popup.editBox:SetText("https://tukui.org/news.php")
+		popup.editBox:HighlightText()
+	end,
+	OnHide = function(self)
+		self.editBox:Width(self.editBox.width or 50)
+		self.editBox.width = nil
+	end,
+	EditBoxOnTextChanged = function(self)
+		if(self:GetText() ~= "https://tukui.org/news.php") then
+			self:SetText("https://tukui.org/news.php")
+		end
+		self:HighlightText()
+		self:ClearFocus()
+		ChatEdit_FocusActiveWindow();
+	end,
+	EditBoxOnEnterPressed = function(self)
+		if self:GetParent().hideOnEscape == true then
+			E.global.nameplatesResetInformed = true
+			ChatEdit_FocusActiveWindow();
+			self:GetParent():Hide();
+		end
+	end,
+	EditBoxOnEscapePressed = function(self)
+		if self:GetParent().hideOnEscape == true then
+			E.global.nameplatesResetInformed = true
+			ChatEdit_FocusActiveWindow();
+			self:GetParent():Hide();
+		end
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = false,
+	showAlert = true,
+	hasEditBox = true,
+	enterClicksFirstButton = true,
+}
+
 local MAX_STATIC_POPUPS = 4
 
 function E:StaticPopup_OnShow()
@@ -564,7 +639,7 @@ function E:StaticPopup_OnShow()
 	if ( dialog.hasMoneyInputFrame ) then
 		_G[self:GetName().."MoneyInputFrameGold"]:SetFocus();
 	end
-	if ( dialog.enterClicksFirstButton ) then
+	if ( dialog.enterClicksFirstButton or dialog.hideOnEscape ) then
 		self:SetScript("OnKeyDown", E.StaticPopup_OnKeyDown);
 	end
 
@@ -870,6 +945,9 @@ function E:StaticPopup_Resize(dialog, which)
 	if ( info.hasItemFrame ) then
 		height = height + 64;
 	end
+	if (info.hasCheckButton ) then
+		height = height + 32;
+	end
 
 	if ( height > maxHeightSoFar ) then
 		dialog:Height(height);
@@ -1129,6 +1207,24 @@ function E:StaticPopup_Show(which, text_arg1, text_arg2, data)
 		alertIcon:Hide();
 	end
 
+	-- Show or hide the checkbox
+	local checkButton = _G[dialog:GetName().."CheckButton"];
+	local checkButtonText = _G[dialog:GetName().."CheckButtonText"];
+	if ( info.hasCheckButton ) then
+		checkButton:ClearAllPoints()
+		checkButton:Point("BOTTOMLEFT", 24, 20 + button1:GetHeight())
+
+		if ( info.checkButtonText ) then
+			checkButtonText:SetText(info.checkButtonText)
+			checkButtonText:Show()
+		else
+			checkButtonText:Hide()
+		end
+		checkButton:Show()
+	else
+		checkButton:Hide()
+	end
+
 	if ( info.StartDelay ) then
 		dialog.startDelay = info.StartDelay();
 		button1:Disable();
@@ -1165,6 +1261,20 @@ function E:StaticPopup_Hide(which, data)
 	end
 end
 
+function E:StaticPopup_CheckButtonOnClick()
+	local which = self:GetParent().which
+	local info = E.PopupDialogs[which];
+	if ( not info ) then
+		return nil;
+	end
+
+	self:SetChecked(self:GetChecked())
+
+	if (info.checkButtonOnClick) then
+		info.checkButtonOnClick(self)
+	end
+end
+
 function E:Contruct_StaticPopups()
 	E.StaticPopupFrames = {}
 
@@ -1189,12 +1299,21 @@ function E:Contruct_StaticPopups()
 		_G['ElvUI_StaticPopup'..index..'EditBox']:SetScript('OnEscapePressed', E.StaticPopup_EditBoxOnEscapePressed)
 		_G['ElvUI_StaticPopup'..index..'EditBox']:SetScript('OnTextChanged', E.StaticPopup_EditBoxOnTextChanged)
 
+		_G['ElvUI_StaticPopup'..index..'CheckButton'] = CreateFrame("CheckButton", "ElvUI_StaticPopup"..index.."CheckButton", _G["ElvUI_StaticPopup"..index], "UICheckButtonTemplate")
+		_G['ElvUI_StaticPopup'..index..'CheckButton']:SetScript("OnClick", E.StaticPopup_CheckButtonOnClick)
+
 		--Skin
 		E.StaticPopupFrames[index]:SetTemplate('Transparent')
 
 		for i = 1, 3 do
 			S:HandleButton(_G["ElvUI_StaticPopup"..index.."Button"..i])
 		end
+
+		_G['ElvUI_StaticPopup'..index..'CheckButton']:Size(24)
+		_G['ElvUI_StaticPopup'..index..'CheckButtonText']:FontTemplate(nil, nil, "")
+		_G['ElvUI_StaticPopup'..index..'CheckButtonText']:SetTextColor(1,0.17,0.26)
+		_G['ElvUI_StaticPopup'..index..'CheckButtonText']:Point("LEFT", _G['ElvUI_StaticPopup'..index..'CheckButton'], "RIGHT", 4, 1)
+		S:HandleCheckBox(_G['ElvUI_StaticPopup'..index..'CheckButton'])
 
 		_G["ElvUI_StaticPopup"..index.."EditBox"]:SetFrameLevel(_G["ElvUI_StaticPopup"..index.."EditBox"]:GetFrameLevel()+1)
 		S:HandleEditBox(_G["ElvUI_StaticPopup"..index.."EditBox"])

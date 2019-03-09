@@ -445,6 +445,10 @@ function E:PLAYER_ENTERING_WORLD()
 		E.clippedUiScaleCVar = E:PixelClip(GetCVar("uiScale"))
 		E:StaticPopup_Show("UI_SCALE_CHANGES_INFORM", WrapTextInColorCode(E.clippedUiScaleCVar, "fffe7b2c"))
 	end
+
+	if not E.global.nameplatesResetInformed then
+		E:StaticPopup_Show("MAJOR_RELEASE_NAMEPLATES")
+	end
 end
 
 function E:ValueFuncCall()
@@ -558,8 +562,8 @@ end
 --This frame everything in ElvUI should be anchored to for Eyefinity support.
 E.UIParent = CreateFrame('Frame', 'ElvUIParent', _G.UIParent)
 E.UIParent:SetFrameLevel(_G.UIParent:GetFrameLevel())
-E.UIParent:SetPoint('CENTER', _G.UIParent, 'CENTER')
 E.UIParent:SetSize(_G.UIParent:GetSize())
+E.UIParent:SetPoint('BOTTOM')
 E.UIParent.origHeight = E.UIParent:GetHeight()
 E.snapBars[#E.snapBars + 1] = E.UIParent
 
@@ -958,17 +962,17 @@ local function SendRecieve(_, event, prefix, message, _, sender)
 		if sender == myName then return end
 		if prefix == 'ELVUI_VERSIONCHK' then
 			local msg, ver = tonumber(message), tonumber(E.version)
-			if msg and (msg > ver) then -- you're outdated D:
+			if (msg and (msg > ver)) or not E.yep then -- you're outdated D:
 				if not E.recievedOutOfDateMessage then
 					E:Print(L["ElvUI is out of date. You can download the newest version from www.tukui.org. Get premium membership and have ElvUI automatically updated with the Tukui Client!"])
 
-					if msg and ((msg - ver) >= 0.05) then
+					if (msg and ((msg - ver) >= 0.05)) or not E.yep then
 						E:StaticPopup_Show('ELVUI_UPDATE_AVAILABLE')
 					end
 
 					E.recievedOutOfDateMessage = true
 				end
-			elseif msg and (msg < ver) then -- Send Message Back
+			elseif (msg and (msg < ver)) then -- Send Message Back
 				if not SendMessageWaiting then
 					SendMessageWaiting = E:Delay(10, E.SendMessage)
 				end
@@ -1787,7 +1791,6 @@ local function HandleCommandBar()
 		bar:Hide()
 		_G.UIParent:UnregisterEvent('UNIT_AURA')--Only used for OrderHall Bar
 	elseif E.global.general.commandBarSetting == 'ENABLED_RESIZEPARENT' then
-		E.UIParent:SetPoint('BOTTOM', _G.UIParent, 'BOTTOM')
 		_G.OrderHallCommandBar:HookScript('OnShow', SetModifiedHeight)
 		_G.OrderHallCommandBar:HookScript('OnHide', SetOriginalHeight)
 	end
@@ -1835,10 +1838,6 @@ function E:Initialize()
 	end
 
 	self:UpdateMedia()
-	self:UpdateFrameTemplates()
-	self:UpdateBorderColors()
-	self:UpdateBackdropColors()
-	self:UpdateStatusBars()
 	self:RegisterEvent('PLAYER_ENTERING_WORLD')
 	self:RegisterEvent('NEUTRAL_FACTION_SELECT_RESULT')
 	self:RegisterEvent('UI_SCALE_CHANGED', 'PixelScaleChanged')
@@ -1858,6 +1857,10 @@ function E:Initialize()
 	self:GetModule('Minimap'):UpdateSettings()
 	self:RefreshModulesDB()
 	collectgarbage('collect')
+
+	if GetCVarBool("scriptProfile") then
+		E:StaticPopup_Show('SCRIPT_PROFILE')
+	end
 
 	if self.db.general.loginmessage then
 		E:Print(select(2, E:GetModule('Chat'):FindURL('CHAT_MSG_DUMMY', format(L["LOGIN_MSG"], self.media.hexvaluecolor, self.media.hexvaluecolor, self.version)))..'.')

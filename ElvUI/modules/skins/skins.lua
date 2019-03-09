@@ -7,7 +7,6 @@ local unpack, assert, pairs, ipairs, select, type, pcall = unpack, assert, pairs
 local tinsert, wipe = tinsert, wipe
 local strfind = strfind
 --WoW API / Variables
-local CreateFrame = CreateFrame
 local GetCVarBool = GetCVarBool
 local hooksecurefunc = hooksecurefunc
 local IsAddOnLoaded = IsAddOnLoaded
@@ -344,9 +343,7 @@ function S:HandleTab(tab)
 		tab:StripTextures()
 	end
 
-	tab.backdrop = CreateFrame("Frame", nil, tab)
-	tab.backdrop:SetTemplate()
-	tab.backdrop:SetFrameLevel(tab:GetFrameLevel() - 1)
+	tab:CreateBackdrop()
 	tab.backdrop:Point("TOPLEFT", 10, E.PixelMode and -1 or -3)
 	tab.backdrop:Point("BOTTOMRIGHT", -10, 3)
 end
@@ -439,31 +436,41 @@ function S:HandleDropDownBox(frame, width)
 	local text = FrameName and _G[FrameName..'Text'] or frame.Text
 
 	frame:StripTextures()
+	frame:CreateBackdrop()
+	frame.backdrop:SetFrameLevel(frame:GetFrameLevel())
+	frame.backdrop:Point("TOPLEFT", 12, -6)
+	frame.backdrop:Point("BOTTOMRIGHT", -12, 6)
 
 	if width then
 		frame:Width(width)
 	end
 
 	if text then
-		local a, b, c, d, e = text:GetPoint()
-		text:SetPoint(a, b, c, d + 10, e - 4)
-		text:SetWidth(frame:GetWidth() / 1.4)
+		local justifyH = text:GetJustifyH()
+		local right = justifyH == 'RIGHT'
+
+		local a, _, c, d, e = text:GetPoint()
+		text:ClearAllPoints()
+
+		if right then
+			text:Point('RIGHT', button or frame.backdrop, 'LEFT', (right and -3) or 0, 0)
+		else
+			text:Point(a, frame.backdrop, c, (justifyH == 'LEFT' and 10) or d, e-3)
+		end
+
+		text:Width(frame:GetWidth() / 1.4)
 	end
 
 	if button then
-		button:SetPoint("TOPRIGHT", -14, -8)
 		S:HandleNextPrevButton(button)
-		button:SetSize(16, 16)
+		button:ClearAllPoints()
+		button:Point("TOPRIGHT", -14, -8)
+		button:Size(16, 16)
 	end
 
 	if frame.Icon then
 		frame.Icon:SetPoint('LEFT', 23, 0)
 	end
-
-	frame:CreateBackdrop()
-	frame.backdrop:SetFrameLevel(frame:GetFrameLevel())
-	frame.backdrop:Point("TOPLEFT", 20, -6)
-	frame.backdrop:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
 end
 
 function S:HandleStatusBar(frame, color)
@@ -491,23 +498,41 @@ function S:HandleCheckBox(frame, noBackdrop, noReplaceTextures)
 
 	if not noReplaceTextures then
 		if frame.SetCheckedTexture then
-			frame:SetCheckedTexture("Interface\\Buttons\\UI-CheckBox-Check")
-			if noBackdrop then
-				frame:GetCheckedTexture():SetInside(nil, -4, -4)
+			if E.private.skins.checkBoxSkin then
+				frame:SetCheckedTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+				frame:GetCheckedTexture():SetVertexColor(1, .82, 0, 0.8)
+				frame:GetCheckedTexture():SetInside(frame.backdrop)
+			else
+				frame:SetCheckedTexture("Interface\\Buttons\\UI-CheckBox-Check")
+
+				if noBackdrop then
+					frame:GetCheckedTexture():SetInside(nil, -4, -4)
+				end
 			end
 		end
 
 		if frame.SetDisabledTexture then
-			frame:SetDisabledTexture("Interface\\Buttons\\UI-CheckBox-Check-Disabled")
-			if noBackdrop then
-				frame:GetDisabledTexture():SetInside(nil, -4, -4)
+			if E.private.skins.checkBoxSkin then
+				frame:SetDisabledTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+				frame:GetDisabledTexture():SetVertexColor(.6, .6, .6, .8)
+				frame:GetDisabledTexture():SetInside(frame.backdrop)
+			else
+				frame:SetDisabledTexture("Interface\\Buttons\\UI-CheckBox-Check-Disabled")
+
+				if noBackdrop then
+					frame:GetDisabledTexture():SetInside(nil, -4, -4)
+				end
 			end
 		end
 
 		frame:HookScript('OnDisable', function(checkbox)
 			if not checkbox.SetDisabledTexture then return; end
 			if checkbox:GetChecked() then
-				checkbox:SetDisabledTexture("Interface\\Buttons\\UI-CheckBox-Check-Disabled")
+				if E.private.skins.checkBoxSkin then
+					checkbox:SetDisabledTexture([[Interface\AddOns\ElvUI\media\textures\melli]])
+				else
+					checkbox:SetDisabledTexture("Interface\\Buttons\\UI-CheckBox-Check-Disabled")
+				end
 			else
 				checkbox:SetDisabledTexture("")
 			end

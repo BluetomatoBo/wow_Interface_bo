@@ -438,14 +438,13 @@ function E:SetupLayout(layout, noDataReset)
 			--Raid40
 		E.db.unitframe.units.raid40.enable = false
 		E.db.unitframe.units.raid40.rdebuffs.font = "PT Sans Narrow"
-		
 	end
 
 	--[[
 	--	Layout Tweaks will be handled below.
 	--	These are changes that deviate from the shared base layout
 	--]]
-	
+
 	--Caster Layout
 	if layout == "dpsCaster" and not noDataReset then
 		E.db.movers.ElvUF_PlayerCastbarMover = "BOTTOM,ElvUIParent,BOTTOM,0,243"
@@ -462,6 +461,7 @@ function E:SetupLayout(layout, noDataReset)
 		E.db["movers"]["VOICECHAT"] = "TOPLEFT,ElvUIParent,TOPLEFT,250,-82"
 		E.db["unitframe"]["units"]["party"]["enable"] = false
 		E.db["unitframe"]["units"]["party"]["health"]["frequentUpdates"] = true
+		E.db["unitframe"]["units"]["raid"]["visibility"] = "[nogroup] hide;show"
 		E.db["unitframe"]["units"]["raid40"]["health"]["frequentUpdates"] = true
 	end
 
@@ -639,24 +639,28 @@ local function SetPage(PageNum)
 		f.SubTitle:SetText(_G.UISCALE)
 		f.Desc1:SetFormattedText(L["Adjust the UI Scale to fit your screen, press the autoscale button to set the UI Scale automatically."])
 		InstallSlider:Show()
+		InstallSlider:SetValueStep(0.01)
+		InstallSlider:SetObeyStepOnDrag(true)
 		InstallSlider:SetMinMaxValues(0.4, 1.15)
 
 		local value = E:PixelClip(E.global.general.UIScale)
 		InstallSlider:SetValue(value)
 		InstallSlider.Cur:SetText(value)
 		InstallSlider:SetScript("OnValueChanged", function(self)
-			E.global.general.UIScale = self:GetValue()
-			local scale = E:PixelClip(E.global.general.UIScale)
-			InstallSlider.Cur:SetText(scale)
+			E.global.general.UIScale =  E:PixelClip(self:GetValue())
+			InstallSlider.Cur:SetText(E.global.general.UIScale)
 		end)
 
 		InstallSlider.Min:SetText(0.4)
 		InstallSlider.Max:SetText(1.15)
 		InstallOption1Button:Show()
 		InstallOption1Button:SetScript('OnClick', function()
-			local autoScale = E:PixelBestSize()
-			E.global.general.UIScale = E:PixelClip(autoScale)
-			InstallSlider:SetValue(E.global.general.UIScale)
+			local scale = E:PixelClip(E:PixelBestSize())
+			InstallSlider:SetValue(scale)
+
+			-- update the values with deeper accuracy
+			E.global.general.UIScale = scale
+			InstallSlider.Cur:SetText(E.global.general.UIScale)
 		end)
 
 		InstallOption1Button:SetText(L["Auto Scale"])
