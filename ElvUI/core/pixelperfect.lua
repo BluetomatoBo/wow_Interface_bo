@@ -47,7 +47,7 @@ function E:UIScale(init)
 			--Dragging moveable frames outside the box and reloading the UI ensures that they are saving position correctly.
 			local uiWidth, uiHeight = UIParent:GetSize()
 			width, height = uiWidth-250, uiHeight-250
-		elseif E.eyefinity and height > 1200 then
+		elseif E.eyefinity then
 			--find a new width value of E.UIParent for screen #1.
 			local uiHeight = UIParent:GetHeight()
 			width, height = E.eyefinity / (height / uiHeight), uiHeight
@@ -77,6 +77,12 @@ end
 function E:PixelScaleChanged(event, skip)
 	E:UIScale(true) -- repopulate variables
 	E:UIScale() -- setup the scale
+
+	if E.RefreshGUI then
+		E.Libs.AceConfigDialog:SetDefaultSize("ElvUI", E:GetConfigSize())
+		E:RefreshGUI()
+	end
+
 	skip = skip or E.suppressScalePopup
 	if skip then return end
 
