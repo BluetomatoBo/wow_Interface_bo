@@ -1028,7 +1028,7 @@ function PawnUI_SetCompareItem(Index, ItemLink)
 	
 	-- Now, update the item name and icon.
 	local Label = getglobal("PawnUICompareItemName" .. Index)
-	local Texture = getglobal("PawnUICompareItemIconTexture" .. Index)
+	local Texture = getglobal("PawnUICompareItemIcon" .. Index .. "NormalTexture")
 	Label:SetText(ItemName)
 	local Color = ITEM_QUALITY_COLORS[ItemRarity]
 	if Color then Label:SetVertexColor(Color.r, Color.g, Color.b) end
@@ -1166,7 +1166,7 @@ function PawnUI_SetShortcutButtonItem(ShortcutIndex)
 	-- Update this button.
 	local Item = PawnUIShortcutItems[ShortcutIndex]
 	if Item then
-		local Texture = getglobal(ButtonName .. "Texture")
+		local Texture = getglobal(ButtonName .. "NormalTexture")
 		local _, _, _, _, _, _, _, _, _, ItemTexture = GetItemInfo(Item.Link)
 		Texture:SetTexture(ItemTexture)
 		ShortcutButton:Show()

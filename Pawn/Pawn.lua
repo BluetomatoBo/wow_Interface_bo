@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0236
+PawnVersion = 2.0238
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -414,7 +414,7 @@ function PawnInitialize()
 		PawnCorrectScaleErrors(ScaleName)
 	end
 
-	-- Warn them if Pawn might be broken due to changing the thousands or decimal separator
+	-- Warn them if Pawn might be broken due to changing the thousands or decimal separator.
 	if (LARGE_NUMBER_SEPERATOR and PawnLocal.ThousandsSeparator ~= LARGE_NUMBER_SEPERATOR) or
 	(DECIMAL_SEPERATOR and PawnLocal.DecimalSeparator ~= DECIMAL_SEPERATOR) then
 		VgerCore.Fail("Pawn may provide incorrect advice due to a potential addon conflict: Pawn is not compatible with Combat Numbers Separator, Titan Panel Artifact Power, or other addons that change the way that numbers appear.")

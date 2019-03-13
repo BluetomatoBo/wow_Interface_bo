@@ -224,7 +224,8 @@
 	<!-- An item shortcut on the Compare tab -->
 	<Button name="PawnUICompareItemShortcutTemplate" hidden="true" inherits="ItemButtonTemplate" virtual="true">
 		<Size><AbsDimension x="37" y="37" /></Size>
-		<Layers><Layer level="BACKGROUND"><Texture name="$parentTexture" setAllPoints="true" /></Layer></Layers>
+		<NormalTexture name="$parentNormalTexture" />
+		<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD" />
 		<Scripts>
 			<OnLoad function="PawnUIRegisterRightClickOnLoad" />
 			<OnClick function="PawnUICompareItemShortcut_OnClick" />
@@ -1096,9 +1097,13 @@
 						<Size><AbsDimension x="37" y="37" /></Size>
 						<Layers>
 							<Layer level="BACKGROUND">
-								<Texture name="PawnUICompareItemIconTexture1" setAllPoints="true" />
+								<Texture file="Interface\Buttons\UI-EmptySlot-Disabled">
+									<TexCoords left="0.140625" right="0.84375" top="0.140625" bottom="0.84375" />
+								</Texture>
 							</Layer>
 						</Layers>
+						<NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2" />
+						<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD" />
 						<Scripts>
 							<OnClick>PawnUICompareItemIcon_OnClick(1)</OnClick>
 							<OnReceiveDrag>PawnUICompareItemIcon_OnClick(1)</OnReceiveDrag>
@@ -1112,9 +1117,13 @@
 						<Size><AbsDimension x="37" y="37" /></Size>
 						<Layers>
 							<Layer level="BACKGROUND">
-								<Texture name="PawnUICompareItemIconTexture2" setAllPoints="true" />
+								<Texture file="Interface\Buttons\UI-EmptySlot-Disabled">
+									<TexCoords left="0.140625" right="0.84375" top="0.140625" bottom="0.84375" />
+								</Texture>
 							</Layer>
 						</Layers>
+						<NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2" />
+						<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD" />
 						<Scripts>
 							<OnClick>PawnUICompareItemIcon_OnClick(2)</OnClick>
 							<OnReceiveDrag>PawnUICompareItemIcon_OnClick(2)</OnReceiveDrag>
@@ -1165,11 +1174,8 @@
 					<Button name="PawnUIFrame_ClearItemsButton" inherits="ItemButtonTemplate">
 						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-427" /></Offset></Anchor></Anchors>
 						<Size><AbsDimension x="37" y="37" /></Size>
-						<Layers>
-							<Layer level="BACKGROUND">
-								<Texture file="Interface\Paperdoll\UI-PaperDoll-Slot-Relic" setAllPoints="true" />
-							</Layer>
-						</Layers>
+						<NormalTexture file="Interface\Paperdoll\UI-PaperDoll-Slot-Relic" />
+						<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD" />
 						<Scripts>
 							<OnClick>
 								PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
