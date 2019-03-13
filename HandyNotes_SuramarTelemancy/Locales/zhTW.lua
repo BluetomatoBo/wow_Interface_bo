@@ -20,3 +20,4 @@ L["Sanctum of Order (entrance)"] = "秩序聖所 (入口)"
 L["Tel'anor"] = "泰爾亞諾"
 L["Twilight Vineyards"] = "暮光葡萄園"
 L["Waning Crescent"] = "弦月旅店"
+

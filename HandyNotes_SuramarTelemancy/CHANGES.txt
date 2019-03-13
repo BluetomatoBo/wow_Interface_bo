@@ -1,18 +1,24 @@
-tag a06b463af47176354b607ac5030f6ce628cc1a98 v6.1
+tag 353026137d9877b2eda4534a96a80d046034a173 v7
 Author:	David Lynch <kemayo@gmail.com>
-Date:	Thu Apr 20 23:08:53 2017 -0500
+Date:	Tue Mar 12 15:43:30 2019 -0500
 
-Tagging v6.1, for TOC
+Tagging v7
 
-commit 08a7dade155c325f2c0da1c606a201bccffc29da
+commit 9b448331009618b17636fad4c6de98531fdee73c
 Author: David Lynch <kemayo@gmail.com>
-Date:   Thu Apr 20 23:06:23 2017 -0500
+Date:   Tue Mar 12 15:43:30 2019 -0500
 
-    Use wowace localization app fully
+    Update for 8.1.5
 
-commit f1043a31115e499711eab814a2701bac62217163
+commit 3f187a22040390070bddc4680b1495ee4f0122da
 Author: David Lynch <kemayo@gmail.com>
-Date:   Thu Apr 20 22:53:57 2017 -0500
+Date:   Mon Jul 23 17:26:02 2018 -0500
 
-    Also, 7.2
+    Fix handynotes + tomtom integration
+
+commit 9b784ba878090242587420c95051efa6dfb7dcef
+Author: David Lynch <kemayo@gmail.com>
+Date:   Sat Jul 21 21:34:29 2018 -0500
+
+    Update for Battle for Azeroth
 

@@ -1,0 +1,18 @@
+tag 759a88ba29e3a3f0429352a71ece631b2afa598a v8
+Author:	David Lynch <kemayo@gmail.com>
+Date:	Tue Mar 12 15:41:56 2019 -0500
+
+Tagging v8
+
+commit 394a003bd22d58be2dd60f90bbfd223f440449a3
+Author: David Lynch <kemayo@gmail.com>
+Date:   Tue Mar 12 15:41:56 2019 -0500
+
+    Update for 8.1.5
+
+commit a3afa6ce449f4694319cbe36db81d9991ce15f0a
+Author: David Lynch <kemayo@gmail.com>
+Date:   Sat Jul 21 21:31:31 2018 -0500
+
+    Update for Battle for Azeroth
+

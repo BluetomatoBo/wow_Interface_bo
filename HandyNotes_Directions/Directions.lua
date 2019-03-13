@@ -27,7 +27,6 @@ local defaults = {
 -- Localize some globals
 local next = next
 local GameTooltip = GameTooltip
-local WorldMapTooltip = WorldMapTooltip
 local HandyNotes = HandyNotes
 
 ---------------------------------------------------------
@@ -53,7 +52,7 @@ local clickedLandmarkZone = nil
 local lastGossip = nil
 
 function HDHandler:OnEnter(mapID, coord)
-	local tooltip = self:GetParent() == WorldMapFrame:GetCanvas() and WorldMapTooltip or GameTooltip
+	local tooltip = GameTooltip
 	if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
 		tooltip:SetOwner(self, "ANCHOR_LEFT")
 	else
@@ -138,11 +137,7 @@ function HDHandler:OnClick(button, down, mapID, coord)
 end
 
 function HDHandler:OnLeave(mapFile, coord)
-	if self:GetParent() == WorldMapFrame:GetCanvas() then
-		WorldMapTooltip:Hide()
-	else
-		GameTooltip:Hide()
-	end
+	GameTooltip:Hide()
 end
 
 do

@@ -20,3 +20,4 @@ L["Sanctum of Order (entrance)"] = "Святилище порядка (Вход)
 L["Tel'anor"] = "Тел'анор"
 L["Twilight Vineyards"] = "Сумеречные виноградники"
 L["Waning Crescent"] = "Лунный полумрак"
+

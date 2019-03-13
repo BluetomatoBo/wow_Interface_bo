@@ -20,3 +20,4 @@ L["Sanctum of Order (entrance)"] = "Santuario dell'ordine (entrata)"
 L["Tel'anor"] = "Tel'anor"
 L["Twilight Vineyards"] = "Vigne del crepuscolo"
 L["Waning Crescent"] = "Mezzaluna Crescente"
+

@@ -1,4 +1,4 @@
-## Interface: 80000
+## Interface: 80100
 ## Title: HandyNotes_Directions
 ## Notes: Database of locations that city guards direct you to for HandyNotes
 ## Author: Kemayo

@@ -23,7 +23,6 @@ local defaults = {
 -- Localize some globals
 local next = next
 local GameTooltip = GameTooltip
-local WorldMapTooltip = WorldMapTooltip
 local HandyNotes = HandyNotes
 local GetAchievementInfo = GetAchievementInfo
 local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo
@@ -161,7 +160,7 @@ local HLHandler = {}
 local info = {}
 
 function HLHandler:OnEnter(mapFile, coord)
-    local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
+    local tooltip = GameTooltip
     if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
         tooltip:SetOwner(self, "ANCHOR_LEFT")
     else
@@ -239,11 +238,7 @@ do
 end
 
 function HLHandler:OnLeave(mapFile, coord)
-    if self:GetParent() == WorldMapButton then
-        WorldMapTooltip:Hide()
-    else
-        GameTooltip:Hide()
-    end
+    GameTooltip:Hide()
 end
 
 do

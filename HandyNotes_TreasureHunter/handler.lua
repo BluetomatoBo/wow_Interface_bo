@@ -11,7 +11,6 @@ ns.Debug = Debug
 
 local next = next
 local GameTooltip = GameTooltip
-local WorldMapTooltip = WorldMapTooltip
 local HandyNotes = HandyNotes
 local GetItemInfo = GetItemInfo
 local GetAchievementInfo = GetAchievementInfo
@@ -55,12 +54,19 @@ local function work_out_label(point)
     if point.label then
         return point.label
     end
-    if point.item then
-        local _, link, _, _, _, _, _, _, _, texture = GetItemInfo(point.item)
-        if link then
-            return link
+    if point.achievement and point.criteria then
+        local criteria = GetAchievementCriteriaInfoByID(point.achievement, point.criteria)
+        if criteria then
+            return criteria
         end
-        fallback = 'item:'..point.item
+        fallback = 'achievement:'..point.achievement..'.'..point.criteria
+    end
+    if point.follower then
+        local follower = C_Garrison.GetFollowerInfo(point.follower)
+        if follower then
+            return follower.name
+        end
+        fallback = 'follower:'..point.follower
     end
     if point.npc then
         local name = mob_name(point.npc)
@@ -69,13 +75,20 @@ local function work_out_label(point)
         end
         fallback = 'npc:'..point.npc
     end
+    if point.item then
+        local _, link, _, _, _, _, _, _, _, texture = GetItemInfo(point.item)
+        if link then
+            return link
+        end
+        fallback = 'item:'..point.item
+    end
     if point.currency then
         local name, _, texture = GetCurrencyInfo(point.currency)
         if name then
             return name
         end
     end
-    return UNKNOWN
+    return fallback or UNKNOWN
 end
 local function work_out_texture(point)
     if point.atlas then
@@ -168,42 +181,98 @@ end
 local function handle_tooltip(tooltip, point)
     if point then
         -- major:
-        if point.label then
-            tooltip:AddLine(point.label)
-        elseif point.item then
-            if ns.db.tooltip_item or IsLeftShiftKeyDown() then
-                tooltip:SetHyperlink(("item:%d"):format(point.item))
-            else
-                local link = select(2, GetItemInfo(point.item))
-                tooltip:AddLine(link)
-            end
-        elseif point.follower then
+        tooltip:AddLine(work_out_label(point))
+        if point.follower then
             local follower = C_Garrison.GetFollowerInfo(point.follower)
             if follower then
                 local quality = BAG_ITEM_QUALITY_COLORS[follower.quality]
-                tooltip:AddLine(follower.name, quality.r, quality.g, quality.b)
+                tooltip:AddDoubleLine(REWARD_FOLLOWER, follower.name,
+                    0, 1, 0,
+                    quality.r, quality.g, quality.b
+                )
                 tooltip:AddDoubleLine(follower.className, UNIT_LEVEL_TEMPLATE:format(follower.level))
-                tooltip:AddLine(REWARD_FOLLOWER:gsub(":", ""), 0, 1, 0)
-            else
-                tooltip:AddLine(UNKNOWN, 1, 0, 0)
             end
-        elseif point.npc then
-            tooltip:SetHyperlink(("unit:Creature-0-0-0-0-%d"):format(point.npc))
-        end
-
-        if point.item and point.npc then
-            tooltip:AddDoubleLine(CREATURE, mob_name(point.npc) or point.npc)
         end
         if point.currency then
             local name = GetCurrencyInfo(point.currency)
             tooltip:AddDoubleLine(CURRENCY, name or point.currency)
         end
         if point.achievement then
-            local _, name = GetAchievementInfo(point.achievement)
-            tooltip:AddDoubleLine(BATTLE_PET_SOURCE_6, name or point.achievement)
+            local _, name, _, complete = GetAchievementInfo(point.achievement)
+            tooltip:AddDoubleLine(BATTLE_PET_SOURCE_6, name or point.achievement,
+                nil, nil, nil,
+                complete and 0 or 1, complete and 1 or 0, 0
+            )
+            if point.criteria then
+                local criteria, _, complete = GetAchievementCriteriaInfoByID(point.achievement, point.criteria)
+                tooltip:AddDoubleLine(" ", criteria,
+                    nil, nil, nil,
+                    complete and 0 or 1, complete and 1 or 0, 0
+                )
+            end
         end
         if point.note then
             tooltip:AddLine(point.note, nil, nil, nil, true)
+        end
+        if point.quest and ns.db.tooltip_questid then
+            local quest = point.quest
+            if type(quest) == 'table' then
+                quest = string.join(", ", unpack(quest))
+            end
+            tooltip:AddDoubleLine("QuestID", quest or UNKNOWN)
+        end
+
+        if (ns.db.tooltip_item or IsShiftKeyDown()) and (point.item or point.npc) then
+            local comparison = ShoppingTooltip1
+
+            do
+                local side
+                local rightDist = 0
+                local leftPos = tooltip:GetLeft() or 0
+                local rightPos = tooltip:GetRight() or 0
+
+                rightDist = GetScreenWidth() - rightPos
+
+                if (leftPos and (rightDist < leftPos)) then
+                    side = "left"
+                else
+                    side = "right"
+                end
+
+                -- see if we should slide the tooltip
+                if tooltip:GetAnchorType() and tooltip:GetAnchorType() ~= "ANCHOR_PRESERVE" then
+                    local totalWidth = 0
+                    if ( primaryItemShown  ) then
+                        totalWidth = totalWidth + comparison:GetWidth()
+                    end
+
+                    if ( (side == "left") and (totalWidth > leftPos) ) then
+                        tooltip:SetAnchorType(tooltip:GetAnchorType(), (totalWidth - leftPos), 0)
+                    elseif ( (side == "right") and (rightPos + totalWidth) >  GetScreenWidth() ) then
+                        tooltip:SetAnchorType(tooltip:GetAnchorType(), -((rightPos + totalWidth) - GetScreenWidth()), 0)
+                    end
+                end
+
+                comparison:SetOwner(tooltip, "ANCHOR_NONE")
+                comparison:ClearAllPoints()
+
+                if ( side and side == "left" ) then
+                    comparison:SetPoint("TOPRIGHT", tooltip, "TOPLEFT", 0, -10)
+                else
+                    comparison:SetPoint("TOPLEFT", tooltip, "TOPRIGHT", 0, -10)
+                end
+            end
+
+            if point.item then
+                comparison:SetHyperlink(("item:%d"):format(point.item))
+            elseif point.npc then
+                comparison:SetHyperlink(("unit:Creature-0-0-0-0-%d"):format(point.npc))
+            end
+            comparison:Show()
+        end
+
+        if point.npc then
+            tooltip:AddLine("|cffeda55fClick|r to search for groups")
         end
     else
         tooltip:SetText(UNKNOWN)
@@ -221,7 +290,7 @@ local HLHandler = {}
 local info = {}
 
 function HLHandler:OnEnter(mapFile, coord)
-    local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
+    local tooltip = GameTooltip
     if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
         tooltip:SetOwner(self, "ANCHOR_LEFT")
     else
@@ -234,7 +303,7 @@ local function createWaypoint(button, mapFile, coord)
     if TomTom then
         local mapId = HandyNotes:GetMapFiletoMapID(mapFile)
         local x, y = HandyNotes:getXY(coord)
-        TomTom:AddMFWaypoint(mapId, nil, x, y, {
+        TomTom:AddWaypoint(mapId, x, y, {
             title = get_point_info_by_coord(mapFile, coord),
             persistent = nil,
             minimap = true,
@@ -307,11 +376,8 @@ do
 end
 
 function HLHandler:OnLeave(mapFile, coord)
-    if self:GetParent() == WorldMapButton then
-        WorldMapTooltip:Hide()
-    else
-        GameTooltip:Hide()
-    end
+    GameTooltip:Hide()
+    ShoppingTooltip1:Hide()
 end
 
 do

@@ -7,6 +7,10 @@ local myname, ns = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(myname, "esMX")
 if not L then return end
 
+--[[Translation missing --]]
+--[[ L["Astravar Harbor"] = "Astravar Harbor"--]] 
+--[[Translation missing --]]
+--[[ L["Evermoon Terrace"] = "Evermoon Terrace"--]] 
 L["Falanaar"] = "Falanaar"
 L["Felsoul Hold"] = "Bastion Almavil"
 L["Lunastre Estate"] = "Dominios de Lunastre"
@@ -18,3 +22,4 @@ L["Sanctum of Order (entrance)"] = "Sagrario de la Orden (Entrada)"
 L["Tel'anor"] = "Tel'anor"
 L["Twilight Vineyards"] = "ViÃ±edos del Crepusculo"
 L["Waning Crescent"] = "Cuarto Menguante"
+

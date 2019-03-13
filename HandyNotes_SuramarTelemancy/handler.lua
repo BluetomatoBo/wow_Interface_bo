@@ -7,7 +7,6 @@ ns.HL = HL
 
 local next = next
 local GameTooltip = GameTooltip
-local WorldMapTooltip = WorldMapTooltip
 local HandyNotes = HandyNotes
 
 local function work_out_texture(atlas)
@@ -71,7 +70,7 @@ local HLHandler = {}
 local info = {}
 
 function HLHandler:OnEnter(mapFile, coord)
-    local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
+    local tooltip = GameTooltip
     if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
         tooltip:SetOwner(self, "ANCHOR_LEFT")
     else
@@ -84,7 +83,7 @@ local function createWaypoint(button, mapFile, coord)
     if TomTom then
         local mapId = HandyNotes:GetMapFiletoMapID(mapFile)
         local x, y = HandyNotes:getXY(coord)
-        TomTom:AddMFWaypoint(mapId, nil, x, y, {
+        TomTom:AddWaypoint(mapId, x, y, {
             title = get_point_info_by_coord(mapFile, coord),
             persistent = nil,
             minimap = true,
@@ -148,11 +147,7 @@ do
 end
 
 function HLHandler:OnLeave(mapFile, coord)
-    if self:GetParent() == WorldMapButton then
-        WorldMapTooltip:Hide()
-    else
-        GameTooltip:Hide()
-    end
+    GameTooltip:Hide()
 end
 
 do

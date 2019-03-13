@@ -27,7 +27,6 @@ local defaults = {
 -- Localize some globals
 local next = next
 local GameTooltip = GameTooltip
-local WorldMapTooltip = WorldMapTooltip
 local HandyNotes = HandyNotes
 local GetItemInfo = GetItemInfo
 local GetAchievementInfo = GetAchievementInfo
@@ -108,7 +107,7 @@ local points = {
         [28804190] = { item=86527, quest=31438, }, -- Blade of the Poisoned Mind
     },
     ["Krasarang"] = {
-        [42409200] = { label="Equipment Locker", quest=31410, },
+        [42409200] = { item=86122, label="Equipment Locker", quest=31410, }, -- Plankwalking Greaves
         [52308870] = { item=87266, note="in a barrel", quest=31411, }, -- Recipe: Banana Infused Rum
         [50804930] = { item=86124, quest=31409, }, -- Pandaren Fishing Spear
         [52007300] = { item=87798, junk=true, quest=31863, }, -- Stack of Papers
@@ -297,7 +296,7 @@ local HLHandler = {}
 local info = {}
 
 function HLHandler:OnEnter(mapFile, coord)
-    local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
+    local tooltip = GameTooltip
     if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
         tooltip:SetOwner(self, "ANCHOR_LEFT")
     else
@@ -310,7 +309,7 @@ local function createWaypoint(button, mapFile, coord)
     if TomTom then
         local mapId = HandyNotes:GetMapFiletoMapID(mapFile)
         local x, y = HandyNotes:getXY(coord)
-        TomTom:AddMFWaypoint(mapId, nil, x, y, {
+        TomTom:AddWaypoint(mapId, x, y, {
             title = get_point_info_by_coord(mapFile, coord),
             persistent = nil,
             minimap = true,
@@ -367,11 +366,7 @@ do
 end
 
 function HLHandler:OnLeave(mapFile, coord)
-    if self:GetParent() == WorldMapButton then
-        WorldMapTooltip:Hide()
-    else
-        GameTooltip:Hide()
-    end
+    GameTooltip:Hide()
 end
 
 do

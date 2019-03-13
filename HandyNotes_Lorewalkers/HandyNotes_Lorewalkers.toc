@@ -1,4 +1,4 @@
-## Interface: 70100
+## Interface: 80100
 ## Title: HandyNotes_Lorewalkers
 ## Notes: Where the lore is at
 ## Author: Kemayo
@@ -8,9 +8,5 @@
 ## X-eMail: kemayo @ gmail DOT com
 ## SavedVariables: HandyNotes_LorewalkersDB
 ## RequiredDeps: HandyNotes
-## X-Curse-Packaged-Version: v7
-## X-Curse-Project-Name: HandyNotes: Lorewalkers
-## X-Curse-Project-ID: handynotes_lorewalkers
-## X-Curse-Repository-ID: wow/handynotes_lorewalkers/mainline
 
 Lore.lua

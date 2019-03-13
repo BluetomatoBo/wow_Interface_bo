@@ -1,24 +1,12 @@
-tag 6196191692a107ee6c659708da87d1aa1ae7f130 v4
+tag 002bf5044ac36ca2405979cf5e50866f3cd80e84 v5
 Author:	David Lynch <kemayo@gmail.com>
-Date:	Fri Aug 24 18:49:50 2018 -0500
+Date:	Tue Mar 12 15:37:48 2019 -0500
 
-Tagging v4
+Tagging v5
 
-commit e41b434fbad42e5c1483e2a0ddde735858a3cd41
+commit a7e0bb608c86fd3d579a86087606c6a0a364b198
 Author: David Lynch <kemayo@gmail.com>
-Date:   Fri Aug 24 18:49:06 2018 -0500
+Date:   Tue Mar 12 15:37:48 2019 -0500
 
-    Defer icon creation until initialization
-
-commit 8c8a53909b1e531ad748db6607a2a3be0988d194
-Author: David Lynch <kemayo@gmail.com>
-Date:   Fri Aug 24 18:46:38 2018 -0500
-
-    Fix hooking
-
-commit 144d2214a52f92260a529d8813c0feee7840fe93
-Author: David Lynch <kemayo@gmail.com>
-Date:   Sat Jul 21 21:34:45 2018 -0500
-
-    Wrong tooltip on world map
+    Update for 8.1.5
 
