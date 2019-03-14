@@ -112,5 +112,4 @@ do
 	end
 end
 
-
 ns.L = localization[GetLocale()] or default
