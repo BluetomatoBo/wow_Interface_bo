@@ -1,4 +1,4 @@
-﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ../../../BlizzardInterfaceCode/UI.xsd">
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ../../BlizzardInterfaceCode/UI.xsd">
 
 	<!--
 		Pawn by Vger-Azjol-Nerub
@@ -222,7 +222,7 @@
 	</Frame>
 	
 	<!-- An item shortcut on the Compare tab -->
-	<Button name="PawnUICompareItemShortcutTemplate" hidden="true" inherits="ItemButtonTemplate" virtual="true">
+	<Button name="PawnUICompareItemShortcutTemplate" hidden="true" virtual="true">
 		<Size><AbsDimension x="37" y="37" /></Size>
 		<NormalTexture name="$parentNormalTexture" />
 		<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD" />
@@ -1092,7 +1092,7 @@
 				
 					<!-- The item header area -->
 					
-					<Button name="PawnUICompareItemIcon1" inherits="ItemButtonTemplate">
+					<Button name="PawnUICompareItemIcon1">
 						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-23" /></Offset></Anchor></Anchors>
 						<Size><AbsDimension x="37" y="37" /></Size>
 						<Layers>
@@ -1112,7 +1112,7 @@
 						</Scripts>
 					</Button>
 
-					<Button name="PawnUICompareItemIcon2" inherits="ItemButtonTemplate">
+					<Button name="PawnUICompareItemIcon2">
 						<Anchors><Anchor point="TOPRIGHT"><Offset><AbsDimension x="-20" y="-23" /></Offset></Anchor></Anchors>
 						<Size><AbsDimension x="37" y="37" /></Size>
 						<Layers>
@@ -1171,7 +1171,7 @@
 						</Scripts>
 					</Button>
 
-					<Button name="PawnUIFrame_ClearItemsButton" inherits="ItemButtonTemplate">
+					<Button name="PawnUIFrame_ClearItemsButton">
 						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-427" /></Offset></Anchor></Anchors>
 						<Size><AbsDimension x="37" y="37" /></Size>
 						<NormalTexture file="Interface\Paperdoll\UI-PaperDoll-Slot-Relic" />

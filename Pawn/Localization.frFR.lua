@@ -548,11 +548,13 @@ Cette commande ne peut etre défaite!]=],
 
 	-- Convert "NBSP" to an actual non-breaking space (ASCII 160).  CurseForge isn't good about exporting actual NSBPs.
 	-- This is only supported for ThousandsSeparator and the items in the TooltipParsing table, and only for French.
-	PawnLocal.ThousandsSeparator = "\194\160"
-	local Key, Value
-	local T = PawnLocal.TooltipParsing
-	for Key, Value in pairs(T) do
-		T[Key] = gsub(Value, "NBSP", "\194\160")
+	if PawnLocal.ThousandsSeparator == "NBSP" then
+		PawnLocal.ThousandsSeparator = "\194\160"
+		local Key, Value
+		local T = PawnLocal.TooltipParsing
+		for Key, Value in pairs(T) do
+			T[Key] = gsub(Value, "NBSP", "\194\160")
+		end
 	end
 end
 
