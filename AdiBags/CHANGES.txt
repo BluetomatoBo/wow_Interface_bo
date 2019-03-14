@@ -1,12 +1,12 @@
-tag 44c08d92efcc444e91c6709f4d67381c8ea17e12 v1.9.13
+tag 08cdc44da430337b06859dd25a34659b597aaa6c v1.9.14
 Author:	Talyrius <contact@talyrius.net>
-Date:	Sun Dec 23 13:41:49 2018 -0800
+Date:	Wed Mar 13 09:20:14 2019 -0700
 
-Tagging as v1.9.13.
+Tagging as v1.9.14.
 
-commit b7c202d4e82ee4d8d4f936b76a6d0455336e9539
+commit ad3c28afc543c718ffac77c1762298e00289cb68
 Author: Talyrius <contact@talyrius.net>
-Date:   Sun Dec 23 13:40:06 2018 -0800
+Date:   Wed Mar 13 09:15:43 2019 -0700
 
-    Update .pkgmeta again (Oops!).
+    ItemLevel: Updated item level ranges for Season 2.
 
