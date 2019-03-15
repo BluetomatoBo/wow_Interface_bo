@@ -8233,21 +8233,17 @@ TSM.L["%d Sold Auctions"] = "%d Aste Vendute"
 TSM.L["%s (%s bags, %s bank, %s AH, %s mail)"] = "%s (%s borse, %s banca, %s CdA, %s posta)"
 TSM.L["%s (%s player, %s alts, %s guild, %s AH)"] = "%s (%s giocatore, %s alts, %s gilda, %s CdA)"
 TSM.L["%s (%s profit)"] = "%s (%s profitto)"
---[[Translation missing --]]
-TSM.L["%s |4operation:operations;"] = "%s |4operation:operations;"
+TSM.L["%s |4operation:operations;"] = "%s |4operazione:operazioni;"
 TSM.L["%s ago"] = "%s fa"
 --[[Translation missing --]]
 TSM.L["%s Crafts"] = "%s Crafts"
---[[Translation missing --]]
-TSM.L["%s group updated with %d items and %d materials."] = "%s group updated with %d items and %d materials."
+TSM.L["%s group updated with %d items and %d materials."] = "%s gruppo aggiornato con %d voci e %d materiali."
 TSM.L["%s in guild vault"] = "%s nella banca di gilda"
 TSM.L["%s is a valid custom price but %s is an invalid item."] = "%s è un valido prezzo personalizzato ma %s non è un oggetto valido."
 TSM.L["%s is a valid custom price but did not give a value for %s."] = "%s è un valido prezzo personalizzato ma non ha dato un valore per %s."
---[[Translation missing --]]
-TSM.L["'%s' is an invalid operation! Min restock of %d is higher than max restock of %d."] = "'%s' is an invalid operation! Min restock of %d is higher than max restock of %d."
+TSM.L["'%s' is an invalid operation! Min restock of %d is higher than max restock of %d."] = "'%s' è un'operazione non valida! Il rifornimento minimo di %d è superiore al rifornimento massimo di %d."
 TSM.L["%s is not a valid custom price and gave the following error: %s"] = "%s non è un valido prezzo personalizzato ed ha restituito il seguente errore: %s"
---[[Translation missing --]]
-TSM.L["%s Operations"] = "%s Operations"
+TSM.L["%s Operations"] = "%s Operazioni"
 --[[Translation missing --]]
 TSM.L["%s previously had the max number of operations, so removed %s."] = "%s previously had the max number of operations, so removed %s."
 TSM.L["%s removed."] = "%s rimosso."
@@ -8266,8 +8262,7 @@ TSM.L["(min 0 - max 10000)"] = "(min 0 - max 10000)"
 TSM.L["(minimum 0 - maximum 20)"] = "(minimo 0 - massimo 20)"
 TSM.L["(minimum 0 - maximum 2000)"] = [=[(minimo 0 - massimo 2000)
 ]=]
---[[Translation missing --]]
-TSM.L["(minimum 0 - maximum 905)"] = "(minimum 0 - maximum 905)"
+TSM.L["(minimum 0 - maximum 905)"] = "(minimo 0 - massimo 905)"
 TSM.L["(minimum 0.5 - maximum 10)"] = [=[(minimo 0.5 - massimo 10)
 ]=]
 TSM.L["/tsm help|r - Shows this help listing"] = "/tsm help|r - Mostra questa lista d'aiuto"
@@ -8289,16 +8284,11 @@ TSM.L["24 hr"] = "24 h"
 TSM.L["48 hr"] = "48 h"
 TSM.L["A custom price of %s for %s evaluates to %s."] = "Un prezzo personalizzato di %s per %s valutati in %s."
 TSM.L["A maximum of 1 convert() function is allowed."] = "Un massimo di una funzione convert() è consentita."
---[[Translation missing --]]
-TSM.L["A profile with that name already exists on the target account. Rename it first and try again."] = "A profile with that name already exists on the target account. Rename it first and try again."
---[[Translation missing --]]
-TSM.L["A profile with this name already exists."] = "A profile with this name already exists."
---[[Translation missing --]]
-TSM.L["A scan is already in progress. Please stop that scan before starting another one."] = "A scan is already in progress. Please stop that scan before starting another one."
---[[Translation missing --]]
-TSM.L["Above max expires."] = "Above max expires."
---[[Translation missing --]]
-TSM.L["Above max price. Not posting."] = "Above max price. Not posting."
+TSM.L["A profile with that name already exists on the target account. Rename it first and try again."] = "Un profilo con quel nome esiste già nell'account di destinazione. Rinominalo e riprova."
+TSM.L["A profile with this name already exists."] = "Esiste già un profilo con questo nome."
+TSM.L["A scan is already in progress. Please stop that scan before starting another one."] = "Una scansione è già in corso. Interrompere la scansione prima di avviarne un'altra."
+TSM.L["Above max expires."] = "Sopra la massima scadenza."
+TSM.L["Above max price. Not posting."] = "Sopra il prezzo massimo Non pubblicare."
 --[[Translation missing --]]
 TSM.L["Above max price. Posting at max price."] = "Above max price. Posting at max price."
 --[[Translation missing --]]
@@ -14568,8 +14558,7 @@ TSM.L["%d Sold Auctions"] = "%d已卖出的拍卖"
 TSM.L["%s (%s bags, %s bank, %s AH, %s mail)"] = "%s (%s 背包, %s 银行, %s 拍卖行, %s 邮件)"
 TSM.L["%s (%s player, %s alts, %s guild, %s AH)"] = "%s (%s 玩家, %s 小号, %s 公会, %s 拍卖行)"
 TSM.L["%s (%s profit)"] = "%s (%s 利润)"
---[[Translation missing --]]
-TSM.L["%s |4operation:operations;"] = "%s |4operation:operations;"
+TSM.L["%s |4operation:operations;"] = "操作"
 TSM.L["%s ago"] = "%s之前"
 TSM.L["%s Crafts"] = "%s制造"
 --[[Translation missing --]]

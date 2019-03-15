@@ -91,6 +91,7 @@ function private.GetGeneralSettingsFrame()
 				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
 				:SetStyle("fontHeight", 12)
 				:SetText(L["Store operations globally"])
+				:SetChecked(TSM.db.global.coreOptions.globalOperations)
 				:SetScript("OnValueChanged", private.GlobalOperationsOnValueChanged)
 			)
 		)
@@ -415,6 +416,7 @@ end
 
 function private.GlobalOperationsConfirmed(checkbox, newValue)
 	checkbox:SetChecked(newValue, true)
+		:Draw()
 	TSM.db.global.coreOptions.globalOperations = newValue
 	TSM.Operations.SetStoredGlobally(newValue)
 end

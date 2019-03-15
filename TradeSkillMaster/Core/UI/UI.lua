@@ -386,7 +386,8 @@ function TSM.UI.ShowTooltip(parent, tooltip)
 	else
 		tooltip = tooltip
 	end
-	GameTooltip:SetOwner(parent, "ANCHOR_NONE")
+	GameTooltip:SetOwner(parent, "ANCHOR_PRESERVE")
+	GameTooltip:ClearAllPoints()
 	GameTooltip:SetPoint("LEFT", parent, "RIGHT")
 	if type(tooltip) == "number" then
 		GameTooltip:SetHyperlink("item:"..tooltip)
@@ -409,7 +410,7 @@ end
 
 --- Hides the current tooltip.
 function TSM.UI.HideTooltip()
-	GameTooltip:SetOwner(UIParent, "ANCHOR_NONE")
+	GameTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
 	GameTooltip:ClearAllPoints()
 	GameTooltip:SetPoint("CENTER")
 	GameTooltip:Hide()

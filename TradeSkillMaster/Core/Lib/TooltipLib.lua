@@ -286,7 +286,7 @@ end
 
 private.extraTipMethods = {
 	Attach = function(self, tooltip)
-		self:SetOwner(tooltip, "ANCHOR_NONE")
+		self:SetOwner(tooltip, "ANCHOR_PRESERVE")
 		self.anchorFrame = nil
 		self:OnUpdate()
 	end,

@@ -176,7 +176,7 @@ end
 function private.SelectionFrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)
 	frame:GetBaseElement():SetBottomPadding(nil)
-	frame:GetElement("groupSelection.scanBtn"):SetDisabled(frame:GetElement("groupSelection.groupTree"):IsSelectionCleared(true))
+	frame:GetElement("groupSelection.scanBtn"):SetDisabled(frame:GetElement("groupSelection.groupTree"):IsSelectionCleared(true)):Draw()
 end
 
 function private.GetSelectionContent(viewContainer, path)

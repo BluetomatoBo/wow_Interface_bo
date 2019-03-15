@@ -830,7 +830,7 @@ function private.FSMCreate()
 		local itemString = currentRow:GetField("itemString")
 
 		local postBag, postSlot = nil, nil
-		for _, bag, slot, bagItemString in TSMAPI_FOUR.Inventory.BagIterator() do
+		for _, bag, slot, bagItemString in TSMAPI_FOUR.Inventory.BagIterator(true, false, false, true) do
 			if not postBag and not postSlot and bagItemString == itemString then
 				postBag = bag
 				postSlot = slot
