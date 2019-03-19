@@ -1,12 +1,14 @@
-tag 08cdc44da430337b06859dd25a34659b597aaa6c v1.9.14
+tag 3d9f45b7768cbd30037c4b8d6547b94d9eac859e v1.9.15
 Author:	Talyrius <contact@talyrius.net>
-Date:	Wed Mar 13 09:20:14 2019 -0700
+Date:	Mon Mar 18 08:18:49 2019 -0700
 
-Tagging as v1.9.14.
+Tagging as v1.9.15.
 
-commit ad3c28afc543c718ffac77c1762298e00289cb68
+commit a545d2f02fbdc41cec5a8591a95671c669f257ee
 Author: Talyrius <contact@talyrius.net>
-Date:   Wed Mar 13 09:15:43 2019 -0700
+Date:   Mon Mar 18 08:16:15 2019 -0700
 
-    ItemLevel: Updated item level ranges for Season 2.
+    Fixed another error related to the ItemButtonTemplate changes.
+    
+    Fixes #339.
 
