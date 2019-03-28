@@ -1,260 +1,97 @@
-tag eaefc0ce2860fa22a4b9d4309341990203e728db 8.1.12
+tag 1e2028e2356d2dde1c30138c6d7043a9c3d153aa 8.1.13
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Sat Mar 16 00:53:31 2019 +0100
+Date:	Tue Mar 26 20:50:10 2019 +0100
 
-Tagging as 8.1.12
+Tagging as 8.1.13
 
-commit af8a7cc132d7e738ce2d052f7b431dd5076153ab
+commit 61898389a19e165eb1495a0ace57dfcfae6dde33
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Mar 16 00:53:31 2019 +0100
+Date:   Tue Mar 26 20:50:10 2019 +0100
 
-    increment version number to 8.1.12
+    increment version number to 8.1.13
 
-commit 604e041bc0500d927ebf656b0655d3393daa55eb
+commit 3aea0fe6d9769da7bc9e645c7d9b8c60b9565004
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 15 23:00:23 2019 +0100
+Date:   Tue Mar 19 03:12:32 2019 +0100
 
-    Omega via svn r18454:
-    tweaks to dungeon messages
+    ultrashining via svn r18467:
+    update zhTW
 
-commit ab8809edafde7f19fa32ca3e88404fb47322cadf
+commit a1ecdeef9f561a0c76c8b2ab26bd70e8f2447cf4
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 15 18:16:04 2019 +0100
+Date:   Mon Mar 18 19:27:56 2019 +0100
 
-    Omega via svn r18453:
-    Updated Crackling Lightning for 8.1.5
+    Omega via svn r18466:
+    tweak voice used
 
-commit 39f47068f9165bfce2ab733af21d58fa72563ae8
+commit 65932965162aa228f5131726817491d347b371a9
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 15 03:16:41 2019 +0100
+Date:   Mon Mar 18 19:26:35 2019 +0100
 
-    Omega via svn r18452:
-    Another minor brawler update
+    Omega via svn r18465:
+    Added pyroblast interrupt warning back in from earlier seasons, now that it has smarter check code it can use in core
+    Added dodge warning and timer to dark outpour as well
 
-commit 0896c7b9d05c713c8d42ccba457f622f12e7e086
+commit d71bfa78a35ebc46d2e4069a67028034afca03a0
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 15 02:54:30 2019 +0100
+Date:   Mon Mar 18 19:08:42 2019 +0100
 
-    Omega via svn r18451:
-    minor brawlers update
+    Omega via svn r18464:
+    tone down spam from chomps, it?\226?\128?\153s pretty much all he casts so it doesn?\226?\128?\153t need a spectator warning.
 
-commit 8edc5b21b94be74e7e801109f5144ca4c4be70a9
+commit bfe34198f69efd3e5dd5dbc1f0a0619778021bf5
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 14 23:58:49 2019 +0100
+Date:   Mon Mar 18 18:16:13 2019 +0100
 
-    Omega via svn r18450:
-    Try to use force set method on mekkatorque for icons
+    ultrashining via svn r18463:
+    zhTW update
 
-commit 9186200593b982b33710a36ba43f3d528e0c3840
+commit 68f45bcd88fc75274a0939717006b3060235bae3
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 14 06:00:11 2019 +0100
+Date:   Mon Mar 18 01:03:00 2019 +0100
 
-    Omega via svn r18449:
-    Notes
+    Omega via svn r18462:
+    I can?\226?\128?\153t remember a particular reason why events would register if their not needed, but now they won?\226?\128?\153t.
 
-commit b427cd00168aada91b04f6834c82fdbaa7a766cd
+commit ccab6fa922e2e64b9564ee33660f8e0d6d9d1ce1
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 14 05:38:39 2019 +0100
+Date:   Mon Mar 18 00:09:15 2019 +0100
 
-    Omega via svn r18448:
-    More brawlers fixes, ANOTHER localized trigger filter too. i remember when brawlers detection was easy for season 1 and 2. But then blizz screwed it up with season 3 and made mods go from requiring 0 localized messages to detect matches ending, to at least 12, in over 10 different languages (so yes, from 0 strings to over 100). I have 6/100+ done. yay for blizz not caring about mods.
+    Omega via svn r18461:
+    Added warnings and timers for Xan Sallish, Mama Stormstout, and Robe Robber Robert
 
-commit 3e0dceec129ac7c3b33fab2d70685e00fdca26ee
+commit d9d3137817b9d2ed8afe666a17b35cc67599f96e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 14 03:23:20 2019 +0100
+Date:   Sun Mar 17 22:14:28 2019 +0100
 
-    Omega via svn r18447:
-    disable this timer
+    Omega via svn r18460:
+    change rumble behavior to fire match begin
 
-commit b523293ebef07e1a824d212d8c1b5ba98c30fc3a
+commit a67ece71f77ede0a211e4b47d1736121e87c2ae2
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 14 02:30:33 2019 +0100
+Date:   Sun Mar 17 00:09:11 2019 +0100
 
-    Omega via svn r18446:
-    Buff up rank 1 some
+    Omega via svn r18459:
+    small brawlers update
 
-commit e1222ee9c96c1308f28955b604813b03f8a3ca64
+commit 89e330c3d53652bb26ff0505dcaa30de80d501c0
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 14 01:42:41 2019 +0100
+Date:   Sat Mar 16 21:44:19 2019 +0100
 
-    Omega via svn r18445:
-    Make sure high noon cancels when Dupree dies
+    Omega via svn r18458:
+    Small brawlers update
 
-commit 995907a772a70260a255ff9069236a7a857400f7
+commit 6a9c159270007f1b87602ded15be1dc81fb90ddd
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 14 01:02:46 2019 +0100
+Date:   Sat Mar 16 01:31:51 2019 +0100
 
-    Omega via svn r18444:
-    Add another ignore line, because god forbid blizz make something easy for a mod author.
+    Omega via svn r18457:
+    An additional ignore string
 
-commit 4946bee4ed5ce073f3d37bcbfbdea9cc794e8696
+commit a0b6fbc577d3449955ade6c7645df19e5618e939
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 13 23:51:28 2019 +0100
+Date:   Sat Mar 16 00:53:50 2019 +0100
 
-    Omega via svn r18443:
-    tweaks
-
-commit 546db05728eeff11300438b026ebc0f98b427502
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 13 23:49:40 2019 +0100
-
-    Omega via svn r18442:
-    Fix regressions caused by reorder
-
-commit 01b7a0b77de9943b86a38af363391790909356e9
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 13 21:32:27 2019 +0100
-
-    Omega via svn r18441:
-    First re-arrangement. rotating bosses in and out of rank systems and into/out of legacy as needed
-
-commit 9a00c3e870c75ac26531bb98e1f66df614037436
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 13 05:55:43 2019 +0100
-
-    Omega via svn r18440:
-    Handle Necrotic Smash better on non mythic difficulty
-
-commit 12ee7a3ae2ae532b5d535d658d5c66a879309c34
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 7 18:20:32 2019 +0100
-
-    Omega via svn r18439:
-    Change warning sound/text based on feedback
-
-commit 1a6af4bca44f2569768a198e0beb043aa9acbcbe
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 6 19:10:35 2019 +0100
-
-    Omega via svn r18438:
-    these should be together, plus it?\226?\128?\153ll fix a nil error if function is ever passed with no scanningTime
-
-commit 0668089b0d9374a35f4ca50557143d6f0b5c1a0d
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Mar 5 03:46:37 2019 +0100
-
-    Omega via svn r18437:
-    Fix jaina?\226?\128?\153s CID, so boss health is reported
-
-commit 43f252affecff882d76e85c2f1dd9bd1f7d193d4
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Mar 4 04:27:39 2019 +0100
-
-    Omega via svn r18436:
-    Only enable this on mythic and mythic plus
-
-commit 22bc33ff8675863a8b2b5c26ee1eb79ee2884514
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Mar 4 00:03:46 2019 +0100
-
-    Omega via svn r18435:
-    Prevent an alpha of 0 returning Inf during bar fading
-
-commit b672be972161cb9f64814efb923acc9749a11da1
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Mar 3 23:50:46 2019 +0100
-
-    Omega via svn r18434:
-    Allow alpha to be set to 0 on small bars
-
-commit 45c65cfebf5f40503377229a87fbd9366a221606
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Mar 3 22:56:04 2019 +0100
-
-    Omega via svn r18433:
-    Added powder shot warning (if not on a tank) by user request
-
-commit c92c742505587b688837cfb8c34ebcb1ffd5e656
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 1 19:48:33 2019 +0100
-
-    Omega via svn r18432:
-    Add the additional add CIDs for last
-
-commit 02de93d7fab51e6129f4bb0731a60c295d2020ab
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 1 19:39:07 2019 +0100
-
-    Omega via svn r18431:
-    Apply nameplate interrupt helper to grong as well, per user suggestion.
-
-commit f7c4753404c27ad93a1b0eb1be1799220728f82d
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 1 05:06:09 2019 +0100
-
-    Omega via svn r18430:
-    Fix spellname for bait warning
-
-commit 42962be927e4495b664be99a97237e7cb9af2880
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 28 06:18:00 2019 +0100
-
-    Omega via svn r18429:
-    Added avalanche icon by user request
-
-commit 9f1ae4b31ccee2c50cdff132db201692d84a83e7
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 28 05:22:19 2019 +0100
-
-    Omega via svn r18428:
-    KR update
-
-commit 5423c24dbc9a43ec460dfb646b8c5616a6320a42
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 28 04:52:26 2019 +0100
-
-    Omega via svn r18427:
-    Make this on by default. because it?\226?\128?\153s kinda sickening to add something, then instead of users enabling it, they install a weak aura that does same thing.
-    
-    It?\226?\128?\153s clear that if something is off by default they assume that DBM doesn?\226?\128?\153t do it and find something else that does :\
-
-commit a7fa837822a5148414960794cf520461ea0fd054
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 28 04:21:00 2019 +0100
-
-    Omega via svn r18426:
-    Add option to auto lower weather indensity on jaina on pull and restore on combat end.
-    Fixed range check playsound feature to work better with reverse range checks
-
-commit debe7ddf7be518d31b2cd5c715892554b003f7fa
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 28 03:52:23 2019 +0100
-
-    Omega via svn r18425:
-    reverse range check fixes so it?\226?\128?\153s not spamming :Show needlessly and it?\226?\128?\153s also resetting back to 1 when it?\226?\128?\153s supposed to
-
-commit 4912327233791df4da0757824e84745f97809a06
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 28 02:34:35 2019 +0100
-
-    Omega via svn r18424:
-    Fix other situation where color was not resetting
-
-commit 16b7b8911ff95e0a150a7c7feeaa0ecd158ede0e
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 28 00:19:13 2019 +0100
-
-    Omega via svn r18423:
-    Improvement on last
-
-commit 8a3a548fa8e23521d90b6214cd01b3eebc37cf36
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 28 00:10:38 2019 +0100
-
-    Omega via svn r18422:
-    Add icon option to blockade, by user request
-
-commit 494df208be7c459fa23187779d291b4b9196d847
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 27 03:21:52 2019 +0100
-
-    Omega via svn r18421:
-    This should be 1 target R-Range, not 2
-
-commit 2b24df2cc255891018fbe0d31e3568997f9bf337
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 26 21:51:40 2019 +0100
-
-    tandanu via svn r18420:
+    tandanu via svn r18456:
     increment alpha version
 
