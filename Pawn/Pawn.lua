@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0239
+PawnVersion = 2.0240
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -262,14 +262,6 @@ function PawnInitialize()
 			end
 		end)
 	
-	-- World map tooltip (for quest rewards)
-	if WorldMapTooltip then
-		-- *** No longer needed in 8.1.5; the world map just uses GameTooltip.
-		hooksecurefunc(WorldMapTooltip, "SetHyperlink", function(self, ...) PawnUpdateTooltip("WorldMapTooltip", "SetHyperlink", ...) end) -- HandyNotes_DraenorTreasures compatibility
-		hooksecurefunc(WorldMapTooltip, "SetQuestLogItem", function(self, ...) PawnUpdateTooltip("WorldMapTooltip", "SetQuestLogItem", ...) end)
-		hooksecurefunc(WorldMapTooltip, "Hide", function(self, ...) PawnLastHoveredItem = nil end)
-	end
-	
 	-- The item link tooltip (only hook it if it's an actual item)
 	hooksecurefunc(ItemRefTooltip, "SetHyperlink",
 		function(self, ItemLink, ...)
@@ -323,20 +315,6 @@ function PawnInitialize()
 				PawnAttachIconToTooltip(ShoppingTooltip2, true)
 			end
 		end)
-	if WorldMapCompareTooltip1 then
-		-- *** No longer necessary in 8.1.5
-		hooksecurefunc(WorldMapCompareTooltip1, "SetCompareItem",
-		function(self, ...)
-			local _, ItemLink1 = WorldMapCompareTooltip1:GetItem()
-			PawnUpdateTooltip("WorldMapCompareTooltip1", "SetCompareItem", ItemLink1, ...)
-			PawnAttachIconToTooltip(WorldMapCompareTooltip1, true)
-			local _, ItemLink2 = WorldMapCompareTooltip2:GetItem()
-			if ItemLink2 and WorldMapCompareTooltip2:IsShown() then
-				PawnUpdateTooltip("WorldMapCompareTooltip2", "SetHyperlink", ItemLink2, ...)
-				PawnAttachIconToTooltip(WorldMapCompareTooltip2, true)
-			end
-		end)
-	end
 	hooksecurefunc(ItemRefShoppingTooltip1, "SetCompareItem",
 		function(self, ...)
 			local _, ItemLink1 = ItemRefShoppingTooltip1:GetItem()
@@ -1335,6 +1313,11 @@ function PawnUpdateTooltip(TooltipName, MethodName, Param1, ...)
 	
 	-- Show the updated tooltip.	
 	if TooltipWasUpdated then Tooltip:Show() end
+
+	if Item and PawnCommon.DebugDoubleTooltips and TooltipName == "GameTooltip" then
+		VgerCore.Message("===== Annotating " .. TooltipName .. " for " .. tostring(Item.Name) .. ": =====")
+		VgerCore.Message(debugstack(5))
+	end
 end
 
 -- Returns a sorted list of all scale values for an item (and its unenchanted version, if supplied).
@@ -4471,6 +4454,8 @@ function PawnSetScaleVisible(ScaleName, Visible)
 	return true
 end
 
+local TEMP_PawnDebugPerCharacterOptionsFailure
+
 -- Returns true if a given scale is visible in tooltips.
 function PawnIsScaleVisible(ScaleName)
 	if not PawnCommon then VgerCore.Fail("Can't check scale visibility until Pawn is initialized") return end
@@ -4489,7 +4474,13 @@ function PawnIsScaleVisible(ScaleName)
 		return false
 	end
 	if Scale.PerCharacterOptions[PawnPlayerFullName] == nil then
-		VgerCore.Fail("Per-character options for this character (" .. PawnPlayerFullName .. ") and scale (" .. ScaleName .. ") were missing.")
+		if TEMP_PawnDebugPerCharacterOptionsFailure == nil then
+			TEMP_PawnDebugPerCharacterOptionsFailure = true
+			VgerCore.Fail("Per-character options for this character (" .. PawnPlayerFullName .. ") and scale (" .. ScaleName .. ") were missing.")
+		end
+		if PawnCommon.DebugPerCharacterOptionsFailure then
+			VgerCore.Fail(debugstack())
+		end
 		return false
 	end
 	return Scale.PerCharacterOptions[PawnPlayerFullName].Visible
