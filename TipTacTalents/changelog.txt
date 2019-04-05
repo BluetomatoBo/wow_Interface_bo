@@ -1,3 +1,7 @@
+TipTacTalents Changes | 2019 Mar 31
+-----------------------------------
+- Updated the TOC version to 80100 for the Tides of Vengeance 8.1 patch.
+
 TipTacTalents Changes | 2018 Jul 30
 -----------------------------------
 - Localized the "Loading..." text.

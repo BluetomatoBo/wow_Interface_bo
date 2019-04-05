@@ -1,3 +1,10 @@
+TipTac Changes | 2019 Mar 31
+----------------------------
+- Updated the TOC version to 80100 for the Tides of Vengeance 8.1 patch.
+- Removed the "WorldMapTooltip" and "WorldMapCompareTooltips" from the list of tooltips to modify, as they have been removed.
+- Fixed flickering issues on the world map caused by the padding being reset during tooltip clearing. Thanks rawillkill.
+- Fixed uncondensed bar values using scientific formatting for large values.
+
 TipTac Changes | 2018 Aug 20
 ----------------------------
 - Fixed a "FadeOut flag not cleared" issue that could occur under certain circumstances.

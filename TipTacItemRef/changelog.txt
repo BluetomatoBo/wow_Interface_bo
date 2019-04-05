@@ -1,3 +1,7 @@
+TipTacItemRef Changes | 2019 Mar 31
+-----------------------------------
+- Updated the TOC version to 80100 for the Tides of Vengeance 8.1 patch.
+
 TipTacItemRef Changes | 2018 Aug 12
 -----------------------------------
 - Seperated the "Show Item Level & ID" option. So if the default item level text is prefered, that's now possible.

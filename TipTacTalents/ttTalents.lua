@@ -149,7 +149,7 @@ function ttt:InitiateInspectRequest(unit,record)
 
 	-- if we have something to show already, cached format or loading text, update the tip
 	if (record.format) then
-		ttt:UpdateTooltip(record);
+		self:UpdateTooltip(record);
 	end
 end
 

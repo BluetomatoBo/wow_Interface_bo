@@ -177,9 +177,6 @@ local TT_TipsToModify = {
 	"ItemRefTooltip",
 	"ItemRefShoppingTooltip1",
 	"ItemRefShoppingTooltip2",
-	"WorldMapTooltip",
-	"WorldMapCompareTooltip1",
-	"WorldMapCompareTooltip2",
 	-- 3rd party addon tooltips
 	"AtlasLootTooltip",
 	"QuestHelperTooltip",
@@ -219,7 +216,7 @@ tt.MirrorAnchorsSmart = TT_MirrorAnchorsSmart;
 
 -- GTT Control Variables
 local gtt_lastUpdate = 0;		-- time since last update
-local gtt_numLines = 0;			-- number of lines at last check, if this differs from gtt:NumLines() an update should be performed
+local gtt_numLines = 0;			-- number of lines at last check, if this differs from gtt:NumLines() an update should be performed. Only used for unit tips with extra padding.
 local gtt_anchorType;			-- valid types: normal/mouse/parent
 local gtt_anchorPoint;          -- standard UI anchor point
 tt.xPadding = 0;				-- x/y variables used to set the padding (+width, +height) for the GTT, reset to zero in OnTooltipCleared
@@ -830,7 +827,7 @@ function gttScriptHooks:OnTooltipCleared()
 	-- remove the padding that might have been set to fit health/power bars
 	tt.xPadding = 0;
 	tt.yPadding = 0;
-	self:SetPadding(tt.xPadding,tt.yPadding);
+	--self:SetPadding(tt.xPadding,tt.yPadding);		-- [8.1.5] disabled, as it causes issues  -- Look into GTT.recalculatePadding & GameTooltip_CalculatePadding()
 
 	-- wipe the vars
 	wipe(u);
