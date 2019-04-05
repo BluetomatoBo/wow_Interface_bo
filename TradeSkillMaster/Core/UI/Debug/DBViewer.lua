@@ -40,6 +40,13 @@ function DBViewer.OnInitialize()
 	private.dividedContainerContext = CopyTable(DEFAULT_DIVIDED_CONTAINER_CONTEXT)
 end
 
+function DBViewer.OnDisable()
+	-- hide the frame
+	if private.frame then
+		DBViewer.Toggle()
+	end
+end
+
 function DBViewer.Toggle()
 	if not private.frame then
 		private.frame = private.CreateMainFrame()

@@ -59,6 +59,11 @@ function BankingUI.OnInitialize()
 	private.FSMCreate()
 end
 
+function BankingUI.OnDisable()
+	-- hide the frame
+	private.fsm:ProcessEvent("EV_BANK_CLOSED")
+end
+
 function BankingUI.Toggle()
 	private.fsm:ProcessEvent("EV_TOGGLE")
 end

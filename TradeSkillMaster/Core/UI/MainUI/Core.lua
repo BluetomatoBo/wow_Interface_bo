@@ -17,6 +17,13 @@ local MIN_FRAME_SIZE = { width = 948, height = 757 }
 -- Module Functions
 -- ============================================================================
 
+function MainUI.OnDisable()
+	-- hide the frame
+	if private.frame then
+		MainUI.Toggle()
+	end
+end
+
 function MainUI.RegisterTopLevelPage(name, texturePack, callback)
 	tinsert(private.topLevelPages, { name = name, texturePack = texturePack, callback = callback })
 end

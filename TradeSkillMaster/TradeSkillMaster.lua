@@ -18,7 +18,7 @@ local APP_INFO_REQUIRED_KEYS = { "version", "lastSync", "addonVersions", "messag
 local LOGOUT_TIME_WARNING_THRESHOLD_MS = 20
 do
 	-- show a message if we were updated
-	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.7.6" then
+	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.7.7" then
 		message("TSM was just updated and may not work properly until you restart WoW.")
 	end
 end
@@ -287,7 +287,7 @@ function TSM.OnInitialize()
 	end
 
 	-- load settings
-	local db, upgradeObj = TSMAPI_FOUR.Settings.New("TradeSkillMasterDB", SETTINGS_INFO)
+	local db, upgradeObj = TSM.Settings.New("TradeSkillMasterDB", SETTINGS_INFO)
 	TSM.db = db
 	if upgradeObj then
 		local prevVersion = upgradeObj:GetPrevVersion()
@@ -509,8 +509,6 @@ function TSM.OnInitialize()
 	-- store the class of this character
 	TSM.db.sync.internalData.classKey = select(2, UnitClass("player"))
 
-	TSM.db:RegisterCallback("OnLogout", private.OnLogout)
-
 	-- core price sources
 	TSM.CustomPrice.RegisterSource("TradeSkillMaster", "VendorBuy", L["Buy from Vendor"], TSMAPI_FOUR.Item.GetVendorBuy)
 	TSM.CustomPrice.RegisterSource("TradeSkillMaster", "VendorSell", L["Sell to Vendor"], TSMAPI_FOUR.Item.GetVendorSell)
@@ -639,6 +637,22 @@ function TSM.OnEnable()
 	TSM.LoadAppData()
 end
 
+function TSM.OnDisable()
+	local originalProfile = TSM.db:GetCurrentProfile()
+	-- erroring here would cause the profile to be reset, so use pcall
+	local startTime = debugprofilestop()
+	local success, errMsg = pcall(private.SaveAppData)
+	local timeTaken = debugprofilestop() - startTime
+	if timeTaken > LOGOUT_TIME_WARNING_THRESHOLD_MS then
+		TSM:LOG_WARN("private.SaveAppData took %0.2fms", timeTaken)
+	end
+	if not success then
+		TSM:LOG_ERR("private.SaveAppData hit an error: %s", tostring(errMsg))
+	end
+	-- ensure we're back on the correct profile
+	TSM.db:SetProfile(originalProfile)
+end
+
 function TSM.LoadAppData()
 	if not TSMAPI_FOUR.Util.IsAddonInstalled("TradeSkillMaster_AppHelper") then
 		return
@@ -702,70 +716,6 @@ function TSM.LoadAppData()
 		}
 		TSMAPI_FOUR.Util.ShowStaticPopupDialog("TSM_APP_DATA_ERROR")
 	end
-end
-
-function TSM.OnTSMDBShutdown()
-	if not TSMAPI.AppHelper then
-		return
-	end
-
-	TradeSkillMaster_AppHelperDB = TradeSkillMaster_AppHelperDB or {}
-	local appDB = TradeSkillMaster_AppHelperDB
-
-	-- store region
-	local region = TSM.GetRegion()
-	appDB.region = region
-
-	-- save errors
-	TSM.SaveErrorReports(appDB)
-
-	local function GetShoppingMaxPrice(itemString)
-		local operation = TSM.Operations.GetFirstOperationByItem("Shopping", itemString)
-		if not operation or type(operation.maxPrice) ~= "string" then
-			return
-		end
-		local value = TSMAPI_FOUR.CustomPrice.GetValue(operation.maxPrice, itemString)
-		if not value or value <= 0 then
-			return
-		end
-		return value
-	end
-
-	-- save TSM_Shopping max prices in the app DB
-	appDB.shoppingMaxPrices = {}
-	for profile in TSM.GetTSMProfileIterator() do
-		local profileGroupData = {}
-		for _, itemString, groupPath in TSM.Groups.ItemIterator() do
-			local itemId = tonumber(strmatch(itemString, "^i:([0-9]+)$"))
-			if itemId then
-				local maxPrice = GetShoppingMaxPrice(itemString)
-				if maxPrice then
-					if not profileGroupData[groupPath] then
-						profileGroupData[groupPath] = {}
-					end
-					tinsert(profileGroupData[groupPath], "["..table.concat({itemId, maxPrice}, ",").."]")
-				end
-			end
-		end
-		if next(profileGroupData) then
-			appDB.shoppingMaxPrices[profile] = {}
-			for groupPath, data in pairs(profileGroupData) do
-				appDB.shoppingMaxPrices[profile][groupPath] = "["..table.concat(data, ",").."]"
-			end
-			appDB.shoppingMaxPrices[profile].updateTime = time()
-		end
-	end
-
-	-- save black market data
-	local realmName = GetRealmName()
-	appDB.blackMarket = appDB.blackMarket or {}
-	if TSM.Features.blackMarket then
-		local hash = TSMAPI_FOUR.Util.CalculateHash(TSM.Features.blackMarket..":"..TSM.Features.blackMarketTime)
-		appDB.blackMarket[realmName] = {data=TSM.Features.blackMarket, key=hash, updateTime=TSM.Features.blackMarketTime}
-	end
-
-	-- save analytics
-	TSM.Analytics.Save(appDB)
 end
 
 
@@ -838,7 +788,6 @@ function private.DebugSlashCommandHandler(arg)
 		TSM.UI.DBViewer.Toggle()
 	elseif arg == "logout" then
 		TSM.AddonTestLogout()
-		private.OnLogout()
 	elseif arg == "clearitemdb" then
 		TSMItemInfoDB = nil
 		ReloadUI()
@@ -858,20 +807,68 @@ function private.PrintVersions()
 	end
 end
 
-function private.OnLogout()
-	local originalProfile = TSM.db:GetCurrentProfile()
-	-- erroring here would cause the profile to be reset, so use pcall
-	local startTime = debugprofilestop()
-	local success, errMsg = pcall(TSM.OnTSMDBShutdown)
-	local timeTaken = debugprofilestop() - startTime
-	if timeTaken > LOGOUT_TIME_WARNING_THRESHOLD_MS then
-		TSM:LOG_WARN("OnTSMDBShutdown took %0.2fms", timeTaken)
+function private.SaveAppData()
+	if not TSMAPI.AppHelper then
+		return
 	end
-	if not success then
-		TSM:LOG_ERR("OnTSMDBShutdown hit an error: %s", tostring(errMsg))
+
+	TradeSkillMaster_AppHelperDB = TradeSkillMaster_AppHelperDB or {}
+	local appDB = TradeSkillMaster_AppHelperDB
+
+	-- store region
+	local region = TSM.GetRegion()
+	appDB.region = region
+
+	-- save errors
+	TSM.SaveErrorReports(appDB)
+
+	local function GetShoppingMaxPrice(itemString)
+		local operation = TSM.Operations.GetFirstOperationByItem("Shopping", itemString)
+		if not operation or type(operation.maxPrice) ~= "string" then
+			return
+		end
+		local value = TSMAPI_FOUR.CustomPrice.GetValue(operation.maxPrice, itemString)
+		if not value or value <= 0 then
+			return
+		end
+		return value
 	end
-	-- ensure we're back on the correct profile
-	TSM.db:SetProfile(originalProfile)
+
+	-- save TSM_Shopping max prices in the app DB
+	appDB.shoppingMaxPrices = {}
+	for profile in TSM.GetTSMProfileIterator() do
+		local profileGroupData = {}
+		for _, itemString, groupPath in TSM.Groups.ItemIterator() do
+			local itemId = tonumber(strmatch(itemString, "^i:([0-9]+)$"))
+			if itemId then
+				local maxPrice = GetShoppingMaxPrice(itemString)
+				if maxPrice then
+					if not profileGroupData[groupPath] then
+						profileGroupData[groupPath] = {}
+					end
+					tinsert(profileGroupData[groupPath], "["..table.concat({itemId, maxPrice}, ",").."]")
+				end
+			end
+		end
+		if next(profileGroupData) then
+			appDB.shoppingMaxPrices[profile] = {}
+			for groupPath, data in pairs(profileGroupData) do
+				appDB.shoppingMaxPrices[profile][groupPath] = "["..table.concat(data, ",").."]"
+			end
+			appDB.shoppingMaxPrices[profile].updateTime = time()
+		end
+	end
+
+	-- save black market data
+	local realmName = GetRealmName()
+	appDB.blackMarket = appDB.blackMarket or {}
+	if TSM.Features.blackMarket then
+		local hash = TSMAPI_FOUR.Util.CalculateHash(TSM.Features.blackMarket..":"..TSM.Features.blackMarketTime)
+		appDB.blackMarket[realmName] = {data=TSM.Features.blackMarket, key=hash, updateTime=TSM.Features.blackMarketTime}
+	end
+
+	-- save analytics
+	TSM.Analytics.Save(appDB)
 end
 
 

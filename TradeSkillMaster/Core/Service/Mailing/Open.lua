@@ -116,6 +116,8 @@ function private.OpenMails(mails, keepMoney, filterType)
 			end
 			local _, _, _, _, money = GetInboxHeaderInfo(index)
 			if not keepMoney or (keepMoney and money <= 0) then
+				-- marks the mail as read
+				GetInboxText(index)
 				AutoLootMailItem(index)
 				private.moneyCollected = private.moneyCollected + money
 

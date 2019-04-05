@@ -729,9 +729,9 @@ function private.RunPostBagsButtonOnclick(button)
 	wipe(private.scanContext)
 	private.scanContext.isItems = true
 	for _, row in button:GetElement("__parent.__parent.bagScrollingTable"):SelectionIterator() do
-		local itemString, operation = row:GetFields("itemString", "firstOperation")
+		local autoBaseItemString, operation = row:GetFields("autoBaseItemString", "firstOperation")
 		if operation then
-			tinsert(private.scanContext, itemString)
+			tinsert(private.scanContext, autoBaseItemString)
 		end
 	end
 	button:GetParentElement():GetParentElement():GetParentElement():GetParentElement():SetPath("scan", true)

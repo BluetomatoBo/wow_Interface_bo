@@ -100,7 +100,7 @@ function private.OnAuctionOwnedListUpdate()
 	for _, link, stackSize, buyout in query:IteratorAndRelease() do
 		auctionPrices[link] = auctionPrices[link] or tremove(freeTables) or {}
 		if stackSize ~= auctionStackSizes[link] then
-			auctionStackSizes[link] = INVALID_STACK_SIZE
+			auctionStackSizes[link] = stackSize
 		end
 		tinsert(auctionPrices[link], buyout)
 	end

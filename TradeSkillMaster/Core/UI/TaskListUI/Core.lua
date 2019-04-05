@@ -86,6 +86,14 @@ function TaskListUI.OnInitialize()
 	end
 end
 
+function TaskListUI.OnDisable()
+	if private.frame then
+		-- hide the frame
+		private.frame:Hide()
+		assert(not private.frame)
+	end
+end
+
 function TaskListUI.Toggle()
 	if private.frame then
 		private.frame:Hide()

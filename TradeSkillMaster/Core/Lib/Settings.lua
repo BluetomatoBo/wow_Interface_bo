@@ -6,8 +6,8 @@
 --    All Rights Reserved* - Detailed license information included with addon.    --
 -- ------------------------------------------------------------------------------ --
 
-TSMAPI_FOUR.Settings = {}
 local _, TSM = ...
+local Settings = TSM:NewPackage("Settings")
 local private = {
 	context = {},
 	proxies = {},
@@ -64,10 +64,10 @@ local DEFAULT_DB = {
 
 
 -- ============================================================================
--- TSMAPI Functions
+-- Module Functions
 -- ============================================================================
 
-function TSMAPI_FOUR.Settings.New(svTableName, settingsInfo)
+function Settings.New(svTableName, settingsInfo)
 	return private.Constructor(svTableName, settingsInfo)
 end
 
@@ -367,7 +367,7 @@ private.SettingsDBMethods = {
 	end,
 
 	RegisterCallback = function(self, event, callback)
-		assert(event == "OnLogout" or event == "OnProfileUpdated")
+		assert(event == "OnProfileUpdated")
 		assert(type(callback) == "function")
 		private.context[self].callbacks[event] = callback
 	end,
@@ -782,15 +782,4 @@ function private.FactionrealmByRealmIteratorHelper(realm, prevValue)
 	elseif strmatch(prevValue, "^Alliance") then
 		return strjoin(SCOPE_KEY_SEP, "Neutral", realm)
 	end
-end
-
-do
-	-- register a callback when the player is logging out (before the saved variables are written to disk)
-	TSMAPI_FOUR.Event.Register("PLAYER_LOGOUT", function()
-		for _, context in pairs(private.context) do
-			if context.callbacks.OnLogout then
-				context.callbacks.OnLogout()
-			end
-		end
-	end)
 end

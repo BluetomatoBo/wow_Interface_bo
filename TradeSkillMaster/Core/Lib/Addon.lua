@@ -64,11 +64,7 @@ function private.DoEnable()
 end
 
 function private.PlayerLogoutHandler()
-	for _, addon in ipairs(private.disableQueue) do
-		if addon.OnDisable then
-			addon.OnDisable()
-		end
-	end
+	private.OnDisableHelper()
 	wipe(private.disableQueue)
 end
 
@@ -218,8 +214,20 @@ end
 -- ============================================================================
 
 function TSM.AddonTestLogout()
+	private.OnDisableHelper()
+end
+
+
+
+-- ============================================================================
+-- Private Helper Functions
+-- ============================================================================
+
+function private.OnDisableHelper()
+	local disableStartTime = debugprofilestop()
 	for _, addon in ipairs(private.disableQueue) do
-		if addon.OnDisable then
+		-- defer the main TSM.OnDisable() call to the very end
+		if addon.OnDisable and addon ~= TSM then
 			local startTime = debugprofilestop()
 			addon.OnDisable()
 			local timeTaken = debugprofilestop() - startTime
@@ -227,5 +235,10 @@ function TSM.AddonTestLogout()
 				TSM:LOG_WARN("OnDisable (%s) took %0.2fms", addon, timeTaken)
 			end
 		end
+	end
+	local totalDisableTime = debugprofilestop() - disableStartTime
+	TSM.Analytics.Action("ADDON_DISABLE", floor(totalDisableTime))
+	if TSM.OnDisable then
+		TSM:OnDisable()
 	end
 end

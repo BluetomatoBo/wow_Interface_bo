@@ -501,6 +501,8 @@ function private.TakeAllOnClick(button)
 end
 
 function private.AutoLootMailItem(button)
+	-- marks the mail as read
+	GetInboxText(private.selectedMail)
 	AutoLootMailItem(private.selectedMail)
 	button:GetElement("__parent.__parent.__parent.__parent"):SetPath("mails", true)
 end
@@ -681,6 +683,8 @@ function private.QueryOnRowClick(scrollingTable, row, button)
 		local index = row:GetField("index")
 		local _, _, _, _, _, cod = GetInboxHeaderInfo(index)
 		if cod <= 0 then
+			-- marks the mail as read
+			GetInboxText(index)
 			AutoLootMailItem(index)
 		end
 	else

@@ -153,6 +153,7 @@ function private.AuctionOwnedListUpdateHandler()
 	end
 	wipe(private.indexUpdates.pending)
 	wipe(private.indexUpdates.list)
+	GetOwnerAuctionItems()
 	for i = 1, GetNumAuctionItems("owner") do
 		if not private.indexUpdates.pending[i] then
 			private.indexUpdates.pending[i] = true

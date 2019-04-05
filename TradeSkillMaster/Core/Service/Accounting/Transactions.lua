@@ -539,6 +539,7 @@ function private.LoadData(recordType, csvRecords, csvSaveTimes)
 		stackSize = tonumber(stackSize)
 		quantity = tonumber(quantity)
 		price = tonumber(price)
+		timestamp = tonumber(timestamp)
 		if itemString and stackSize and quantity and price and otherPlayer and player and timestamp and source then
 			local newTimestamp = floor(timestamp)
 			if newTimestamp ~= timestamp then

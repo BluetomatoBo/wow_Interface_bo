@@ -28,6 +28,11 @@ function MailingUI.OnInitialize()
 	private.FSMCreate()
 end
 
+function MailingUI.OnDisable()
+	-- hide the frame
+	private.fsm:ProcessEvent("EV_FRAME_HIDE")
+end
+
 function MailingUI.RegisterTopLevelPage(name, textureInfo, callback)
 	tinsert(private.topLevelPages, { name = name, textureInfo = textureInfo, callback = callback })
 end

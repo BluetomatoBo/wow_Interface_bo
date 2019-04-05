@@ -22,7 +22,6 @@ local MERCHANT_DB_SCHEMA = {
 	},
 	fieldAttributes = {
 		index = { "unique" },
-		itemString = { "unique" },
 	},
 	fieldOrder = {
 		"index",
@@ -69,8 +68,23 @@ function Buy.DoRepair()
 end
 
 function Buy.BuyItem(itemString, quantity)
-	local index = private.merchantDB:GetUniqueRowField("itemString", itemString, "index")
-	assert(index)
+	local query = Buy.CreateMerchantQuery()
+		:Equal("itemString", itemString)
+		:OrderBy("index", true)
+	local row = query:GetFirstResultAndRelease()
+	if not row then
+		return
+	end
+	local index = row:GetField("index")
+	local maxStack = GetMerchantItemMaxStack(index)
+	quantity = min(quantity, private.GetMaxCanAfford(index))
+	while quantity > 0 do
+		BuyMerchantItem(index, min(quantity, maxStack))
+		quantity = quantity - maxStack
+	end
+end
+
+function Buy.BuyItemIndex(index, quantity)
 	local maxStack = GetMerchantItemMaxStack(index)
 	quantity = min(quantity, private.GetMaxCanAfford(index))
 	while quantity > 0 do
@@ -80,7 +94,11 @@ function Buy.BuyItem(itemString, quantity)
 end
 
 function Buy.CanBuyItem(itemString)
-	return private.merchantDB:GetUniqueRowField("itemString", itemString, "index") and true or false
+	local query = Buy.CreateMerchantQuery()
+		:Equal("itemString", itemString)
+		:OrderBy("index", true)
+	local row = query:GetFirstResultAndRelease()
+	return row and true or false
 end
 
 
@@ -105,15 +123,13 @@ end
 
 function private.UpdateMerchantDB()
 	local needsRetry = false
-	local usedItem = TSMAPI_FOUR.Util.AcquireTempTable()
 	private.merchantDB:SetQueryUpdatesPaused(true)
 	private.merchantDB:Truncate()
 	private.merchantDB:BulkInsertStart()
 	for i = 1, GetMerchantNumItems() do
 		local itemLink = GetMerchantItemLink(i)
 		local itemString = TSMAPI_FOUR.Item.ToItemString(itemLink)
-		if itemString and not usedItem[itemString] then
-			usedItem[itemString] = true
+		if itemString then
 			TSM.ItemInfo.StoreItemInfoByLink(itemLink)
 			local _, _, price, stackSize, numAvailable, _, _, extendedCost = GetMerchantItemInfo(i)
 			local numAltCurrencies = GetMerchantItemCostInfo(i)
@@ -148,7 +164,6 @@ function private.UpdateMerchantDB()
 	end
 	private.merchantDB:BulkInsertEnd()
 	private.merchantDB:SetQueryUpdatesPaused(false)
-	TSMAPI_FOUR.Util.ReleaseTempTable(usedItem)
 
 	if needsRetry then
 		TSM:LOG_ERR("Failed to scan merchant")

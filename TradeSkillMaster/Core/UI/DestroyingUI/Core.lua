@@ -35,6 +35,11 @@ function DestroyingUI.OnInitialize()
 	private.FSMCreate()
 end
 
+function DestroyingUI.OnDisable()
+	-- hide the frame
+	private.fsm:ProcessEvent("EV_FRAME_HIDE")
+end
+
 function DestroyingUI.Toggle()
 	private.fsm:ProcessEvent("EV_FRAME_TOGGLE")
 end
@@ -134,7 +139,7 @@ end
 -- Local Script Handlers
 -- ============================================================================
 
-function private.FrameOnHide(frame)
+function private.FrameOnHide()
 	TSM.UI.AnalyticsRecordClose("destroying")
 	private.fsm:ProcessEvent("EV_FRAME_TOGGLE")
 end
@@ -256,6 +261,7 @@ function private.FSMCreate()
 			:AddEvent("EV_COMBINE_BUTTON_CLICKED", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_COMBINING_STACKS"))
 			:AddEvent("EV_DESTROY_BUTTON_PRE_CLICK", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_DESTROYING"))
 			:AddEvent("EV_BAG_UPDATE", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_FRAME_OPEN"))
+			:AddEvent("EV_FRAME_HIDE", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_FRAME_CLOSED"))
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_COMBINING_STACKS")
 			:SetOnEnter(function(context)
@@ -268,6 +274,7 @@ function private.FSMCreate()
 			:AddTransition("ST_COMBINING_DONE")
 			:AddTransition("ST_FRAME_CLOSED")
 			:AddEvent("EV_COMBINE_DONE", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_COMBINING_DONE"))
+			:AddEvent("EV_FRAME_HIDE", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_FRAME_CLOSED"))
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_COMBINING_DONE")
 			:SetOnEnter(function(context)
@@ -292,6 +299,7 @@ function private.FSMCreate()
 			:AddTransition("ST_DESTROYING_DONE")
 			:AddTransition("ST_FRAME_CLOSED")
 			:AddEvent("EV_DESTROY_DONE", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_DESTROYING_DONE"))
+			:AddEvent("EV_FRAME_HIDE", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_FRAME_CLOSED"))
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_DESTROYING_DONE")
 			:SetOnEnter(function(context)

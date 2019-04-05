@@ -268,7 +268,7 @@ end
 function private.GetCraftingElements(self, button)
 	if button == "profession" then
 		private.filterText = ""
-		local frame = TSMAPI_FOUR.UI.NewElement("Frame", "profession")
+		private.professionFrame = TSMAPI_FOUR.UI.NewElement("Frame", "profession")
 			:SetLayout("VERTICAL")
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "dropdownFilterFrame")
 				:SetLayout("HORIZONTAL")
@@ -435,10 +435,9 @@ function private.GetCraftingElements(self, button)
 				:SetStyle("justifyH", "CENTER")
 				:SetText(L["Profession loading..."])
 			)
-			:SetScript("OnUpdate", private.ProfessionFrameOnUpdate)
 			:SetScript("OnHide", private.ProfessionFrameOnHide)
-		frame:GetElement("recipeContent"):Hide()
-		return frame
+		private.professionFrame:GetElement("recipeContent"):Hide()
+		return private.professionFrame
 	elseif button == "group" then
 		local frame = TSMAPI_FOUR.UI.NewElement("Frame", "group")
 			:SetLayout("VERTICAL")
@@ -507,11 +506,6 @@ end
 function private.FrameOnHide()
 	private.showDelayFrame = 0
 	private.fsm:ProcessEvent("EV_FRAME_HIDE")
-end
-
-function private.ProfessionFrameOnUpdate(frame)
-	frame:SetScript("OnUpdate", nil)
-	private.professionFrame = frame
 end
 
 function private.ProfessionFrameOnHide(frame)

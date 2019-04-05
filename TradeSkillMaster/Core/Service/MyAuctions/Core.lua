@@ -65,7 +65,7 @@ function MyAuctions.CancelAuction(index)
 		:GetFirstResultAndRelease()
 	local hash = row:GetField("hash")
 	assert(hash)
-	if private.expectedCounts[hash] then
+	if private.expectedCounts[hash] and private.expectedCounts[hash] > 0 then
 		private.expectedCounts[hash] = private.expectedCounts[hash] - 1
 	else
 		private.expectedCounts[hash] = private.GetNumRowsByHash(hash) - 1

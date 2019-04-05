@@ -35,6 +35,14 @@ function AuctionUI.OnInitialize()
 	TSMAPI_FOUR.Util.RegisterItemLinkedCallback(private.ItemLinkedCallback)
 end
 
+function AuctionUI.OnDisable()
+	if private.frame then
+		-- hide the frame
+		private.frame:Hide()
+		assert(not private.frame)
+	end
+end
+
 function AuctionUI.RegisterTopLevelPage(name, texturePack, callback, itemLinkedHandler)
 	tinsert(private.topLevelPages, { name = name, texturePack = texturePack, callback = callback, itemLinkedHandler = itemLinkedHandler })
 end
@@ -124,7 +132,7 @@ function private.AuctionFrameInit()
 		tab:SetID(tabId)
 		tab:SetText("|cff99ffffTSM4|r")
 		tab:SetNormalFontObject(GameFontHighlightSmall)
-		tab:SetPoint("LEFT", _G["AuctionFrameTab"..tabId-1], "RIGHT", -8, 0)
+		tab:SetPoint("LEFT", _G["AuctionFrameTab"..tabId - 1], "RIGHT", -8, 0)
 		tab:Show()
 		PanelTemplates_SetNumTabs(AuctionFrame, tabId)
 		PanelTemplates_EnableTab(AuctionFrame, tabId)
