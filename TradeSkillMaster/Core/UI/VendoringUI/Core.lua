@@ -97,16 +97,13 @@ function private.FSMCreate()
 		private.fsm:ProcessEvent("EV_MERCHANT_CLOSED")
 	end)
 	MerchantFrame:UnregisterEvent("MERCHANT_SHOW")
-	local origShow = MerchantFrame.IsShown
 
 	local fsmContext = {
 		frame = nil,
+		defaultPoint = nil,
 	}
 	local function DefaultFrameOnHide()
 		private.fsm:ProcessEvent("EV_FRAME_HIDE")
-	end
-	local function CustomMerchantIsShown(self)
-		return true
 	end
 	private.fsm = TSMAPI_FOUR.FSM.New("MERCHANT_UI")
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_CLOSED")
@@ -165,8 +162,12 @@ function private.FSMCreate()
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_FRAME_OPEN")
 			:SetOnEnter(function(context)
 				assert(not context.frame)
-				MerchantFrame.IsShown = CustomMerchantIsShown
-				MerchantFrame.selectedTab = 1
+				MerchantFrame_OnEvent(MerchantFrame, "MERCHANT_SHOW")
+				if not context.defaultPoint then
+					context.defaultPoint = {MerchantFrame:GetPoint(1)}
+				end
+				MerchantFrame:ClearAllPoints()
+				MerchantFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 100000, 100000)
 				OpenAllBags()
 				context.frame = private.CreateMainFrame()
 				context.frame:Show()
@@ -175,8 +176,9 @@ function private.FSMCreate()
 				private.isVisible = true
 			end)
 			:SetOnExit(function(context)
-				MerchantFrame.IsShown = origShow
 				CloseAllBags()
+				MerchantFrame:ClearAllPoints()
+				MerchantFrame:SetPoint(unpack(context.defaultPoint))
 				private.isVisible = false
 				context.frame:Hide()
 				context.frame:Release()

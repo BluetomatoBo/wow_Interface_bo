@@ -346,48 +346,12 @@ function DatabaseQuery.End(self)
 end
 
 function DatabaseQuery.LeftJoin(self, db, field)
-	local localFieldType = self._db:_GetFieldType(field)
-	local foreignFieldType = db:_GetFieldType(field)
-	assert(localFieldType, "Local field doesn't exist: "..tostring(field))
-	assert(foreignFieldType, "Foreign field doesn't exist: "..tostring(field))
-	assert(localFieldType == foreignFieldType, format("Field types don't match (%s, %s)", tostring(localFieldType), tostring(foreignFieldType)))
-	assert(db:_IsUnique(field), "Field must be unique in foreign DB")
-	assert(not TSMAPI_FOUR.Util.TableKeyByValue(self._joinDBs, db), "Already joining with this DB")
-	for foreignField in db:FieldIterator() do
-		if foreignField ~= field then
-			assert(not self._db:_GetFieldType(foreignField), "Foreign field conflicts with local DB: "..tostring(foreignField))
-		end
-	end
-	for virtualField in pairs(self._virtualFieldFunc) do
-		assert(not db:_GetFieldType(virtualField), "Virtual field conflicts with foreign DB: "..tostring(virtualField))
-	end
-	db:_RegisterQuery(self)
-	tinsert(self._joinTypes, "LEFT")
-	tinsert(self._joinDBs, db)
-	tinsert(self._joinFields, field)
+	self:_JoinHelper(db, field, "LEFT")
 	return self
 end
 
 function DatabaseQuery.InnerJoin(self, db, field)
-	local localFieldType = self._db:_GetFieldType(field)
-	local foreignFieldType = db:_GetFieldType(field)
-	assert(localFieldType, "Local field doesn't exist: "..tostring(field))
-	assert(foreignFieldType, "Foreign field doesn't exist: "..tostring(field))
-	assert(localFieldType == foreignFieldType, format("Field types don't match (%s, %s)", tostring(localFieldType), tostring(foreignFieldType)))
-	assert(db:_IsUnique(field), "Field must be unique in foreign DB")
-	assert(not TSMAPI_FOUR.Util.TableKeyByValue(self._joinDBs, db), "Already joining with this DB")
-	for foreignField in db:FieldIterator() do
-		if foreignField ~= field then
-			assert(not self._db:_GetFieldType(foreignField), "Foreign field conflicts with local DB: "..tostring(foreignField))
-		end
-	end
-	for virtualField in pairs(self._virtualFieldFunc) do
-		assert(not db:_GetFieldType(virtualField), "Virtual field conflicts with foreign DB: "..tostring(virtualField))
-	end
-	db:_RegisterQuery(self)
-	tinsert(self._joinTypes, "INNER")
-	tinsert(self._joinDBs, db)
-	tinsert(self._joinFields, field)
+	self:_JoinHelper(db, field, "INNER")
 	return self
 end
 
@@ -1123,6 +1087,29 @@ function DatabaseQuery._GetResultRowData(self, uuid, field)
 			return joinDB:_GetRowData(foreignUUID, field)
 		end
 	end
+end
+
+function DatabaseQuery._JoinHelper(self, db, field, joinType)
+	assert(db:__isa(TSM.Database.classes.Database) and type(field) == "string")
+	local localFieldType = self._db:_GetFieldType(field)
+	local foreignFieldType = db:_GetFieldType(field)
+	assert(localFieldType, "Local field doesn't exist: "..tostring(field))
+	assert(foreignFieldType, "Foreign field doesn't exist: "..tostring(field))
+	assert(localFieldType == foreignFieldType, format("Field types don't match (%s, %s)", tostring(localFieldType), tostring(foreignFieldType)))
+	assert(db:_IsUnique(field), "Field must be unique in foreign DB")
+	assert(not TSMAPI_FOUR.Util.TableKeyByValue(self._joinDBs, db), "Already joining with this DB")
+	for foreignField in db:FieldIterator() do
+		if foreignField ~= field then
+			assert(not self._db:_GetFieldType(foreignField), "Foreign field conflicts with local DB: "..tostring(foreignField))
+		end
+	end
+	for virtualField in pairs(self._virtualFieldFunc) do
+		assert(not db:_GetFieldType(virtualField), "Virtual field conflicts with foreign DB: "..tostring(virtualField))
+	end
+	db:_RegisterQuery(self)
+	tinsert(self._joinTypes, joinType)
+	tinsert(self._joinDBs, db)
+	tinsert(self._joinFields, field)
 end
 
 

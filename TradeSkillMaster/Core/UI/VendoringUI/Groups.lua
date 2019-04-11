@@ -120,6 +120,9 @@ end
 function private.FrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)
 	frame:GetBaseElement():SetBottomPadding(32)
+
+	private.GroupTreeOnGroupSelectionChanged(frame:GetElement("groupTree"))
+
 	private.fsm:ProcessEvent("EV_FRAME_SHOW", frame)
 end
 
