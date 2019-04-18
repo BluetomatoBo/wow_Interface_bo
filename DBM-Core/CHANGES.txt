@@ -1,0 +1,57 @@
+lightweight tag 160d4a733a6d669344697405b379310ab0412208 8.1.18
+Author:	MysticalOS <mysticalosx@gmail.com>
+Date:	Tue Apr 16 20:43:02 2019 -0400
+
+commit 160d4a733a6d669344697405b379310ab0412208
+Author: MysticalOS <mysticalosx@gmail.com>
+Date:   Tue Apr 16 20:43:02 2019 -0400
+
+    fix last
+
+commit 10e8ba26390231f9b28f013d536064b82bf9cb6b
+Author: MysticalOS <mysticalosx@gmail.com>
+Date:   Tue Apr 16 20:33:56 2019 -0400
+
+    Prepare 8.1.18 (promise this should be last one today, new raids on top of entire project migrations the same time will do that)
+
+commit 0f90982ea439c1fceafb1752530d2f76da148ce4
+Author: MysticalOS <mysticalosx@gmail.com>
+Date:   Tue Apr 16 20:01:38 2019 -0400
+
+    Improved tracking and annoucning of custody of deep on Restless Cabal
+    Changed icons on Restless Cabal to match icons used for adds on uunat, skull Cross and Square
+    Changed icon used by herald from cross to whatever icon 4 is
+    Added relic tracking to infoframe on uunat to make it easy to see who's got each relic at a glance
+    Removed boss power from infoframe since it's redundant to already having timer for ability he uses at 100 energy.
+    Changed how eyes of nzoth work to show spell name of next eye that'll be used instead of base spellId
+    Also improved warnings for piercing eyes and made maddening eyes cast warning faster.
+
+commit 4ca195e356146b2bd72be096ce4205a34270c22a
+Author: MysticalOS <mysticalosx@gmail.com>
+Date:   Tue Apr 16 16:57:00 2019 -0400
+
+    More version fixups, to handle curse numbers properly from sub mods
+
+commit 77ddc73af7a953636d58fb0245b23b7cafcc64e0
+Author: MysticalOS <mysticalosx@gmail.com>
+Date:   Tue Apr 16 14:48:49 2019 -0400
+
+    Push what I have so far for uunat, still working on it but also sidetracked by 8.2 stuff.
+
+commit 3d45dcf1edcf64411e60f97f1d280152f16cd8f9
+Author: Paul Emmerich <emmericp@net.in.tum.de>
+Date:   Tue Apr 16 19:26:22 2019 +0200
+
+    core: use curse timestamps as revisions (#3)
+    
+    changed all formatting of DBM.Revision to use %s because
+    %d is 32 bit in WoW-lua
+    
+    fixes #2
+
+commit 82a377702dc1e1e4a6f91f70b21c61717fa43c19
+Author: MysticalOS <mysticalosx@gmail.com>
+Date:   Tue Apr 16 10:08:18 2019 -0400
+
+    increment alpha
+

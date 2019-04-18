@@ -1,4 +1,4 @@
-﻿-- Last update by GlitterStorm @ Azralon on Feb,28th,2015
+-- Last update by GlitterStorm @ Azralon on Feb,28th,2015
 if GetLocale() ~= "ptBR" then return end
 
 DBM_HOW_TO_USE_MOD					= "Bem vindo ao DBM. Digite /dbm help para obter uma lista dos comandos disponíveis. Para acessar as opções, digite /dbm no seu chat para começar a configuração. Carregue zonas específicas manualmente para configurar opções específicas de cada chefe para o seu gosto pessoal. O DBM tenta fazer isso automaticamente para você, observando sua spec na primeira vez que é executado. De qualquer forma, você pode querer habilitar outras opções."
@@ -88,8 +88,8 @@ DBM_CORE_OK							= "Ok"
 
 DBM_CORE_GENERIC_WARNING_OTHERS		= "e mais um"
 DBM_CORE_GENERIC_WARNING_OTHERS2	= "e %d outros"
-DBM_CORE_GENERIC_WARNING_BERSERK	= "Frenético em %s %s" 
-DBM_CORE_GENERIC_TIMER_BERSERK		= "Frenético" 
+DBM_CORE_GENERIC_WARNING_BERSERK	= "Frenético em %s %s"
+DBM_CORE_GENERIC_TIMER_BERSERK		= "Frenético"
 DBM_CORE_OPTION_TIMER_BERSERK		= "Exibir cronógrafo para $spell:26662"
 DBM_CORE_GENERIC_TIMER_COMBAT		= "Combate começou"
 DBM_CORE_OPTION_TIMER_COMBAT		= "Exibir cronógrafo para começo do combate"
