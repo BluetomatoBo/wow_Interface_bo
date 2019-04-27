@@ -1,23 +1,22 @@
-local mod	= DBM:NewMod("CrucibleofStormsTrash", "DBM-CrucibleofStorms")
+local mod	= DBM:NewMod("EternalPalaceTrash", "DBM-EternalPalace", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("2019042404830")
+mod:SetRevision("2019041804727")
 --mod:SetModelID(47785)
 mod:SetZone()
 mod.isTrashMod = true
 
 mod:RegisterEvents(
-	"SPELL_CAST_START 293957"
+--	"SPELL_CAST_START",
 --	"SPELL_CAST_SUCCESS",
---	"SPELL_AURA_APPLIED",
---	"SPELL_AURA_REMOVED"
+--	"SPELL_AURA_APPLIED"
+--	"SPELL_AURA_REMOVED 289917"
 )
 
---local warnCorruptingGaze				= mod:NewTargetAnnounce(277047, 3)
---local warnMindSlave					= mod:NewTargetNoFilterAnnounce(277498, 3)
+--local warnBwonSamdiPact					= mod:NewTargetNoFilterAnnounce(289917, 3)
 
-local specWarnMaddeningGaze				= mod:NewSpecialWarningDodge(293957, nil, nil, nil, 2, 2)
---local yellCorruptingGaze				= mod:NewYell(277047)
+--local specWarnBwonSamdiPact				= mod:NewSpecialWarningYou(289917, nil, nil, nil, 1, 2)
+--local yellCorruptingGaze				= mod:NewYell(289917)
 --local specWarnBloodShield				= mod:NewSpecialWarningInterrupt(276540, "HasInterrupt", nil, nil, 1, 2)
 
 --mod:AddRangeFrameOption(10, 221028)
@@ -40,24 +39,21 @@ function mod:GazeTarget(targetname, uId)
 end
 --]]
 
-
+--[[
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if spellId == 277047 then
 		--self:BossTargetScanner(args.sourceGUID, "SubmergeTarget", 0.1, 14)
-		--self:ScheduleMethod(0.2, "BossTargetScanner", args.sourceGUID, "GazeTarget", 0.1, 12)
-		specWarnMaddeningGaze:Show()
-		specWarnMaddeningGaze:Play("shockwave")
-	--elseif spellId == 276540 and self:CheckInterruptFilter(args.sourceGUID, false, true) then
-		--specWarnBloodShield:Show(args.sourceName)
-		--specWarnBloodShield:Play("kickcast")
+		self:ScheduleMethod(0.2, "BossTargetScanner", args.sourceGUID, "GazeTarget", 0.1, 12)
+	elseif spellId == 276540 and self:CheckInterruptFilter(args.sourceGUID, false, true) then
+		specWarnBloodShield:Show(args.sourceName)
+		specWarnBloodShield:Play("kickcast")
 	end
 end
 
---[[
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
-	if spellId == 277358 then
+	if spellId == 290578 then
 
 	end
 end
@@ -65,7 +61,7 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if not self.Options.Enabled then return end
 	local spellId = args.spellId
-	if spellId == 277047 then
+	if spellId == 289917 then
 
 	end
 end
@@ -73,7 +69,7 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
-	if spellId == 221028 then
+	if spellId == 289917 then
 
 	end
 end
