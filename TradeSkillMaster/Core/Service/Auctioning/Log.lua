@@ -10,19 +10,6 @@ local _, TSM = ...
 local Log = TSM.Auctioning:NewPackage("Log")
 local L = TSM.L
 local private = { db = nil }
-local DB_SCHEMA = {
-	fields = {
-		index = "number",
-		itemString = "string",
-		seller = "string",
-		buyout = "number",
-		operation = "string",
-		info = "string",
-	},
-	fieldAttributes = {
-		index = { "index" },
-	}
-}
 local RED = "|cffff2211"
 local ORANGE = "|cffff8811"
 local GREEN = "|cff22ff22"
@@ -75,7 +62,15 @@ local REASON_STRINGS = {
 -- ============================================================================
 
 function Log.OnInitialize()
-	private.db = TSMAPI_FOUR.Database.New(DB_SCHEMA, "AUCTIONING_LOG")
+	private.db = TSMAPI_FOUR.Database.NewSchema("AUCTIONING_LOG")
+		:AddNumberField("index")
+		:AddStringField("itemString")
+		:AddStringField("seller")
+		:AddNumberField("buyout")
+		:AddStringField("operation")
+		:AddStringField("info")
+		:AddIndex("index")
+		:Commit()
 end
 
 function Log.Truncate()

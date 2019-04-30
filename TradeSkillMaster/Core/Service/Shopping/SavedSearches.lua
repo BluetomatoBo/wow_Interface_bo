@@ -9,29 +9,6 @@
 local _, TSM = ...
 local SavedSearches = TSM.Shopping:NewPackage("SavedSearches")
 local private = { db = nil }
-local SAVED_SEARCHES_SCHEMA = {
-	fields = {
-		index = "number",
-		name = "string",
-		lastSearch = "number",
-		isFavorite = "boolean",
-		mode = "string",
-		filter = "string",
-	},
-	fieldAttributes = {
-		index = { "unique", "index" },
-		lastSearch = { "index" },
-		name = { "index" },
-	},
-	fieldOrder = {
-		"index",
-		"name",
-		"lastSearch",
-		"isFavorite",
-		"mode",
-		"filter",
-	}
-}
 
 
 
@@ -63,7 +40,17 @@ function SavedSearches.OnInitialize()
 	end
 	TSMAPI_FOUR.Util.ReleaseTempTable(keepSearch)
 
-	private.db = TSMAPI_FOUR.Database.New(SAVED_SEARCHES_SCHEMA, "SHOPPING_SAVED_SEARCHES")
+	private.db = TSMAPI_FOUR.Database.NewSchema("SHOPPING_SAVED_SEARCHES")
+		:AddUniqueNumberField("index")
+		:AddStringField("name")
+		:AddNumberField("lastSearch")
+		:AddBooleanField("isFavorite")
+		:AddStringField("mode")
+		:AddStringField("filter")
+		:AddIndex("index")
+		:AddIndex("lastSearch")
+		:AddIndex("name")
+		:Commit()
 	private.db:BulkInsertStart()
 	for index, data in pairs(TSM.db.global.userData.savedShoppingSearches) do
 		assert(data.searchMode == "normal" or data.searchMode == "crafting")
@@ -130,7 +117,7 @@ function SavedSearches.RecordFilterSearch(filter)
 			name = filter,
 			filter = filter,
 			lastSearch = time(),
-			searchMode = "normal",
+			searchMode = strfind(strlower(filter), "/crafting$") and "crafting" or "normal",
 			isFavorite = nil,
 		}
 		tinsert(TSM.db.global.userData.savedShoppingSearches, data)

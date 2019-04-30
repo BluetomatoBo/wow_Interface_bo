@@ -17,30 +17,6 @@ local private = {
 }
 -- don't want to scan a bunch of times when the profession first loads so add a 10 frame debounce to update events
 local SCAN_DEBOUNCE_FRAMES = 10
-local RECIPE_DB_SCHEMA = {
-	fields = {
-		index = "number",
-		spellId = "number",
-		name = "string",
-		categoryId = "number",
-		difficulty = "string",
-		rank = "number",
-		numSkillUps = "number",
-	},
-	fieldAttributes = {
-		index = { "unique" },
-		spellId = { "unique" },
-	},
-	fieldOrder = {
-		"index",
-		"spellId",
-		"name",
-		"categoryId",
-		"difficulty",
-		"rank",
-		"numSkillUps",
-	}
-}
 
 
 
@@ -49,7 +25,15 @@ local RECIPE_DB_SCHEMA = {
 -- ============================================================================
 
 function ProfessionScanner.OnInitialize()
-	private.db = TSMAPI_FOUR.Database.New(RECIPE_DB_SCHEMA, "CRAFTING_RECIPES")
+	private.db = TSMAPI_FOUR.Database.NewSchema("CRAFTING_RECIPES")
+		:AddUniqueNumberField("index")
+		:AddUniqueNumberField("spellId")
+		:AddStringField("name")
+		:AddNumberField("categoryId")
+		:AddStringField("difficulty")
+		:AddNumberField("rank")
+		:AddNumberField("numSkillUps")
+		:Commit()
 	TSM.Crafting.ProfessionState.RegisterUpdateCallback(private.ProfessionStateUpdate)
 	TSMAPI_FOUR.Event.Register("TRADE_SKILL_LIST_UPDATE", private.OnTradeSkillUpdateEvent)
 end
@@ -355,7 +339,8 @@ function private.ScanRecipe(professionName, spellId)
 	end
 
 	-- store general info about this recipe
-	local hasCD = select(2, C_TradeSkillUI.GetRecipeCooldown(spellId)) and true or false
+	local _, cooldown = C_TradeSkillUI.GetRecipeCooldown(spellId)
+	local hasCD = cooldown and true or false
 	TSM.Crafting.CreateOrUpdate(spellId, itemString, professionName, craftName, numResult, UnitName("player"), hasCD)
 
 	-- get the mat quantities and add mats to our DB

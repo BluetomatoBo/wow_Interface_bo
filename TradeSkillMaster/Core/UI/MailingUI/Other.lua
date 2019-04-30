@@ -298,7 +298,7 @@ end
 
 function private.MoneyValueConvert(input)
 	input:SetFocused(false)
-	input:SetText(TSM.Money.ToString(TSM.db.factionrealm.internalData.mailExcessGoldLimit))
+	input:SetText(TSM.Money.ToString(min(TSM.db.factionrealm.internalData.mailExcessGoldLimit, MAXIMUM_BID_PRICE)))
 		:Draw()
 
 	private.UpdateGoldButton()

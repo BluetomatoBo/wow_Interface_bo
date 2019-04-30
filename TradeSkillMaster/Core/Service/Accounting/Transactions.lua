@@ -32,58 +32,6 @@ local COMBINE_TIME_THRESHOLD = 300 -- group transactions within 5 minutes togeth
 local MAX_CSV_RECORDS = 55000 -- the max number of records we can store without WoW corrupting the SV file
 local TRIMMED_CSV_RECORDS = 50000 -- how many records to trim to if we're over the limit (so we don't trim every time)
 local SECONDS_PER_DAY = 24 * 60 * 60
-local DB_SCHEMA = {
-	fields = {
-		baseItemString = "string",
-		type = "string",
-		itemString = "string",
-		stackSize = "number",
-		quantity = "number",
-		price = "number",
-		otherPlayer = "string",
-		player = "string",
-		time = "number",
-		source = "string",
-		saveTime = "number",
-	},
-	fieldAttributes = {
-		baseItemString = { "index" },
-	},
-	fieldOrder = {
-		"baseItemString",
-		"type",
-		"itemString",
-		"stackSize",
-		"quantity",
-		"price",
-		"otherPlayer",
-		"player",
-		"time",
-		"source",
-		"saveTime",
-	}
-}
-local SUMMARY_DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		sold = "number",
-		avgSellPrice = "number",
-		bought = "number",
-		avgBuyPrice = "number",
-		avgResaleProfit = "number",
-	},
-	fieldAttributes = {
-		itemString = { "unique" },
-	},
-	fieldOrder = {
-		"itemString",
-		"sold",
-		"avgSellPrice",
-		"bought",
-		"avgBuyPrice",
-		"avgResaleProfit",
-	}
-}
 
 
 
@@ -101,12 +49,32 @@ function Transactions.OnInitialize()
 		TSM.db.realm.internalData.accountingTrimmed.buys = nil
 	end
 
-	private.db = TSMAPI_FOUR.Database.New(DB_SCHEMA, "TRANSACTIONS_LOG")
+	private.db = TSMAPI_FOUR.Database.NewSchema("TRANSACTIONS_LOG")
+		:AddStringField("baseItemString")
+		:AddStringField("type")
+		:AddStringField("itemString")
+		:AddNumberField("stackSize")
+		:AddNumberField("quantity")
+		:AddNumberField("price")
+		:AddStringField("otherPlayer")
+		:AddStringField("player")
+		:AddNumberField("time")
+		:AddStringField("source")
+		:AddNumberField("saveTime")
+		:AddIndex("baseItemString")
+		:Commit()
 	private.db:BulkInsertStart()
 	private.LoadData("sale", TSM.db.realm.internalData.csvSales, TSM.db.realm.internalData.saveTimeSales)
 	private.LoadData("buy", TSM.db.realm.internalData.csvBuys, TSM.db.realm.internalData.saveTimeBuys)
 	private.db:BulkInsertEnd()
-	private.dbSummary = TSMAPI_FOUR.Database.New(SUMMARY_DB_SCHEMA, "TRANSACTIONS_SUMMARY")
+	private.dbSummary = TSMAPI_FOUR.Database.NewSchema("TRANSACTIONS_SUMMARY")
+		:AddUniqueStringField("itemString")
+		:AddNumberField("sold")
+		:AddNumberField("avgSellPrice")
+		:AddNumberField("bought")
+		:AddNumberField("avgBuyPrice")
+		:AddNumberField("avgResaleProfit")
+		:Commit()
 	private.baseStatsQuery = private.db:NewQuery()
 		:Select("quantity", "price")
 		:Equal("type", TSM.CONST.BOUND_QUERY_PARAM)
@@ -479,9 +447,7 @@ function Transactions.UpdateSummaryData(groupFilter, typeFilter, characterFilter
 		end
 	end
 
-	private.dbSummary:SetQueryUpdatesPaused(true)
-	private.dbSummary:Truncate()
-	private.dbSummary:BulkInsertStart()
+	private.dbSummary:TruncateAndBulkInsertStart()
 	for itemString, sold in pairs(totalSold) do
 		if sold > 0 and totalBought[itemString] > 0 then
 			local totalAvgSellPrice = totalSellPrice[itemString] / totalSold[itemString]
@@ -491,7 +457,6 @@ function Transactions.UpdateSummaryData(groupFilter, typeFilter, characterFilter
 		end
 	end
 	private.dbSummary:BulkInsertEnd()
-	private.dbSummary:SetQueryUpdatesPaused(false)
 
 	TSMAPI_FOUR.Util.ReleaseTempTable(totalSold)
 	TSMAPI_FOUR.Util.ReleaseTempTable(totalSellPrice)

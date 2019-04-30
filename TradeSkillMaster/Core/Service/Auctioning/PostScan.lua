@@ -19,59 +19,6 @@ local private = {
 	operationDB = nil,
 	debugLog = {},
 }
-local QUEUE_DB_SCHEMA = {
-	fields = {
-		index = "number",
-		itemString = "string",
-		operationName = "string",
-		bid = "number",
-		buyout = "number",
-		itemBuyout = "number",
-		stackSize = "number",
-		numStacks = "number",
-		postTime = "number",
-		numProcessed = "number",
-		numConfirmed = "number",
-		numFailed = "number",
-	},
-	fieldAttributes = {
-		index = { "index" },
-		itemString = { "index" },
-	}
-}
-local BAG_DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		bag = "number",
-		slot = "number",
-		quantity = "number",
-		slotId = "number",
-	},
-	fieldAttributes = {
-		itemString = { "index" },
-		slotId = { "unique", "index" },
-	},
-	fieldOrder = {
-		"itemString",
-		"bag",
-		"slot",
-		"quantity",
-		"slotId",
-	}
-}
-local OPERATION_DB_SCHEMA = {
-	fields = {
-		autoBaseItemString = "string",
-		firstOperation = "string",
-	},
-	fieldAttributes = {
-		autoBaseItemString = { "unique" },
-	},
-	fieldOrder = {
-		"autoBaseItemString",
-		"firstOperation",
-	},
-}
 local RESET_REASON_LOOKUP = {
 	minPrice = "postResetMin",
 	maxPrice = "postResetMax",
@@ -92,19 +39,43 @@ local ABOVE_MAX_REASON_LOOKUP = {
 
 function PostScan.OnInitialize()
 	TSM.Inventory.BagTracking.RegisterCallback(private.UpdateOperationDB)
-	private.operationDB = TSMAPI_FOUR.Database.New(OPERATION_DB_SCHEMA, "AUCTIONING_OPERATIONS")
+	private.operationDB = TSMAPI_FOUR.Database.NewSchema("AUCTIONING_OPERATIONS")
+		:AddUniqueStringField("autoBaseItemString")
+		:AddStringField("firstOperation")
+		:Commit()
 	private.scanThreadId = TSMAPI_FOUR.Thread.New("POST_SCAN", private.ScanThread)
-	private.queueDB = TSMAPI_FOUR.Database.New(QUEUE_DB_SCHEMA, "AUCTIONING_POST_QUEUE")
+	private.queueDB = TSMAPI_FOUR.Database.NewSchema("AUCTIONING_POST_QUEUE")
+		:AddNumberField("index")
+		:AddStringField("itemString")
+		:AddStringField("operationName")
+		:AddNumberField("bid")
+		:AddNumberField("buyout")
+		:AddNumberField("itemBuyout")
+		:AddNumberField("stackSize")
+		:AddNumberField("numStacks")
+		:AddNumberField("postTime")
+		:AddNumberField("numProcessed")
+		:AddNumberField("numConfirmed")
+		:AddNumberField("numFailed")
+		:AddIndex("index")
+		:AddIndex("itemString")
+		:Commit()
 	-- We maintain our own bag database rather than using the one in BagTracking since we need to be able to remove items
 	-- as they are posted, without waiting for bag update events, and control when our DB updates.
-	private.bagDB = TSMAPI_FOUR.Database.New(BAG_DB_SCHEMA, "AUCTIONING_POST_BAGS")
+	private.bagDB = TSMAPI_FOUR.Database.NewSchema("AUCTIONING_POST_BAGS")
+		:AddStringField("itemString")
+		:AddNumberField("bag")
+		:AddNumberField("slot")
+		:AddNumberField("quantity")
+		:AddUniqueNumberField("slotId")
+		:AddIndex("itemString")
+		:AddIndex("slotId")
+		:Commit()
 end
 
 function private.UpdateOperationDB()
 	local used = TSMAPI_FOUR.Util.AcquireTempTable()
-	private.operationDB:SetQueryUpdatesPaused(true)
-	private.operationDB:Truncate()
-	private.operationDB:BulkInsertStart()
+	private.operationDB:TruncateAndBulkInsertStart()
 	for _, _, _, itemString in TSMAPI_FOUR.Inventory.BagIterator(true, false, false, true) do
 		if not used[itemString] then
 			used[itemString] = true
@@ -115,7 +86,6 @@ function private.UpdateOperationDB()
 		end
 	end
 	private.operationDB:BulkInsertEnd()
-	private.operationDB:SetQueryUpdatesPaused(false)
 	TSMAPI_FOUR.Util.ReleaseTempTable(used)
 end
 
@@ -297,15 +267,12 @@ end
 -- ============================================================================
 
 function private.UpdateBagDB()
-	private.bagDB:SetQueryUpdatesPaused(true)
-	private.bagDB:Truncate()
-	private.bagDB:BulkInsertStart()
+	private.bagDB:TruncateAndBulkInsertStart()
 	for _, bag, slot, itemString, quantity in TSMAPI_FOUR.Inventory.BagIterator(true, false, false, true) do
 		private.DebugLogInsert(itemString, "Updating bag DB with %d in %d, %d", quantity, bag, slot)
 		private.bagDB:BulkInsertNewRow(itemString, bag, slot, quantity, TSMAPI_FOUR.Util.JoinSlotId(bag, slot))
 	end
 	private.bagDB:BulkInsertEnd()
-	private.bagDB:SetQueryUpdatesPaused(false)
 end
 
 function private.CanPostItem(itemString, groupPath, numHave)

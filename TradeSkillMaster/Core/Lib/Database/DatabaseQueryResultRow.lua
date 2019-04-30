@@ -113,6 +113,9 @@ local ROW_PROTOTYPE = {
 			-- setting to the same value, so ignore this call
 			return self
 		end
+		if context.db:_IsSmartMapField(field) then
+			error(format("Cannot set smart map field (%s)", tostring(field)), 3)
+		end
 		local fieldType = context.db:_GetFieldType(field)
 		if not fieldType then
 			error(format("Field %s doesn't exist", tostring(field)), 3)

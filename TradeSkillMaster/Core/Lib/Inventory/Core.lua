@@ -14,33 +14,6 @@ local _, TSM = ...
 local Inventory = TSM:NewPackage("Inventory")
 local private = {}
 local PLAYER_NAME = UnitName("player")
-local SUMMARY_DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		bagQuantity = "number",
-		bankQuantity = "number",
-		reagentBankQuantity = "number",
-		auctionQuantity = "number",
-		mailQuantity = "number",
-		guildQuantity = "number",
-		altQuantity = "number",
-		totalQuantity = "number",
-	},
-	fieldAttributes = {
-		itemString = { "unique" },
-	},
-	fieldOrder = {
-		"itemString",
-		"bagQuantity",
-		"bankQuantity",
-		"reagentBankQuantity",
-		"auctionQuantity",
-		"mailQuantity",
-		"guildQuantity",
-		"altQuantity",
-		"totalQuantity",
-	}
-}
 
 
 
@@ -49,7 +22,17 @@ local SUMMARY_DB_SCHEMA = {
 -- ============================================================================
 
 function Inventory.OnInitialize()
-	private.db = TSMAPI_FOUR.Database.New(SUMMARY_DB_SCHEMA, "INVENTORY_SUMMARY")
+	private.db = TSMAPI_FOUR.Database.NewSchema("INVENTORY_SUMMARY")
+		:AddUniqueStringField("itemString")
+		:AddNumberField("bagQuantity")
+		:AddNumberField("bankQuantity")
+		:AddNumberField("reagentBankQuantity")
+		:AddNumberField("auctionQuantity")
+		:AddNumberField("mailQuantity")
+		:AddNumberField("guildQuantity")
+		:AddNumberField("altQuantity")
+		:AddNumberField("totalQuantity")
+		:Commit()
 
 	local items = TSMAPI_FOUR.Util.AcquireTempTable()
 	local itemQuantities = TSMAPI_FOUR.Util.AcquireTempTable()

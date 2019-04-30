@@ -942,10 +942,6 @@ function private.FSMCreate()
 			if context.scanFrame:GetElement("tabs"):GetPath() == L["Auctioning Log"] then
 				context.scanFrame:GetElement("tabs.logFrame.log"):SetSelection(nil)
 			end
-
-			ClearCursor()
-			ClickAuctionSellItemButton(AuctionsItemButton, "LeftButton")
-			ClearCursor()
 		end
 
 		local processText, processIcon = nil, nil

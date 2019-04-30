@@ -15,23 +15,6 @@ local private = {
 	professionList = {},
 	contextChangedCallback = nil,
 }
-local DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		numNeed = "number",
-		numHave = "number",
-		sourcesStr = "string",
-	},
-	fieldAttributes = {
-		itemString = { "unique" },
-	},
-	fieldOrder = {
-		"itemString",
-		"numNeed",
-		"numHave",
-		"sourcesStr",
-	}
-}
 
 
 
@@ -40,7 +23,12 @@ local DB_SCHEMA = {
 -- ============================================================================
 
 function Gathering.OnEnable()
-	private.db = TSMAPI_FOUR.Database.New(DB_SCHEMA, "GATHERING_MATS")
+	private.db = TSMAPI_FOUR.Database.NewSchema("GATHERING_MATS")
+		:AddUniqueStringField("itemString")
+		:AddNumberField("numNeed")
+		:AddNumberField("numHave")
+		:AddStringField("sourcesStr")
+		:Commit()
 	private.queuedCraftsUpdateQuery = TSM.Crafting.CreateQueuedCraftsQuery()
 		:SetUpdateCallback(private.OnQueuedCraftsUpdated)
 	private.OnQueuedCraftsUpdated()

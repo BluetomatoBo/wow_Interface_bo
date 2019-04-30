@@ -11,23 +11,6 @@ local Buyback = TSM.Vendoring:NewPackage("Buyback")
 local private = {
 	buybackDB = nil,
 }
-local BUYBACK_DB_SCHEMA = {
-	fields = {
-		index = "number",
-		itemString = "string",
-		price = "number",
-		quantity = "number",
-	},
-	fieldAttributes = {
-		index = { "unique" },
-	},
-	fieldOrder = {
-		"index",
-		"itemString",
-		"price",
-		"quantity",
-	},
-}
 
 
 
@@ -36,7 +19,12 @@ local BUYBACK_DB_SCHEMA = {
 -- ============================================================================
 
 function Buyback.OnInitialize()
-	private.buybackDB = TSMAPI_FOUR.Database.New(BUYBACK_DB_SCHEMA, "BUYBACK")
+	private.buybackDB = TSMAPI_FOUR.Database.NewSchema("BUYBACK")
+		:AddUniqueNumberField("index")
+		:AddStringField("itemString")
+		:AddNumberField("price")
+		:AddNumberField("quantity")
+		:Commit()
 	TSMAPI_FOUR.Event.Register("MERCHANT_SHOW", private.MerchantShowEventHandler)
 	TSMAPI_FOUR.Event.Register("MERCHANT_CLOSED", private.MerchantClosedEventHandler)
 	TSMAPI_FOUR.Event.Register("MERCHANT_UPDATE", private.MerchantUpdateEventHandler)
@@ -71,9 +59,7 @@ function private.MerchantUpdateEventHandler()
 end
 
 function private.UpdateBuybackDB()
-	private.buybackDB:SetQueryUpdatesPaused(true)
-	private.buybackDB:Truncate()
-	private.buybackDB:BulkInsertStart()
+	private.buybackDB:TruncateAndBulkInsertStart()
 	for i = 1, GetNumBuybackItems() do
 		local itemString = TSMAPI_FOUR.Item.ToItemString(GetBuybackItemLink(i))
 		if itemString then
@@ -82,5 +68,4 @@ function private.UpdateBuybackDB()
 		end
 	end
 	private.buybackDB:BulkInsertEnd()
-	private.buybackDB:SetQueryUpdatesPaused(false)
 end

@@ -16,21 +16,6 @@ local private = {
 	auctionInfo = { numPosted = 0, numSold = 0, postedGold = 0, soldGold = 0 },
 	dbHashFields = {},
 }
-local PENDING_DB_SCHEMA = {
-	fields = {
-		index = "number",
-		hash = "number",
-		isPending = "boolean",
-	},
-	fieldAttributes = {
-		index = { "unique" },
-	},
-	fieldOrder = {
-		"index",
-		"hash",
-		"isPending",
-	},
-}
 
 
 
@@ -39,7 +24,11 @@ local PENDING_DB_SCHEMA = {
 -- ============================================================================
 
 function MyAuctions.OnInitialize()
-	private.pendingDB = TSMAPI_FOUR.Database.New(PENDING_DB_SCHEMA, "MY_AUCTIONS_PENDING")
+	private.pendingDB = TSMAPI_FOUR.Database.NewSchema("MY_AUCTIONS_PENDING")
+		:AddUniqueNumberField("index")
+		:AddNumberField("hash")
+		:AddBooleanField("isPending")
+		:Commit()
 	for field in TSM.Inventory.AuctionTracking.DatabaseFieldIterator() do
 		if field ~= "index" then
 			tinsert(private.dbHashFields, field)
@@ -156,9 +145,7 @@ function private.OnAuctionsUpdated()
 		end
 	end
 	local numUsed = TSMAPI_FOUR.Util.AcquireTempTable()
-	private.pendingDB:SetQueryUpdatesPaused(true)
-	private.pendingDB:Truncate()
-	private.pendingDB:BulkInsertStart()
+	private.pendingDB:TruncateAndBulkInsertStart()
 	for _, row in query:Iterator() do
 		local hash = row:CalculateHash(private.dbHashFields)
 		assert(numByHash[hash] > 0)
@@ -183,7 +170,6 @@ function private.OnAuctionsUpdated()
 		private.pendingDB:BulkInsertNewRow(row:GetField("index"), hash, isPending)
 	end
 	private.pendingDB:BulkInsertEnd()
-	private.pendingDB:SetQueryUpdatesPaused(false)
 	TSMAPI_FOUR.Util.ReleaseTempTable(numByHash)
 	TSMAPI_FOUR.Util.ReleaseTempTable(numUsed)
 	TSMAPI_FOUR.Util.ReleaseTempTable(minPendingIndexByHash)

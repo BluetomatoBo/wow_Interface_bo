@@ -11,27 +11,6 @@ local Buy = TSM.Vendoring:NewPackage("Buy")
 local private = {
 	merchantDB = nil,
 }
-local MERCHANT_DB_SCHEMA = {
-	fields = {
-		index = "number",
-		itemString = "string",
-		price = "number",
-		costItemString = "string",
-		stackSize = "number",
-		numAvailable = "number",
-	},
-	fieldAttributes = {
-		index = { "unique" },
-	},
-	fieldOrder = {
-		"index",
-		"itemString",
-		"price",
-		"costItemString",
-		"stackSize",
-		"numAvailable",
-	},
-}
 
 
 
@@ -40,7 +19,14 @@ local MERCHANT_DB_SCHEMA = {
 -- ============================================================================
 
 function Buy.OnInitialize()
-	private.merchantDB = TSMAPI_FOUR.Database.New(MERCHANT_DB_SCHEMA, "MERCHANT")
+	private.merchantDB = TSMAPI_FOUR.Database.NewSchema("MERCHANT")
+		:AddUniqueNumberField("index")
+		:AddStringField("itemString")
+		:AddNumberField("price")
+		:AddStringField("costItemString")
+		:AddNumberField("stackSize")
+		:AddNumberField("numAvailable")
+		:Commit()
 	TSMAPI_FOUR.Event.Register("MERCHANT_SHOW", private.MerchantShowEventHandler)
 	TSMAPI_FOUR.Event.Register("MERCHANT_CLOSED", private.MerchantClosedEventHandler)
 	TSMAPI_FOUR.Event.Register("MERCHANT_UPDATE", private.MerchantUpdateEventHandler)
@@ -123,9 +109,7 @@ end
 
 function private.UpdateMerchantDB()
 	local needsRetry = false
-	private.merchantDB:SetQueryUpdatesPaused(true)
-	private.merchantDB:Truncate()
-	private.merchantDB:BulkInsertStart()
+	private.merchantDB:TruncateAndBulkInsertStart()
 	for i = 1, GetMerchantNumItems() do
 		local itemLink = GetMerchantItemLink(i)
 		local itemString = TSMAPI_FOUR.Item.ToItemString(itemLink)
@@ -150,7 +134,8 @@ function private.UpdateMerchantDB()
 					elseif costItemString then
 						texture = TSMAPI_FOUR.Item.GetTexture(costItemString)
 					elseif strmatch(costItemLink, "currency:") then
-						texture = select(3, GetCurrencyInfo(costItemLink))
+						local _
+						_, _, texture = GetCurrencyInfo(costItemLink)
 					else
 						error(format("Unknown item cost (%d, %d, %s)", i, costNum, tostring(costItemLink)))
 					end
@@ -163,7 +148,6 @@ function private.UpdateMerchantDB()
 		end
 	end
 	private.merchantDB:BulkInsertEnd()
-	private.merchantDB:SetQueryUpdatesPaused(false)
 
 	if needsRetry then
 		TSM:LOG_ERR("Failed to scan merchant")

@@ -49,14 +49,14 @@ function FilterSearch.PrepareFilter(filterStr, mode, marketValueSource)
 				filter = filter.."/disenchant"
 			end
 			if strfind(strlower(filter), "/crafting") then
-				local craftingTargetItem = TSMAPI_FOUR.Conversions.GetTargetItemByName(str)
+				local craftingTargetItem = str and TSMAPI_FOUR.Conversions.GetTargetItemByName(str) or nil
 				local conversionInfo = craftingTargetItem and TSMAPI_FOUR.Conversions.GetSourceItems(craftingTargetItem)
 				if not conversionInfo or not conversionInfo.convert then
 					isValid = false
 				end
 			end
 			if strfind(strlower(filter), "/disenchant") then
-				local craftingTargetItem = TSMAPI_FOUR.Conversions.GetTargetItemByName(str)
+				local craftingTargetItem =  str and TSMAPI_FOUR.Conversions.GetTargetItemByName(str) or nil
 				local conversionInfo = craftingTargetItem and TSMAPI_FOUR.Conversions.GetSourceItems(craftingTargetItem)
 				if not conversionInfo or not conversionInfo.disenchant then
 					isValid = false

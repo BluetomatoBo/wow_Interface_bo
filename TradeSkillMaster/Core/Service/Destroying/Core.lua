@@ -22,36 +22,6 @@ local private = {
 	ignoreDB = nil,
 	destroyInfoDB = nil,
 }
-local IGNORED_ITEMS_DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		ignoreSession = "boolean",
-		ignorePermanent = "boolean",
-	},
-	fieldAttributes = {
-		itemString = { "unique" },
-	},
-	fieldOrder = {
-		"itemString",
-		"ignoreSession",
-		"ignorePermanent",
-	},
-}
-local DESTROY_INFO_DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		minQuantity = "number",
-		spellId = "number",
-	},
-	fieldAttributes = {
-		itemString = { "unique" },
-	},
-	fieldOrder = {
-		"itemString",
-		"minQuantity",
-		"spellId",
-	},
-}
 local SPELL_IDS = {
 	milling = 51005,
 	prospect = 31252,
@@ -80,7 +50,11 @@ function Destroying.OnInitialize()
 	private.destroyThread = TSMAPI_FOUR.Thread.New("DESTROY", private.DestroyThread)
 	TSM.Inventory.BagTracking.RegisterCallback(private.UpdateBagDB)
 
-	private.ignoreDB =  TSMAPI_FOUR.Database.New(IGNORED_ITEMS_DB_SCHEMA, "DESTROYING_IGNORE")
+	private.ignoreDB = TSMAPI_FOUR.Database.NewSchema("DESTROYING_IGNORE")
+		:AddUniqueStringField("itemString")
+		:AddBooleanField("ignoreSession")
+		:AddBooleanField("ignorePermanent")
+		:Commit()
 	private.ignoreDB:BulkInsertStart()
 	local used = TSMAPI_FOUR.Util.AcquireTempTable()
 	for itemString in pairs(TSM.db.global.userData.destroyingIgnore) do
@@ -93,7 +67,11 @@ function Destroying.OnInitialize()
 	TSMAPI_FOUR.Util.ReleaseTempTable(used)
 	private.ignoreDB:BulkInsertEnd()
 
-	private.destroyInfoDB = TSMAPI_FOUR.Database.New(DESTROY_INFO_DB_SCHEMA, "DESTROYING_INFO")
+	private.destroyInfoDB = TSMAPI_FOUR.Database.NewSchema("DESTROYING_INFO")
+		:AddUniqueStringField("itemString")
+		:AddNumberField("minQuantity")
+		:AddNumberField("spellId")
+		:Commit()
 
 	TSMAPI_FOUR.Event.Register("UNIT_SPELLCAST_START", private.SpellCastEventHandler)
 	TSMAPI_FOUR.Event.Register("UNIT_SPELLCAST_INTERRUPTED", private.SpellCastEventHandler)
@@ -304,9 +282,7 @@ end
 
 function private.UpdateBagDB()
 	wipe(private.pendingCombines)
-	private.destroyInfoDB:SetQueryUpdatesPaused(true)
-	private.destroyInfoDB:Truncate()
-	private.destroyInfoDB:BulkInsertStart()
+	private.destroyInfoDB:TruncateAndBulkInsertStart()
 	local itemPrevSlotId = TSMAPI_FOUR.Util.AcquireTempTable()
 	local checkedItem = TSMAPI_FOUR.Util.AcquireTempTable()
 	for _, bag, slot, itemString, quantity in TSMAPI_FOUR.Inventory.BagIterator(nil, TSM.db.global.destroyingOptions.includeSoulbound, TSM.db.global.destroyingOptions.includeSoulbound) do
@@ -335,7 +311,6 @@ function private.UpdateBagDB()
 	TSMAPI_FOUR.Util.ReleaseTempTable(checkedItem)
 	TSMAPI_FOUR.Util.ReleaseTempTable(itemPrevSlotId)
 	private.destroyInfoDB:BulkInsertEnd()
-	private.destroyInfoDB:SetQueryUpdatesPaused(false)
 
 	private.newBagUpdate = true
 	if private.bagUpdateCallback then

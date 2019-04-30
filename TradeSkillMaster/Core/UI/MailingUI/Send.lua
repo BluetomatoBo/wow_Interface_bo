@@ -26,18 +26,6 @@ local private = {
 	listElements = {},
 	listFilter = ""
 }
-
-local SEND_DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		quantity = "number",
-	},
-	fieldOrder = {
-		"itemString",
-		"quantity",
-	},
-}
-
 local PLAYER_NAME_REALM = string.gsub(UnitName("player").."-"..GetRealmName(), "%s+", "")
 
 
@@ -50,8 +38,10 @@ function Send.OnInitialize()
 	private.FSMCreate()
 	TSM.UI.MailingUI.RegisterTopLevelPage(L["Send"], "iconPack.24x24/Send Mail", private.GetSendFrame)
 
-	private.db = TSMAPI_FOUR.Database.New(SEND_DB_SCHEMA, "MAILTRACKING_SEND_INFO")
-
+	private.db = TSMAPI_FOUR.Database.NewSchema("MAILTRACKING_SEND_INFO")
+		:AddStringField("itemString")
+		:AddNumberField("quantity")
+		:Commit()
 	private.query = private.db:NewQuery()
 end
 
@@ -789,7 +779,7 @@ end
 
 function private.MoneyValueConvert(input)
 	local text = gsub(strtrim(input:GetText()), TSMAPI_FOUR.Util.StrEscape(LARGE_NUMBER_SEPERATOR), "")
-	local value = max(tonumber(text) or TSM.Money.FromString(text) or 0, 0)
+	local value = min(max(tonumber(text) or TSM.Money.FromString(text) or 0, 0), MAXIMUM_BID_PRICE)
 
 	private.money = private.isCOD and min(value, 100000000) or value
 

@@ -38,13 +38,13 @@ function Connection.OnInitialize()
 	TSM.Sync.Comm.RegisterHandler(TSM.Sync.DATA_TYPES.DISCONNECT, private.DisconnectHandler)
 	TSM.Sync.Comm.RegisterHandler(TSM.Sync.DATA_TYPES.HEARTBEAT, private.HeartbeatHandler)
 
-	TSMAPI_FOUR.Event.Register("PLAYER_LOGOUT", function()
-		for _, player in pairs(private.connectedPlayer) do
-			TSM.Sync.Comm.SendData(TSM.Sync.DATA_TYPES.DISCONNECT, player)
-		end
-	end)
-
 	private.PrepareFriendsInfo()
+end
+
+function Connection.OnDisable()
+	for _, player in pairs(private.connectedPlayer) do
+		TSM.Sync.Comm.SendData(TSM.Sync.DATA_TYPES.DISCONNECT, player)
+	end
 end
 
 function Connection.RegisterConnectionChangedCallback(handler)

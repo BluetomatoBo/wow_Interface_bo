@@ -14,11 +14,11 @@
 local _, TSM = ...
 local Database = TSMAPI_FOUR.Class.DefineClass("Database")
 TSM.Database.classes.Database = Database
-local private = { indexListSortValues = nil, bulkInsertTemp = {} }
-local VALID_TYPES = {
-	boolean = true,
-	string = true,
-	number = true,
+local private = {
+	indexListSortValues = nil,
+	bulkInsertTemp = {},
+	smartMapReaderDatabaseLookup = {},
+	smartMapReaderFieldLookup = {},
 }
 
 
@@ -28,7 +28,7 @@ local VALID_TYPES = {
 -- ============================================================================
 
 function Database.__init(self, schema)
-	self._schema = schema
+	assert(schema:__isa(TSM.Database.classes.DatabaseSchema))
 	self._queries = {}
 	self._indexLists = {}
 	self._uniques = {}
@@ -37,70 +37,72 @@ function Database.__init(self, schema)
 	self._queryUpdatesPaused = 0
 	self._queuedQueryUpdate = false
 	self._bulkInsertContext = nil
-	self._fields = {}
+	self._fieldOffsetLookup = {}
+	self._fieldTypeLookup = {}
+	self._storedFieldList = {}
+	self._numStoredFields = 0
 	self._data = {}
 	self._uuids = {}
 	self._uuidToDataOffsetLookup = {}
 	self._newRowTemp = TSM.Database.GetDatabaseQueryResultRow()
 	self._newRowTempInUse = false
+	self._smartMapInputLookup = {}
+	self._smartMapInputFields = {}
+	self._smartMapReaderLookup = {}
 
-	if schema.fieldOrder then
-		assert(#schema.fieldOrder == TSMAPI_FOUR.Util.Count(schema.fields))
-		for _, fieldName in ipairs(schema.fieldOrder) do
-			assert(type(fieldName) == "string" and strsub(fieldName, 1, 1) ~= "_")
-			assert(schema.fields[fieldName])
-			assert(VALID_TYPES[schema.fields[fieldName]])
-			tinsert(self._fields, fieldName)
-			self._fields[fieldName] = #self._fields
-		end
-	else
-		for fieldName, fieldType in pairs(schema.fields) do
-			assert(type(fieldName) == "string" and strsub(fieldName, 1, 1) ~= "_")
-			assert(VALID_TYPES[fieldType])
-			tinsert(self._fields, fieldName)
-			self._fields[fieldName] = #self._fields
-		end
-	end
+	-- process all the fields and grab the indexFields for further processing
 	local indexFields = TSMAPI_FOUR.Util.AcquireTempTable()
-	if schema.fieldAttributes then
-		for field, attributes in pairs(schema.fieldAttributes) do
-			for subField in gmatch(field, "[^"..TSM.CONST.DB_INDEX_FIELD_SEP.."]+") do
-				assert(schema.fields[subField])
-			end
-			-- make sure attributes is a list
-			assert(TSMAPI_FOUR.Util.Count(attributes) == #attributes)
-			for _, attribute in ipairs(attributes) do
-				if attribute == "index" then
-					self._indexLists[field] = {}
-				elseif attribute == "unique" then
-					-- TODO: support multi-column uniques
-					assert(not strfind(field, TSM.CONST.DB_INDEX_FIELD_SEP))
-					self._uniques[field] = {}
-					-- insert uniques first since they are most efficient to query on
-					tinsert(self._indexOrUniqueFields, field)
-				else
-					error("Unknown field attribute: "..tostring(attribute))
-				end
-			end
-			if self._indexLists[field] then
-				tinsert(indexFields, field)
-			end
+	for _, fieldName, fieldType, isIndex, isUnique, smartMap, smartMapInput in schema:_FieldIterator() do
+		if smartMap then
+			-- smart map fields aren't actually stored in the DB
+			assert(self._fieldOffsetLookup[smartMapInput], "SmartMap field must be based on a stored field")
+			local reader = smartMap:CreateReader(private.SmartMapReaderCallback)
+			private.smartMapReaderDatabaseLookup[reader] = self
+			private.smartMapReaderFieldLookup[reader] = fieldName
+			self._smartMapInputLookup[fieldName] = smartMapInput
+			self._smartMapInputFields[smartMapInput] = self._smartMapInputFields[smartMapInput] or {}
+			tinsert(self._smartMapInputFields[smartMapInput], fieldName)
+			self._smartMapReaderLookup[fieldName] = reader
+		else
+			self._numStoredFields = self._numStoredFields + 1
+			self._fieldOffsetLookup[fieldName] = self._numStoredFields
+			tinsert(self._storedFieldList, fieldName)
+		end
+		self._fieldTypeLookup[fieldName] = fieldType
+		if isIndex then
+			self._indexLists[fieldName] = {}
+			tinsert(indexFields, fieldName)
+		end
+		if isUnique then
+			self._uniques[fieldName] = {}
+			-- insert uniques first since they are most efficient to query on
+			tinsert(self._indexOrUniqueFields, fieldName)
 		end
 	end
+
+	-- add multi-field indexes to our indexFields list
+	for fieldName in schema:_MultiFieldIndexIterator() do
+		self._indexLists[fieldName] = {}
+		tinsert(indexFields, fieldName)
+	end
+
 	-- sort the multi-column indexes first since they are more efficient
 	sort(indexFields, private.IndexSortHelper)
+
+	-- process the index fields
 	for _, field in ipairs(indexFields) do
 		if strmatch(field, TSM.CONST.DB_INDEX_FIELD_SEP) then
 			tinsert(self._multiFieldIndexFields, field)
 			self._multiFieldIndexFields[field] = { strsplit(TSM.CONST.DB_INDEX_FIELD_SEP, field) }
-			assert(#self._multiFieldIndexFields[field] == 2, "Unsupported number of fields in multi-field index")
 			for i, subField in ipairs(self._multiFieldIndexFields[field]) do
-				self._multiFieldIndexFields[field][i] = self._fields[subField]
+				self._multiFieldIndexFields[field][i] = self._fieldOffsetLookup[subField]
 			end
 		end
 		tinsert(self._indexOrUniqueFields, field)
 	end
+
 	TSMAPI_FOUR.Util.ReleaseTempTable(indexFields)
+	schema:_Release()
 end
 
 
@@ -113,7 +115,7 @@ end
 -- @tparam Database self The database object
 -- @return An iterator which iterates over the database's fields and has the following values: `field`
 function Database.FieldIterator(self)
-	return TSMAPI_FOUR.Util.TableKeyIterator(self._schema.fields)
+	return TSMAPI_FOUR.Util.TableKeyIterator(self._fieldOffsetLookup)
 end
 
 --- Create a new row.
@@ -166,13 +168,13 @@ function Database.DeleteRowByUUID(self, uuid)
 	end
 
 	-- lookup the index of the row being deleted
-	local uuidIndex = ((self._uuidToDataOffsetLookup[uuid] - 1) / #self._fields) + 1
+	local uuidIndex = ((self._uuidToDataOffsetLookup[uuid] - 1) / self._numStoredFields) + 1
 	local rowIndex = self._uuidToDataOffsetLookup[uuid]
 	assert(rowIndex)
 
 	-- get the index of the last row
-	local lastUUIDIndex = #self._data / #self._fields
-	local lastRowIndex = #self._data - #self._fields + 1
+	local lastUUIDIndex = #self._data / self._numStoredFields
+	local lastRowIndex = #self._data - self._numStoredFields + 1
 	assert(lastRowIndex > 0 and lastUUIDIndex > 0)
 
 	-- remove this row from both lookups
@@ -180,7 +182,7 @@ function Database.DeleteRowByUUID(self, uuid)
 
 	if rowIndex == lastRowIndex then
 		-- this is the last row so just remove it
-		for _ = 1, #self._fields do
+		for _ = 1, self._numStoredFields do
 			tremove(self._data)
 		end
 		assert(uuidIndex == #self._uuids)
@@ -190,7 +192,7 @@ function Database.DeleteRowByUUID(self, uuid)
 		local moveRowUUID = tremove(self._uuids)
 		self._uuids[uuidIndex] = moveRowUUID
 		self._uuidToDataOffsetLookup[moveRowUUID] = rowIndex
-		for i = #self._fields, 1, -1 do
+		for i = self._numStoredFields, 1, -1 do
 			local moveDataIndex = lastRowIndex + i - 1
 			assert(moveDataIndex == #self._data)
 			self._data[rowIndex + i - 1] = self._data[moveDataIndex]
@@ -307,7 +309,7 @@ function Database.SetUniqueRowField(self, uniqueField, uniqueValue, field, value
 	local uuid = self:_GetUniqueRow(uniqueField, uniqueValue)
 	assert(uuid)
 	local dataOffset = self._uuidToDataOffsetLookup[uuid]
-	local fieldOffset = self._fields[field]
+	local fieldOffset = self._fieldOffsetLookup[field]
 	if not dataOffset then
 		error("Invalid UUID: "..tostring(uuid))
 	elseif not fieldOffset then
@@ -353,7 +355,6 @@ end
 --- Starts a bulk insert into the database.
 -- @tparam Database self The database object
 function Database.BulkInsertStart(self)
-	assert(self._schema.fieldOrder)
 	assert(not self._bulkInsertContext)
 	self._bulkInsertContext = TSMAPI_FOUR.Util.AcquireTempTable()
 	self._bulkInsertContext.hasNewData = false
@@ -365,8 +366,8 @@ function Database.BulkInsertStart(self)
 			self._bulkInsertContext.indexValues[field][uuid] = self:_GetRowIndexValue(uuid, field)
 		end
 	end
-	if not next(self._uniques) and #self._multiFieldIndexFields == 0 and TSMAPI_FOUR.Util.Count(self._indexLists) == 1 and self._indexLists[self._fields[1]] then
-		self._bulkInsertContext.fastNum = #self._fields
+	if not next(self._uniques) and #self._multiFieldIndexFields == 0 and TSMAPI_FOUR.Util.Count(self._indexLists) == 1 and self._indexLists[self._storedFieldList[1]] then
+		self._bulkInsertContext.fastNum = self._numStoredFields
 	end
 	self:SetQueryUpdatesPaused(true)
 end
@@ -414,7 +415,7 @@ function Database.BulkInsertNewRow(self, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10
 	tempTbl[15] = v15
 	tempTbl[16] = v16
 	local numFields = #tempTbl
-	if numFields ~= #self._fields then
+	if numFields ~= self._numStoredFields then
 		error("Invalid number of values")
 	end
 	local uuid = TSM.Database.GetNextUUID()
@@ -423,9 +424,9 @@ function Database.BulkInsertNewRow(self, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10
 	self._uuids[#self._uuids + 1] = uuid
 
 	for i = 1, numFields do
-		local field = self._fields[i]
+		local field = self._storedFieldList[i]
 		local value = tempTbl[i]
-		local fieldType = self._schema.fields[field]
+		local fieldType = self._fieldTypeLookup[field]
 		if type(value) ~= fieldType then
 			error(format("Field %s should be a %s, got %s", tostring(field), tostring(fieldType), type(value)), 2)
 		end
@@ -439,6 +440,15 @@ function Database.BulkInsertNewRow(self, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10
 		end
 		if self._indexLists[field] then
 			self._bulkInsertContext.indexValues[field][uuid] = value
+		end
+		local smartMapFields = self._smartMapInputFields[field]
+		if smartMapFields then
+			for j = 1, #smartMapFields do
+				local smartMapField = smartMapFields[j]
+				if self._indexLists[smartMapField] then
+					self._bulkInsertContext.indexValues[smartMapField][uuid] = self._smartMapReaderLookup[smartMapField][value]
+				end
+			end
 		end
 	end
 
@@ -479,7 +489,7 @@ function Database.BulkInsertNewRowFast6(self, v1, v2, v3, v4, v5, v6, extraValue
 	self._data[rowIndex + 5] = v6
 
 	-- the first field is always an index (and the only index)
-	self._bulkInsertContext.indexValues[self._fields[1]][uuid] = v1
+	self._bulkInsertContext.indexValues[self._storedFieldList[1]][uuid] = v1
 end
 
 function Database.BulkInsertNewRowFast8(self, v1, v2, v3, v4, v5, v6, v7, v8, extraValue)
@@ -511,7 +521,7 @@ function Database.BulkInsertNewRowFast8(self, v1, v2, v3, v4, v5, v6, v7, v8, ex
 	self._data[rowIndex + 7] = v8
 
 	-- the first field is always an index (and the only index)
-	self._bulkInsertContext.indexValues[self._fields[1]][uuid] = v1
+	self._bulkInsertContext.indexValues[self._storedFieldList[1]][uuid] = v1
 end
 
 function Database.BulkInsertNewRowFast11(self, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, extraValue)
@@ -546,7 +556,7 @@ function Database.BulkInsertNewRowFast11(self, v1, v2, v3, v4, v5, v6, v7, v8, v
 	self._data[rowIndex + 10] = v11
 
 	-- the first field is always an index (and the only index)
-	self._bulkInsertContext.indexValues[self._fields[1]][uuid] = v1
+	self._bulkInsertContext.indexValues[self._storedFieldList[1]][uuid] = v1
 end
 
 --- Ends a bulk insert into the database.
@@ -578,14 +588,14 @@ end
 -- @tparam Database self The database object
 -- @return The iterator with fields (index, <DB_FIELDS...>)
 function Database.RawIterator(self)
-	return private.RawIterator, self, 1 - #self._fields
+	return private.RawIterator, self, 1 - self._numStoredFields
 end
 
 --- Gets the number of rows in the database.
 -- @tparam Database self The database object
 -- @treturn number The number of rows
 function Database.GetNumRows(self)
-	return #self._data / #self._fields
+	return #self._data / self._numStoredFields
 end
 
 --- Gets the number of rows in the database with a specific index value.
@@ -596,6 +606,14 @@ end
 function Database.GetNumRowsByIndex(self, indexField, indexValue)
 	local firstIndex, lastIndex = self:_GetIndexListIndexRange(indexField, indexValue)
 	return firstIndex and (lastIndex - firstIndex + 1) or 0
+end
+
+function Database.GetRawData(self)
+	return self._data
+end
+
+function Database.GetNumStoredFields(self)
+	return self._numStoredFields
 end
 
 
@@ -609,7 +627,7 @@ function Database._UUIDIterator(self)
 end
 
 function Database._GetFieldType(self, field)
-	return self._schema.fields[field]
+	return self._fieldTypeLookup[field]
 end
 
 function Database._IsIndex(self, field)
@@ -626,6 +644,10 @@ end
 
 function Database._GetAllRowsByIndex(self, indexField)
 	return self._indexLists[indexField]
+end
+
+function Database._IsSmartMapField(self, field)
+	return self._smartMapReaderLookup[field] and true or false
 end
 
 function Database._GetIndexListIndexRange(self, indexField, indexValue)
@@ -744,7 +766,8 @@ function Database._InsertRow(self, row)
 	local rowIndex = #self._data + 1
 	self._uuidToDataOffsetLookup[uuid] = rowIndex
 	tinsert(self._uuids, uuid)
-	for _, field in ipairs(self._fields) do
+	for i = 1, self._numStoredFields do
+		local field = self._storedFieldList[i]
 		local value = row:GetField(field)
 		tinsert(self._data, value)
 		local uniqueValues = self._uniques[field]
@@ -772,13 +795,16 @@ end
 function Database._UpdateRow(self, row, oldValues)
 	local uuid = row:GetUUID()
 	local index = self._uuidToDataOffsetLookup[uuid]
-	for i, field in ipairs(self._fields) do
-		self._data[index + i - 1] = row:GetField(field)
+	for i = 1, self._numStoredFields do
+		self._data[index + i - 1] = row:GetField(self._storedFieldList[i])
 	end
 	for indexField, indexList in pairs(self._indexLists) do
 		local didChange = false
 		for field in gmatch(indexField, "[^"..TSM.CONST.DB_INDEX_FIELD_SEP.."]+") do
 			if oldValues[field] then
+				didChange = true
+				break
+			elseif self:_IsSmartMapField(field) and oldValues[self._smartMapInputLookup[field]] then
 				didChange = true
 				break
 			end
@@ -813,8 +839,12 @@ function Database._GetRowIndexValue(self, uuid, field)
 end
 
 function Database._GetRowData(self, uuid, field)
+	local smartMapReader = self._smartMapReaderLookup[field]
+	if smartMapReader then
+		return smartMapReader[self:_GetRowData(uuid, self._smartMapInputLookup[field])]
+	end
 	local dataOffset = self._uuidToDataOffsetLookup[uuid]
-	local fieldOffset = self._fields[field]
+	local fieldOffset = self._fieldOffsetLookup[field]
 	if not dataOffset then
 		error("Invalid UUID: "..tostring(uuid))
 	elseif not fieldOffset then
@@ -847,9 +877,43 @@ function private.IndexListSortHelper(a, b)
 end
 
 function private.RawIterator(self, index)
-	index = index + #self._fields
+	index = index + self._numStoredFields
 	if index > #self._data then
 		return
 	end
-	return index, unpack(self._data, index, index + #self._fields - 1)
+	return index, unpack(self._data, index, index + self._numStoredFields - 1)
+end
+
+function private.SmartMapReaderCallback(reader, changes)
+	local self = private.smartMapReaderDatabaseLookup[reader]
+	local fieldName = private.smartMapReaderFieldLookup[reader]
+	if reader ~= self._smartMapReaderLookup[fieldName] then
+		error("Invalid smart map context")
+	end
+
+	local indexList = self._indexLists[fieldName]
+	if indexList then
+		-- re-build the index
+		wipe(indexList)
+		private.indexListSortValues = TSMAPI_FOUR.Util.AcquireTempTable()
+		for i, uuid in ipairs(self._uuids) do
+			indexList[i] = uuid
+			private.indexListSortValues[uuid] = self:_GetRowIndexValue(uuid, fieldName)
+		end
+		sort(indexList, private.IndexListSortHelper)
+		TSMAPI_FOUR.Util.ReleaseTempTable(private.indexListSortValues)
+		private.indexListSortValues = nil
+	end
+
+	local uniqueValues = self._uniques[fieldName]
+	if uniqueValues then
+		for key, prevValue in pairs(changes) do
+			local uuid = uniqueValues[prevValue]
+			assert(uuid)
+			uniqueValues[prevValue] = nil
+			uniqueValues[reader[key]] = uuid
+		end
+	end
+
+	self:_UpdateQueries()
 end

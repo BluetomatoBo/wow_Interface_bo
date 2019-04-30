@@ -32,28 +32,6 @@ local private = {
 	callbackQuery = nil,
 	callbacks = {},
 }
-local BAG_DB_SCHEMA = {
-	fields = {
-		slotId = "number",
-		bag = "number",
-		slot = "number",
-		itemLink = "string",
-		itemString = "string",
-		baseItemString = "string",
-		autoBaseItemString = "string",
-		itemTexture = "number",
-		quantity = "number",
-		isBoP = "boolean",
-		isBoA = "boolean",
-		usedCharges = "boolean"
-	},
-	fieldAttributes = {
-		slotId = { "unique", "index" },
-		bag = { "index" },
-		itemString = { "index" },
-		autoBaseItemString = { "index" },
-	}
-}
 
 
 
@@ -70,7 +48,24 @@ function BagTracking.OnInitialize()
 	TSMAPI_FOUR.Event.Register("PLAYERREAGENTBANKSLOTS_CHANGED", private.ReagentBankSlotChangedHandler)
 	TSMAPI_FOUR.Event.Register("ITEM_LOCKED", private.ItemLockedHandler)
 	TSMAPI_FOUR.Event.Register("ITEM_UNLOCKED", private.ItemUnlockedHandler)
-	private.db = TSMAPI_FOUR.Database.New(BAG_DB_SCHEMA, "BAG_TRACKING")
+	private.db = TSMAPI_FOUR.Database.NewSchema("BAG_TRACKING")
+		:AddUniqueNumberField("slotId")
+		:AddNumberField("bag")
+		:AddNumberField("slot")
+		:AddStringField("itemLink")
+		:AddStringField("itemString")
+		:AddSmartMapField("baseItemString", TSM.Item.GetBaseItemStringMap(), "itemString")
+		:AddSmartMapField("autoBaseItemString", TSM.Groups.GetAutoBaseItemStringSmartMap(), "itemString")
+		:AddNumberField("itemTexture")
+		:AddNumberField("quantity")
+		:AddBooleanField("isBoP")
+		:AddBooleanField("isBoA")
+		:AddBooleanField("usedCharges")
+		:AddIndex("slotId")
+		:AddIndex("bag")
+		:AddIndex("itemString")
+		:AddIndex("autoBaseItemString")
+		:Commit()
 	private.callbackQuery = private.db:NewQuery()
 		:SetUpdateCallback(private.OnCallbackQueryUpdated)
 end
@@ -594,8 +589,6 @@ function private.ScanBagSlot(bag, slot)
 		-- update the row
 		row:SetField("itemLink", link)
 			:SetField("itemString", TSMAPI_FOUR.Item.ToItemString(link))
-			:SetField("baseItemString", baseItemString)
-			:SetField("autoBaseItemString", TSMAPI_FOUR.Item.ToBaseItemString(link, true))
 			:SetField("itemTexture", texture or TSMAPI_FOUR.Item.GetTexture(link))
 			:SetField("quantity", quantity)
 			:SetField("isBoP", isBoP)

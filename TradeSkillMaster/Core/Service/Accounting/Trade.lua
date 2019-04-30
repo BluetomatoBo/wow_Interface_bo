@@ -38,13 +38,13 @@ function private.OnAcceptUpdate(_, player, target)
 
 		for i = 1, 6 do
 			local targetLink = GetTradeTargetItemLink(i)
-			local targetCount = select(3, GetTradeTargetItemInfo(i))
+			local _, _, targetCount = GetTradeTargetItemInfo(i)
 			if targetLink then
 				tinsert(private.tradeInfo.target, { itemString = TSMAPI_FOUR.Item.ToItemString(targetLink), count = targetCount })
 			end
 
 			local playerLink = GetTradePlayerItemLink(i)
-			local playerCount = select(3, GetTradePlayerItemInfo(i))
+			local _, _, playerCount = GetTradePlayerItemInfo(i)
 			if playerLink then
 				tinsert(private.tradeInfo.player, { itemString = TSMAPI_FOUR.Item.ToItemString(playerLink), count = playerCount })
 			end

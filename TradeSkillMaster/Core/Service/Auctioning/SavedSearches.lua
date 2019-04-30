@@ -11,27 +11,6 @@ local SavedSearches = TSM.Auctioning:NewPackage("SavedSearches")
 local L = TSM.L
 local private = { db = nil }
 local FILTER_SEP = "\001"
-local SAVED_SEARCHES_SCHEMA = {
-	fields = {
-		index = "number",
-		lastSearch = "number",
-		isFavorite = "boolean",
-		searchType = "string",
-		filter = "string",
-		name = "string",
-	},
-	fieldAttributes = {
-		index = { "unique", "index" },
-	},
-	fieldOrder = {
-		"index",
-		"lastSearch",
-		"isFavorite",
-		"searchType",
-		"filter",
-		"name",
-	},
-}
 
 
 
@@ -63,7 +42,15 @@ function SavedSearches.OnInitialize()
 	end
 	TSMAPI_FOUR.Util.ReleaseTempTable(keepSearch)
 
-	private.db = TSMAPI_FOUR.Database.New(SAVED_SEARCHES_SCHEMA, "AUCTIONING_SAVED_SEARCHES")
+	private.db = TSMAPI_FOUR.Database.NewSchema("AUCTIONING_SAVED_SEARCHES")
+		:AddUniqueNumberField("index")
+		:AddNumberField("lastSearch")
+		:AddBooleanField("isFavorite")
+		:AddStringField("searchType")
+		:AddStringField("filter")
+		:AddStringField("name")
+		:AddIndex("index")
+		:Commit()
 	private.db:BulkInsertStart()
 	for index, data in pairs(TSM.db.global.userData.savedAuctioningSearches) do
 		assert(data.searchType == "postItems" or data.searchType == "postGroups" or data.searchType == "cancelGroups")

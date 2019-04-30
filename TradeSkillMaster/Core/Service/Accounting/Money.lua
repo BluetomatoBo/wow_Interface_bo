@@ -12,27 +12,6 @@ local private = { db = nil }
 local CSV_KEYS = { "type", "amount", "otherPlayer", "player", "time" }
 local COMBINE_TIME_THRESHOLD = 300 -- group expenses within 5 minutes together
 local SECONDS_PER_DAY = 24 * 60 * 60
-local DB_SCHEMA = {
-	fields = {
-		recordType = "string",
-		type = "string",
-		amount = "number",
-		otherPlayer = "string",
-		player = "string",
-		time = "number",
-	},
-	fieldAttributes = {
-		recordType = { "index" },
-	},
-	fieldOrder = {
-		"recordType",
-		"type",
-		"amount",
-		"otherPlayer",
-		"player",
-		"time",
-	}
-}
 
 
 
@@ -41,7 +20,15 @@ local DB_SCHEMA = {
 -- ============================================================================
 
 function Money.OnInitialize()
-	private.db = TSMAPI_FOUR.Database.New(DB_SCHEMA, "ACCOUNTING_MONEY")
+	private.db = TSMAPI_FOUR.Database.NewSchema("ACCOUNTING_MONEY")
+		:AddStringField("recordType")
+		:AddStringField("type")
+		:AddNumberField("amount")
+		:AddStringField("otherPlayer")
+		:AddStringField("player")
+		:AddNumberField("time")
+		:AddIndex("recordType")
+		:Commit()
 	private.db:BulkInsertStart()
 	private.LoadData("expense", TSM.db.realm.internalData.csvExpense)
 	private.LoadData("income", TSM.db.realm.internalData.csvIncome)

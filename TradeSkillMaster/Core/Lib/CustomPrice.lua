@@ -722,6 +722,7 @@ end
 
 function private.ParseCustomPrice(customPriceStr, badPriceSource)
 	customPriceStr = customPriceStr and strlower(strtrim(tostring(customPriceStr)))
+	customPriceStr = TSM.Money.FromString(customPriceStr) and gsub(customPriceStr, TSMAPI_FOUR.Util.StrEscape(LARGE_NUMBER_SEPERATOR), "") or customPriceStr
 	if not customPriceStr or customPriceStr == "" then
 		return nil, L["Empty price string."]
 	end

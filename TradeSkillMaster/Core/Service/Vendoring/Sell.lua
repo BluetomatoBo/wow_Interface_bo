@@ -11,34 +11,6 @@ local Sell = TSM.Vendoring:NewPackage("Sell")
 local private = {
 	ignoreDB = nil,
 }
-local IGNORED_ITEMS_DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		ignoreSession = "boolean",
-		ignorePermanent = "boolean",
-	},
-	fieldAttributes = {
-		itemString = { "unique" },
-	},
-	fieldOrder = {
-		"itemString",
-		"ignoreSession",
-		"ignorePermanent",
-	},
-}
-local POTENTIAL_VALUE_DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		potentialValue = "number",
-	},
-	fieldAttributes = {
-		itemString = { "unique" },
-	},
-	fieldOrder = {
-		"itemString",
-		"potentialValue",
-	}
-}
 
 
 
@@ -48,7 +20,11 @@ local POTENTIAL_VALUE_DB_SCHEMA = {
 
 function Sell.OnInitialize()
 	local used = TSMAPI_FOUR.Util.AcquireTempTable()
-	private.ignoreDB = TSMAPI_FOUR.Database.New(IGNORED_ITEMS_DB_SCHEMA, "VENDORING_IGNORE")
+	private.ignoreDB = TSMAPI_FOUR.Database.NewSchema("VENDORING_IGNORE")
+		:AddUniqueStringField("itemString")
+		:AddBooleanField("ignoreSession")
+		:AddBooleanField("ignorePermanent")
+		:Commit()
 	private.ignoreDB:BulkInsertStart()
 	for itemString in pairs(TSM.db.global.userData.vendoringIgnore) do
 		itemString = TSMAPI_FOUR.Item.ToItemString(itemString)
@@ -60,7 +36,10 @@ function Sell.OnInitialize()
 	private.ignoreDB:BulkInsertEnd()
 	TSMAPI_FOUR.Util.ReleaseTempTable(used)
 
-	private.potentialValueDB = TSMAPI_FOUR.Database.New(POTENTIAL_VALUE_DB_SCHEMA, "VENDORING_POTENTIAL_VALUE")
+	private.potentialValueDB = TSMAPI_FOUR.Database.NewSchema("VENDORING_POTENTIAL_VALUE")
+		:AddUniqueStringField("itemString")
+		:AddNumberField("potentialValue")
+		:Commit()
 	TSM.Inventory.BagTracking.RegisterCallback(private.UpdatePotentialValueDB)
 end
 
@@ -158,9 +137,7 @@ end
 
 function private.UpdatePotentialValueDB()
 	local used = TSMAPI_FOUR.Util.AcquireTempTable()
-	private.potentialValueDB:SetQueryUpdatesPaused(true)
-	private.potentialValueDB:Truncate()
-	private.potentialValueDB:BulkInsertStart()
+	private.potentialValueDB:TruncateAndBulkInsertStart()
 	for _, _, _, itemString in TSMAPI_FOUR.Inventory.BagIterator() do
 		if not used[itemString] then
 			used[itemString] = true
@@ -171,6 +148,5 @@ function private.UpdatePotentialValueDB()
 		end
 	end
 	private.potentialValueDB:BulkInsertEnd()
-	private.potentialValueDB:SetQueryUpdatesPaused(false)
 	TSMAPI_FOUR.Util.ReleaseTempTable(used)
 end

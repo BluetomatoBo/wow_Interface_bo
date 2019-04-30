@@ -16,47 +16,6 @@ local private = {
 }
 local PLAYER_NAME = UnitName("player")
 
-local INBOX_INFO_DB_SCHEMA = {
-	fields = {
-		index = "number",
-		icon = "string",
-		subject = "string",
-		itemString = "string",
-		itemCount = "number",
-		money = "number",
-		cod = "number",
-		expires = "number",
-	},
-	fieldAttributes = {
-		index = { "index", "unique" },
-	},
-	fieldOrder = {
-		"index",
-		"icon",
-		"subject",
-		"itemString",
-		"itemCount",
-		"money",
-		"cod",
-		"expires",
-	},
-}
-
-local INBOX_ITEMS_DB_SCHEMA = {
-	fields = {
-		index = "number",
-		itemIndex = "number",
-		itemLink = "string",
-		quantity = "number",
-	},
-	fieldOrder = {
-		"index",
-		"itemIndex",
-		"itemLink",
-		"quantity",
-	},
-}
-
 
 
 -- ============================================================================
@@ -91,8 +50,23 @@ function MailTracking.OnInitialize()
 	end
 	TSMAPI_FOUR.Util.ReleaseTempTable(toRemove)
 
-	private.mailDB = TSMAPI_FOUR.Database.New(INBOX_INFO_DB_SCHEMA, "MAILTRACKING_INBOX_INFO")
-	private.itemDB = TSMAPI_FOUR.Database.New(INBOX_ITEMS_DB_SCHEMA, "MAILTRACKING_INBOX_ITEMS")
+	private.mailDB = TSMAPI_FOUR.Database.NewSchema("MAILTRACKING_INBOX_INFO")
+		:AddUniqueNumberField("index")
+		:AddStringField("icon")
+		:AddStringField("subject")
+		:AddStringField("itemString")
+		:AddNumberField("itemCount")
+		:AddNumberField("money")
+		:AddNumberField("cod")
+		:AddNumberField("expires")
+		:AddIndex("index")
+		:Commit()
+	private.itemDB = TSMAPI_FOUR.Database.NewSchema("MAILTRACKING_INBOX_ITEMS")
+		:AddNumberField("index")
+		:AddNumberField("itemIndex")
+		:AddStringField("itemLink")
+		:AddNumberField("quantity")
+		:Commit()
 
 	TSM.db.factionrealm.internalData.pendingMail[PLAYER_NAME] = TSM.db.factionrealm.internalData.pendingMail[PLAYER_NAME] or {}
 	TSMAPI_FOUR.Event.Register("MAIL_SHOW", private.MailShowHandler)

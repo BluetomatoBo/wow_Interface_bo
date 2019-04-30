@@ -16,32 +16,13 @@ Database.classes = {}
 local private = {
 	-- make the initial UUID a very big negative number so it doesn't conflict with other numbers
 	lastUUID = -1000000,
+	databaseSchemas = nil,
 	databaseQueries = nil,
 	databaseQueryClauses = nil,
 	databaseQueryResultRows = nil,
 	dbByNameLookup = {},
 	infoNameDB = nil,
 	infoFieldDB = nil,
-}
-local INFO_NAME_DB_SCHEMA = {
-	fields = {
-		name = "string",
-	},
-	fieldAttributes = {
-		name = { "unique", "index" },
-	},
-}
-local INFO_FIELD_DB_SCHEMA = {
-	fields = {
-		dbName = "string",
-		field = "string",
-		type = "string",
-		attributes = "string",
-		order = "number",
-	},
-	fieldAttributes = {
-		dbName = { "index" },
-	},
 }
 
 
@@ -50,43 +31,13 @@ local INFO_FIELD_DB_SCHEMA = {
 -- TSMAPI Functions
 -- ============================================================================
 
---- Create a new database.
--- @tparam table schema The database schema
--- @tparam string name The name of the database for debug use
--- @treturn Database The database object
-function TSMAPI_FOUR.Database.New(schema, name)
-	name = name or tostring(schema)
-	private.infoNameDB:NewRow()
-		:SetField("name", name)
-		:Create()
-	local nextOrder = 1
-	for field, type in pairs(schema.fields) do
-		private.infoFieldDB:NewRow()
-			:SetField("dbName", name)
-			:SetField("field", field)
-			:SetField("type", type)
-			:SetField("attributes", schema.fieldAttributes and schema.fieldAttributes[field] and table.concat(schema.fieldAttributes[field], ",") or "")
-			:SetField("order", schema.fieldOrder and TSMAPI_FOUR.Util.TableKeyByValue(schema.fieldOrder, field) or nextOrder)
-			:Create()
-		nextOrder = nextOrder + 1
-	end
-	if schema.fieldAttributes then
-		for field in pairs(schema.fieldAttributes) do
-			if not schema.fields[field] then
-				-- multi-field index
-				private.infoFieldDB:NewRow()
-					:SetField("dbName", name)
-					:SetField("field", field)
-					:SetField("type", "-")
-					:SetField("attributes", "multi-field index")
-					:SetField("order", -1)
-					:Create()
-			end
-		end
-	end
-	local db = Database.classes.Database(schema)
-	private.dbByNameLookup[name] = db
-	return db
+--- Create a new database schema.
+-- @tparam string name The name of the schema for debug use
+-- @treturn DatabaseSchema The database schema object
+function TSMAPI_FOUR.Database.NewSchema(name)
+	local schema = private.databaseSchemas:Get()
+	schema:_Acquire(name)
+	return schema
 end
 
 
@@ -96,18 +47,65 @@ end
 -- ============================================================================
 
 function Database.OnInitialize()
+	private.databaseSchemas = TSMAPI_FOUR.ObjectPool.New("DATABASE_SCHEMAS", Database.classes.DatabaseSchema, 1)
 	private.databaseQueries = TSMAPI_FOUR.ObjectPool.New("DATABASE_QUERIES", Database.classes.DatabaseQuery, 1)
 	private.databaseQueryClauses = TSMAPI_FOUR.ObjectPool.New("DATABASE_QUERY_CLAUSES", Database.classes.DatabaseQueryClause, 3)
 	private.databaseQueryResultRows = TSMAPI_FOUR.ObjectPool.New("DATABASE_QUERY_RESULT_ROWS", Database.DatabaseQueryResultRow.New)
 
 	-- Create the information databases
-	private.infoNameDB = Database.classes.Database(INFO_NAME_DB_SCHEMA)
-	private.infoFieldDB = Database.classes.Database(INFO_FIELD_DB_SCHEMA)
+	private.infoNameDB = Database.classes.Database(TSMAPI_FOUR.Database.NewSchema("DEBUG_INFO_NAME")
+		:AddUniqueStringField("name")
+		:AddIndex("name")
+	)
+	private.infoFieldDB = Database.classes.Database(TSMAPI_FOUR.Database.NewSchema("DEBUG_INFO_FIELD")
+		:AddStringField("dbName")
+		:AddStringField("field")
+		:AddStringField("type")
+		:AddStringField("attributes")
+		:AddNumberField("order")
+		:AddIndex("dbName")
+	)
+end
+
+function Database.CreateDatabaseFromSchema(schema)
+	local name = schema:_GetName()
+	assert(not private.dbByNameLookup[name], "A database with this name already exists")
+	private.infoNameDB:NewRow()
+		:SetField("name", name)
+		:Create()
+
+	for index, fieldName, fieldType, isIndex, isUnique in schema:_FieldIterator() do
+		local fieldAttributes = (isIndex and isUnique and "index,unique") or (isIndex and "index") or (isUnique and "unique") or ""
+		private.infoFieldDB:NewRow()
+			:SetField("dbName", name)
+			:SetField("field", fieldName)
+			:SetField("type", fieldType)
+			:SetField("attributes", fieldAttributes)
+			:SetField("order", index)
+			:Create()
+	end
+	for fieldName in schema:_MultiFieldIndexIterator() do
+		private.infoFieldDB:NewRow()
+			:SetField("dbName", name)
+			:SetField("field", fieldName)
+			:SetField("type", "-")
+			:SetField("attributes", "multi-field index")
+			:SetField("order", -1)
+			:Create()
+	end
+
+	local db = Database.classes.Database(schema)
+	private.dbByNameLookup[name] = db
+	return db
 end
 
 function Database.GetNextUUID()
 	private.lastUUID = private.lastUUID - 1
 	return private.lastUUID
+end
+
+function Database.RecycleDatabaseSchema(schema)
+	private.databaseSchemas:Recycle(schema)
 end
 
 function Database.GetDatabaseQuery()

@@ -20,73 +20,6 @@ local CHARACTER_KEY = UnitName("player").." - "..GetRealmName()
 local IGNORED_COOLDOWN_SEP = "\001"
 local PROFESSION_SEP = ","
 local PLAYER_SEP = ","
-local SPELL_DB_SCHEMA = {
-	fields = {
-		spellId = "number",
-		itemString = "string",
-		itemName = "string",
-		name = "string",
-		profession = "string",
-		numResult = "number",
-		players = "string",
-		hasCD = "boolean",
-	},
-	fieldAttributes = {
-		spellId = { "unique" },
-		itemString = { "index" },
-	},
-	fieldOrder = {
-		"spellId",
-		"itemString",
-		"itemName",
-		"name",
-		"profession",
-		"numResult",
-		"players",
-		"hasCD",
-	},
-}
-local MAT_DB_SCHEMA = {
-	fields = {
-		spellId = "number",
-		itemString = "string",
-		quantity = "number",
-	},
-	fieldAttributes = {
-		spellId = { "index" },
-		itemString = { "index" },
-	},
-	fieldOrder = {
-		"spellId",
-		"itemString",
-		"quantity",
-	},
-}
-local MAT_ITEM_DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		professions = "string",
-		hasCustomValue = "boolean",
-	},
-	fieldAttributes = {
-		itemString = { "unique" },
-	},
-	fieldOrder = {
-		"itemString",
-		"professions",
-		"hasCustomValue",
-	},
-}
-local IGNORED_COOLDOWN_DB_SCHEMA = {
-	fields = {
-		characterKey = "string",
-		spellId = "number",
-	},
-	fieldOrder = {
-		"characterKey",
-		"spellId",
-	},
-}
 
 
 
@@ -117,9 +50,25 @@ function Crafting.OnInitialize()
 	local matSpellCount = TSMAPI_FOUR.Util.AcquireTempTable()
 	local matFirstItemString = TSMAPI_FOUR.Util.AcquireTempTable()
 	local matFirstQuantity = TSMAPI_FOUR.Util.AcquireTempTable()
-	private.matDB = TSMAPI_FOUR.Database.New(MAT_DB_SCHEMA, "CRAFTING_MATS")
+	private.matDB = TSMAPI_FOUR.Database.NewSchema("CRAFTING_MATS")
+		:AddNumberField("spellId")
+		:AddStringField("itemString")
+		:AddNumberField("quantity")
+		:AddIndex("spellId")
+		:AddIndex("itemString")
+		:Commit()
 	private.matDB:BulkInsertStart()
-	private.spellDB = TSMAPI_FOUR.Database.New(SPELL_DB_SCHEMA, "CRAFTING_SPELLS")
+	private.spellDB = TSMAPI_FOUR.Database.NewSchema("CRAFTING_SPELLS")
+		:AddUniqueNumberField("spellId")
+		:AddStringField("itemString")
+		:AddStringField("itemName")
+		:AddStringField("name")
+		:AddStringField("profession")
+		:AddNumberField("numResult")
+		:AddStringField("players")
+		:AddBooleanField("hasCD")
+		:AddIndex("itemString")
+		:Commit()
 	private.spellDB:BulkInsertStart()
 	local playersTemp = TSMAPI_FOUR.Util.AcquireTempTable()
 	for spellId, craftInfo in pairs(TSM.db.factionrealm.internalData.crafts) do
@@ -149,7 +98,11 @@ function Crafting.OnInitialize()
 		:Select("itemString", "quantity")
 		:Equal("spellId", TSM.CONST.BOUND_QUERY_PARAM)
 
-	private.matItemDB = TSMAPI_FOUR.Database.New(MAT_ITEM_DB_SCHEMA, "CRAFTING_MAT_ITEMS")
+	private.matItemDB = TSMAPI_FOUR.Database.NewSchema("CRAFTING_MAT_ITEMS")
+		:AddUniqueStringField("itemString")
+		:AddStringField("professions")
+		:AddBooleanField("hasCustomValue")
+		:Commit()
 	private.matItemDB:BulkInsertStart()
 	local professionsTemp = TSMAPI_FOUR.Util.AcquireTempTable()
 	for itemString, info in pairs(TSM.db.factionrealm.internalData.mats) do
@@ -204,7 +157,10 @@ function Crafting.OnInitialize()
 		end
 	end
 
-	private.ignoredCooldownDB = TSMAPI_FOUR.Database.New(IGNORED_COOLDOWN_DB_SCHEMA, "IGNORED_COOLDOWNS")
+	private.ignoredCooldownDB = TSMAPI_FOUR.Database.NewSchema("IGNORED_COOLDOWNS")
+		:AddStringField("characterKey")
+		:AddNumberField("spellId")
+		:Commit()
 	private.ignoredCooldownDB:BulkInsertStart()
 	for entry in pairs(TSM.db.factionrealm.userData.craftingCooldownIgnore) do
 		local characterKey, spellId = strsplit(IGNORED_COOLDOWN_SEP, entry)

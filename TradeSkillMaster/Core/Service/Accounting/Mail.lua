@@ -49,13 +49,12 @@ function private.RequestSellerInfo()
 end
 
 function private:CanLootMailIndex(index, copper)
-	local MAX_COPPER = 99999999999
 	local currentMoney = GetMoney()
-	assert(currentMoney <= MAX_COPPER)
+	assert(currentMoney <= MAXIMUM_BID_PRICE)
 	-- check if this would put them over the gold cap
-	if currentMoney + copper > MAX_COPPER then return end
-	local hasItem = select(8, GetInboxHeaderInfo(index))
-	if not hasItem or hasItem == 0 then return true end
+	if currentMoney + copper > MAXIMUM_BID_PRICE then return end
+	local _, _, _, _, _, _, _, itemCount = GetInboxHeaderInfo(index)
+	if not itemCount or itemCount == 0 then return true end
 	for j = 1, ATTACHMENTS_MAX_RECEIVE do
 		-- TODO: prevent items that you can't loot because of internal mail error
 		if CalculateTotalNumberOfFreeBagSlots() <= 0 then
@@ -63,7 +62,8 @@ function private:CanLootMailIndex(index, copper)
 		end
 		local link = GetInboxItemLink(index, j)
 		local itemString = TSMAPI_FOUR.Item.ToItemString(link)
-		local quantity = select(4, GetInboxItem(index, j)) or 0
+		local _, _, _, count = GetInboxItem(index, j)
+		local quantity = count or 0
 		local maxUnique = private.GetInboxMaxUnique(index, j)
 		-- dont record unique items that we can't loot
 		if maxUnique > 0 and maxUnique < TSMAPI_FOUR.Inventory.GetPlayerTotals(itemString) + quantity then
@@ -75,7 +75,7 @@ function private:CanLootMailIndex(index, copper)
 					for slot = 1, GetContainerNumSlots(bag) do
 						local iString = TSMAPI_FOUR.Item.ToItemString(GetContainerItemLink(bag, slot))
 						if iString == itemString then
-							local stackSize = select(2, GetContainerItemInfo(bag, slot))
+							local _, stackSize = GetContainerItemInfo(bag, slot)
 							local maxStackSize = TSMAPI_FOUR.Item.GetMaxStack(itemString) or 1
 							if (maxStackSize - stackSize) >= quantity then
 								return true
@@ -134,7 +134,7 @@ end
 -- scans the mail that the player just attempted to collected (Pre-Hook)
 function Mail:ScanCollectedMail(oFunc, attempt, index, subIndex)
 	local invoiceType, itemName, buyer, bid, _, _, ahcut, _, _, _, quantity = GetInboxInvoiceInfo(index)
-	local _, _, sender, subject, money, codAmount = GetInboxHeaderInfo(index)
+	local _, stationeryIcon, sender, subject, money, codAmount, daysLeft = GetInboxHeaderInfo(index)
 	if not subject then return end
 	if attempt > 2 then
 		if buyer == "" then
@@ -146,7 +146,6 @@ function Mail:ScanCollectedMail(oFunc, attempt, index, subIndex)
 
 	local success = false
 	if invoiceType == "seller" and buyer and buyer ~= "" then -- AH Sales
-		local daysLeft = select(7, GetInboxHeaderInfo(index))
 		local saleTime = (time() + (daysLeft - 30) * SECONDS_PER_DAY)
 		local itemString = TSM.ItemInfo.ItemNameToItemString(itemName)
 		if not itemString or itemString == TSM.CONST.UNKNOWN_ITEM_ITEMSTRING then
@@ -164,7 +163,6 @@ function Mail:ScanCollectedMail(oFunc, attempt, index, subIndex)
 		local itemString = TSMAPI_FOUR.Item.ToItemString(link)
 		if itemString and private:CanLootMailIndex(index, 0) then
 			local copper = floor(bid / quantity + 0.5)
-			local daysLeft = select(7, GetInboxHeaderInfo(index))
 			local buyTime = (time() + (daysLeft - 30) * SECONDS_PER_DAY)
 			TSM.Accounting.Transactions.InsertAuctionBuy(itemString, quantity, copper, buyer, buyTime)
 			success = true
@@ -191,7 +189,6 @@ function Mail:ScanCollectedMail(oFunc, attempt, index, subIndex)
 
 			if total ~= 0 and not ignore and private:CanLootMailIndex(index, codAmount) then
 				local copper = floor(codAmount / total + 0.5)
-				local daysLeft = select(7, GetInboxHeaderInfo(index))
 				local buyTime = (time() + (daysLeft - 3) * SECONDS_PER_DAY)
 				local maxStack = TSMAPI_FOUR.Item.GetMaxStack(link)
 				for _ = 1, stacks do
@@ -212,7 +209,6 @@ function Mail:ScanCollectedMail(oFunc, attempt, index, subIndex)
 		else
 			str = gsub(subject, gsub(COD_PAYMENT, TSMAPI_FOUR.Util.StrEscape("%s"), ""), "")
 		end
-		local daysLeft = select(7, GetInboxHeaderInfo(index))
 		local saleTime = (time() + (daysLeft - 31) * SECONDS_PER_DAY)
 		if sender and private:CanLootMailIndex(index, money) then
 			if str and strfind(str, "TSM$") then -- payment for a COD the player sent
@@ -240,20 +236,20 @@ function Mail:ScanCollectedMail(oFunc, attempt, index, subIndex)
 			success = true
 		end
 	elseif strfind(subject, EXPIRED_MATCH_TEXT) then -- expired auction
-		local daysLeft = select(7, GetInboxHeaderInfo(index))
 		local expiredTime = (time() + (daysLeft - 30) * SECONDS_PER_DAY)
 		local link = (subIndex or 1) == 1 and private:GetFirstInboxItemLink(index) or GetInboxItemLink(index, subIndex or 1)
-		local qty = select(4, GetInboxItem(index, subIndex or 1)) or 0
+		local _, _, _, count = GetInboxItem(index, subIndex or 1)
+		local qty = count or 0
 		local itemString = TSMAPI_FOUR.Item.ToItemString(link)
 		if private:CanLootMailIndex(index, 0) and itemString and qty then
 			TSM.Accounting.Auctions.InsertExpire(itemString, qty, expiredTime)
 			success = true
 		end
 	elseif strfind(subject, CANCELLED_MATCH_TEXT) then -- cancelled auction
-		local daysLeft = select(7, GetInboxHeaderInfo(index))
 		local cancelledTime = (time() + (daysLeft - 30) * SECONDS_PER_DAY)
 		local link = (subIndex or 1) == 1 and private:GetFirstInboxItemLink(index) or GetInboxItemLink(index, subIndex or 1)
-		local qty = select(4, GetInboxItem(index, subIndex or 1)) or 0
+		local _, _, _, count = GetInboxItem(index, subIndex or 1)
+		local qty = count or 0
 		local itemString = TSMAPI_FOUR.Item.ToItemString(link)
 		if private:CanLootMailIndex(index, 0) and itemString and qty then
 			TSM.Accounting.Auctions.InsertCancel(itemString, qty, cancelledTime)
@@ -263,7 +259,7 @@ function Mail:ScanCollectedMail(oFunc, attempt, index, subIndex)
 
 	if success then
 		Mail.hooks[oFunc](index, subIndex)
-	elseif (not select(2, GetInboxHeaderInfo(index)) or (invoiceType and (not buyer or buyer == ""))) and attempt <= 5 then
+	elseif (not stationeryIcon or (invoiceType and (not buyer or buyer == ""))) and attempt <= 5 then
 		TSMAPI_FOUR.Delay.AfterTime("accountingHookDelay", 0.2, function() Mail:ScanCollectedMail(oFunc, attempt + 1, index, subIndex) end)
 	elseif attempt > 5 then
 		Mail.hooks[oFunc](index, subIndex)

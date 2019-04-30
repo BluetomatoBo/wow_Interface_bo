@@ -186,13 +186,16 @@ function private.FSMCreate()
 
 				assert(not context.frame)
 				context.frame = private.CreateMainFrame()
+				context.frame:Show()
 				context.frame:Draw()
 				private.isVisible = true
 			end)
 			:SetOnExit(function(context)
-				context.frame:Hide()
-				context.frame:Release()
-				context.frame = nil
+				if context.frame then
+					context.frame:Hide()
+					context.frame:Release()
+					context.frame = nil
+				end
 				private.isVisible = false
 			end)
 			:AddTransition("ST_CLOSED")
@@ -216,13 +219,10 @@ function private.FSMCreate()
 				end
 			end)
 			:AddEvent("EV_MAIL_CLOSED", function(context)
-				context.frame:Hide()
-				context.frame:Release()
-				context.frame = nil
-				private.isVisible = false
-
 				CancelEmote()
 				CloseAllBags()
+
+				return "ST_CLOSED"
 			end)
 			:AddEvent("EV_SWITCH_BTN_CLICKED", function()
 				return "ST_DEFAULT_OPEN"

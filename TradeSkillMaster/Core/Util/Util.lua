@@ -792,7 +792,7 @@ function private.ParseLocals(locals, file)
 
 	local fileName = strmatch(file, "([A-Za-z]+)%.lua")
 	local isBlizzardFile = strmatch(file, "Interface\\FrameXML\\")
-	local isPrivateTable, isLocaleTable, isPackageTable = false, false, false
+	local isPrivateTable, isLocaleTable, isPackageTable, isSelfTable = false, false, false, false
 	wipe(private.localLinesTemp)
 	locals = gsub(locals, "<([a-z]+)> {[\n\t ]+}", "<%1> {}")
 	locals = gsub(locals, " = <function> defined @", "@")
@@ -827,6 +827,9 @@ function private.ParseLocals(locals, file)
 				elseif isPackageTable then
 					-- ignore the package table completely
 					shouldIgnoreLine = true
+				elseif (isSelfTable or isPrivateTable) and strmatch(localLine, "^ *[_a-zA-Z0-9]+ = {}") then
+					-- ignore empty tables within objects or the private table
+					shouldIgnoreLine = true
 				end
 			end
 			if not shouldIgnoreLine then
@@ -836,6 +839,7 @@ function private.ParseLocals(locals, file)
 				isPackageTable = strmatch(localLine, "%s*"..fileName.." = {") and true or false
 				isPrivateTable = strmatch(localLine, "%s*private = {") and true or false
 				isLocaleTable = strmatch(localLine, "%s*L = {") and true or false
+				isSelfTable = strmatch(localLine, "%s*self = {") and true or false
 			end
 		end
 	end

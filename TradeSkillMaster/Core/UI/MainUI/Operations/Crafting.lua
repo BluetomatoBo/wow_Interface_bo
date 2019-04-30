@@ -70,7 +70,11 @@ function private.GetCraftingOperationSettings(operationName)
 						:SetStyle("textColor", "#ffffff")
 						:SetDisabled(TSM.Operations.HasRelationship("Crafting", private.currentOperationName, "minProfit") or operation.minProfit == "")
 						:SetSettingInfo(operation, "minProfit", TSM.MainUI.Operations.CheckCustomPrice)
-						:SetText(TSM.Money.ToString(operation.minProfit) or operation.minProfit)
+						:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.minProfit)) or TSM.Money.ToString(operation.minProfit))
+						:SetScript("OnEnterPressed", private.MoneyValueConvert)
+						:SetScript("OnEscapePressed", private.MoneyValueConvert)
+						:SetScript("OnTabPressed", private.MoneyValueConvert)
+						:SetScript("OnEditFocusGained", private.MoneyFocusGained)
 					)
 				)
 			)
@@ -167,7 +171,7 @@ function private.MinProfitToggleOnValueChanged(toggle, value)
 		:SetStyle("textColor", value and "#e2e2e2" or "#424242")
 	settingsFrame:GetElement("minProfitInputFrame.minProfit.input")
 		:SetDisabled(not value)
-		:SetText(TSM.Money.ToString(operation.minProfit) or operation.minProfit)
+		:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.minProfit)) or operation.minProfit)
 	settingsFrame:Draw()
 end
 
@@ -182,6 +186,19 @@ function private.CraftPriceToggleOnValueChanged(toggle, value)
 		:SetStyle("textColor", value and "#ffffff" or "#757575")
 		:SetText(operation.craftPriceMethod ~= "" and operation.craftPriceMethod or TSM.db.global.craftingOptions.defaultCraftPriceMethod)
 	settingsFrame:Draw()
+end
+
+function private.MoneyValueConvert(input)
+	local text = gsub(strtrim(input:GetText()), TSMAPI_FOUR.Util.StrEscape(LARGE_NUMBER_SEPERATOR), "")
+	local value = min(max(tonumber(text) or TSM.Money.FromString(text) or 0, 0), MAXIMUM_BID_PRICE)
+
+	input:SetFocused(false)
+	input:SetText(TSM.Money.ToString(value))
+		:Draw()
+end
+
+function private.MoneyFocusGained(input)
+	input:HighlightText()
 end
 
 function private.CraftPriceOnSizeChanged(input, width, height)

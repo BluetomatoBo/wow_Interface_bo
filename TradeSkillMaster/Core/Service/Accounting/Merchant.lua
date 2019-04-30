@@ -29,7 +29,7 @@ local private = {
 
 function Merchant.OnInitialize()
 	TSMAPI_FOUR.Event.Register("MERCHANT_SHOW", private.SetupRepairCost)
-	TSMAPI_FOUR.Event.Register("MERCHANT_UPDATE", private.OnMerchantUpdate)
+	TSMAPI_FOUR.Event.Register("BAG_UPDATE_DELAYED", private.OnMerchantUpdate)
 	TSMAPI_FOUR.Event.Register("UPDATE_INVENTORY_DURABILITY", private.AddRepairCosts)
 	TSMAPI_FOUR.Event.Register("MERCHANT_CLOSED", private.OnMerchantClosed)
 	Merchant:SecureHook("UseContainerItem", private.CheckMerchantSale)
@@ -101,7 +101,7 @@ function private.CheckMerchantSale(bag, slot, onSelf)
 	end
 
 	local itemString = TSMAPI_FOUR.Item.ToItemString(GetContainerItemLink(bag, slot))
-	local quantity = select(2, GetContainerItemInfo(bag, slot))
+	local _, quantity = GetContainerItemInfo(bag, slot)
 	local copper = TSMAPI_FOUR.Item.GetVendorSell(itemString)
 	if not itemString or not quantity or not copper then
 		return
@@ -113,7 +113,7 @@ function private.CheckMerchantSale(bag, slot, onSelf)
 end
 
 function private.OnMerchantBuy(index, quantity)
-	local price, batchQuantity = select(3, GetMerchantItemInfo(index))
+	local _, _, price, batchQuantity = GetMerchantItemInfo(index)
 	local itemString = TSMAPI_FOUR.Item.ToItemString(GetMerchantItemLink(index))
 	if not itemString or not price or price <= 0 then
 		return
@@ -124,7 +124,7 @@ function private.OnMerchantBuy(index, quantity)
 end
 
 function private.OnMerchantBuyback(index)
-	local price, quantity = select(3, GetBuybackItemInfo(index))
+	local _, _, price, quantity = GetBuybackItemInfo(index)
 	local itemString = TSMAPI_FOUR.Item.ToItemString(GetBuybackItemLink(index))
 	if not itemString or not price or price <= 0 then
 		return

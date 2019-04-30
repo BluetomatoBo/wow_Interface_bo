@@ -463,36 +463,6 @@ end
 -- AuctionScan Class
 -- ============================================================================
 
-local DB_SCHEMA = {
-	fields = {
-		-- raw fields directly from the game
-		rawName = "string",
-		rawLink = "string",
-		texture = "number",
-		stackSize = "number",
-		minBid = "number",
-		minIncrement = "number",
-		buyout = "number",
-		bid = "number",
-		isHighBidder = "boolean",
-		seller = "string",
-		timeLeft = "number",
-		-- calculated fields which we'll use (so want to cache)
-		displayedBid = "number",
-		itemDisplayedBid = "number",
-		requiredBid = "number",
-		itemBuyout = "number",
-		itemLink = "string",
-		itemString = "string",
-		baseItemString = "string",
-		hash = "string",
-		hashNoSeller = "string",
-		filterId = "number",
-		targetItem = "string",
-		targetItemRate = "number",
-	}
-}
-
 local AuctionScan = TSMAPI_FOUR.Class.DefineClass("AuctionScan")
 
 function AuctionScan.__init(self)
@@ -767,7 +737,6 @@ function AuctionScan._CreateAuctionRow(self, index, filter)
 		:SetField("itemBuyout", (buyout > 0) and floor(buyout / stackSize) or 0)
 		:SetField("itemLink", itemLink)
 		:SetField("itemString", itemString)
-		:SetField("baseItemString", TSMAPI_FOUR.Item.ToBaseItemString(itemLink))
 		:SetField("hash", self:_GetAuctionRowHash(index, false))
 		:SetField("hashNoSeller", self:_GetAuctionRowHash(index, true))
 		:SetField("targetItem", filter:_GetTargetItem() or itemString)
@@ -831,7 +800,33 @@ end
 -- ============================================================================
 
 function TSMAPI_FOUR.Auction.NewDatabase(name)
-	return TSMAPI_FOUR.Database.New(DB_SCHEMA, name)
+	return TSMAPI_FOUR.Database.NewSchema(name)
+		-- raw fields directly from the game
+		:AddStringField("rawName")
+		:AddStringField("rawLink")
+		:AddNumberField("texture")
+		:AddNumberField("stackSize")
+		:AddNumberField("minBid")
+		:AddNumberField("minIncrement")
+		:AddNumberField("buyout")
+		:AddNumberField("bid")
+		:AddBooleanField("isHighBidder")
+		:AddStringField("seller")
+		:AddNumberField("timeLeft")
+		-- calculated fields which we'll use (so want to cache)
+		:AddNumberField("displayedBid")
+		:AddNumberField("itemDisplayedBid")
+		:AddNumberField("requiredBid")
+		:AddNumberField("itemBuyout")
+		:AddStringField("itemLink")
+		:AddStringField("itemString")
+		:AddSmartMapField("baseItemString", TSM.Item.GetBaseItemStringMap(), "itemString")
+		:AddStringField("hash")
+		:AddStringField("hashNoSeller")
+		:AddNumberField("filterId")
+		:AddStringField("targetItem")
+		:AddNumberField("targetItemRate")
+		:Commit()
 end
 
 function TSMAPI_FOUR.Auction.NewAuctionScan(db)

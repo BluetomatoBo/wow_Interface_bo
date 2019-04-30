@@ -36,12 +36,16 @@ local SMART_MAP_MT = {
 		end
 		if key == "ValueChanged" then
 			return private.MapValueChanged
+		elseif key == "SetCallbacksPaused" then
+			return private.MapSetCallbacksPaused
 		elseif key == "CreateReader" then
 			return private.MapCreateReader
 		elseif key == "GetKeyType" then
 			return private.MapGetKeyType
 		elseif key == "GetValueType" then
 			return private.MapGetValueType
+		elseif key == "KeyIterator" then
+			return private.MapKeyIterator
 		else
 			error("Invalid map method: "..tostring(key), 2)
 		end
@@ -112,6 +116,7 @@ function SmartMap.New(keyType, valueType, func)
 		func = func,
 		data = {},
 		readers = {},
+		callbacksPaused = 0,
 	}
 	return map
 end
@@ -149,7 +154,30 @@ function private.MapValueChanged(self, key)
 		if prevValue ~= nil then
 			rawset(reader, key, newValue)
 			if readerContext.callback then
-				readerContext.callback(reader, key, prevValue, newValue)
+				readerContext.pendingChanges[key] = prevValue
+				if mapContext.callbacksPaused == 0 then
+					readerContext.callback(reader, readerContext.pendingChanges)
+					wipe(readerContext.pendingChanges)
+				end
+			end
+		end
+	end
+end
+
+function private.MapSetCallbacksPaused(self, paused)
+	local mapContext = private.mapContext[self]
+	if paused then
+		mapContext.callbacksPaused = mapContext.callbacksPaused + 1
+	else
+		mapContext.callbacksPaused = mapContext.callbacksPaused - 1
+		assert(mapContext.callbacksPaused >= 0)
+		if mapContext.callbacksPaused == 0 then
+			for _, reader in ipairs(mapContext.readers) do
+				local readerContext = private.readerContext[reader]
+				if readerContext.callback and next(readerContext.pendingChanges) then
+					readerContext.callback(reader, readerContext.pendingChanges)
+					wipe(readerContext.pendingChanges)
+				end
 			end
 		end
 	end
@@ -162,6 +190,7 @@ function private.MapCreateReader(self, callback)
 	private.readerContext[reader] = {
 		map = self,
 		callback = callback,
+		pendingChanges = {},
 	}
 	return reader
 end
@@ -174,10 +203,6 @@ function private.MapGetValueType(self)
 	return private.mapContext[self].valueType
 end
 
-function private.ReaderGetKeyType(self)
-	return private.mapContext[private.readerContext[self].map].keyType
-end
-
-function private.ReaderGetValueType(self)
-	return private.mapContext[private.readerContext[self].map].valueType
+function private.MapKeyIterator(self)
+	return TSMAPI_FOUR.Util.TableKeyIterator(private.mapContext[self].data)
 end

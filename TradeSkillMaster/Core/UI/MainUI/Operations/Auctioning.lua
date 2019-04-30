@@ -142,13 +142,17 @@ function private.GetPostingSettings()
 				-- move the right by the width of the input box so this frame gets half the total width
 				:SetStyle("margin.right", -96)
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "input")
-					:SetStyle("width", 96)
+					:SetStyle("width", 180)
 					:SetStyle("font", TSM.UI.Fonts.MontserratBold)
 					:SetStyle("fontHeight", 16)
 					:SetStyle("justifyH", "CENTER")
 					:SetDisabled(TSM.Operations.HasRelationship("Auctioning", private.currentOperationName, "undercut"))
 					:SetSettingInfo(operation, "undercut", TSM.MainUI.Operations.CheckCustomPrice)
-					:SetText(TSM.Money.ToString(operation.undercut) or operation.undercut)
+					:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.undercut)) or TSM.Money.ToString(operation.undercut))
+					:SetScript("OnEnterPressed", private.MoneyValueConvert)
+					:SetScript("OnEscapePressed", private.MoneyValueConvert)
+					:SetScript("OnTabPressed", private.MoneyValueConvert)
+					:SetScript("OnEditFocusGained", private.MoneyFocusGained)
 				)
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Spacer", "spacer"))
 			)
@@ -180,7 +184,7 @@ function private.GetPostingSettings()
 						:SetStyle("justifyH", "LEFT")
 						:SetDisabled(TSM.Operations.HasRelationship("Auctioning", private.currentOperationName, "minPrice"))
 						:SetSettingInfo(operation, "minPrice", TSM.MainUI.Operations.CheckCustomPrice)
-						:SetText(TSM.Money.ToString(operation.minPrice) or operation.minPrice)
+						:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.minPrice)) or TSM.Money.ToString(operation.minPrice) or operation.minPrice)
 						:SetSpacing(6)
 						:SetMultiLine(true, true)
 						:SetScript("OnSizeChanged", private.OperationOnSizeChanged)
@@ -225,7 +229,7 @@ function private.GetPostingSettings()
 						:SetStyle("justifyH", "LEFT")
 						:SetDisabled(TSM.Operations.HasRelationship("Auctioning", private.currentOperationName, "maxPrice"))
 						:SetSettingInfo(operation, "maxPrice", TSM.MainUI.Operations.CheckCustomPrice)
-						:SetText(TSM.Money.ToString(operation.maxPrice) or operation.maxPrice)
+						:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.maxPrice)) or TSM.Money.ToString(operation.maxPrice) or operation.maxPrice)
 						:SetSpacing(6)
 						:SetMultiLine(true, true)
 						:SetScript("OnSizeChanged", private.OperationOnSizeChanged)
@@ -269,7 +273,7 @@ function private.GetPostingSettings()
 						:SetStyle("justifyH", "LEFT")
 						:SetDisabled(TSM.Operations.HasRelationship("Auctioning", private.currentOperationName, "normalPrice"))
 						:SetSettingInfo(operation, "normalPrice", TSM.MainUI.Operations.CheckCustomPrice)
-						:SetText(TSM.Money.ToString(operation.normalPrice) or operation.normalPrice)
+						:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.normalPrice)) or TSM.Money.ToString(operation.normalPrice) or operation.normalPrice)
 						:SetSpacing(6)
 						:SetMultiLine(true, true)
 						:SetScript("OnSizeChanged", private.OperationOnSizeChanged)
@@ -310,7 +314,11 @@ function private.GetCancelingSettings()
 				:SetStyle("textColor", "#ffffff")
 				:SetDisabled(TSM.Operations.HasRelationship("Auctioning", private.currentOperationName, "cancelRepostThreshold"))
 				:SetSettingInfo(operation, "cancelRepostThreshold", TSM.MainUI.Operations.CheckCustomPrice)
-				:SetText(TSM.Money.ToString(operation.cancelRepostThreshold) or operation.cancelRepostThreshold)
+				:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.cancelRepostThreshold)) or TSM.Money.ToString(operation.cancelRepostThreshold))
+				:SetScript("OnEnterPressed", private.MoneyValueConvert)
+				:SetScript("OnEscapePressed", private.MoneyValueConvert)
+				:SetScript("OnTabPressed", private.MoneyValueConvert)
+				:SetScript("OnEditFocusGained", private.MoneyFocusGained)
 			)
 		)
 end
@@ -434,6 +442,19 @@ function private.BlacklistInputOnEnterPressed(input)
 	input:GetParentElement():GetParentElement():GetParentElement():ReloadContent()
 end
 
+function private.MoneyValueConvert(input)
+	local text = gsub(strtrim(input:GetText()), TSMAPI_FOUR.Util.StrEscape(LARGE_NUMBER_SEPERATOR), "")
+	local value = min(max(tonumber(text) or TSM.Money.FromString(text) or 0, 0), MAXIMUM_BID_PRICE)
+
+	input:SetFocused(false)
+	input:SetText(TSM.Money.ToString(value))
+		:Draw()
+end
+
+function private.MoneyFocusGained(input)
+	input:HighlightText()
+end
+
 function private.RemoveBlacklistOnClick(self)
 	local player = self:GetContext()
 	-- FIXME: This sort of logic should go within some Auctioning-specific operation setting wrapper code
@@ -483,7 +504,8 @@ end
 
 function private.OperationOnSizeChanged(input, width, height)
 	if input:HasFocus() then
-		input:SetText(input:GetText())
+		local text = input:GetText()
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(text)) or TSM.Money.ToString(text) or text)
 	end
 
 	input:SetStyle("height", height)
@@ -500,31 +522,43 @@ function private.OperationOnMouseUp(frame)
 end
 
 function private.MinPriceOnEnterPressed(input)
-	if not TSM.MainUI.Operations.CheckCustomPrice(input:GetText(), true) then
+	local text = input:GetText()
+	if not TSM.MainUI.Operations.CheckCustomPrice(text, true) then
 		local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
-		input:SetText(TSM.Money.ToString(operation.minPrice) or operation.minPrice)
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.minPrice)) or TSM.Money.ToString(operation.minPrice) or operation.minPrice)
 		input:SetFocused(true)
 
 		private.OperationOnSizeChanged(input, nil, input:GetHeight())
+	else
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(text)) or TSM.Money.ToString(text) or text)
+			:Draw()
 	end
 end
 
 function private.MaxPriceOnEnterPressed(input)
-	if not TSM.MainUI.Operations.CheckCustomPrice(input:GetText(), true) then
+	local text = input:GetText()
+	if not TSM.MainUI.Operations.CheckCustomPrice(text, true) then
 		local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
-		input:SetText(TSM.Money.ToString(operation.maxPrice) or operation.maxPrice)
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.maxPrice)) or TSM.Money.ToString(operation.maxPrice) or operation.maxPrice)
 		input:SetFocused(true)
 
 		private.OperationOnSizeChanged(input, nil, input:GetHeight())
+	else
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(text)) or TSM.Money.ToString(text) or text)
+			:Draw()
 	end
 end
 
 function private.NormalPriceOnEnterPressed(input)
-	if not TSM.MainUI.Operations.CheckCustomPrice(input:GetText(), true) then
+	local text = input:GetText()
+	if not TSM.MainUI.Operations.CheckCustomPrice(text, true) then
 		local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
-		input:SetText(TSM.Money.ToString(operation.normalPrice) or operation.normalPrice)
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.normalPrice)) or TSM.Money.ToString(operation.normalPrice) or operation.normalPrice)
 		input:SetFocused(true)
 
 		private.OperationOnSizeChanged(input, nil, input:GetHeight())
+	else
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(text)) or TSM.Money.ToString(text) or text)
+			:Draw()
 	end
 end

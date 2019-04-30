@@ -48,41 +48,6 @@ do
 	end
 	assert(totalLength == RECORD_DATA_LENGTH * 8)
 end
-local DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		name = "string",
-		itemLevel = "number",
-		minLevel = "number",
-		maxStack = "number",
-		vendorSell = "number",
-		invSlotId = "number",
-		texture = "number",
-		classId = "number",
-		subClassId = "number",
-		quality = "number",
-		isBOP = "number",
-		isCraftingReagent = "number",
-	},
-	fieldAttributes = {
-		itemString = { "unique" },
-	},
-	fieldOrder = {
-		"itemString",
-		"name",
-		"itemLevel",
-		"minLevel",
-		"maxStack",
-		"vendorSell",
-		"invSlotId",
-		"texture",
-		"classId",
-		"subClassId",
-		"quality",
-		"isBOP",
-		"isCraftingReagent",
-	},
-}
 local ITEM_QUALITY_BY_HEX_LOOKUP = {}
 for quality, info in pairs(ITEM_QUALITY_COLORS) do
 	ITEM_QUALITY_BY_HEX_LOOKUP[info.hex] = quality
@@ -127,7 +92,21 @@ function ItemInfo.OnInitialize()
 	TSM:LOG_INFO("Imported %d items worth of data", numItemsLoaded)
 
 	-- The following code for populating our database is highly optimized as we're processing an excessive amount of data here
-	private.db = TSMAPI_FOUR.Database.New(DB_SCHEMA, "ITEM_INFO")
+	private.db = TSMAPI_FOUR.Database.NewSchema("ITEM_INFO")
+		:AddUniqueStringField("itemString")
+		:AddStringField("name")
+		:AddNumberField("itemLevel")
+		:AddNumberField("minLevel")
+		:AddNumberField("maxStack")
+		:AddNumberField("vendorSell")
+		:AddNumberField("invSlotId")
+		:AddNumberField("texture")
+		:AddNumberField("classId")
+		:AddNumberField("subClassId")
+		:AddNumberField("quality")
+		:AddNumberField("isBOP")
+		:AddNumberField("isCraftingReagent")
+		:Commit()
 	private.db:BulkInsertStart()
 	for i = 1, numItemsLoaded do
 		local itemString = itemStrings[i]
@@ -179,10 +158,11 @@ function ItemInfo.OnDisable()
 	local names = {}
 	local itemStrings = {}
 	local dataParts = {}
-	local numFields = #DB_SCHEMA.fieldOrder
-	for i = 1, #private.db._data / numFields do
+	local rawData = private.db:GetRawData()
+	local numFields = private.db:GetNumStoredFields()
+	for i = 1, private.db:GetNumRows() do
 		local startOffset = (i - 1) * numFields + 1
-		local itemString, name, itemLevel, minLevel, maxStack, vendorSell, invSlotId, texture, classId, subClassId, quality, isBOP, isCraftingReagent = unpack(private.db._data, startOffset, startOffset + numFields - 1)
+		local itemString, name, itemLevel, minLevel, maxStack, vendorSell, invSlotId, texture, classId, subClassId, quality, isBOP, isCraftingReagent = unpack(rawData, startOffset, startOffset + numFields - 1)
 		itemLevel = itemLevel == -1 and 0xffff or itemLevel
 		minLevel = minLevel == -1 and 0xff or minLevel
 		maxStack = maxStack == -1 and 0xffff or maxStack

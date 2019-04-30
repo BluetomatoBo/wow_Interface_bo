@@ -2,7 +2,7 @@
 ## Title: |cff00fe00TradeSkillMaster|r
 ## Notes: Auction house and gold making addon.
 ## Author: TSM Team
-## Version: v4.7.8
+## Version: v4.7.9
 ## SavedVariables: TradeSkillMasterDB, TSMItemCacheDB, TSMItemInfoDB, TradeSkillMasterModulesDB
 ## OptionalDeps: CostBasis, Auc-Advanced, Auctionator, TheUndermineJournal
 ## X-Embeds: AccurateTime, Ace3, LibDataBroker-1.1, LibDBIcon-1.0, LibCompress, LibRealmInfo
@@ -38,6 +38,7 @@ Core\Const\VendorSellPrices.lua
 # Utility files (no dependencies)
 Core\__init.lua
 Core\API.lua
+Core\Util\SmartMap.lua
 Core\Util\Core.lua
 Core\Util\Class.lua
 Core\Util\CSV.lua
@@ -48,7 +49,6 @@ Core\Util\Item\__init.lua
 Core\Util\Item\ItemClass.lua
 Core\Util\Item\ItemString.lua
 Core\Util\Money.lua
-Core\Util\SmartMap.lua
 Core\Util\Sound.lua
 Core\Util\Util.lua
 
@@ -70,6 +70,7 @@ Core\Lib\Auction\QueryUtil.lua
 Core\Lib\Auction\Scanning.lua
 Core\Lib\Database\Core.lua
 Core\Lib\Database\Database.lua
+Core\Lib\Database\DatabaseSchema.lua
 Core\Lib\Database\DatabaseQuery.lua
 Core\Lib\Database\DatabaseQueryClause.lua
 Core\Lib\Database\DatabaseQueryResultRow.lua

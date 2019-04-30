@@ -9,25 +9,6 @@
 local _, TSM = ...
 local PlayerProfessions = TSM.Crafting:NewPackage("PlayerProfessions")
 local private = { playerProfessionsThread = nil, db = nil, query = nil }
-local DB_SCHEMA = {
-	fields = {
-		player = "string",
-		profession = "string",
-		level = "number",
-		maxLevel = "number",
-		isSecondary = "boolean",
-	},
-	fieldAttributes = {
-		player = { "index" }
-	},
-	fieldOrder = {
-		"player",
-		"profession",
-		"level",
-		"maxLevel",
-		"isSecondary",
-	}
-}
 
 
 
@@ -36,7 +17,14 @@ local DB_SCHEMA = {
 -- ============================================================================
 
 function PlayerProfessions.OnInitialize()
-	private.db = TSMAPI_FOUR.Database.New(DB_SCHEMA, "PLAYER_PROFESSIONS")
+	private.db = TSMAPI_FOUR.Database.NewSchema("PLAYER_PROFESSIONS")
+		:AddStringField("player")
+		:AddStringField("profession")
+		:AddNumberField("level")
+		:AddNumberField("maxLevel")
+		:AddBooleanField("isSecondary")
+		:AddIndex("player")
+		:Commit()
 	private.query = private.db:NewQuery()
 		:Select("player", "profession", "level", "maxLevel")
 		:OrderBy("isSecondary", true)

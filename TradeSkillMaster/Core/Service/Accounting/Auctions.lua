@@ -13,31 +13,6 @@ local COMBINE_TIME_THRESHOLD = 300 -- group expenses within 5 minutes together
 local REMOVE_OLD_THRESHOLD = 365 * 24 * 60 * 60 -- remove records over 1 year old
 local SECONDS_PER_DAY = 24 * 60 * 60
 local CSV_KEYS = { "itemString", "stackSize", "quantity", "player", "time" }
-local DB_SCHEMA = {
-	fields = {
-		baseItemString = "string",
-		type = "string",
-		itemString = "string",
-		stackSize = "number",
-		quantity = "number",
-		player = "string",
-		time = "number",
-		saveTime = "number",
-	},
-	fieldAttributes = {
-		baseItemString = { "index" },
-	},
-	fieldOrder = {
-		"baseItemString",
-		"type",
-		"itemString",
-		"stackSize",
-		"quantity",
-		"player",
-		"time",
-		"saveTime",
-	},
-}
 
 
 
@@ -46,7 +21,17 @@ local DB_SCHEMA = {
 -- ============================================================================
 
 function Auctions.OnInitialize()
-	private.db = TSMAPI_FOUR.Database.New(DB_SCHEMA, "ACCOUNTING_AUCTIONS")
+	private.db = TSMAPI_FOUR.Database.NewSchema("ACCOUNTING_AUCTIONS")
+		:AddStringField("baseItemString")
+		:AddStringField("type")
+		:AddStringField("itemString")
+		:AddNumberField("stackSize")
+		:AddNumberField("quantity")
+		:AddStringField("player")
+		:AddNumberField("time")
+		:AddNumberField("saveTime")
+		:AddIndex("baseItemString")
+		:Commit()
 	private.numExpiresQuery = private.db:NewQuery()
 		:Select("quantity")
 		:Equal("type", "expire")

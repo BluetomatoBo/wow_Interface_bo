@@ -11,20 +11,8 @@ local Groups = TSM:NewPackage("Groups")
 local private = {
 	itemDB = nil,
 	operationsTemp = {},
-}
-local ITEM_DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		groupPath = "string",
-	},
-	fieldAttributes = {
-		itemString = { "unique" },
-		groupPath = { "index" },
-	},
-	fieldOrder = {
-		"itemString",
-		"groupPath",
-	},
+	itemStringMap = nil,
+	itemStringMapReader = nil,
 }
 
 
@@ -34,7 +22,12 @@ local ITEM_DB_SCHEMA = {
 -- ============================================================================
 
 function Groups.OnInitialize()
-	private.itemDB = TSMAPI_FOUR.Database.New(ITEM_DB_SCHEMA, "GROUP_ITEMS")
+	private.itemDB = TSMAPI_FOUR.Database.NewSchema("GROUP_ITEMS")
+		:AddUniqueStringField("itemString")
+		:AddStringField("groupPath")
+		:AddIndex("groupPath")
+		:Commit()
+	private.itemStringMapReader = private.itemStringMap:CreateReader()
 	Groups.RebuildDatabase()
 end
 
@@ -164,6 +157,19 @@ function Groups.RebuildDatabase()
 		private.itemDB:BulkInsertNewRow(itemString, groupPath)
 	end
 	private.itemDB:BulkInsertEnd()
+	private.itemStringMap:SetCallbacksPaused(true)
+	for key in private.itemStringMap:KeyIterator() do
+		private.itemStringMap:ValueChanged(key)
+	end
+	private.itemStringMap:SetCallbacksPaused(false)
+end
+
+function Groups.TranslateItemString(itemString)
+	return private.itemStringMapReader[itemString]
+end
+
+function Groups.GetAutoBaseItemStringSmartMap()
+	return private.itemStringMap
 end
 
 function Groups.GetItemDBForJoin()
@@ -259,13 +265,24 @@ function Groups.Delete(groupPath)
 			:Equal("groupPath", groupPath)
 			:Matches("groupPath", "^"..TSMAPI_FOUR.Util.StrEscape(groupPath)..TSM.CONST.GROUP_SEP)
 		:End()
+	local updateMapItems = TSMAPI_FOUR.Util.AcquireTempTable()
 	for _, row in query:Iterator() do
 		local itemString = row:GetField("itemString")
 		assert(TSM.db.profile.userData.items[itemString])
 		TSM.db.profile.userData.items[itemString] = nil
 		private.itemDB:DeleteRow(row)
+		updateMapItems[itemString] = true
 	end
 	query:Release()
+	private.itemStringMap:SetCallbacksPaused(true)
+	for itemString in private.itemStringMap:KeyIterator() do
+		if updateMapItems[itemString] or updateMapItems[TSMAPI_FOUR.Item.ToBaseItemStringFast(itemString)] then
+			-- either this item itself was removed from a group, or the base item was - in either case trigger an update
+			private.itemStringMap:ValueChanged(itemString)
+		end
+	end
+	private.itemStringMap:SetCallbacksPaused(false)
+	TSMAPI_FOUR.Util.ReleaseTempTable(updateMapItems)
 	private.itemDB:SetQueryUpdatesPaused(false)
 end
 
@@ -277,6 +294,7 @@ function Groups.SetItemGroup(itemString, groupPath)
 	assert(not groupPath or (groupPath ~= TSM.CONST.ROOT_GROUP_PATH and TSM.db.profile.userData.groups[groupPath]))
 
 	local row = private.itemDB:GetUniqueRow("itemString", itemString)
+	local updateMap = false
 	if row then
 		if groupPath then
 			row:SetField("groupPath", groupPath)
@@ -285,6 +303,8 @@ function Groups.SetItemGroup(itemString, groupPath)
 		else
 			private.itemDB:DeleteRow(row)
 			row:Release()
+			-- we just removed an item from a group, so update the map
+			updateMap = true
 		end
 	else
 		assert(groupPath)
@@ -292,8 +312,23 @@ function Groups.SetItemGroup(itemString, groupPath)
 			:SetField("itemString", itemString)
 			:SetField("groupPath", groupPath)
 			:Create()
+		-- we just added a new item to a group, so update the map
+		updateMap = true
 	end
 	TSM.db.profile.userData.items[itemString] = groupPath
+	if updateMap then
+		private.itemStringMap:SetCallbacksPaused(true)
+		private.itemStringMap:ValueChanged(itemString)
+		if itemString == TSMAPI_FOUR.Item.ToBaseItemStringFast(itemString) then
+			-- this is a base item string, so need to also update all other items whose base item is equal to this item
+			for mapItemString in private.itemStringMap:KeyIterator() do
+				if TSMAPI_FOUR.Item.ToBaseItemStringFast(mapItemString) == itemString then
+					private.itemStringMap:ValueChanged(mapItemString)
+				end
+			end
+		end
+		private.itemStringMap:SetCallbacksPaused(false)
+	end
 end
 
 function Groups.GetPathByItem(itemString)
@@ -426,4 +461,22 @@ function private.UpdateChildGroupOperations(groupPath, moduleName)
 			private.InheritParentOperations(childGroupPath, moduleName)
 		end
 	end
+end
+
+
+
+-- ============================================================================
+-- Item String Smart Map
+-- ============================================================================
+
+do
+	private.itemStringMap = TSM.SmartMap.New("string", "string", function(itemString)
+		if Groups.IsItemInGroup(itemString) then
+			-- this item is in a group, so just return it
+			return itemString
+		end
+		local baseItemString = TSMAPI_FOUR.Item.ToBaseItemStringFast(itemString)
+		-- return the base item if it's in a group; otherwise return the original item
+		return Groups.IsItemInGroup(baseItemString) and baseItemString or itemString
+	end)
 end

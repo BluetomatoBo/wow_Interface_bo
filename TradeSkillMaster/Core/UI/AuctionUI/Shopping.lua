@@ -1152,15 +1152,23 @@ function private.PostingFrameOnUpdate(frame)
 		assert(record.itemString)
 		local foundItem = false
 		local backupItemString = nil
-		for _, _, _, itemString in TSMAPI_FOUR.Inventory.BagIterator() do
+		for _, _, _, itemString in TSMAPI_FOUR.Inventory.BagIterator(false, false, false, true) do
 			if itemString == record.itemString then
 				foundItem = true
 			elseif not backupItemString and TSMAPI_FOUR.Item.ToBaseItemString(itemString) == TSMAPI_FOUR.Item.ToBaseItemString(record.itemString) then
 				backupItemString = itemString
 			end
 		end
-		assert(foundItem or backupItemString)
 		private.itemString = foundItem and record.itemString or backupItemString
+
+		if not private.itemString then
+			frame:GetBaseElement():HideDialog()
+			TSM:Printf(L["Failed to post %sx%d as the item no longer exists in your bags."], TSMAPI_FOUR.Item.GetLink(record.itemString), record.stackSize)
+			private.frame:GetElement("scan.bottom.postBtn")
+				:SetDisabled(true)
+				:Draw()
+			return
+		end
 	end
 	local undercut = TSMAPI_FOUR.PlayerInfo.IsPlayer(record.seller, true, true, true) and 0 or 1
 	local bid = floor(record.displayedBid / record.stackSize) - undercut
@@ -1433,12 +1441,12 @@ function private.FilterSearchButtonOnClick(button)
 	private.FilterSearchInputOnEnterPressed(button:GetElement("__parent.filterInput"))
 end
 
-function private.StartFilterSearchHelper(viewContainer, filter, isSpecial, itemInfo)
+function private.StartFilterSearchHelper(viewContainer, filter, isGreatDeals, itemInfo)
 	if not TSM.UI.AuctionUI.StartingScan(L["Shopping"]) then
 		return
 	end
 	local originalFilter = filter
-	local mode = private.singleItemSearchType == "crafting" and "CRAFTING" or "NORMAL"
+	local mode = (private.singleItemSearchType == "crafting" and not isGreatDeals) and "CRAFTING" or "NORMAL"
 	filter = TSM.Shopping.FilterSearch.PrepareFilter(strtrim(filter), mode, TSM.db.global.shoppingOptions.pctSource)
 	if not filter or filter == "" then
 		viewContainer:SetPath("scan", true)
@@ -1446,8 +1454,8 @@ function private.StartFilterSearchHelper(viewContainer, filter, isSpecial, itemI
 		return
 	end
 	viewContainer:SetPath("scan", true)
-	local threadId, marketValueFunc = TSM.Shopping.FilterSearch.GetScanContext(isSpecial)
-	private.fsm:ProcessEvent("EV_START_SCAN", threadId, marketValueFunc, NoOp, NoOp, filter, filter, itemInfo)
+	local threadId, marketValueFunc = TSM.Shopping.FilterSearch.GetScanContext(isGreatDeals)
+	private.fsm:ProcessEvent("EV_START_SCAN", threadId, marketValueFunc, NoOp, NoOp, isGreatDeals and L["Great Deals Search"] or filter, filter, itemInfo)
 end
 
 function private.StartGatheringSearchHelper(viewContainer, items, stateCallback, buyCallback, mode)
@@ -1696,7 +1704,7 @@ end
 
 function private.UpdateDepositCost(frame)
 	local postBag, postSlot = nil, nil
-	for _, bag, slot, itemString in TSMAPI_FOUR.Inventory.BagIterator() do
+	for _, bag, slot, itemString in TSMAPI_FOUR.Inventory.BagIterator(false, false, false, true) do
 		if not postBag and not postSlot and itemString == frame:GetElement("confirmBtn"):GetContext() then
 			postBag = bag
 			postSlot = slot
@@ -1774,7 +1782,7 @@ function private.PostButtonOnClick(button)
 	end
 
 	local postBag, postSlot = nil, nil
-	for _, bag, slot, itemString in TSMAPI_FOUR.Inventory.BagIterator() do
+	for _, bag, slot, itemString in TSMAPI_FOUR.Inventory.BagIterator(false, false, false, true) do
 		if not postBag and not postSlot and itemString == button:GetContext() then
 			postBag = bag
 			postSlot = slot

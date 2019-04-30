@@ -38,7 +38,7 @@ function Analytics.Save(appDB)
 	-- remove any events which are too old
 	for i = #appDB.analytics.data, 1, -1 do
 		local _, _, timeStr = strsplit(",", appDB.analytics.data[i])
-		local eventTime = timeStr and tonumber(timeStr) or 0
+		local eventTime = timeStr and (tonumber(timeStr) / 1000) or 0
 		if eventTime < time() - MAX_ANALYTICS_AGE then
 			tremove(appDB.analytics.data, i)
 		end

@@ -10,8 +10,27 @@
 -- @submodule Item
 
 local _, TSM = ...
-local private = { bonusIdCache = {}, bonusIdTemp = {}, itemStringCache = {}, filteredItemStringCache = {}, baseItemStringCache = {} }
+TSM.Item = {}
+local Item = TSM.Item
+local private = {
+	bonusIdCache = {},
+	bonusIdTemp = {},
+	filteredItemStringCache = {},
+	itemStringCache = {},
+	baseItemStringMap = nil,
+	baseItemStringReader = nil,
+}
 local ITEM_UPGRADE_VALUE_SHIFT = 1000000
+
+
+
+-- ============================================================================
+-- Module Functions
+-- ============================================================================
+
+function Item.GetBaseItemStringMap()
+	return private.baseItemStringMap
+end
 
 
 
@@ -55,10 +74,7 @@ function TSMAPI_FOUR.Item.ToBaseItemStringFast(itemString)
 	if not itemString then
 		return nil
 	end
-	if not private.baseItemStringCache[itemString] then
-		private.baseItemStringCache[itemString] = strmatch(itemString, "([ip]:%d+)")
-	end
-	return private.baseItemStringCache[itemString]
+	return private.baseItemStringReader[itemString]
 end
 
 --- Converts the parameter into a base itemString.
@@ -74,12 +90,11 @@ function TSMAPI_FOUR.Item.ToBaseItemString(item, doGroupLookup)
 	-- quickly return if we're certain it's already a valid baseItemString
 	if type(itemString) == "string" and strmatch(itemString, "^[ip]:[0-9]+$") then return itemString end
 
-	local baseItemString = strmatch(itemString, "([ip]:%d+)")
-	if not doGroupLookup or (TSM.Groups.IsItemInGroup(baseItemString) and not TSM.Groups.IsItemInGroup(itemString)) then
-		-- either we're not doing a group lookup, or the base item is in a group and the specific item is not, so return the base item
-		return baseItemString
+	if doGroupLookup then
+		return TSM.Groups.TranslateItemString(itemString)
+	else
+		return TSMAPI_FOUR.Item.ToBaseItemStringFast(itemString)
 	end
-	return itemString
 end
 
 --- Converts the parameter into a WoW itemString.
@@ -280,4 +295,19 @@ function private.GetUpgradeValue(itemString)
 			return id
 		end
 	end
+end
+
+function private.ToBaseItemString(itemString)
+	return strmatch(itemString, "[ip]:%d+")
+end
+
+
+
+-- ============================================================================
+-- Caches
+-- ============================================================================
+
+do
+	private.baseItemStringMap = TSM.SmartMap.New("string", "string", private.ToBaseItemString)
+	private.baseItemStringReader = private.baseItemStringMap:CreateReader()
 end

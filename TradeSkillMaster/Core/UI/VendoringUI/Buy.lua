@@ -200,7 +200,7 @@ function private.RowOnClick(table, row, mouseButton)
 		private.splitFrame:SetParent(table:_GetBaseFrame())
 		private.splitFrame:SetAllPoints(table:_GetBaseFrame())
 		private.splitFrame.item = row:GetField("index")
-		StackSplitFrame:OpenStackSplitFrame(math.huge, private.splitFrame, "TOPLEFT", "TOPRIGHT")
+		StackSplitFrame:OpenStackSplitFrame(math.huge, private.splitFrame, "TOPLEFT", "TOPRIGHT", row:GetField("stackSize"))
 	elseif mouseButton == "RightButton" then
 		TSM.Vendoring.Buy.BuyItemIndex(row:GetFields("index", "stackSize"))
 	end

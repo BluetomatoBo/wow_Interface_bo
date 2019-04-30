@@ -446,6 +446,7 @@ do
 		TSM.L["Gold"] = "Gold"
 		TSM.L["Gold Earned:"] = "Gold Earned:"
 		TSM.L["Gold Spent:"] = "Gold Spent:"
+		TSM.L["Great Deals Search"] = "Great Deals Search"
 		TSM.L["Group Management"] = "Group Management"
 		TSM.L["Group Operations"] = "Group Operations"
 		TSM.L["Group Settings"] = "Group Settings"
