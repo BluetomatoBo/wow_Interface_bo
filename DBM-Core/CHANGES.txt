@@ -1,127 +1,25 @@
-lightweight tag 371b7db1afb5707b3cc52453e347894cb391b4ac 8.1.20
+lightweight tag bf19635015bb9ab89bb0875ae30ea0babd387488 8.1.22
 Author:	MysticalOS <mysticalosx@gmail.com>
-Date:	Wed Apr 24 15:59:09 2019 -0400
+Date:	Tue Apr 30 17:32:39 2019 -0400
 
-commit 371b7db1afb5707b3cc52453e347894cb391b4ac
+commit bf19635015bb9ab89bb0875ae30ea0babd387488
 Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Wed Apr 24 15:59:09 2019 -0400
+Date:   Tue Apr 30 17:32:39 2019 -0400
 
-    Prepare a new release, so people not using alpha versions (or struggling to get twitch client not to suck about delivering alpha versions) can get latest updates for Cabal.
+    Sorry peeps, blame blizzard for this one, more surprise hotfixes mean a 2nd tag same day.
 
-commit 05a242c0d06e81cb3054c7ae72095fadaae62fab
+commit 1637291e35b7cee91823176778800a2f6a43b1bb
 Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Wed Apr 24 09:13:07 2019 -0400
+Date:   Tue Apr 30 17:19:11 2019 -0400
 
-    Fix lua error
+    Kr Update
+    Updated Mythic Timer for Torment per April 30 Hotfixes to Uunat
+    Updated LFR-Heroic torment timer to support fact it's a scaling timer based on raid size
+    Reverted a bug fix to playSound function that caused it to choose dialog over master channel, when the force use master flag is true. People got used to the behavior of this bug and it doesn't really do any harm to leave it be.
 
-commit 8830d685bb1ed3f29d225fe5a7a8e1418b346854
+commit 44e549f794d6c40f7c792b012f380d3996b7279d
 Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 23:56:22 2019 -0400
+Date:   Tue Apr 30 13:37:13 2019 -0400
 
-    Fix last, good now
-
-commit c8baecc747700271cc1812666e7d46ad609268e0
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 23:51:10 2019 -0400
-
-    Improve readability
-
-commit 104a9f7ade6b3cd03673845c1bda3365b3f43f59
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 23:22:28 2019 -0400
-
-    Next drycoded mod for Mechagon
-
-commit 45e7cc246f530b209d8f62d27b9ecf1ad3376ac6
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 22:39:28 2019 -0400
-
-    Another timer fix
-
-commit f7534a02c020feb923d5211a03ee57dfdd4b6547
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 22:30:30 2019 -0400
-
-    Added missing assault ID for mythic
-    Updated timers again to reflect nerfs to all difficulties, including normal/heroic that seem to have been applied
-
-commit c253fb4d719f49e9f72a4ff5968af23ec07970ee
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 21:25:38 2019 -0400
-
-    Refer a couple of these for now, since they don't support IDs yet
-
-commit dbe86dc78174e38c68ca5ce3ae91a4f645a77eb4
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 20:48:30 2019 -0400
-
-    Add user requested Maddening Gaze announce
-
-commit ff36ec0add213e70329585bd8cc2acc682b5dfb9
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 19:40:34 2019 -0400
-
-    Fix error
-
-commit 64bdb4d98e7ed0ef2fdbf3b8d90d9db6b073e368
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 19:26:07 2019 -0400
-
-    Migrated most of DBM to soundkit and texture data IDs. the parts that aren't done are just the ones 8.1.5 doesn't yet support. Anything that 8.1.5 can do has been migrated.
-    Some LSM sounds had to be broken though until it supports registering soundkit ID based media
-
-commit 30d33cf8b3cc79477fea9708bd5b55807635b853
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 18:37:47 2019 -0400
-
-    Push a couple uunat tweaks, next push AFTER this will be a large one and likely very beta quality
-
-commit 406a2523a8f5eabb6f4ed2cdf59400f7e0b41925
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 14:23:01 2019 -0400
-
-    Push Cabal LFR and Mythic update now. Still working on uunat LFR
-
-commit 5eeb08f447789adf647ff56dd3d49fb304b74418
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 12:30:20 2019 -0400
-
-    Fix one AddSetIconOption
-
-commit c35443c1068da775e6b7c9f706ff9850cc15e60d
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Tue Apr 23 00:30:25 2019 -0400
-
-    Change icon used by storm from star to moon, for compat reasons.
-
-commit 5c9086f95d48bc3eeb3b3ee51999f1b399874ee6
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Mon Apr 22 22:22:31 2019 -0400
-
-    Fix another missing count in warning
-
-commit 99ddd2d9e5c99a1e158eb10f867c6ddc35ac8f9c
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Mon Apr 22 21:32:30 2019 -0400
-
-    Add redundancy measures to prevent icons getting stuck, not sure SPELL_INTERRUPT event is working here either.
-    Also fix infoframe for promise of power. there is no expire time so it just shows obnoxiously high integer. So expire time removed.
-
-commit bcf2ddb962c6d3342f5953164d07b57432955f6e
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Mon Apr 22 21:18:57 2019 -0400
-
-    Fix bug with nameplate icons still getting stuck of casts aren't interrupted
-
-commit 0a10df8da1aeffc74f0cc847b8ad82a1688484ad
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Mon Apr 22 17:28:55 2019 -0400
-
-    Fix one more place using %d instead of %s (why a binary thats been 64 bit for years, still uses 32 bit integer limited lua is beyond me)
-
-commit 152091fb64889e950d7cfa490d98d9b544d50b88
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Mon Apr 22 01:44:37 2019 -0400
-
-    Inc alpha version
+    Increment alpha
 
