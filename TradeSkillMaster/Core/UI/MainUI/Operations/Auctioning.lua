@@ -129,8 +129,7 @@ function private.GetPostingSettings()
 					:SetStyle("fontHeight", 16)
 					:SetStyle("justifyH", "CENTER")
 					:SetDisabled(TSM.Operations.HasRelationship("Auctioning", private.currentOperationName, "bidPercent"))
-					:SetText((operation.bidPercent * 100) .. "%")
-					:SetScript("OnEscapePressed", private.BidPercentOnEscapePressed)
+					:SetText((operation.bidPercent * 100).."%")
 					:SetScript("OnEnterPressed", private.BidPercentOnEnterPressed)
 				)
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Spacer", "spacer"))
@@ -148,11 +147,9 @@ function private.GetPostingSettings()
 					:SetStyle("justifyH", "CENTER")
 					:SetDisabled(TSM.Operations.HasRelationship("Auctioning", private.currentOperationName, "undercut"))
 					:SetSettingInfo(operation, "undercut", TSM.MainUI.Operations.CheckCustomPrice)
-					:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.undercut)) or TSM.Money.ToString(operation.undercut))
-					:SetScript("OnEnterPressed", private.MoneyValueConvert)
-					:SetScript("OnEscapePressed", private.MoneyValueConvert)
-					:SetScript("OnTabPressed", private.MoneyValueConvert)
-					:SetScript("OnEditFocusGained", private.MoneyFocusGained)
+					:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.undercut)) or TSM.Money.ToString(operation.undercut) or operation.undercut)
+					:SetScript("OnEnterPressed", private.UndercutOnChanged)
+					:SetScript("OnTabPressed", private.UndercutOnChanged)
 				)
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Spacer", "spacer"))
 			)
@@ -483,10 +480,6 @@ function private.SetAuctioningDuration(self, value)
 	end
 end
 
-function private.BidPercentOnEscapePressed(self)
-	self:Draw()
-end
-
 function private.BidPercentOnEnterPressed(self)
 	local value = strmatch(strtrim(self:GetText()), "^([0-9]+) *%%?$")
 	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
@@ -519,6 +512,17 @@ end
 
 function private.OperationOnMouseUp(frame)
 	frame:GetElement("scroll.input"):SetFocused(true)
+end
+
+function private.UndercutOnChanged(input)
+	local text = input:GetText()
+	if not TSM.MainUI.Operations.CheckCustomPrice(text, true) then
+		local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.undercut)) or TSM.Money.ToString(operation.undercut) or operation.undercut)
+	else
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(text)) or TSM.Money.ToString(text) or text)
+			:Draw()
+	end
 end
 
 function private.MinPriceOnEnterPressed(input)

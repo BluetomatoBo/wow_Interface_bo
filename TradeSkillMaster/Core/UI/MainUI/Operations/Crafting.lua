@@ -70,11 +70,9 @@ function private.GetCraftingOperationSettings(operationName)
 						:SetStyle("textColor", "#ffffff")
 						:SetDisabled(TSM.Operations.HasRelationship("Crafting", private.currentOperationName, "minProfit") or operation.minProfit == "")
 						:SetSettingInfo(operation, "minProfit", TSM.MainUI.Operations.CheckCustomPrice)
-						:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.minProfit)) or TSM.Money.ToString(operation.minProfit))
-						:SetScript("OnEnterPressed", private.MoneyValueConvert)
-						:SetScript("OnEscapePressed", private.MoneyValueConvert)
-						:SetScript("OnTabPressed", private.MoneyValueConvert)
-						:SetScript("OnEditFocusGained", private.MoneyFocusGained)
+						:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.minProfit)) or TSM.Money.ToString(operation.minProfit) or operation.minProfit)
+						:SetScript("OnEnterPressed", private.MinProfitOnChanged)
+						:SetScript("OnTabPressed", private.MinProfitOnChanged)
 					)
 				)
 			)
@@ -197,8 +195,15 @@ function private.MoneyValueConvert(input)
 		:Draw()
 end
 
-function private.MoneyFocusGained(input)
-	input:HighlightText()
+function private.MinProfitOnChanged(input)
+	local text = input:GetText()
+	if not TSM.MainUI.Operations.CheckCustomPrice(text, true) then
+		local operation = TSM.Operations.GetSettings("Crafting", private.currentOperationName)
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.minProfit)) or TSM.Money.ToString(operation.minProfit) or operation.minProfit)
+	else
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(text)) or TSM.Money.ToString(text) or text)
+			:Draw()
+	end
 end
 
 function private.CraftPriceOnSizeChanged(input, width, height)
@@ -220,11 +225,15 @@ function private.CraftPriceOnMouseUp(frame)
 end
 
 function private.CraftPriceOnEnterPressed(input)
-	if not TSM.MainUI.Operations.CheckCustomPrice(input:GetText(), true) then
+	local text = input:GetText()
+	if not TSM.MainUI.Operations.CheckCustomPrice(text, true) then
 		local operation = TSM.Operations.GetSettings("Crafting", private.currentOperationName)
 		input:SetText(TSM.Money.ToString(operation.craftPriceMethod) or operation.craftPriceMethod)
 		input:SetFocused(true)
 
 		private.CraftPriceOnSizeChanged(input, nil, input:GetHeight())
+	else
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(text)) or TSM.Money.ToString(text) or text)
+			:Draw()
 	end
 end
