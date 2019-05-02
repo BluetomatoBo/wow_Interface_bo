@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0240
+PawnVersion = 2.0241
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -4903,7 +4903,7 @@ function PawnShouldItemLinkHaveUpgradeArrow(ItemLink, CheckLevel)
 	if CheckLevel and UnitLevel("player") < MinLevel then return false end
 	if PawnCanItemHaveStats(ItemLink) then
 		local Item = PawnGetItemData(ItemLink)
-		if not Item then return nil end -- If we don't have stats for the item yet, ask again later.
+		if Item == nil or Item.Link == nil then return nil end -- If we don't have stats for the item yet, ask again later.
 		if PawnOptions.DebugBagArrows then
 			local UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements = PawnIsItemAnUpgrade(Item)
 			if UpgradeInfo ~= nil then
