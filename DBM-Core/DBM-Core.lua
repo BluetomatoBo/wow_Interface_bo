@@ -68,9 +68,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20190430213239"),
-	DisplayVersion = "8.1.22", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2019, 4, 30, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20190507201154"),
+	DisplayVersion = "8.1.24", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2019, 5, 7) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -331,7 +331,7 @@ DBM.Defeat = {
 	{text = "Scrollsage Nola: Cycle",value = 109069, length=4},--"sound/creature/scrollsage_nola/vo_801_scrollsage_nola_34_f.ogg"
 	{text = "Thorim: Failures",value = 15742, length=4},--"Sound\\Creature\\Thorim\\UR_Thorim_P1Wipe01.ogg"
 	{text = "Valithria: Failures",value = 17067, length=4},--"Sound\\Creature\\ValithriaDreamwalker\\IC_Valithria_Berserk01.ogg"
-	{text = "Yogg-Saron: Laugh",value = 126220, length=4},--"Sound\\Creature\\YoggSaron\\UR_YoggSaron_Slay01.ogg"
+	{text = "Yogg-Saron: Laugh",value = 15757, length=4},--"Sound\\Creature\\YoggSaron\\UR_YoggSaron_Slay01.ogg"
 }
 DBM.Music = {--Contains all music media, period
 	{text = "None",value  = "None"},
@@ -443,7 +443,7 @@ local delayedFunction
 local dataBroker
 local voiceSessionDisabled = false
 
-local fakeBWVersion, fakeBWHash = 146, "f24a924"
+local fakeBWVersion, fakeBWHash = 147, "b9e4c1e"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -2506,7 +2506,7 @@ do
 			return
 		end
 		self.Bars:CreateBar(time, text, 237538)
-		fireEvent("DBM_TimerStart", "DBMPizzaTimer", text, time, 237538, "pizzatimer", nil, 0)
+		fireEvent("DBM_TimerStart", "DBMPizzaTimer", text, time, "237538", "pizzatimer", nil, 0)
 		if broadcast then
 			if count then
 				sendLoggedSync("CU", ("%s\t%s"):format(time, text))
@@ -3717,7 +3717,7 @@ end
 function DBM:LFG_PROPOSAL_SHOW()
 	if self.Options.ShowQueuePop and not self.Options.DontShowBossTimers then
 		self.Bars:CreateBar(40, DBM_LFG_INVITE, 237538)
-		fireEvent("DBM_TimerStart", "DBMLFGTimer", DBM_LFG_INVITE, 40, 237538, "extratimer", nil, 0)
+		fireEvent("DBM_TimerStart", "DBMLFGTimer", DBM_LFG_INVITE, 40, "237538", "extratimer", nil, 0)
 	end
 	if self.Options.LFDEnhance then
 		self:FlashClientIcon()
@@ -3825,7 +3825,7 @@ function DBM:UPDATE_BATTLEFIELD_STATUS()
 			if self.Options.ShowQueuePop and not self.Options.DontShowBossTimers then
 				queuedBattlefield[i] = select(2, GetBattlefieldStatus(i))
 				self.Bars:CreateBar(85, queuedBattlefield[i], 237538)	-- need to confirm the timer
-				fireEvent("DBM_TimerStart", "DBMBFSTimer", queuedBattlefield[i], 85, 237538, "extratimer", nil, 0)
+				fireEvent("DBM_TimerStart", "DBMBFSTimer", queuedBattlefield[i], 85, "237538", "extratimer", nil, 0)
 			end
 			if self.Options.LFDEnhance then
 				self:PlaySound(8960, true)--Because regular sound uses SFX channel which is too low of volume most of time
@@ -4384,7 +4384,7 @@ do
 		DBM:FlashClientIcon()
 		if not DBM.Options.DontShowPT2 then
 			DBM.Bars:CreateBar(timer, DBM_CORE_TIMER_PULL, 132349)
-			fireEvent("DBM_TimerStart", "pull", DBM_CORE_TIMER_PULL, timer, 132349, "utilitytimer", nil, 0)
+			fireEvent("DBM_TimerStart", "pull", DBM_CORE_TIMER_PULL, timer, "132349", "utilitytimer", nil, 0)
 		end
 		if not DBM.Options.DontPlayPTCountdown then
 			dummyMod.countdown:Start(timer)
@@ -4455,7 +4455,7 @@ do
 				dummyMod2 = DBM:NewMod("BreakTimerCountdownDummy")
 				DBM:GetModLocalization("BreakTimerCountdownDummy"):SetGeneralLocalization{ name = DBM_CORE_MINIMAP_TOOLTIP_HEADER }
 				dummyMod2.countdown = dummyMod2:NewCountdown(0, 0, nil, nil, threshold, true)
-				dummyMod2.text = dummyMod2:NewAnnounce("%s", 1, "Interface\\Icons\\Spell_Holy_BorrowedTime")
+				dummyMod2.text = dummyMod2:NewAnnounce("%s", 1, "237538")
 			end
 			--Cancel any existing break timers before creating new ones, we don't want double countdowns or mismatching blizz countdown text (cause you can't call another one if one is in progress)
 			if not DBM.Options.DontShowPT2 and DBM.Bars:GetBar(DBM_CORE_TIMER_BREAK) then
@@ -4470,8 +4470,8 @@ do
 			if timer == 0 then return end--"/dbm break 0" will strictly be used to cancel the break timer (which is why we let above part of code run but not below)
 			self.Options.tempBreak2 = timer.."/"..time()
 			if not self.Options.DontShowPT2 then
-				self.Bars:CreateBar(timer, DBM_CORE_TIMER_BREAK, "Interface\\Icons\\Spell_Holy_BorrowedTime")
-				fireEvent("DBM_TimerStart", "break", DBM_CORE_TIMER_BREAK, timer, "Interface\\Icons\\Spell_Holy_BorrowedTime", "utilitytimer", nil, 0)
+				self.Bars:CreateBar(timer, DBM_CORE_TIMER_BREAK, 237538)
+				fireEvent("DBM_TimerStart", "break", DBM_CORE_TIMER_BREAK, timer, "237538", "utilitytimer", nil, 0)
 			end
 			if not self.Options.DontPlayPTCountdown then
 				dummyMod2.countdown:Start(timer)
@@ -5629,7 +5629,7 @@ do
 			if v.respawnTime and success == 0 and self.Options.ShowRespawn and not self.Options.DontShowBossTimers then--No special hacks needed for bad wrath ENCOUNTER_END. Only mods that define respawnTime have a timer, since variable per boss.
 				local name = string.split(",", name)
 				self.Bars:CreateBar(v.respawnTime, DBM_CORE_TIMER_RESPAWN:format(name), 237538)--Interface\\Icons\\Spell_Holy_BorrowedTime
-				fireEvent("DBM_TimerStart", "DBMRespawnTimer", DBM_CORE_TIMER_RESPAWN:format(name), v.respawnTime, 237538, "extratimer", nil, 0, v.id)
+				fireEvent("DBM_TimerStart", "DBMRespawnTimer", DBM_CORE_TIMER_RESPAWN:format(name), v.respawnTime, "237538", "extratimer", nil, 0, v.id)
 			end
 			if v.multiEncounterPullDetection then
 				for _, eId in ipairs(v.multiEncounterPullDetection) do
@@ -5689,7 +5689,7 @@ do
 						self:StartCombat(v.mod, 0, "MONSTER_MESSAGE")
 					else--World Boss
 						scanForCombat(v.mod, v.mob, 0)
-						if v.mod.readyCheckQuestId and (self.Options.WorldBossNearAlert or v.mod.Options.ReadyCheck) and not IsQuestFlaggedCompleted(v.mod.readyCheckQuestId) then
+						if v.mod.readyCheckQuestId and (self.Options.WorldBossNearAlert or v.mod.Options.ReadyCheck) and not IsQuestFlaggedCompleted(v.mod.readyCheckQuestId) and v.mod.readyCheckMaxLevel >= playerLevel then
 							self:FlashClientIcon()
 							self:PlaySound(8960, true)
 						end
@@ -5932,10 +5932,10 @@ do
 					SetCVar("Sound_EnableSFX", 0)
 				end
 				--boss health info scheduler
-				if not mod.CustomHealthUpdate then
-					self:Schedule(1, checkBossHealth, self)
-				else
+				if mod.CustomHealthUpdate then
 					self:Schedule(1, checkCustomBossHealth, self, mod)
+				else
+					self:Schedule(1, checkBossHealth, self)
 				end
 			end
 			--process global options
@@ -5970,7 +5970,7 @@ do
 						bestTime = mod.stats[statVarTable[savedDifficulty].."BestTime"]
 					end
 					if bestTime and bestTime > 0 then
-						local speedTimer = mod:NewTimer(bestTime, DBM_SPEED_KILL_TIMER_TEXT, 237538, nil, false)
+						local speedTimer = mod:NewTimer(bestTime, DBM_SPEED_KILL_TIMER_TEXT, "237538", nil, false)
 						speedTimer:Start()
 					end
 				end
@@ -6593,11 +6593,11 @@ do
 		local soundSetting = self.Options.UseSoundChannel
 		if type(path) == "number" then
 			if soundSetting == "Dialog" then
-				PlaySound(path, "Dialog")
+				PlaySound(path, "Dialog", false)
 			elseif ignoreSFX or soundSetting == "Master" then
-				PlaySound(path, "Master")
+				PlaySound(path, "Master", false)
 			else
-				PlaySound(path)
+				PlaySound(path)--using SFX channel, leave forceNoDuplicates on.
 			end
 		else
 			if soundSetting == "Dialog" then
@@ -9212,7 +9212,7 @@ do
 			print("newAnnounce for "..color.." is using OptionVersion hack. this is depricated")
 			return
 		end
-		local text, spellName = setText(announceType, spellId, icon, castTime, preWarnTime)
+		local text, spellName = setText(announceType, spellId, castTime, preWarnTime)
 		icon = icon or spellId
 		local obj = setmetatable( -- todo: fix duplicate code
 			{
@@ -11232,8 +11232,9 @@ function bossModPrototype:AddInfoFrameOption(spellId, default, optionVersion)
 	end
 end
 
-function bossModPrototype:AddReadyCheckOption(questId, default)
+function bossModPrototype:AddReadyCheckOption(questId, default, maxLevel)
 	self.readyCheckQuestId = questId
+	self.readyCheckMaxLevel = maxLevel or 999
 	self.DefaultOptions["ReadyCheck"] = (default == nil) or default
 	if default and type(default) == "string" then
 		default = self:GetRoleFlagValue(default)
@@ -11570,7 +11571,7 @@ end
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
 	if not revision then
-		-- bad revision: either forgot the svn keyword or using git svn
+		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end
 	self.revision = revision
