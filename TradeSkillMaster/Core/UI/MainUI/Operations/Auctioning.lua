@@ -311,11 +311,9 @@ function private.GetCancelingSettings()
 				:SetStyle("textColor", "#ffffff")
 				:SetDisabled(TSM.Operations.HasRelationship("Auctioning", private.currentOperationName, "cancelRepostThreshold"))
 				:SetSettingInfo(operation, "cancelRepostThreshold", TSM.MainUI.Operations.CheckCustomPrice)
-				:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.cancelRepostThreshold)) or TSM.Money.ToString(operation.cancelRepostThreshold))
-				:SetScript("OnEnterPressed", private.MoneyValueConvert)
-				:SetScript("OnEscapePressed", private.MoneyValueConvert)
-				:SetScript("OnTabPressed", private.MoneyValueConvert)
-				:SetScript("OnEditFocusGained", private.MoneyFocusGained)
+				:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.cancelRepostThreshold)) or TSM.Money.ToString(operation.cancelRepostThreshold) or operation.cancelRepostThreshold)
+				:SetScript("OnEnterPressed", private.CancelRepostThresholdOnChanged)
+				:SetScript("OnTabPressed", private.CancelRepostThresholdOnChanged)
 			)
 		)
 end
@@ -519,6 +517,17 @@ function private.UndercutOnChanged(input)
 	if not TSM.MainUI.Operations.CheckCustomPrice(text, true) then
 		local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 		input:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.undercut)) or TSM.Money.ToString(operation.undercut) or operation.undercut)
+	else
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(text)) or TSM.Money.ToString(text) or text)
+			:Draw()
+	end
+end
+
+function private.CancelRepostThresholdOnChanged(input)
+	local text = input:GetText()
+	if not TSM.MainUI.Operations.CheckCustomPrice(text, true) then
+		local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
+		input:SetText(TSM.Money.ToString(TSM.Money.FromString(operation.cancelRepostThreshold)) or TSM.Money.ToString(operation.cancelRepostThreshold) or operation.cancelRepostThreshold)
 	else
 		input:SetText(TSM.Money.ToString(TSM.Money.FromString(text)) or TSM.Money.ToString(text) or text)
 			:Draw()

@@ -47,6 +47,9 @@ function GroupTree.Release(self)
 	wipe(self._hasChildrenLookup)
 	wipe(self._headerNameLookup)
 	for _, row in ipairs(self._rows) do
+		row._frame:SetScript("OnClick", nil)
+		row._frame:SetScript("OnEnter", nil)
+		row._frame:SetScript("OnLeave", nil)
 		private.rowFrameLookup[row._frame] = nil
 	end
 	self.__super:Release()
