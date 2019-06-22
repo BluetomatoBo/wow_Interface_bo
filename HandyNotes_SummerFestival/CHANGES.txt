@@ -1,12 +1,26 @@
-tag 6db54f95901ade16176013490e243b7a64afdc86 v1.5
+tag 8ab4926539b2c50efebed565ae9507dd6250d9c9 v1.6
 Author:	Ethan Centaurai <ethancentaurai@outlook.com>
-Date:	Sun Jul 22 12:27:13 2018 +0100
+Date:	Fri Jun 21 20:05:30 2019 +0100
 
-Tagging as v1.5.
+Tagging as v1.6.
 
-commit 3731495ff8273a0d850214b796aa8d378112448c
+commit 82e9af021295adc2b613255cf396a33c3546859a
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sun Jul 22 12:19:17 2018 +0100
+Date:   Fri Jun 21 20:01:56 2019 +0100
 
-    Updated for Patch 8.0.
+    Nesting tweaks.
+
+commit 9fa4583c90d1bc260fc5de74c2a797d9bde14ac4
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Fri Jun 21 19:27:44 2019 +0100
+
+    Remove some more unused code.
+
+commit 155b9188229df36148b51fd658b6e26db4f61d7f
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Fri Jun 21 19:24:48 2019 +0100
+
+    Remove unused code.
+    
+    WorldMapButton and WorldMapTooltip no longer exist.
 
