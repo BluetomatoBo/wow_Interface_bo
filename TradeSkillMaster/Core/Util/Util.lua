@@ -656,11 +656,11 @@ end
 -- @treturn string New value of the previous level's function name `nil`
 -- @within Misc
 function TSMAPI_FOUR.Util.GetStackLevelInfo(level, thread, prevStackFunc)
-	level = level + 1
 	local stackLine = nil
 	if thread then
 		stackLine = debugstack(thread, level, 1, 0)
 	else
+		level = level + 1
 		stackLine = debugstack(level, 1, 0)
 	end
 	local locals = debuglocals(level)

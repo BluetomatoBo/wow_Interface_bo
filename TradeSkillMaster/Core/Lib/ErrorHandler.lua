@@ -280,7 +280,7 @@ function private.GetStackInfo(msg, thread)
 	local errLocation = strmatch(msg, "[A-Za-z]+%.lua:[0-9]+")
 	local stackInfo = {}
 	local stackStarted = false
-	for i = 1, MAX_STACK_DEPTH do
+	for i = 0, MAX_STACK_DEPTH do
 		local prevStackFunc = #stackInfo > 0 and stackInfo[#stackInfo].func or nil
 		local file, line, func, localsStr, newPrevStackFunc = TSMAPI_FOUR.Util.GetStackLevelInfo(i, thread, prevStackFunc)
 		if newPrevStackFunc then
@@ -291,7 +291,7 @@ function private.GetStackInfo(msg, thread)
 				if errLocation then
 					stackStarted = strmatch(file..":"..line, "[A-Za-z]+%.lua:[0-9]+") == errLocation
 				else
-					stackStarted = i > (thread and 1 or 5) and file ~= "[C]"
+					stackStarted = i > (thread and 1 or 4) and file ~= "[C]"
 				end
 			end
 			if stackStarted then

@@ -669,6 +669,10 @@ function private.BuyoutBtnOnClick(button)
 end
 
 function private.BuyoutConfirmationShow(context, isBuy)
+	if context.scanFrame:GetBaseElement():IsDialogVisible() then
+		return
+	end
+
 	local record = context.scanFrame:GetElement("auctions"):GetSelectedRecord()
 	local buyout = isBuy and record:GetField("buyout") or record:GetField("requiredBid")
 	local stackSize = record:GetField("stackSize")
@@ -2178,6 +2182,7 @@ function private.FSMCreate()
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_AUCTION_FOUND")
 			:SetOnEnter(function(context, result)
+				TSM.UI.AuctionUI.EndedScan(L["Shopping"])
 				context.findResult = result
 				context.numFound = min(#result, context.auctionScan:GetNumCanBuy(context.findAuction) or math.huge)
 				assert(context.numBought == 0 and context.numBid == 0 and context.numConfirmed == 0)
@@ -2187,6 +2192,7 @@ function private.FSMCreate()
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_AUCTION_NOT_FOUND")
 			:SetOnEnter(function(context)
+				TSM.UI.AuctionUI.EndedScan(L["Shopping"])
 				local link = context.findAuction:GetField("rawLink")
 				context.auctionScan:DeleteRowFromDB(context.findAuction)
 				TSM:Printf(L["Failed to find auction for %s, so removing it from the results."], link)

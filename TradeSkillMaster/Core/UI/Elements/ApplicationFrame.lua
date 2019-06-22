@@ -386,10 +386,11 @@ function ApplicationFrame.SetMinResize(self, minWidth, minHeight)
 end
 
 --- Shows a dialog frame.
--- @tparam ApplicationFrame self The large application frame object
+-- @tparam ApplicationFrame self The application frame object
 -- @tparam Element frame The element to show in a dialog
 -- @param context The context to set on the dialog frame
 function ApplicationFrame.ShowDialogFrame(self, frame, context)
+	assert(not self:IsDialogVisible())
 	self._contentFrame:AddChildNoLayout(TSMAPI_FOUR.UI.NewElement("Frame", "_dialog")
 		:SetStyle("relativeLevel", INNER_BORDER_RELATIVE_LEVEL - 2)
 		:SetStyle("anchors", { { "TOPLEFT" }, { "BOTTOMRIGHT" } })
@@ -405,8 +406,15 @@ function ApplicationFrame.ShowDialogFrame(self, frame, context)
 	dialog:Draw()
 end
 
+--- Returns whether or not the dialog frame is visible.
+-- @tparam ApplicationFrame self The application frame object
+-- @treturn boolean Whether or not the element is currently visible
+function ApplicationFrame.IsDialogVisible(self)
+	return self._contentFrame:GetElement("_dialog") and true or false
+end
+
 --- Show a confirmation dialog.
--- @tparam ApplicationFrame self The large application frame object
+-- @tparam ApplicationFrame self The application frame object
 -- @tparam string title The title of the dialog
 -- @tparam string subTitle The sub-title of the dialog
 -- @tparam string confirmBtnText The confirm button text
@@ -463,7 +471,7 @@ function ApplicationFrame.ShowConfirmationDialog(self, title, subTitle, confirmB
 end
 
 --- Show a dialog triggered by a "more" button.
--- @tparam ApplicationFrame self The large application frame object
+-- @tparam ApplicationFrame self The application frame object
 -- @tparam Button moreBtn The "more" button
 -- @tparam function iter A dialog menu row iterator with the following fields: `index, text, callback`
 function ApplicationFrame.ShowMoreButtonDialog(self, moreBtn, iter)
@@ -493,7 +501,7 @@ function ApplicationFrame.ShowMoreButtonDialog(self, moreBtn, iter)
 end
 
 --- Hides the current dialog.
--- @tparam ApplicationFrame self The large application frame object
+-- @tparam ApplicationFrame self The application frame object
 function ApplicationFrame.HideDialog(self)
 	local dialog = self._contentFrame:GetElement("_dialog")
 	if not dialog then

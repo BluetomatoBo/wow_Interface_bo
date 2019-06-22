@@ -1,7 +1,5 @@
-## v4.7.11 Changes
+## v4.7.13 Changes
 
-* Auctioning operation cancel repost threshold price value fixes.
-* Reverting the change that only allowed buying full stack sizes with Vendoring.
-* Some other smaller fixes.
+* Fixed an issue where withdrawing items from a different then the current Guild Bank tab would get stuck.
 
 [Known Issues](http://support.tradeskillmaster.com/display/KB/TSM4+Currently+Known+Issues)

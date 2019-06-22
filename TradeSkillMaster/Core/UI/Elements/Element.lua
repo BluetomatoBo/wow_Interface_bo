@@ -88,12 +88,14 @@ end
 -- @tparam Element self The element object
 function Element.Show(self)
 	self:_GetBaseFrame():Show()
+	return self
 end
 
 --- Hides the element.
 -- @tparam Element self The element object
 function Element.Hide(self)
 	self:_GetBaseFrame():Hide()
+	return self
 end
 
 --- Returns whether or not the element is visible.

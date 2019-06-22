@@ -169,12 +169,16 @@ function private.MoveThread(context, callback)
 	end
 
 	local numDone = 0
-	local lastSlotId = nil
 	while next(slotIds) do
+		local movedSlotId = nil
 		-- do all the pending moves
 		for slotId, targetSlotId in pairs(slotIds) do
 			context:MoveSlot(slotId, targetSlotId, slotMoveQuantity[slotId])
 			TSMAPI_FOUR.Thread.Yield()
+			if private.openFrame == "GUILD_BANK" then
+				movedSlotId = slotId
+				break
+			end
 		end
 
 		-- wait for at least one to finish or the timeout to elapse
@@ -182,16 +186,19 @@ function private.MoveThread(context, callback)
 		local timeout = GetTime() + MOVE_WAIT_TIMEOUT
 		while not didMove and GetTime() < timeout do
 			-- check which moves are done
-			didMove = false
-			for slotId, targetSlotId in pairs(slotIds) do
-				if context:GetSlotQuantity(slotId) <= slotEndQuantity[slotId] then
-					didMove = true
-					lastSlotId = targetSlotId
-					slotIds[slotId] = nil
-					numDone = numDone + 1
-					callback("MOVED", slotItemString[slotId], slotMoveQuantity[slotId])
+			for slotId in pairs(slotIds) do
+				if private.openFrame ~= "GUILD_BANK" or slotId == movedSlotId then
+					if context:GetSlotQuantity(slotId) <= slotEndQuantity[slotId] then
+						didMove = true
+						slotIds[slotId] = nil
+						numDone = numDone + 1
+						callback("MOVED", slotItemString[slotId], slotMoveQuantity[slotId])
+					end
+					if didMove and slotId == movedSlotId then
+						break
+					end
+					TSMAPI_FOUR.Thread.Yield()
 				end
-				TSMAPI_FOUR.Thread.Yield()
 			end
 			if didMove then
 				callback("PROGRESS", numDone / numMoves)
@@ -200,9 +207,8 @@ function private.MoveThread(context, callback)
 		end
 	end
 
-	if lastSlotId then
-		local tab = TSMAPI_FOUR.Util.SplitSlotId(lastSlotId)
-		QueryGuildBankTab(tab)
+	if private.openFrame == "GUILD_BANK" then
+		QueryGuildBankTab(GetCurrentGuildBankTab())
 	end
 
 	TSMAPI_FOUR.Thread.ReleaseSafeTempTable(slotIds)
