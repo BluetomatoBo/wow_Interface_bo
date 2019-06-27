@@ -1,3 +1,9 @@
+-- Mini Dragon(projecteurs@gmail.com)
+-- 夏一可
+-- Blizzard Entertainment
+-- Last update: 2019/05/29
+
+if GetLocale() ~= "zhCN" then return end
 local L
 
 ---------------------------
@@ -36,7 +42,7 @@ L:SetMiscLocalization({
 })
 
 ---------------------------
---  Orgozoa --
+--  The Hatchery --
 ---------------------------
 L= DBM:GetModLocalization(2351)
 
@@ -50,13 +56,12 @@ L:SetMiscLocalization({
 })
 
 ---------------------------
--- Za'qul --
+-- Herald of N'zoth --
 ---------------------------
 L= DBM:GetModLocalization(2349)
 
 L:SetMiscLocalization({
-	Phase3	= "Za'qul tears open the pathway to Delirium Realm!",
-	Tear	= "Tear"
+	Tear =	"撕裂"
 })
 
 ---------------------------
@@ -70,20 +75,20 @@ L= DBM:GetModLocalization(2361)
 L = DBM:GetModLocalization("EternalPalaceTrash")
 
 L:SetGeneralLocalization({
-	name =	"Eternal Palace Trash"
+	name =	"永恒王宫小怪"
 })
 
 L:SetMiscLocalization({
-	SoakOrb =	"Soak Orb",
-	AvoidOrb =	"Avoid Orb",
-	GroupUp =	"Group Up",
-	Spread =	"Spread",
-	Move	 =	"Keep Moving",
-	DontMove =	"Stop Moving",
+	SoakOrb =	"吸收球",
+	AvoidOrb =	"躲开球",
+	GroupUp =	"集合",
+	Spread =	"分散",
+	Move	 =	"保持移动",
+	DontMove =	"停止移动",
 	--For Yells, not yet used, localize anyways.
-	Soaking =	"{rt3}Soaking{rt3}",--Diamond for arcane orbs
-	Stacking =	"Stacking",
+	Soaking =	"{rt3}吸收{rt3}",--Diamond for arcane orbs
+	Stacking =	"吸收",
 	Solo =		"Solo",
-	Marching =	"{rt4}Marching{rt4}",--Green Triangle
-	Staying =	"{rt7}Staying{rt7}"--Red X
+	Marching =	"{rt4}配对{rt4}",--Green Triangle
+	Staying =	"{rt7}保持{rt7}"--Red X
 })
