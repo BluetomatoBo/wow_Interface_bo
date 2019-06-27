@@ -1,20 +1,15 @@
-# [2.12.4.2](https://github.com/WeakAuras/WeakAuras2/tree/2.12.4.2) (2019-06-09)
+# [2.13.1](https://github.com/WeakAuras/WeakAuras2/tree/2.13.1) (2019-06-25)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.12.4.1...2.12.4.2)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.13.0...2.13.1)
 
 ## Highlights
 
- Bugfixes 
+ Swallow PlaySound file errors 
 
 ## Commits
 
-InfusOnWoW (7):
+emptyrivers (2):
 
-- Add a description to Player Effective Level
-- Make Auras attached to nameplates work inside Dynamic groups
-- Fix autoHide if a state is overwritten with the same expirationTime
-- Fix Progress Bars size calculation in SetValue
-- Introduce player effective level load option
-- Fix Models that should show on login
-- Fix inserting > 32bit values into the name field
+- also guard against errors when setting a sound in conditions
+- wrap PlaySound and friends in pcall
 
