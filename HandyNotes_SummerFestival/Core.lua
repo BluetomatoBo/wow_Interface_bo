@@ -58,22 +58,18 @@ local notes = {
 
 
 -- upvalues
-local _G = getfenv(0)
+local C_Timer_After = C_Timer.After
+local C_Calendar = C_Calendar
+local GameTooltip = GameTooltip
+local GetGameTime = GetGameTime
+local GetQuestsCompleted = GetQuestsCompleted
+local IsControlKeyDown = IsControlKeyDown
+local LibStub = LibStub
+local next = next
+local UIParent = UIParent
 
-local C_Timer_NewTicker = _G.C_Timer.NewTicker
-local C_Calendar = _G.C_Calendar
-local GameTooltip = _G.GameTooltip
-local GetAchievementCriteriaInfo = _G.GetAchievementCriteriaInfo
-local GetGameTime = _G.GetGameTime
-local GetQuestsCompleted = _G.GetQuestsCompleted
-local gsub = _G.string.gsub
-local IsControlKeyDown = _G.IsControlKeyDown
-local LibStub = _G.LibStub
-local next = _G.next
-local UIParent = _G.UIParent
-
-local HandyNotes = _G.HandyNotes
-local TomTom = _G.TomTom
+local HandyNotes = HandyNotes
+local TomTom = TomTom
 
 local completedQuests = {}
 local points = SummerFestival.points
@@ -234,7 +230,7 @@ local options = {
 -- check
 local setEnabled = false
 local function CheckEventActive()
-	local calendar = C_Calendar.GetDate()
+	local calendar = C_DateAndTime.GetCurrentCalendarTime()
 	local month, day, year = calendar.month, calendar.monthDay, calendar.year
 
 	local monthInfo = C_Calendar.GetMonthInfo()
@@ -276,6 +272,11 @@ local function CheckEventActive()
 	end
 end
 
+local function RepeatingCheck()
+	CheckEventActive()
+	C_Timer_After(60, RepeatingCheck)
+end
+
 
 -- initialise
 function SummerFestival:OnEnable()
@@ -304,13 +305,26 @@ function SummerFestival:OnEnable()
 		end
 	end
 
-	local calendar = C_Calendar.GetDate()
+	-- special treatment for Teldrassil as the HereBeDragons-2.0 library isn't recognising it as a "child zone" of Kalimdor at the moment
+	if UnitFactionGroup("player") == "Alliance" then
+		points[12][43611031] = "11824:H" -- Dolanaar
+	elseif UnitFactionGroup("player") == "Horde" then
+		points[12][43541026] = "11753:D" -- Dolanaar
+		points[12][40370935] = "9332:C"  -- Stealing Darnassus' Flame
+	end
+
+	local calendar = C_DateAndTime.GetCurrentCalendarTime()
 	C_Calendar.SetAbsMonth(calendar.month, calendar.year)
+	CheckEventActive()
 
-	C_Timer_NewTicker(15, CheckEventActive)
 	HandyNotes:RegisterPluginDB("SummerFestival", self, options)
-
 	db = LibStub("AceDB-3.0"):New("HandyNotes_SummerFestivalDB", defaults, "Default").profile
+
+	self:RegisterEvent("CALENDAR_UPDATE_EVENT", CheckEventActive)
+	self:RegisterEvent("CALENDAR_UPDATE_EVENT_LIST", CheckEventActive)
+	self:RegisterEvent("ZONE_CHANGED", CheckEventActive)
+
+	C_Timer_After(60, RepeatingCheck)
 end
 
 function SummerFestival:Refresh(_, questID)

@@ -1,26 +1,18 @@
-tag 8ab4926539b2c50efebed565ae9507dd6250d9c9 v1.6
+tag bd8785c1a40c43b9d395fdd1b460311d332eea9d v1.6.1
 Author:	Ethan Centaurai <ethancentaurai@outlook.com>
-Date:	Fri Jun 21 20:05:30 2019 +0100
+Date:	Wed Jun 26 00:41:13 2019 +0100
 
-Tagging as v1.6.
+Tagging as v1.6.1.
 
-commit 82e9af021295adc2b613255cf396a33c3546859a
+commit 11840666a5ef4e99e9cd64f61dfdd16fd98baef8
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Fri Jun 21 20:01:56 2019 +0100
+Date:   Tue Jun 25 22:59:40 2019 +0100
 
-    Nesting tweaks.
+    Bump Interface number to 80200.
 
-commit 9fa4583c90d1bc260fc5de74c2a797d9bde14ac4
+commit faa07e2898c62bd2fb02a3500955649450365d43
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Fri Jun 21 19:27:44 2019 +0100
+Date:   Tue Jun 25 22:55:07 2019 +0100
 
-    Remove some more unused code.
-
-commit 155b9188229df36148b51fd658b6e26db4f61d7f
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Fri Jun 21 19:24:48 2019 +0100
-
-    Remove unused code.
-    
-    WorldMapButton and WorldMapTooltip no longer exist.
+    Update README.md
 
