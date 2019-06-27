@@ -1,5 +1,6 @@
-## v4.7.13 Changes
+## v4.7.14 Changes
 
-* Fixed an issue where withdrawing items from a different then the current Guild Bank tab would get stuck.
+* Updated enchanting data for 8.2.0.
+* TOC bump.
 
 [Known Issues](http://support.tradeskillmaster.com/display/KB/TSM4+Currently+Known+Issues)
