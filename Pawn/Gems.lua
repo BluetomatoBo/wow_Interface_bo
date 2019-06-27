@@ -342,6 +342,20 @@ local PawnGemData120Rare =
 
 
 --========================================
+-- Level 110 crafted epic prismatic gems
+--========================================
+local PawnGemData120Epic =
+{
+
+{ 168639, "CritRating", 60 }, -- Deadly Lava Lazuli
+{ 168641, "HasteRating", 60 }, -- Quick Sand Spinel
+{ 168642, "Versatility", 60 }, -- Versatile Dark Opal
+{ 168640, "MasteryRating", 60 }, -- Masterful Sea Currant
+
+}
+
+
+--========================================
 
 -- The master list of all tables of Pawn gem data
 
@@ -355,6 +369,7 @@ local PawnGemData120Rare =
 
 PawnGemQualityLevels =
 {
+	{ 430, PawnGemData120Epic }, -- Azshara's Eternal Palace heroic
 	{ 385, PawnGemData120Rare }, -- Darkshore warfront and Battle for Dazar'Alor raid finder
 	{ 270, PawnGemData120Uncommon }, -- above Legion legendaries
 	{ 225, PawnGemData110Epic }, -- Heroic Antorus
