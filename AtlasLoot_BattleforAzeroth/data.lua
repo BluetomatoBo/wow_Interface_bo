@@ -1078,9 +1078,265 @@ data["Waycrest Manor"] = {
 		BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE,
 	}
 }
+
+data["Operation: Mechagon"] = {
+	EncounterJournalID = 1178,
+	MapID = 1490,
+	ContentType = DUNGEON_CONTENT,
+	items = 
+	{
+		{ -- King Gobbamak
+			EncounterJournalID = 2357,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{ 1, 170507 },
+				{ 2, 169054 },
+			},
+		},
+		{ -- Gunker
+			EncounterJournalID = 2358,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{ 1, 170508 },
+				{ 2, 169056 },
+			},
+		},
+		{ -- Trixie & Naeno
+			EncounterJournalID = 2360,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{ 1, 170509 },
+				{ 2, 169064 },
+				{ 3, 169069 },
+				{ 4, 169070 },
+			},
+		},
+		{ -- HK-8 Aerial Oppression Unit
+			EncounterJournalID = 2355,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{ 1, 170510 },
+				{ 2, 168657 },
+				{ 3, 167677 },
+				{ 4, 168826 },
+				{ 5, 169385 },
+				{ 6, 168909 },
+				{ 7, 169073 },
+				{ 8, 169157 },
+				{ 9, 169076 },
+				{ 10, 169158 },
+				{ 11, 169156 },
+			},
+		},
+		{ -- Tussle Tonks
+			EncounterJournalID = 2336,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{ 1, 170510 },
+				{ 2, 168955 },
+				{ 3, 168957 },
+			},
+		},
+		{ -- K.U.-J.0.
+			EncounterJournalID = 2339,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{ 1, 170508 },
+				{ 2, 168970 },
+				{ 3, 168968 },
+			},
+		},
+		{ -- Machinist's Garden
+			EncounterJournalID = 2348,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{ 1, 170507 },
+				{ 2, 167556 },
+				{ 3, 168973 },
+				{ 4, 168975 },
+				{ 5, 169159 },
+				{ 6, 169161 },
+				{ 7, 168977 },
+				{ 8, 169160 },
+				{ 9, 169344 },
+			},
+		},
+		{ -- King Mechagon
+			EncounterJournalID = 2331,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{ 1, 168830, "mount" },
+				{ 2, 169172 },
+				{ 3, 168671 },
+				{ 4, 168842 },
+				{ 5, 169378 },
+				{ 6, 170509 },
+				{ 7, 169774 },
+				{ 8, 168984 },
+				{ 9, 168985 },
+				{ 10, 168986 },
+			},
+		},
+	}
+}
 -- /////////////////////////////////
 -- Raid
 -- /////////////////////////////////
+
+data["The Eternal Palace"] = {
+	EncounterJournalID = 1179,
+	MapID = 1512,
+	ContentType = RAID_CONTENT,
+	TableType = RAID_ITTYPE,
+	items = 
+	{
+		{ -- Abyssal Commander Sivara
+			EncounterJournalID = 2352,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 168903 },
+				{ 2, 168477 },
+				{ 3, 168345 },
+				{ 4, 168377 },
+				{ 5, 168905 },
+			},
+			[HEROIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},		
+		},
+		{ -- Blackwater Behemoth
+			EncounterJournalID = 2347,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 169360 },
+				{ 2, 168397 },
+				{ 3, 168343 },
+				{ 4, 168376 },
+				{ 5, 168379 },
+				{ 6, 169304 },
+			},
+			[HEROIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},		
+		},
+		{ -- Radiance of Azshara
+			EncounterJournalID = 2353,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 169694 },
+				{ 2, 168348 },
+				{ 3, 168378 },
+				{ 4, 168380 },
+			},
+			[HEROIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},		
+		},
+		{ -- Lady Ashvane
+			EncounterJournalID = 2354,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 169358 },
+				{ 2, 168904 },
+				{ 3, 168347 },
+				{ 4, 168883 },
+				{ 5, 168889 },
+				{ 6, 169305 },
+			},
+			[HEROIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},		
+		},
+		{ -- Orgozoa
+			EncounterJournalID = 2351,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 168346 },
+				{ 2, 168604 },
+				{ 3, 168875 },
+			},
+			[HEROIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},		
+		},
+		{ -- The Queen's Court
+			EncounterJournalID = 2359,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 169694 },
+				{ 2, 168896 },
+				{ 3, 168350 },
+				{ 4, 168879 },
+				{ 5, 168890 },
+			},
+			[HEROIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},		
+		},
+		{ -- Za'qul, Harbinger of Ny'alotha
+			EncounterJournalID = 2349,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 169362 },
+				{ 2, 168349 },
+				{ 3, 168391 },
+				{ 4, 169306 },
+			},
+			[HEROIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},		
+		},
+		{ -- Queen Azshara
+			EncounterJournalID = 2361,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 169694 },
+				{ 2, 169348 },
+				{ 3, 168275 },
+				{ 4, 168887 },
+				{ 5, 168871 },
+				{ 6, 168891 },
+				{ 7, 169314 },
+			},
+			[HEROIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+				{ 16, 168857 },
+			},
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},		
+		},
+	}
+}
 
 data["Battle of Dazar'alor"] = {
 	EncounterJournalID = 1176,
@@ -1092,9 +1348,19 @@ data["Battle of Dazar'alor"] = {
 		{ -- Champion of the Light
 			EncounterJournalID = 2335,
 			[RF_DIFF] = {
-				{ 1, 165550 }, -- Breastplate of Divine Purification
-				{ 2, 165549 }, -- Crusade Pummelers
-				{ 3, 165586 }, -- Dawnbreaker
+				{ 1, 165551 }, -- Bracers of Zealous Calling
+				{ 2, 165514 }, -- Gloves of Spiritual Grace
+				{ 3, 165517 }, -- Bracers of Regal Devotion
+				{ 4, 165533 }, -- Lightgrace Sabatons
+				{ 5, 165549 }, -- Crusade Pummelers
+				{ 6, 165834 }, -- Divine Fury Raiment
+				{ 7, 165519 }, -- Cowl of Righteous Resolve
+				{ 8, 165921 }, -- Pauldrons of Ancestral Vengeance
+				{ 9, 165550 }, -- Breastplate of Divine Purification
+				{ 10, 165919 }, -- Desecrated Blade of the Disciples
+				{ 11, 165586 }, -- Dawnbreaker
+				{ 12, 165584 }, -- Sunburst Crest
+				{ 13, 165569 }, -- Ward of Envelopment
 			},
 			[NORMAL_RAID_DIFF] = {
 				GetItemsFromDiff = RF_DIFF,
@@ -1109,9 +1375,17 @@ data["Battle of Dazar'alor"] = {
 		{ -- Jadefire Masters
 			EncounterJournalID = 2323,
 			[RF_DIFF] = {
-				{ 1, 165565 }, -- Band of Multi-Sided Strikes
-				{ 2, 165552 }, -- Embersear Waistguard
-				{ 3, 165548 }, -- Helm of Tempered Jade
+				{ 1, 165503 }, -- Manceroy's Flamefists
+				{ 2, 165521 }, -- Cranedancer Leggings
+				{ 3, 165531 }, -- Grips of Harmonious Spirits
+				{ 4, 165552 }, -- Embersear Waistguard
+				{ 5, 165565 }, -- Band of Multi-Sided Strikes
+				{ 6, 165500 }, -- Blazewing Hood
+				{ 7, 165516 }, -- Mestrah's Singing Spaulders
+				{ 8, 165540 }, -- Mistfire Raiment
+				{ 9, 165548 }, -- Helm of Tempered Jade
+				{ 10, 165587 }, -- Phoenixfire Staff
+				{ 11, 165568 }, -- Invocation of Yu'lon
 			},
 			[NORMAL_RAID_DIFF] = {
 				GetItemsFromDiff = RF_DIFF,
@@ -1126,10 +1400,20 @@ data["Battle of Dazar'alor"] = {
 		{ -- Grong, the Revenant
 			EncounterJournalID = 2340,
 			[RF_DIFF] = {
-				{ 1, 165574 }, -- Grong's Primal Rage
-				{ 2, 165513 }, -- Silverback Cloak
-				{ 3, 165551 }, -- Splinter-Bone Vambraces
-				{ 4, 165555 }, -- Spaulders of the Gorilla King
+				{ 1, 165499 }, -- Leggings of Dire Research
+				{ 2, 165525 }, -- Stretched Sinew Waistcord
+				{ 3, 165534 }, -- Ape Wrangler's Wristguards
+				{ 4, 165551 }, -- Splinter-Bone Vambraces
+				{ 5, 165513 }, -- Silverback Cloak
+				{ 6, 165922 }, -- Bristling Fur-Lined Amice
+				{ 7, 165515 }, -- Grongpelt Vest
+				{ 8, 165535 }, -- Simian Berserker's Helm
+				{ 9, 165555 }, -- Spaulders of the Gorilla King
+				{ 10, 165920 }, -- Apetagonizer's Claw
+				{ 11, 165588 }, -- Bonelash Paw
+				{ 12, 165589 }, -- Hornridged Crusher
+				{ 13, 165582 }, -- Cursed Monkey Palm
+				{ 14, 165574 }, -- Grong's Primal Rage
 			},
 			[NORMAL_RAID_DIFF] = {
 				GetItemsFromDiff = RF_DIFF,
@@ -1144,8 +1428,20 @@ data["Battle of Dazar'alor"] = {
 		{ -- Opulence
 			EncounterJournalID = 2342,
 			[RF_DIFF] = {
-				{ 1, 165821 }, -- Crown of Bloody Succession
-				{ 2, 165561 }, -- Coinage Stampers
+				{ 1, 165504 }, -- Waistcord of Flowing Silk
+				{ 2, 165524 }, -- Amethyst-Studded Bindings
+				{ 3, 165541 }, -- Boots of the Gilded Path
+				{ 4, 165538 }, -- Goldenscale Girdle
+				{ 5, 165561 }, -- Coinage Stampers
+				{ 6, 165818 }, -- Crown of the Seducer
+				{ 7, 165526 }, -- Crown of A'akul's Dark Reign
+				{ 8, 165820 }, -- Electrified Crown of Rahu'ai
+				{ 9, 165821 }, -- Crown of Bloody Succession
+				{ 10, 165591 }, -- Bloodtooth, the Soulfeaster
+				{ 11, 165592 }, -- Goblet of Glittering Favor
+				{ 12, 165593 }, -- Greed's Folly
+				{ 13, 165571 }, -- Incandescent Sliver
+				{ 14, 165573 }, -- Diamond-Laced Refracting Prism
 			},
 			[NORMAL_RAID_DIFF] = {
 				GetItemsFromDiff = RF_DIFF,
@@ -1160,29 +1456,47 @@ data["Battle of Dazar'alor"] = {
 		{ -- Conclave of the Chosen
 			EncounterJournalID = 2330,
 			[RF_DIFF] = {
-				{ 1, 165562 }, -- Ridgeplate Pauldrons
-				{ 2, 165512 }, -- Loa Exultant's Shroud
-				{ 3, 165560 }, -- Arcing Thunderlizard Legplates
+				{ 1, 165502 }, -- Lightfeather Footpads
+				{ 2, 165560 }, -- Arcing Thunderlizard Legplates
+				{ 3, 165512 }, -- Loa Exultant's Shroud
+				{ 4, 165507 }, -- Mantle of the Skyterror
+				{ 5, 165833 }, -- Vestments of Indomitable Will
+				{ 6, 165532 }, -- Gonk's Scale Robes
+				{ 7, 165562 }, -- Ridgeplate Pauldrons
+				{ 8, 165595 }, -- Blade of Encroaching Death
+				{ 9, 165599 }, -- Pterrorwing Longbow
+				{ 10, 165594 }, -- Akunda's Shocksplitter
+				{ 11, 166418}, -- Crest of Pa'ku Alliance
+				{ 12, 165581 }, -- Crest of Pa'ku Horde
+				{ 13, 165579 }, -- Arcing Thunderlizard Legplates
 			},
 			[NORMAL_RAID_DIFF] = {
 				GetItemsFromDiff = RF_DIFF,
-				{ 4, 165846 }, -- Enchanted Talon of Pa'ku
-				{ 5, 165847 }, -- Thundering Scale of Akunda
+				{ 14, 165846 }, -- Enchanted Talon of Pa'ku
+				{ 15, 165847 }, -- Thundering Scale of Akunda
 			},
 			[HEROIC_PRE_DIFF] = {
 				GetItemsFromDiff = NORMAL_RAID_DIFF,
 			},
 			[MYTHIC_PRE_DIFF] = {
 				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				{ 6, 165848 }, -- Spawn of Krag'wa
+				{ 16, 165848 }, -- Spawn of Krag'wa
 			},
 		},
 		{ -- King Rastakhan
 			EncounterJournalID = 2335,
 			[RF_DIFF] = {
-				{ 1, 165832 }, -- Breastplate of the Deathbound
+				{ 1, 165536 }, -- Deathhunter's Legguards
 				{ 2, 165558 }, -- Roka's Bonecrushing Manacles
 				{ 3, 165567 }, -- Seal of the Zandalari Empire
+				{ 4, 165498 }, -- Vestments of the Afterlife
+				{ 5, 165523 }, -- Phantom Stalker Shoulders
+				{ 6, 165537 }, -- Mantle of the Soulbinder's Caress
+				{ 7, 165832 }, -- Breastplate of the Deathbound
+				{ 8, 165596 }, -- Last Fang of Rezan
+				{ 9, 165597 }, -- Deathspeaker Spire
+				{ 10, 165577 }, -- Bwonsamdi's Bargain
+				{ 11, 165578}, -- Mirror of Entwined Fate
 			},
 			[NORMAL_RAID_DIFF] = {
 				GetItemsFromDiff = RF_DIFF,
@@ -1197,10 +1511,18 @@ data["Battle of Dazar'alor"] = {
 		{ -- High Tinker Mekkatorque
 			EncounterJournalID = 2334,
 			[RF_DIFF] = {
-				{ 1, 165580 }, -- Ramping Amplitude Gigavolt Engine
-				{ 2, 165825 }, -- Dyno-Sprocket Spaulders
-				{ 3, 166518 }, -- G.M.O.D.
-				{ 4, 165924 }, -- High Tinker's Cape
+				{ 1, 165508 }, -- Lever Stabilizing Wristwraps
+				{ 2, 165522 }, -- Mech-Jockey Grips
+				{ 3, 165924 }, -- High Tinker's Cape
+				{ 4, 165497 }, -- Giga-Charged Shoulderpads
+				{ 5, 165830 }, -- Mekkatorque's Bomber Jacket
+				{ 6, 165543 }, -- Target-Tracking Headgear
+				{ 7, 165825 }, -- Dyno-Sprocket Spaulders
+				{ 8, 165598 }, -- Servo-Claw Smasher
+				{ 9, 165600 }, -- Twin-Pipe Buster Cannon
+				{ 10, 165580 }, -- Ramping Amplitude Gigavolt Engine
+				{ 11, 165572 }, -- Variable Intensity Gigavolt Oscillating Reactor
+				{ 12, 166518 }, -- G.M.O.D.
 			},
 			[NORMAL_RAID_DIFF] = {
 				GetItemsFromDiff = RF_DIFF,
@@ -1215,9 +1537,19 @@ data["Battle of Dazar'alor"] = {
 		{ -- Stormwall Blockade
 			EncounterJournalID = 2337,
 			[RF_DIFF] = {
-				{ 1, 165556 }, -- Stormwrought Gauntlets
-				{ 2, 165557 }, -- Sea Swell Chestplate
-				{ 3, 165602 }, -- Crash of Tides
+				{ 1, 165506 }, -- Wavecaller Leggings
+				{ 2, 165528 }, -- Kelp-Laced Greaves
+				{ 3, 165546 }, -- Slimy Kelpweavers
+				{ 4, 165556 }, -- Stormwrought Gauntlets
+				{ 5, 165822 }, -- Cowl of Tideborne Omens
+				{ 6, 165819 }, -- Tidemother's Cover
+				{ 7, 165923 }, -- Tidal Shroud Spaulders
+				{ 8, 165557 }, -- Sea Swell Chestplate
+				{ 9, 165601}, -- Storm-Toothed Kasuyu
+				{ 10, 165603 }, -- Siren's Song
+				{ 11, 165585 }, -- Blockade Bulward
+				{ 12, 165602 }, -- Crash of Tides
+				{ 13, 165590 }, -- Docksplitter Siege Hook
 			},
 			[NORMAL_RAID_DIFF] = {
 				GetItemsFromDiff = RF_DIFF,
@@ -1232,10 +1564,18 @@ data["Battle of Dazar'alor"] = {
 		{ -- Lady Jaina Proudmoore
 			EncounterJournalID = 2343,
 			[RF_DIFF] = {
-				{ 1, 165559 }, -- Hullplate Girdle
-				{ 2, 165570 }, -- Everchill Anchor
-				{ 3, 165566 }, -- Lord Admiral's Signet
-				{ 4, 165823 }, -- Glaciercrest Helm
+				{ 1, 165527 }, -- Embossed Deckwalkers
+				{ 2, 165542 }, -- Icebinder's Bracers
+				{ 3, 165559 }, -- Hullplate Girdle
+				{ 4, 165566 }, -- Lord Admiral's Signet
+				{ 5, 165505 }, -- Robes of Biting Cold
+				{ 6, 165824 }, -- Admiralty's Ceremonial Epaulets
+				{ 7, 165831 }, -- Flag Officer's Overcoat
+				{ 8, 165823 }, -- Glaciercrest Helm
+				{ 9, 165604 }, -- Daelin Proudmoore's Saber
+				{ 10, 165583 }, -- Fogbreaker, Light of the Sea
+				{ 11, 165570 }, -- Everchill Anchor
+				{ 12, 165576 }, -- Tidestorm Codex
 			},
 			[NORMAL_RAID_DIFF] = {
 				GetItemsFromDiff = RF_DIFF,
@@ -1245,7 +1585,7 @@ data["Battle of Dazar'alor"] = {
 			},
 			[MYTHIC_PRE_DIFF] = {
 				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				{ 5, 166705 }, -- Glacial Tidestorm
+				{ 13, 166705 }, -- Glacial Tidestorm
 			},
 		},
 	}
@@ -1253,7 +1593,7 @@ data["Battle of Dazar'alor"] = {
 
 data["Crucible of Storms"] = {
 	EncounterJournalID = 1177,
-	--MapID = ,
+	MapID = 2096,
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
 	items = 
@@ -1261,6 +1601,15 @@ data["Crucible of Storms"] = {
 		{ -- The Restless Cabal
 			EncounterJournalID = 2328,
 			[RF_DIFF] = {
+				{ 1, 167833 }, -- Fathom Dredgers
+				{ 2, 167840 }, -- Mindthief's Eldritch Clasp
+				{ 3, 167842 }, -- Fa'thuul's Floodguards
+				{ 4, 167219 }, -- Gloves of the Undying Pact
+				{ 5, 167837 }, -- Insurgent's Scouring Chain
+				{ 6, 167863 }, -- Pillar of the Drowned Cabal
+				{ 7, 167218 }, -- Zaxasj's Deepstriders
+				{ 8, 167841 }, -- Abyssal Speaker's Gauntlets
+				{ 9, 167838 }, -- Leggings of the Aberrant Tidesage
 			},
 			[NORMAL_RAID_DIFF] = {
 				GetItemsFromDiff = RF_DIFF,
@@ -1275,6 +1624,15 @@ data["Crucible of Storms"] = {
 		{ -- Uu'nat, Harbinger of the Void
 			EncounterJournalID = 2332,
 			[RF_DIFF] = {
+				{ 1, 167217 }, -- Legplates of Unbound Anguish
+				{ 2, 167864 }, -- Trident of Deep Ocean
+				{ 3, 167866 }, -- Lurker's Insidious Gift
+				{ 4, 167835 }, -- Malformed Herald's Legwraps
+				{ 5, 167868 }, -- Idol of Indiscriminate Consumption
+				{ 6, 167865 }, -- Void Stone
+				{ 7, 167867 }, -- Harbinger's Inscrutable Will
+				{ 8, 167839 }, -- Grips of Forsaken Sanity
+				{ 9, 167834 }, -- Stormglide Steps
 			},
 			[NORMAL_RAID_DIFF] = {
 				GetItemsFromDiff = RF_DIFF,
@@ -1290,7 +1648,7 @@ data["Crucible of Storms"] = {
 }
 data["Uldir"] = {
 	EncounterJournalID = 1031,
-	MapID = 1148,
+	MapID = 1861,
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
 	items = 
@@ -1467,7 +1825,7 @@ data["Uldir"] = {
 				GetItemsFromDiff = NORMAL_RAID_DIFF,
 			},
 		},
-		{ -- Zul, Reborn
+		{ -- G'huun
 			EncounterJournalID = 2147,
 			[NORMAL_RAID_DIFF] = {
 				{ 1, 160732 }, -- Helm of the Defiled Laboratorium
@@ -1612,9 +1970,17 @@ data["Azeroth"] = {
 		{ -- Ivus the Decayed
 			EncounterJournalID = 2345,
 			[NORMAL_RAID_DIFF] = {
-				{ 1, 161413 }, -- Knot of Ancient Fury
-				{ 2, 166698 }, -- Stoneroot Stompers
-				{ 3, 166695 }, -- Petrified Ironbark Crown
+				{ 1, 161417 }, -- Ancient Knot of Wisdom
+				{ 2, 161415 }, -- Forest Lord's Razorleaf
+				{ 3, 166691 }, -- Forest Protector's Shoulderguards
+				{ 4, 166683 }, -- Garments of the Forest Lord
+				{ 5, 166694 }, -- Gnarled Bough Gauntlets
+				{ 6, 166686 }, -- Ivus's Tanglemoss Waistcord
+				{ 7, 161413 }, -- Knot of Ancient Fury
+				{ 8, 166695 }, -- Petrified Ironbark Crown
+				{ 9, 166690 }, -- Protector's Tangleroot Belt
+				{ 10, 166698 }, -- Stoneroot Stompers
+				{ 11, 166687 }, -- Warring Ancient's Mask
 			},
 		},
 	}

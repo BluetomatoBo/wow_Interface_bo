@@ -660,6 +660,7 @@ local MOUNT_INFO = {
 		[254813] = 159842, -- Sharkbait
 		[266058] = 159921, -- Tomb Stalker
 		[261437] = 161135, -- Schematic: Mecha-Mogul Mk2
+		[290718] = 168830, -- Aerial Unit R-21/X
 		
 	},
 	["items"] = {

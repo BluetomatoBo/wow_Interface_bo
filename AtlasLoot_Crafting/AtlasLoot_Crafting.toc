@@ -1,6 +1,6 @@
-## Interface: 80100
+## Interface: 80200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.09.00
+## Version: v8.10.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 

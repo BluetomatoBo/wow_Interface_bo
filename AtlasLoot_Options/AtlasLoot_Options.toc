@@ -1,6 +1,6 @@
-## Interface: 80100
+## Interface: 80200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.09.00
+## Version: v8.10.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -15,6 +15,7 @@
 ## Title-zhTW: AtlasLoot |cFF0099FF[選項]|r
 ## Notes: AtlasLoot options module
 ## Notes-deDE: AtlasLoot Modul für Einstellungen
+## Notes-esES: Modulo de opciones de AtlasLoot
 ## Notes-frFR: Module d'options AtlasLoot
 ## Notes-koKR: AtlasLoot 옵션 모듈
 ## Notes-ruRU: AtlasLoot модуль опций

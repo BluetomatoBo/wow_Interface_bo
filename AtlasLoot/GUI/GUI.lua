@@ -217,7 +217,7 @@ local function MapButtonOnClick(self)
 	if self.mapID then
 		WorldMapFrame.fromJournal = true	-- enable bossButtons
 		ShowUIPanel(WorldMapFrame)
-		WorldMapFrame:SetMapID(self.mapID)
+		OpenWorldMap(self.mapID)
 	end
 end
 

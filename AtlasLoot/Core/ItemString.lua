@@ -19,7 +19,7 @@ local ITEM_LVL_BONUS = BonusIDInfo.GetBonusListLevelDelta()
 
 local TITANFORGED_ADD = { 3442 }
 local LEGION_MAX_UPGRADELVL = 255
-local BFA_MAX_UPGRADELVL = 400
+local BFA_MAX_UPGRADELVL = 450
 local function GetPresetForTitanforged(baseLvl, maxLvl, extraBonus)
 	baseLvl = baseLvl or maxLvl
 	baseLvl = maxLvl - baseLvl

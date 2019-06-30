@@ -1,6 +1,6 @@
-## Interface: 80100
+## Interface: 80200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.09.00
+## Version: v8.10.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -16,6 +16,7 @@
 ## Notes: AtlasLoot loot tables from Cataclysm
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Cataclysm
 ## Notes-esES: Tablas de botín de AtlasLoot para Cataclysm
+## Notes-esMX: AtlasLoot tablas de botín de Cataclysm
 ## Notes-frFR: Tables de butin AtlasLoot de Cataclysm
 ## Notes-koKR: AtlasLoot 대격변 전리품 목록
 ## Notes-ruRU: AtlasLoot таблица добычи из Cataclysm

@@ -176,7 +176,7 @@ function Set.ShowToolTipFrame(button)
 		frame.modelFrame.zoomLevel = frame.modelFrame.minZoom
 		frame.modelFrame.zoomLevelNew = frame.modelFrame.zoomLevel
 		frame.modelFrame:SetPortraitZoom(frame.modelFrame.zoomLevel)
-		frame.modelFrame.Reset = _G.Model_Reset
+		--frame.modelFrame.Reset = _G.Model_Reset
 		
 		Set.tooltipFrame = frame
 		frame:Hide()
@@ -192,7 +192,7 @@ function Set.ShowToolTipFrame(button)
 	frame:SetPoint("BOTTOMLEFT", button, "TOPRIGHT")
 	
 	frame = Set.tooltipFrame.modelFrame
-	frame:Reset()
+	--frame:Reset()
 	frame:Undress()
 	frame:SetRotation(frame.curRotation)
 	frame:SetPortraitZoom(frame.zoomLevelNew)
