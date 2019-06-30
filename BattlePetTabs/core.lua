@@ -1,15 +1,6 @@
 local _G = _G
 local assert = assert
 local C_PetJournal = C_PetJournal
-local C_PetJournal_GetPetInfoByPetID = C_PetJournal.GetPetInfoByPetID
-local C_PetJournal_GetPetLoadOutInfo = C_PetJournal.GetPetLoadOutInfo
-local C_PetJournal_GetPetStats = C_PetJournal.GetPetStats
-local C_PetJournal_IsJournalUnlocked = C_PetJournal.IsJournalUnlocked
-local C_PetBattles_IsInBattle = C_PetBattles.IsInBattle
-local C_PetJournal_PickupPet = C_PetJournal.PickupPet
-local C_PetJournal_SetAbility = C_PetJournal.SetAbility
-local C_PetJournal_SetPetLoadOutInfo = C_PetJournal.SetPetLoadOutInfo
-local C_Timer_After = C_Timer.After
 local ClearCursor = ClearCursor
 local CreateFrame = CreateFrame
 local format = format
@@ -43,6 +34,9 @@ local FLYOUT_COMMAND_MOVETO = 2
 local FLYOUT_COMMAND_RENAME = 3
 local FLYOUT_COMMAND_DELETE = 4
 local FLYOUT_COMMAND_TEAM = 5
+
+-- the recheck ticker handle to avoid bubbling events
+local RECHECK_TICKER
 
 -- load defaults or fallback to stored settings
 BattlePetTabsDB3 = type(BattlePetTabsDB3) == "table" and BattlePetTabsDB3 or {
@@ -153,12 +147,14 @@ function addon:CreateUI()
 	addon.Container = CreateFrame("Frame", addonName .. "Frame", PetJournal)
 	addon.Container:SetParent(PetJournal)
 	addon.Container:SetSize(42, 50)
+	addon.Container:ClearAllPoints()
 	addon.Container:SetPoint("TOPLEFT", "$parent", "TOPRIGHT", addon.HasAurora and 3 or -1, MAX_BATTLE_TABS > 8 and 24 or -17)
 	addon.Container:SetScript("OnShow", addon.Widget.Container.OnShow)
 
 	-- setup the manager button
 	addon.Manager = addon:CreatePetButton(0)
 	addon.Manager:SetParent(addon.Container)
+	addon.Manager:ClearAllPoints()
 	addon.Manager:SetPoint("TOPLEFT", "$parent", "BOTTOMLEFT")
 	addon.Manager.icon:SetTexture("Interface\\Icons\\INV_Pet_Achievement_CaptureAWildPet")
 	addon.Manager.button:SetScript("OnClick", addon.Widget.Manager.OnClick)
@@ -198,6 +194,7 @@ function addon:CreateUI()
 		local team = addon:CreatePetButton(i)
 		team:SetID(i)
 		team:SetParent(addon.Container)
+		team:ClearAllPoints()
 		team:SetPoint("TOPLEFT", addon.Teams[#addon.Teams] or addon.Manager, "BOTTOMLEFT")
 		team.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
 
@@ -240,6 +237,40 @@ function addon:CreateUI()
 		end,
 		OnHide = function(self)
 			self.editBox:SetText("")
+			addon:UPDATE()
+		end,
+		timeout = 0,
+		exclusive = 1,
+		whileDead = 1,
+		hideOnEscape = 1
+	}
+
+	-- create delete static popup
+	StaticPopupDialogs[addonName .. "_TEAM_DELETE"] = {
+		text = "",
+		button1 = DELETE,
+		button2 = CANCEL,
+		OnAccept = function(self, temp)
+			local team, collection, index = temp[1], temp[2], temp[3]
+			if collection then
+				if index and collection[index] == team then
+					table.remove(collection, index)
+				else
+					for k, v in ipairs(collection) do
+						if v == team then
+							table.remove(collection, k)
+							break
+						end
+					end
+				end
+			end
+		end,
+		OnShow = function(self, temp)
+			local team = temp[1]
+			self.text:SetFormattedText("Do you want to delete the team \"%s\"?", team.name or "Team")
+		end,
+		OnHide = function(self)
+			addon:UPDATE()
 		end,
 		timeout = 0,
 		exclusive = 1,
@@ -320,7 +351,7 @@ function addon:DraggingPickupTeam(team)
 	if type(team) == "table" then
 		local _, firstPet = next(team)
 		if firstPet and firstPet[1] then
-			C_PetJournal_PickupPet(firstPet[1])
+			C_PetJournal.PickupPet(firstPet[1])
 		end
 	end
 end
@@ -425,12 +456,12 @@ end
 
 -- can copy loadout
 function addon:CanCopyLoadout()
-	if not IsSpellKnown(HEAL_PET_SPELL) or not C_PetJournal_IsJournalUnlocked() or C_PetBattles_IsInBattle() then
+	if not IsSpellKnown(HEAL_PET_SPELL) or not C_PetJournal.IsJournalUnlocked() or C_PetBattles.IsInBattle() then
 		return false -- we don't know how to use the pets, the journal is locked, or we are in a battle
 	end
 
 	for i = 1, MAX_ACTIVE_PETS do
-		if C_PetJournal_GetPetLoadOutInfo(i) then
+		if C_PetJournal.GetPetLoadOutInfo(i) then
 			return true
 		end
 	end
@@ -444,7 +475,7 @@ function addon:CopyLoadout()
 	team.name = "Team"
 
 	for i = 1, MAX_ACTIVE_PETS do
-		local petID, ability1ID, ability2ID, ability3ID, locked = C_PetJournal_GetPetLoadOutInfo(i)
+		local petID, ability1ID, ability2ID, ability3ID, locked = C_PetJournal.GetPetLoadOutInfo(i)
 
 		if petID then
 			table.insert(team, {petID, ability1ID, ability2ID, ability3ID})
@@ -458,6 +489,12 @@ end
 function addon:RenameTeam(team)
 	assert(type(team) == "table", "BattlePetTabs:RenameTeam(team) expected first argument to be a table")
 	StaticPopup_Show(addonName .. "_TEAM_RENAME", nil, nil, team)
+end
+
+-- delete team
+function addon:DeleteTeam(team, tbr, tbi)
+	assert(type(team) == "table", "BattlePetTabs:DeleteTeam(team) expected first argument to be a table")
+	StaticPopup_Show(addonName .. "_TEAM_DELETE", nil, nil, { team, tbr, tbi })
 end
 
 -- set loadout at login
@@ -497,7 +534,7 @@ function addon:EquipTeamLoadout(team)
 		local recheck, firstPet
 
 		for i = 1, MAX_ACTIVE_PETS do
-			local equippedPetID, equippedAbility1ID, equippedAbility2ID, equippedAbility3ID, locked = C_PetJournal_GetPetLoadOutInfo(i)
+			local equippedPetID, equippedAbility1ID, equippedAbility2ID, equippedAbility3ID, locked = C_PetJournal.GetPetLoadOutInfo(i)
 			local pet = team[i]
 
 			if type(pet) == "table" then
@@ -506,19 +543,19 @@ function addon:EquipTeamLoadout(team)
 					firstPet = petID
 
 					if equippedPetID ~= petID then
-						C_PetJournal_SetPetLoadOutInfo(i, petID)
+						C_PetJournal.SetPetLoadOutInfo(i, petID)
 						recheck = true
 					else
 						if equippedAbility1ID ~= ability1ID then
-							C_PetJournal_SetAbility(i, 1, ability1ID)
+							C_PetJournal.SetAbility(i, 1, ability1ID)
 							recheck = true
 						end
 						if equippedAbility2ID ~= ability2ID then
-							C_PetJournal_SetAbility(i, 2, ability2ID)
+							C_PetJournal.SetAbility(i, 2, ability2ID)
 							recheck = true
 						end
 						if equippedAbility3ID ~= ability3ID then
-							C_PetJournal_SetAbility(i, 3, ability3ID)
+							C_PetJournal.SetAbility(i, 3, ability3ID)
 							recheck = true
 						end
 					end
@@ -528,7 +565,11 @@ function addon:EquipTeamLoadout(team)
 
 		-- if not all pets or abilities were loaded we will check again really soon
 		if recheck then
-			C_Timer_After(.1, function()
+			if RECHECK_TICKER then
+				RECHECK_TICKER:Cancel()
+			end
+			RECHECK_TICKER = C_Timer.NewTimer(.1, function()
+				if InCombatLockdown() then return end
 				addon:EquipTeamLoadout(team)
 			end)
 		end
@@ -548,7 +589,7 @@ function addon:IsTeamEquipped(team)
 			if type(pet) ~= "table" then
 				return false
 			end
-			local equippedPetID, equippedAbility1ID, equippedAbility2ID, equippedAbility3ID, locked = C_PetJournal_GetPetLoadOutInfo(i)
+			local equippedPetID, equippedAbility1ID, equippedAbility2ID, equippedAbility3ID, locked = C_PetJournal.GetPetLoadOutInfo(i)
 			local petID, ability1ID, ability2ID, ability3ID = pet[1], pet[2], pet[3], pet[4]
 			if equippedPetID ~= petID then
 				return false
@@ -573,7 +614,7 @@ function addon:GetTeamTexture(team)
 	if type(team) == "table" then
 		local _, firstPet = next(team)
 		if firstPet and firstPet[1] then
-			_, _, _, _, _, _, _, _, texture = C_PetJournal_GetPetInfoByPetID(firstPet[1])
+			_, _, _, _, _, _, _, _, texture = C_PetJournal.GetPetInfoByPetID(firstPet[1])
 		end
 	end
 	return texture
@@ -589,10 +630,10 @@ function addon:GetTeamTooltipString(team)
 
 			if type(pet) == "table" then
 				local petID, ability1ID, ability2ID, ability3ID = pet[1], pet[2], pet[3], pet[4]
-				local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique = C_PetJournal_GetPetInfoByPetID(petID)
+				local speciesID, customName, level, xp, maxXp, displayID, isFavorite, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable, unique = C_PetJournal.GetPetInfoByPetID(petID)
 
 				if speciesID then
-					local health, maxHealth, power, speed, rarity = C_PetJournal_GetPetStats(petID)
+					local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID)
 					local color = ITEM_QUALITY_COLORS[rarity - 1]
 
 					lines = lines .. "L" .. level .. " "
@@ -705,6 +746,9 @@ do
 			addon.Widget.HideFlyouts(self)
 
 			if button == "RightButton" then
+				addon:EquipTeamLoadout(self:GetParent().dbTeam)
+				self:SetChecked(true)
+
 				if self:GetChecked() then
 					self:GetParent().flyout:Show()
 				else
@@ -715,9 +759,9 @@ do
 				self:SetChecked(false)
 
 				addon:EquipTeamLoadout(self:GetParent().dbTeam)
-
-				addon:UPDATE()
 			end
+
+			addon:UPDATE()
 		end
 
 		function addon.Widget.PetButton.OnDragStart(self)
@@ -735,7 +779,7 @@ do
 			addon:DraggingPickupTeam()
 			addon:UPDATE()
 
-			C_Timer_After(.001, function()
+			C_Timer.After(.01, function()
 				addon.IsDraggingTeam = nil
 				addon:UPDATE()
 			end)
@@ -904,7 +948,7 @@ do
 					local dbTeam = self:GetParent():GetParent().dbTeam
 					for i, team in ipairs(BattlePetTabsDB3.Teams) do
 						if team == dbTeam then
-							table.remove(BattlePetTabsDB3.Teams, i)
+							addon:DeleteTeam(team, BattlePetTabsDB3.Teams, i)
 							break
 						end
 					end
@@ -913,10 +957,12 @@ do
 					if button == "RightButton" then
 						for i, team in ipairs(BattlePetTabsDB3.Inactive) do
 							if self.dbTeam == team then
-								table.remove(BattlePetTabsDB3.Inactive, i)
+								addon:DeleteTeam(team, BattlePetTabsDB3.Inactive, i)
 								break
 							end
 						end
+					elseif button == "LeftButton" then
+						addon:EquipTeamLoadout(self.dbTeam)
 					end
 				end
 
@@ -940,7 +986,7 @@ do
 					addon:DraggingPickupTeam()
 					addon:UPDATE()
 
-					C_Timer_After(.001, function()
+					C_Timer.After(.01, function()
 						addon.IsDraggingInactiveTeam = nil
 						addon:UPDATE()
 					end)
@@ -984,7 +1030,7 @@ do
 					end
 				elseif self.command == FLYOUT_COMMAND_DELETE then
 					if not addon.IsDraggingInactiveTeam then
-						addon.Tooltip:Show(self, {"Delete", "This can't be undone."})
+						addon.Tooltip:Show(self, "Delete") -- {"Delete", "This can't be undone."}
 					end
 				elseif self.command == FLYOUT_COMMAND_TEAM then
 					if addon.IsDraggingInactiveTeam then
@@ -1024,6 +1070,12 @@ do
 			addon.EquippedLoadOut[slotIndex][abilityIndex + 1] = abilityID
 		end
 	end)
+end
+
+-- attempt to block summoning pets when loading teams
+do
+	-- C_PetJournal.SetPetLoadOutInfo
+	-- addon.LoadingLoadOut
 end
 
 -- gets the ball rolling
