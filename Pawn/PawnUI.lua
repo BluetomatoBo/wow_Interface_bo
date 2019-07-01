@@ -1908,6 +1908,10 @@ function PawnUI_OnSocketUpdate()
 
 	-- Find out what item it is.
 	local _, ItemLink = ItemSocketingDescription:GetItem()
+	if strfind(ItemLink, "item:167555") then
+		-- Don't show an error message on Pocket-Sized Computation Device, which has three punch card sockets and no stats.
+		return
+	end
 	local Item = PawnGetItemData(ItemLink)
 	if not Item or not Item.Values then
 		VgerCore.Fail("Failed to update the socketing UI because we didn't know what item was in it.")
