@@ -1,18 +1,12 @@
-tag cd2b941dbace7ca7aec47dff322997fb2e8668d6 v1.6.1
+tag 6f01a5a18a77f5c6d13f012786f286853b955850 v1.6.3
 Author:	Hendrik Leppkes <h.leppkes@gmail.com>
-Date:	Thu Jan 24 14:26:40 2019 +0100
+Date:	Tue Jul 2 15:25:49 2019 +0200
 
-Tag as v1.6.1
+Tag as v1.6.3
 
-commit d4090ec0815ae0b8abfd439cf24448e918fec014
+commit 40050b0cf74554a671a6555265d5f208458b07d3
 Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Thu Jan 24 14:26:27 2019 +0100
+Date:   Tue Jul 2 15:25:33 2019 +0200
 
-    Update TOC for 8.1
-
-commit 1c3143a04229e239db8cadf8c3331213e5af6223
-Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Thu Jan 24 14:25:39 2019 +0100
-
-    Fix minimap jittering of the drawn lines
+    Scale Taboo region drawing with the canvas scale
 
