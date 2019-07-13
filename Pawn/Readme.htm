@@ -458,29 +458,14 @@ and Pawn.</p>
 
 <h2>Known issues</h2>
 <ul>
+	<li><b>The new item level upgrades feature doesn't understand the ins and 
+	outs of Unique-Equipped items yet.</b></li>
 	<li>Item levels when inspecting another player are sometimes wrong.&nbsp; 
 	(To investigate further, I should just make it so that Pawn can spit out to 
 	the chat window the item levels the game is telling it for each slot, and 
 	then compare that to reality.)</li>
-	<li>Quest rewards while leveling often show the coins icon on the wrong 
-	item, because the game tells Pawn the wrong sell price for the item.&nbsp; (I
-	<i>think</i> this is fixed in 8.0, but if not, I'll look into other options.)</li>
-	<li>Having more legendary items than you can equip at once can cause 
-	interesting problems if the "track upgrades for each scale" option is used.&nbsp; 
-	I'm not sure what a good solution for this would be—probably, just make it 
-	so that if that option is enabled, legendary items are never picked as the 
-	current best at all.<ul>
-		<li>Even without the advanced option, it's possible for other items to 
-		show as upgrades to legendaries.&nbsp; The Walls Fell is a protection 
-		warrior ring with extremely terrible stats but a decent effect, and 
-		rings 80 levels lower can show up as upgrades to it.&nbsp; Should Pawn 
-		ever suggest a non-legendary item as an upgrade to a legendary item?&nbsp; 
-		It already blocks that from happening with artifacts.</li>
-	</ul>
-	</li>
 	<li>When you have only one heirloom ring, Pawn doesn't show ring upgrades at 
-	all.&nbsp; (It's possible that this is no longer an issue in 7.0; I haven't 
-	re-verified it.)&nbsp;&nbsp; (<a href="https://wow.curseforge.com/addons/pawn/tickets/117-mage-not-working/">Ticket</a>)</li>
+	all.&nbsp; (<a href="https://wow.curseforge.com/addons/pawn/tickets/117-mage-not-working/">Ticket</a>)</li>
 	<li>Pawn is currently saving an unnecessary amount of information about the 
 	built-in scales in your SavedVariables, like names, spec IDs, and so on.&nbsp; 
 	That stuff should be dynamically created each time you log in, not saved, 
@@ -492,9 +477,8 @@ and Pawn.</p>
 <ul>
 	<li><b>I'll add a way to use a more compact tooltip display that doesn't 
 	include the word "upgrade."</b></li>
-	<li><b>I'll add a way to highlight ilvl upgrades even if they aren't scale 
-	upgrades.</b></li>
-	<li><b>I plan on removing Pawn's relic-related features.</b></li>
+	<li><b>I plan on removing Pawn's relic-related features.&nbsp; </b>(They're 
+	still there, technically, but the option to show them has been removed.)</li>
 	<li>Better handling for Azerite armor:<ul>
 		<li><b>I'll try to make it so that comparisons involving Azerite armor use 
 	the stats of the +5 ilvl version, if possible.</b></li>
@@ -551,6 +535,39 @@ and Pawn.</p>
 </ul>
 
 <h2>Updates</h2>
+<h3>Version 2.2.46</h3>
+<ul>
+	<li>If you've used an addon to hide item levels from your items, but still 
+	have Pawn's "show item level upgrades" option turned on (that's the 
+	default), Pawn will now show the item level increase at the bottom of the 
+	tooltip instead. </li>
+	<li>Fixed a problem where Pawn could forget your best items after logging 
+	out, if using the "track for each scale (advanced)" feature.</li>
+</ul>
+<h3>Version 2.2.45</h3>
+<ul>
+	<li>Includes updated stat weights from Ask Mr. Robot for all classes and 
+	specs.</li>
+</ul>
+<h3>Version 2.2.44</h3>
+<ul>
+	<li>Pawn will now show equippable items that are a higher item level than 
+	what you currently have as upgrades too, even if they aren't stat upgrades.&nbsp; 
+	(You can turn this new behavior off on Pawn's Options tab.)<ul>
+		<li>This feature currently doesn't take Unique-Equipped rings into 
+		account.&nbsp; If you happen to equip two different item level copies of 
+		the same ring, Pawn could consider both of them your best two rings and 
+		thus "forget" about your previous second-best ring.</li>
+	</ul>
+	</li>
+	<li>Some minor performance improvements when logging in.</li>
+	<li>Fixed a problem where characters with artifacts equipped could get 
+	upgrade recommendations for types of items they can't equip, such as wands 
+	for death knights.</li>
+	<li>Fixed a harmless error that appeared when logging in on a Russian 
+	client.</li>
+	<li>Lots of updated German translations, courtesy of SunnySunflow.</li>
+</ul>
 <h3>Version 2.2.43</h3>
 <ul>
 	<li>Removed a harmless error that would occur when shift-right-clicking 

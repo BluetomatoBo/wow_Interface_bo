@@ -34,7 +34,7 @@ PawnLocal =
 	["ImportScaleMessage"] = "appuyez sur Ctrl+V to pour coller une étiquette d'échelle que vous avez copié d une autre source ici:",
 	["ImportScaleTagErrorMessage"] = "Pawn ne comprend pas cette étiquette d'échelle - formule. avez vous copié toute la formule ? essayez de la copier et de la coller encore une fois:",
 	["ItemIDTooltipLine"] = "Item ID",
-	["ItemLevelTooltipLine"] = "Niveau d'item",
+	["ItemLevelTooltipLine"] = "Niveau d'objet",
 	["LootUpgradeAdvisorHeader"] = "Clic pour comparer avec vos items.|n",
 	["LootUpgradeAdvisorHeaderMany"] = "|TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t cet item est une amélioration de %d . clic pour comparer avec vos items",
 	["MissocketWorthwhileMessage"] = "   -- Mais c'est mieux de seulement utiliser les gemmes %s :",
@@ -447,6 +447,8 @@ Chaque item dans World of Warcraft a un numéro d'ID qui lui est associé. Cette
 		["OptionsResetUpgradesTooltip"] = [=[Pawn oubliera ce qu il connait sur les meilleurs items que vous avez équipé et re-scannera votre tenue pour fournir des informations d amélioration plus à jour dans le futur.
 
 Utilisez cette fonctionnalité si vous trouvez que Pawn effectue de mauvaises suggestions d amélioration comme résultat d items que vous avez vendu, detruit, ou que vous n utilisez plus. Ceci affecte tous vos personnages qui utilisent Pawn.]=],
+		["OptionsShowItemLevelUpgrades"] = "Show item level upgrades",
+		["OptionsShowItemLevelUpgradesTooltip"] = "Pawn will show you items that are of a higher item level than what you've previously equipped in that slot in addition to normal upgrades.",
 		["OptionsShowRelicUpgrades"] = "Montrer les améliorations de reliques.",
 		["OptionsShowRelicUpgradesTooltip"] = "Pawn vous montrera quand une relique peut augmenter le niveau d'objet d'une de vos armes. (Ca fonctionne différement des autres fonctions d'amélioration car c'est uniquement basé sur le niveau d'objet et pas sur des stats.)",
 		["OptionsSocketingAdvisor"] = "Affiche les suggestions de châsses",

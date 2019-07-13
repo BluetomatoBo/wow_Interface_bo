@@ -2,8 +2,8 @@
 -- www.vgermods.com
 -- © 2006-2019 Green Eclipse.  This mod is released under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 license.
 -- 
--- Version 1.0.9 -- FormatCompactDecimal
-local VgerCoreThisVersion = 1.09
+-- Version 1.0.10 -- Throttle and Delay
+local VgerCoreThisVersion = 1.10
 -- 
 -- VgerCore contains functionality that is shared by Vger's mods.
 -- It can be used as a standalone add-on, or embedded within other mods.
@@ -82,11 +82,6 @@ VgerCore.MoneyColor = {}
 VgerCore.MoneyColor.Gold = "|cffecda90"
 VgerCore.MoneyColor.Silver = "|cffd7d5d8"
 VgerCore.MoneyColor.Copper = "|cffe2ad8e"
-
--- Common sounds
-VgerCore.Sound = {}
-VgerCore.Sound.Bell = "Sound\\Interface\\RaidWarning.wav"
-VgerCore.Sound.Fanfare = "Sound\\Spells\\NetherwindFocusImpact.wav"
 
 
 -- Displays a standard VgerCore message.
@@ -313,6 +308,45 @@ function VgerCore.FormatInteger(Number)
 	else
 		return BreakUpLargeNumbers(floor(Number + .5))
 	end
+end
+
+function VgerCore.ThrottleDelayCore(Duration, Immediate, Func, arg1)
+	if arg1 ~= nil then
+		VgerCore.Fail("Throttle and Delay don't support functions with arguments!")
+	end
+	local ThrottleUntil, WasThrottled
+	local TimerCallback = function()
+		Func()
+		ThrottleUntil = nil
+		WasThrottled = nil
+	end
+	local Throttled = function()
+		if (not Immediate) or (ThrottleUntil ~= nil and GetTime() < ThrottleUntil) then
+			-- We were called too soon.
+			-- Or, if Immediate is true, then delay the first call too.
+			if not WasThrottled then
+				if ThrottleUntil == nil then ThrottleUntil = GetTime() + Duration end
+				C_Timer.After(Duration, TimerCallback)
+				WasThrottled = true
+			end
+		else
+			-- It's been long enough, or this is the first call of the sequence.
+			ThrottleUntil = GetTime() + Duration
+			Func()
+		end
+	end
+	return Throttled
+end
+
+-- Returns a version of Function that is called no more often than Duration (in sec).
+function VgerCore.Throttle(Duration, Func, arg1)
+	return VgerCore.ThrottleDelayCore(Duration, true, Func, arg1)
+end
+
+-- Returns a version of Function that delays its own execution by Duration (in sec), and also
+-- prevents execution more than once in the same duration.
+function VgerCore.Delay(Duration, Func, arg1)
+	return VgerCore.ThrottleDelayCore(Duration, false, Func, arg1)
 end
 
 ------------------------------------------------------------

@@ -447,6 +447,8 @@ Todo objeto en World of Warcraft tiene un número de ID asociado.  Normalmente �
 		["OptionsOtherHeader"] = "Otras opciones",
 		["OptionsQuestUpgradeAdvisor"] = "Mostrar asistente de mejora en misión",
 		["OptionsQuestUpgradeAdvisorTooltip"] = "En tu registro de misiones y en las conversaciones con PNJs, si una de las opciones de recompensa de la misión es una mejora para tu equipamiento actual, Pawn mostrará un icono de flecha verde en ese objeto.  SI ninguno de los objetos son una mejora, Pawn mostrará un montón de monedas en el objeto que valga más al venderlo a un comerciante.",
+		["OptionsShowItemLevelUpgrades"] = "Show item level upgrades",
+		["OptionsShowItemLevelUpgradesTooltip"] = "Pawn will show you items that are of a higher item level than what you've previously equipped in that slot in addition to normal upgrades.",
 		--Translation missing 
 		["OptionsShowRelicUpgrades"] = "Show relic upgrades",
 		--Translation missing 

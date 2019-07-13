@@ -1432,12 +1432,12 @@
 						<Scripts><OnClick>PawnUIFrame_UpgradeTrackingList_SetSelection(true)</OnClick></Scripts>
 					</CheckButton>
 
-					<CheckButton name="PawnUIFrame_ShowRelicUpgradesCheck" inherits="PawnUICheckboxTemplate">
+					<CheckButton name="PawnUIFrame_ShowItemLevelUpgradesCheck" inherits="PawnUICheckboxTemplate">
 						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-430" /></Offset></Anchor></Anchors>
 						<Layers><Layer level="ARTWORK">
-							<FontString name="$parent_Label" inherits="PawnUICheckboxLabelTemplate" text="PawnUIFrame_ShowRelicUpgradesCheck_Text" />
+							<FontString name="$parent_Label" inherits="PawnUICheckboxLabelTemplate" text="PawnUIFrame_ShowItemLevelUpgradesCheck_Text" />
 						</Layer></Layers>
-						<Scripts><OnClick function="PawnUIFrame_ShowRelicUpgradesCheck_OnClick" /></Scripts>
+						<Scripts><OnClick function="PawnUIFrame_ShowItemLevelUpgradesCheck_OnClick" /></Scripts>
 					</CheckButton>
 
 					<!-- Advisor options -->

@@ -456,6 +456,8 @@ WoW中所有的物件都有個ID，通常只有寫插件的人才需要這些資
 若你發現 Pawn 基於你已賣出、摧毀，或早已不用的裝備，而頻頻作出欠佳的升級建議，請使用此功能。
 
 這會影響到你所有使用 Pawn 的角色]=],
+		["OptionsShowItemLevelUpgrades"] = "Show item level upgrades",
+		["OptionsShowItemLevelUpgradesTooltip"] = "Pawn will show you items that are of a higher item level than what you've previously equipped in that slot in addition to normal upgrades.",
 		["OptionsShowRelicUpgrades"] = "顯示聖物升級",
 		["OptionsShowRelicUpgradesTooltip"] = "當一件聖物會增加你的一件神兵物品等級時，Pawn會顯示。（這與其他升級功能不同，因為它基於物品等級，而不是屬性。）",
 		["OptionsSocketingAdvisor"] = "顯示插槽建議",

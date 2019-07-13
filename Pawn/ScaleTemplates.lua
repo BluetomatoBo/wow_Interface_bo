@@ -53,13 +53,15 @@ function PawnGetStatValuesForTemplate(Template, NoStats)
 	end
 
 	local StatName
+	for _, StatName in pairs(PawnNeverUsableStats[Template.ClassID]) do
+		ScaleValues[StatName] = PawnIgnoreStatValue
+	end
 	for _, StatName in pairs(Template.UnusableStats) do
 		ScaleValues[StatName] = PawnIgnoreStatValue
 	end
 
 	return ScaleValues
 end
-
 
 
 -- PawnScaleTemplates: Master list of scale templates for each class and spec. 
@@ -71,7 +73,7 @@ PawnScaleTemplates =
 	["SpecID"] = 1, -- Blood
 	["PrimaryStat"] = "Strength",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsDagger", "IsFist", "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsStaff", "IsWarglaive", "IsShield" }
+	["UnusableStats"] = { "IsFrill" }
 },
 
 {
@@ -79,7 +81,7 @@ PawnScaleTemplates =
 	["SpecID"] = 2, -- Frost
 	["PrimaryStat"] = "Strength",
 	["HideUpgrades"] = 2, -- Hide 2H upgrades
-	["UnusableStats"] = { "IsDagger", "IsFist", "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsStaff", "IsWarglaive", "IsShield" }
+	["UnusableStats"] = { "IsFrill" }
 },
 
 {
@@ -87,7 +89,7 @@ PawnScaleTemplates =
 	["SpecID"] = 3, -- Unholy
 	["PrimaryStat"] = "Strength",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsDagger", "IsFist", "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsStaff", "IsWarglaive", "IsShield" }
+	["UnusableStats"] = { "IsFrill" }
 },
 
 {
@@ -95,7 +97,7 @@ PawnScaleTemplates =
 	["SpecID"] = 1, -- Havoc
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 2, -- Hide 2H upgrades
-	["UnusableStats"] = { "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "Is2HAxe", "Is2HMace", "Is2HSword", "IsPolearm", "IsStaff", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsFrill" }
 },
 
 {
@@ -103,14 +105,14 @@ PawnScaleTemplates =
 	["SpecID"] = 2, -- Vengeance
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 2, -- Hide 2H upgrades
-	["UnusableStats"] = { "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "Is2HAxe", "Is2HMace", "Is2HSword", "IsPolearm", "IsStaff", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsFrill" }
 },
 
 {
 	["ClassID"] = 11, -- Druid
 	["SpecID"] = 1, -- Balance
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsOffHand", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = {}
 },
 
 {
@@ -118,7 +120,7 @@ PawnScaleTemplates =
 	["SpecID"] = 2, -- Feral
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsFrill", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield", "IsOffHand" } -- IsOffHand may cause problems for the feral artifact
+	["UnusableStats"] = { "IsFrill" }
 },
 
 {
@@ -126,14 +128,14 @@ PawnScaleTemplates =
 	["SpecID"] = 3, -- Guardian
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsFrill", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield", "IsOffHand" } -- IsOffHand may cause problems for the guardian artifact
+	["UnusableStats"] = { "IsFrill" }
 },
 
 {
 	["ClassID"] = 11, -- Druid
 	["SpecID"] = 4, -- Restoration
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsOffHand", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = {}
 },
 
 {
@@ -141,7 +143,7 @@ PawnScaleTemplates =
 	["SpecID"] = 1, -- Beast Mastery
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsWand", "IsFrill", "IsDagger", "IsPolearm", "IsStaff", "IsFist", "IsSword", "Is2HSword", "IsMace", "Is2HMace", "IsAxe", "Is2HAxe", "IsWarglaive", "IsOffHand", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsDagger", "IsPolearm", "IsStaff", "IsFist", "IsSword", "Is2HSword", "IsAxe", "Is2HAxe", "IsOffHand", "IsFrill" }
 },
 
 {
@@ -149,49 +151,49 @@ PawnScaleTemplates =
 	["SpecID"] = 2, -- Marksmanship
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsWand", "IsFrill", "IsDagger", "IsPolearm", "IsStaff", "IsFist", "IsSword", "Is2HSword", "IsMace", "Is2HMace", "IsAxe", "Is2HAxe", "IsWarglaive", "IsOffHand", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsDagger", "IsPolearm", "IsStaff", "IsFist", "IsSword", "Is2HSword", "IsAxe", "Is2HAxe", "IsOffHand", "IsFrill" }
 },
 
 {
 	["ClassID"] = 3, -- Hunter
 	["SpecID"] = 3, -- Survival
 	["PrimaryStat"] = "Agility",
-	["UnusableStats"] = { "IsWand", "IsFrill", "IsMace", "Is2HMace", "IsWarglaive", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsFrill" }
 },
 
 {
 	["ClassID"] = 8, -- Mage
 	["SpecID"] = 1, -- Arcane
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "Is2HSword", "IsMace", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = {}
 },
 
 {
 	["ClassID"] = 8, -- Mage
 	["SpecID"] = 2, -- Fire
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "Is2HSword", "IsMace", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = {}
 },
 
 {
 	["ClassID"] = 8, -- Mage
 	["SpecID"] = 3, -- Frost
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "Is2HSword", "IsMace", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = {}
 },
 
 {
 	["ClassID"] = 10, -- Monk
 	["SpecID"] = 1, -- Brewmaster
 	["PrimaryStat"] = "Agility",
-	["UnusableStats"] = { "IsDagger", "Is2HAxe", "Is2HMace", "Is2HSword", "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsFrill" }
 },
 
 {
 	["ClassID"] = 10, -- Monk
 	["SpecID"] = 2, -- Mistweaver
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsDagger", "Is2HAxe", "Is2HMace", "Is2HSword", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsMail", "IsPlate", "IsShield", "IsOffHand" }
+	["UnusableStats"] = { "IsOffHand" }
 },
 
 {
@@ -199,7 +201,7 @@ PawnScaleTemplates =
 	["SpecID"] = 3, -- Windwalker
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 2, -- Hide 2H upgrades
-	["UnusableStats"] = { "IsDagger", "Is2HAxe", "Is2HMace", "Is2HSword", "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsFrill" }
 },
 
 {
@@ -207,7 +209,7 @@ PawnScaleTemplates =
 	["SpecID"] = 1, -- Holy
 	["PrimaryStat"] = "Intellect",
 	["HideUpgrades"] = 2, -- Hide 2H upgrades
-	["UnusableStats"] = { "IsDagger", "IsFist", "IsStaff", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsOffHand" }
+	["UnusableStats"] = {}
 },
 
 {
@@ -215,7 +217,7 @@ PawnScaleTemplates =
 	["SpecID"] = 2, -- Protection
 	["PrimaryStat"] = "Strength",
 	["HideUpgrades"] = 2, -- Hide 2H upgrades
-	["UnusableStats"] = { "IsDagger", "IsFist", "IsStaff", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsOffHand" }
+	["UnusableStats"] = {}
 },
 
 {
@@ -223,28 +225,28 @@ PawnScaleTemplates =
 	["SpecID"] = 3, -- Retribution
 	["PrimaryStat"] = "Strength",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsDagger", "IsFist", "IsStaff", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsOffHand" }
+	["UnusableStats"] = {}
 },
 
 {
 	["ClassID"] = 5, -- Priest
 	["SpecID"] = 1, -- Discipline
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "IsSword", "Is2HSword", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = {}
 },
 
 {
 	["ClassID"] = 5, -- Priest
 	["SpecID"] = 2, -- Holy
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "IsSword", "Is2HSword", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = {}
 },
 
 {
 	["ClassID"] = 5, -- Priest
 	["SpecID"] = 3, -- Shadow
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "IsSword", "Is2HSword", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = {}
 },
 
 {
@@ -252,7 +254,7 @@ PawnScaleTemplates =
 	["SpecID"] = 1, -- Assassination
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 2, -- Hide 2H upgrades
-	["UnusableStats"] = { "IsFist", "IsPolearm", "IsStaff", "IsAxe", "Is2HAxe", "IsMace", "Is2HMace", "IsSword", "Is2HSword", "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsFist", "IsAxe", "IsMace", "IsSword", "IsBow", "IsCrossbow", "IsGun", "IsFrill" }
 },
 
 {
@@ -260,7 +262,7 @@ PawnScaleTemplates =
 	["SpecID"] = 2, -- Outlaw
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 2, -- Hide 2H upgrades
-	["UnusableStats"] = { "IsPolearm", "IsStaff", "Is2HAxe", "Is2HMace", "Is2HSword", "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsBow", "IsCrossbow", "IsGun", "IsFrill" }
 },
 
 {
@@ -268,14 +270,14 @@ PawnScaleTemplates =
 	["SpecID"] = 3, -- Subtlety
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 2, -- Hide 2H upgrades
-	["UnusableStats"] = { "IsFist", "IsPolearm", "IsStaff", "IsAxe", "Is2HAxe", "IsMace", "Is2HMace", "IsSword", "Is2HSword", "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsFist", "IsAxe", "IsMace", "IsSword", "IsBow", "IsCrossbow", "IsGun", "IsFrill" }
 },
 
 {
 	["ClassID"] = 7, -- Shaman
 	["SpecID"] = 1, -- Elemental
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsPolearm", "IsSword", "Is2HSword", "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsOffHand", "IsPlate" }
+	["UnusableStats"] = { "IsOffHand" }
 },
 
 {
@@ -283,35 +285,35 @@ PawnScaleTemplates =
 	["SpecID"] = 2, -- Enhancement
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 2, -- Hide 2H upgrades
-	["UnusableStats"] = { "IsPolearm", "IsSword", "Is2HSword", "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsShield", "IsFrill" }
 },
 
 {
 	["ClassID"] = 7, -- Shaman
 	["SpecID"] = 3, -- Restoration
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsPolearm", "IsSword", "Is2HSword", "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsOffHand", "IsPlate" }
+	["UnusableStats"] = { "IsOffHand" }
 },
 
 {
 	["ClassID"] = 9, -- Warlock
 	["SpecID"] = 1, -- Affliction
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "Is2HSword", "IsMace", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = {}
 },
 
 {
 	["ClassID"] = 9, -- Warlock
 	["SpecID"] = 2, -- Demonology
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "Is2HSword", "IsMace", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = {}
 },
 
 {
 	["ClassID"] = 9, -- Warlock
 	["SpecID"] = 3, -- Destruction
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "Is2HSword", "IsMace", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = {}
 },
 
 {
@@ -319,14 +321,14 @@ PawnScaleTemplates =
 	["SpecID"] = 1, -- Arms
 	["PrimaryStat"] = "Strength",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive" }
+	["UnusableStats"] = { "IsFrill", "IsBow", "IsCrossbow", "IsGun" }
 },
 
 {
 	["ClassID"] = 1, -- Warrior
 	["SpecID"] = 2, -- Fury
 	["PrimaryStat"] = "Strength",
-	["UnusableStats"] = { "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive" }
+	["UnusableStats"] = { "IsFrill", "IsBow", "IsCrossbow", "IsGun" }
 },
 
 {
@@ -334,7 +336,49 @@ PawnScaleTemplates =
 	["SpecID"] = 3, -- Protection
 	["PrimaryStat"] = "Strength",
 	["HideUpgrades"] = 2, -- Hide 2H upgrades
-	["UnusableStats"] = { "IsWand", "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsOffHand" }
+	["UnusableStats"] = { "IsFrill", "IsBow", "IsCrossbow", "IsGun", "IsOffHand" }
 },
 
+}
+
+
+-- PawnNeverUsableStats: Master list of stats that are NEVER usable for each class, regardless of spec. 
+PawnNeverUsableStats =
+{
+	[1] = -- Warrior
+	{ "IsWand", "IsWarglaive" },
+
+	[2] = -- Paladin
+	{ "IsDagger", "IsFist", "IsStaff", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsOffHand" },
+
+	[3] = -- Hunter
+	{ "IsWand", "IsMace", "Is2HMace", "IsWarglaive", "IsPlate", "IsShield" },
+
+	[4] = -- Rogue
+	{ "IsPolearm", "IsStaff", "Is2HAxe", "Is2HMace", "Is2HSword", "IsWand", "IsWarglaive", "IsMail", "IsPlate", "IsShield" },
+
+	[5] = --Priest
+	{ "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "IsSword", "Is2HSword", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" },
+
+	[6] = -- Death Knight
+	{ "IsDagger", "IsFist", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsStaff", "IsWarglaive", "IsShield" },
+
+	[7] = -- Shaman
+	{ "IsPolearm", "IsSword", "Is2HSword", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsPlate" },
+
+	[8] = --Mage
+	{ "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "Is2HSword", "IsMace", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" },
+
+	[9] = -- Warlock
+	{ "IsAxe", "Is2HAxe", "IsFist", "IsPolearm", "Is2HSword", "IsMace", "Is2HMace", "IsWarglaive", "IsBow", "IsCrossbow", "IsGun", "IsOffHand", "IsLeather", "IsMail", "IsPlate", "IsShield" },
+
+	[10] = -- Monk
+	{ "IsDagger", "Is2HAxe", "Is2HMace", "Is2HSword", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsMail", "IsPlate", "IsShield", "IsOffHand" },
+
+	[11] = -- Druid
+	{ "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsOffHand", "IsMail", "IsPlate", "IsShield" },
+	-- Note: feral and guardian artifacts are actually off-hand items, even though druids can't normally equip them.
+
+	[12] = -- Demon Hunter
+	{ "IsWand", "IsBow", "IsCrossbow", "IsGun", "Is2HAxe", "Is2HMace", "Is2HSword", "IsPolearm", "IsStaff", "IsMail", "IsPlate", "IsShield" },
 }

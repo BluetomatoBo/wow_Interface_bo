@@ -442,6 +442,8 @@ Todos os itens no World of Warcraft possui um número de ID associado a ele. Ess
 		["OptionsResetUpgradesTooltip"] = [=[O Pawn irá esquecer o que sabe sobre os melhores itens que você equipou e reescanear seu equipamento de forma a providenciar informações de melhorias mais atualizadas no futuro.
 
 Use essa funcionalidade se você perceber que o Pawn está sugerindo melhorias incorretas como resultado de itens que você vendeu, destruiu ou não utiliza mais. Isso vai afetar todos os seus personagens que usam o Pawn.]=],
+		["OptionsShowItemLevelUpgrades"] = "Show item level upgrades",
+		["OptionsShowItemLevelUpgradesTooltip"] = "Pawn will show you items that are of a higher item level than what you've previously equipped in that slot in addition to normal upgrades.",
 		["OptionsShowRelicUpgrades"] = "Mostrar melhorias de relíquias",
 		["OptionsShowRelicUpgradesTooltip"] = "O Pawn irá mostrar quando uma relíquia poderia aumentar o nível do item de uma de suas armas  artefato. (Isso funciona diferente de outras funcionalidades de melhoria, uma vez que é baseada somente no nível do item, e não nos atributos.)",
 		["OptionsSocketingAdvisor"] = "Mostrar assessor de engastes",

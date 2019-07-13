@@ -11,20 +11,20 @@ local function PawnUseThisLocalization()
 PawnLocal =
 {
 	["AverageItemLevelIgnoringRarityTooltipLine"] = "Durchschnittliches Itemlevel",
-	["BackupCommand"] = "Backup",
+	["BackupCommand"] = "backup",
 	["BaseValueWord"] = "Basis",
 	["CopyScaleEnterName"] = "Gib einen Wertungsnamen für die Kopie von %s ein:",
-	["DebugOffCommand"] = "Debug-Modus aus",
-	["DebugOnCommand"] = "Debug-Modus an",
+	["DebugOffCommand"] = "debug aus",
+	["DebugOnCommand"] = "debug an",
 	["DecimalSeparator"] = ",",
 	["DeleteScaleConfirmation"] = "Willst du die Wertung %s wirklich löschen? Dieser Vorgang kann nicht rückgängig gemacht werden. Gib \"%s\" zur Bestätigung ein:",
 	["DidntUnderstandMessage"] = "   (?) Habe \"%s\" nicht verstanden.",
-	["EnchantedStatsHeader"] = "(Verzaubert)",
+	["EnchantedStatsHeader"] = "(Aktueller Wert)",
 	["EngineeringName"] = "Ingenieurskunst",
 	["ExportAllScalesMessage"] = "Drücke Strg+C um Wertungs-Tags zu kopieren, erstelle eine Datei auf deinem PC und sichere diese Werte als Backup, drücke dann Strg+V um die Werte einzufügen.",
 	["ExportScaleMessage"] = "Drücke Strg+C um die Wertung |cffffffff%s|r, zu kopieren und später mit Strg+V an anderer Stelle einzufügen.",
-	["FailedToGetItemLinkMessage"] = "   Konnte keine Gegenstandsinformationen aus dem Tooltip beziehen.  Dies kann an einem Mod-Konflikt liegen.",
-	["FailedToGetUnenchantedItemMessage"] = "   Konnte keine Unverzaubert-Werte beziehen.  Dies kann an einem Mod-Konflikt liegen.",
+	["FailedToGetItemLinkMessage"] = "   Fehler beim Abrufen der Gegenstandsinformation aus dem Tooltip.  Dies kann an einem Mod-Konflikt liegen.",
+	["FailedToGetUnenchantedItemMessage"] = "   Fehler beim Abrufen der Basisgegenstandwerte.  Dies kann an einem Mod-Konflikt liegen.",
 	["FoundStatMessage"] = "   %d %s",
 	["GemList2"] = "%s oder %s",
 	["GemListMany"] = "%d Möglichkeiten (drücke den Pawn-Knopf für Details)",
@@ -34,7 +34,7 @@ PawnLocal =
 	["ImportScaleMessage"] = "Drücke Strg+V um eine Wertung von einer anderen Quelle einzufügen:",
 	["ImportScaleTagErrorMessage"] = "Pawn versteht dieses Wertungstag nicht.  Hast du das ganze Tag kopiert?  Versuche es erneut:",
 	["ItemIDTooltipLine"] = "Item-ID",
-	["ItemLevelTooltipLine"] = "Itemlevel",
+	["ItemLevelTooltipLine"] = "Gegenstandsstufe",
 	["LootUpgradeAdvisorHeader"] = "Klicken um mit deinem aktuellen Gegenstand zu vergleichen.|n",
 	["LootUpgradeAdvisorHeaderMany"] = "|TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t Dieser Gegenstand verbessert deine Wertung um %d.  Klicken um mit deinem aktuellen Gegenstand zu vergleichen.",
 	["MissocketWorthwhileMessage"] = "   -- Aber es ist besser nur %s Edelsteine zu verwenden:",
@@ -54,14 +54,14 @@ PawnLocal =
 	["TooltipBestAnnotation"] = "%s  |cff8ec3e6(bester)|r",
 	["TooltipBestAnnotationSimple"] = "%s  (bester)",
 	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 Verbesserung%s|r",
-	["TooltipDowngradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% Verbesserung%s|r",
+	["TooltipDowngradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% Zurückstufung%s|r",
 	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d Gegenstandsstufen%s|r",
 	["TooltipSecondBestAnnotation"] = "%s  |cff8ec3e6(zweitbester)|r",
 	["TooltipSecondBestAnnotationSimple"] = "%s  (zweitbester)",
 	["TooltipUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% Verbesserung%s|r",
 	["TooltipUpgradeFor1H"] = " für 1Hand",
 	["TooltipUpgradeFor2H"] = " für 2Hand",
-	["TooltipUpgradeNeedsEnhancementsAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% Verbesserung%s|r",
+	["TooltipUpgradeNeedsEnhancementsAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% Verbesserungspotenzial%s|r",
 	["TooltipVersusLine"] = "%s|n  vs. |c%s%s|r",
 	["TotalValueMessage"] = "   ---- Gesamt: %g",
 	["UnenchantedStatsHeader"] = "(Unverzaubert)",
@@ -71,48 +71,48 @@ PawnLocal =
 www.vgermods.com
  
 /pawn -- Pawn anzeigen oder verstecken
-/pawn debug [ on | off ] -- Debug Infos in der Konsole anzeigen
+/pawn debug [ an | aus ] -- Debug Infos in der Konsole anzeigen
 /pawn backup -- alle Bewertungsprofile sichern
  
 Weitere Informationen zur Anpassung von Pawn findet ihr in der Hilfedatei (Readme.htm) die mit dieser Installation ausgeliefert wird.]=],
 	["ValueCalculationMessage"] = "   %g %s x %g pro = %g",
 	["VisibleScalesHeader"] = "%s's Wertungen",
 	["Stats"] = {
-		["AgilityInfo"] = "Primäre Wertung: Beweglichkeit.",
-		["ArmorInfo"] = "Rüstung unabhängig vom Gegenstandstyp.  Berücksichtigt keine Bonusrüstung, da Gegenstände mit Bonusrüstung obsolet sind.",
+		["AgilityInfo"] = "Beweglichkeit. Verstärkt Eure Angriffe und Fähigkeiten.",
+		["ArmorInfo"] = "Rüstung.  Körperliche Schadensreduktion.",
 		["ArmorTypes"] = "Waffenarten",
-		["AvoidanceInfo"] = "Zahigkelt.  Reduziert den Schaden nehmen Sie aus des Wirkungsbereichs Angriffe.",
+		["AvoidanceInfo"] = "Vermeidung. Verringert den Schaden, den Ihr durch Flächenangriffe erleidet.",
 		["Cloth"] = "Stoff",
-		["ClothInfo"] = "Für einen Stoffrüstungsgegenstand zugeteilte Punkte.",
+		["ClothInfo"] = "Punkte, die zugewiesen werden sollen, wenn der Gegenstand Stoff ist.",
 		["Crit"] = "Krit",
-		["CritInfo"] = "Kritische Trefferwertung.  Betrifft Nah-, Fernkampfangriffe und Zauber.",
+		["CritInfo"] = "Kritische Treffer.  Chance, dass Angriffe und Heilungen stärkere Wirkung haben.",
 		["DpsInfo"] = "Waffenschaden pro Sekunde.  (Wenn du den DPS-Wert für Waffengattungen unterschiedlich definieren willst, scrolle runter zum Bereich \"Spezielle Waffenwertungen\"",
-		["HasteInfo"] = "Tempo.  Betrifft Nah-, Fernkampfangriffe und Zauber.",
-		["IndestructibleInfo"] = "Spalten.  Verhindert, dass Ihre Geräte von Haltbarkeit Schaden nehmen.",
-		["IndestructibleIs"] = "|cffffffffspalten|r sein lohnt sich:",
-		["IntellectInfo"] = "Primäre Wertung: Intelligenz.",
+		["HasteInfo"] = "Tempo.  Erhöht Angriffs- und Zaubertempo.",
+		["IndestructibleInfo"] = "Unzerstörbar.  Verhindert, dass Ihre Ausrüstung dauerhaften Schaden nimmt.",
+		["IndestructibleIs"] = "Sein |cffffffffunzerstörbar|r lohnt sich:",
+		["IntellectInfo"] = "Intelligenz. Verstärkt eure Zauber",
 		["Leather"] = "Leder",
-		["LeatherInfo"] = "Für einen Lederrüstungsgegenstand zugeteilte Punkte.",
+		["LeatherInfo"] = "Punkte, die zugewiesen werden sollen, wenn der Gegenstand Leder ist.",
 		["LeechInfo"] = "Lebensraub. Heilt Euch um einen Teil des Schadens oder der Heilung, die Ihr verursacht.",
 		["Mail"] = "Kette",
-		["MailInfo"] = "Für einen Kettenrüstungsgegenstand zugeteilte Punkte.",
-		["MasteryInfo"] = "Meisterschaftswertung.  Verbessert den Meisterschaftsbonus des primären Talentbaums.",
-		["MinorStats"] = "Kleinere",
-		["MovementSpeedInfo"] = "Bewegungsgeschwindigkeit. Bewirkt, dass euer Charakter schneller ausgeführt.",
+		["MailInfo"] = "Punkte, die zugewiesen werden sollen, wenn der Gegenstand Kette ist.",
+		["MasteryInfo"] = "Meisterschaft. Verbessert den einzigartigen Bonus Eurer Klassenspezialisierung.",
+		["MinorStats"] = "Kleinere Werte",
+		["MovementSpeedInfo"] = "Bewegungsgeschwindigkeit. Bewirkt, dass euer Charakter schneller läuft.",
 		["Plate"] = "Platte",
-		["PlateInfo"] = "Für einen Plattenrüstungsgegenstand zugeteilte Punkte.",
+		["PlateInfo"] = "Punkte, die zugewiesen werden sollen, wenn der Gegenstand Platte ist.",
 		["Shield"] = "Schild",
-		["ShieldInfo"] = "Für einen Schild zugeteilte Punkte.",
+		["ShieldInfo"] = "Punkte, die zugewiesen werden sollen, wenn der Gegenstand ein Schild ist.",
 		["Sockets"] = "Sockel",
 		["SpecialWeaponStats"] = "Spezielle Waffenwertungen",
 		["SpeedBaseline"] = "Tempogrundwert",
-		["SpeedBaselineInfo"] = "Keine wirkliche Wertung.  Dieser Wert wird vom Tempowert abgezogen, bevor er mit der Wertung multipliziert wird.",
+		["SpeedBaselineInfo"] = "Keine tatsächliche Wertung, die auf den Waffen erscheint. Dieser Wert wird von der Schnelligkeit abgezogen, bevor er mit der Wertung multipliziert wird.",
 		["SpeedBaselineIs"] = "|cffffffffTempogrundwert|r is:",
 		["SpeedInfo"] = "Waffenschaden pro Sekunde.  (Wenn du schnelle Waffen bevorzugst, dann sollte diese Nummer negativ sein. Siehe auch \"Tempogrundwert\" im Bereich \"Spezielle Waffenwertungen\".)",
 		["SpeedIs"] = "1 Sekunde |cffffffffWaffentempo|r entspricht:",
-		["StaminaInfo"] = "Primäre Wertung: Ausdauer.",
-		["StrengthInfo"] = "Primäre Wertung: Stärke.",
-		["VersatilityInfo"] = "Verstarkung. Erhöht den Schaden von Schaden-Zeichen behandelt, erhöht Heilung um Heilung Zeichen und verringert den erlittenen für Tank-Zeichen.",
+		["StaminaInfo"] = "Ausdauer. Erhöht die Gesundheit.",
+		["StrengthInfo"] = "Stärke. Verstärkt Eure Angriffe und Fähigkeiten.",
+		["VersatilityInfo"] = "Vielseitigkeit. Erhöht verursachten Schaden und Heilung und verringert erlittenen Schaden.",
 		["WeaponMainHandDps"] = "Waffenhand: DPS",
 		["WeaponMainHandDpsInfo"] = "Waffenschaden pro Sekunde, nur für Waffenhandwaffen.",
 		["WeaponMainHandMaxDamage"] = "Waffenhand: max. Schaden",
@@ -200,8 +200,7 @@ Weitere Informationen zur Anpassung von Pawn findet ihr in der Hilfedatei (Readm
 		["WeaponTypeWand"] = "Zauberstab",
 		["WeaponTypeWandInfo"] = "Für einen Zauberstab zugeteilte Punkte.",
 		["WeaponTypeWarglaive"] = "Kriegsgleve",
-		--Translation missing 
-		["WeaponTypeWarglaiveInfo"] = "Points to be assigned if the item is a warglaive.",
+		["WeaponTypeWarglaiveInfo"] = "Punkte, die vergeben werden, wenn der Gegenstand eine Kriegsgleve ist.",
 	},
 	["TooltipParsing"] = {
 		["Agility"] = "^%+?([-%d%.,]+) Beweglichkeit$",
@@ -263,8 +262,7 @@ Weitere Informationen zur Anpassung von Pawn findet ihr in der Hilfedatei (Readm
 		["Mastery2"] = "^UNUSED$",
 		["MetaGemRequirements"] = "|cff%x%x%x%x%x%xBenötigt",
 		["MovementSpeed"] = "^%+([%d%.,]+) Bewegungsgeschwindigkeit$",
-		--Translation missing 
-		["MultiStatHeading"] = "^Multiple Stats$",
+		["MultiStatHeading"] = "^Mehrere Werte$",
 		["MultiStatSeparator1"] = "und",
 		["Multistrike"] = "^%+([%d%.,]+) Mehrfachschlag$",
 		["NormalizationEnchant"] = "^Verzaubert: (.*)$",
@@ -359,24 +357,22 @@ Wenn z.B. "463" angegeben, dann wird Pawn Edelsteine für die Gegenstandsstufe 4
 		["GemsShowForItemLevelTooltip"] = "Zeige die von Pawn empfohlenen Edelsteine für das aktuell gewählte Profil und eine bestimmte Gegenstandsstufe.",
 		["GemsTab"] = "Edelsteine",
 		["GemsWelcome"] = "Wähle ein Profil auf der linken Seite um die Edelsteine zu sehen, die Pawn empfiehlt.",
-		["HelpHeader"] = "Los geht's!",
+		["HelpHeader"] = "Willkommen bei Pawn!",
 		["HelpTab"] = "Los geht's",
-		["HelpText"] = [=[Pawn berechnet Gegenstandswertungen, mit denen du schnell erkennen kannst, welches von zwei Items deinen selbstdefinierten Bedürfnissen mehr entspricht.  Diese Wertungen werden im Gegenstandstooltip angezeigt.
+		["HelpText"] = [=[Pawn hilft dir, deine beste Ausrüstung zu finden und Verbesserungen zu identifizieren, die dir begegnen.
 
 
-Jeder Gegenstand erhält eine Wertung für jedes Bewertungsprofil das für deinen Charakter aktiv ist.  Ein Bewertungsprofil enthält alle Skalierungen die wichtig für dich sind und die Anzahl Punkte, die sie wert sind. Üblicherweise hat man ein Profil pro Klasse oder Spezialisierung. Die Profile sind standardmässig verborgen, man kann jedoch im "Vergleichen" Reiter die Profile wählen und sehen. welche Werte diese für die zu vergleichenden Gegenstände berechnen würden.
+Wenn du Quest-Belohnungen oder Dungeon-Beute erwirbst, die besser als deine aktuelle Ausrüstung sein könnten, wird Pawn es dich mit einem grünen Pfeilsymbol wissen lassen.
 
-• Du kannst Bewertungsprofile durch Shift-Klick in der Profil-Liste an und ausschalten.
+ |cff8ec3e6Fire:|r |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% Verbesserung|r 
 
-Pawn enthält Bewertungsprofile von Wowhead für jede Klasse und Spezialisierung.  Du kannst eigene Bewertungsprofile erstellen in dem du Punktwertungen für Skalierungen definierst und diese Profile im Internet mit anderen teilen oder Profile aus dem Internet oder Simulationstools importieren.
 
-|cff8ec3e6Probiere diese Features wenn du die Grundlagen verstanden hast:|r
-• Vergleiche zwei Gegenstände, indem du den Pawn "Vergleichen" Reiter benutzt.
-• Rechtsklicke auf das Gegenstandsfenster um zu sehen, wie er im Vergleich zum aktuellen Gegenstand abschneidet.
-• Shift-Rechtsklicke auf einen gesockelten Gegenstand um von Pawn Vorschläge für geeignete Edelsteine zu bekommen.
-• Erstelle eine Kopie deines Bewertungsprofils im Profil Tab und passe die Werte im Werte Tab an.
-• Finde mehr Bewertungsprofile für deine Klasse im Internet oder erstelle dir ein persönliches Bewertungsprofil mit Pawn.
-• Lies die readme Datei um Pawn's Möglichkeiten besser kennenzulernen.]=],
+|cff8ec3e6Probiere diese Features aus, wenn du dich an die Grundlagen gewöhnt hast:|r
+
+• Vergleiche die Werte von zwei Gegenstände mit Hilfe des Pawn "Vergleichen" Reiter.
+• Wechsele auf den Reiter Skalierung in den manuellen Modus, um Vorschläge für mehr als eine Spezifikation gleichzeitig anzuzeigen.
+• Verwende den Ask Mr. Robot-Simulator und erstelle ein benutzerdefinierten Maßstab für deinen Charakter, um eine individuellen Vorschlag zu erhalten.
+]=],
 		["InterfaceOptionsBody"] = "Klicke die Pawnschaltfläche, um dorthin zu gelangen.  Du kommst außerdem über die Charakterübersicht oder Tastenkürzel dorthin.",
 		["InterfaceOptionsWelcome"] = "Optionen für Pawn im Pawninterface.",
 		["InventoryButtonTooltip"] = "Klicken, um das Pawn-Interface anzuzeigen.",
@@ -388,12 +384,11 @@ Pawn enthält Bewertungsprofile von Wowhead für jede Klasse und Spezialisierung
 		["OptionsAlignRight"] = "Wertungen im Tooltip rechts ausrichten",
 		["OptionsAlignRightTooltip"] = "Aktiviere diese Option um Pawn-Wertungen und Upgradeinformationen an der rechten anstatt der linken Seite des Tooltips auszurichten.",
 		["OptionsBagUpgradeAdvisor"] = "Zeige Berater für Verbesserungen in der Tasche",
-		--Translation missing 
-		["OptionsBagUpgradeAdvisorTooltip"] = [=[Enable this option to have Pawn take over the in-bag upgrade arrows.
+		["OptionsBagUpgradeAdvisorTooltip"] = [=[Aktiviere diese Option, wenn Pawn die Verbesserungs-Pfeile in den Taschen übernehmen soll. 
 
-If checked, Pawn will find upgrades in your bags and mark items that are an upgrade for any of your active scales with green arrows. 
+Wenn aktiviert, findet Pawn Verbesserungen in deinen Taschen und markiert die Gegenstände, die eine Verbesserung für deine aktive Waage sind, mit grünen Pfeilen.
 
-If unchecked, WoW will mark items with a higher item level than what you're currently wearing, and Pawn will not interfere with the built-in feature.]=],
+Wenn deaktiviert, markiert WoW Gegenstände mit einem höheren Gegenstandswert als dem, was du gerade trägst und Pawn wird die eingebaute Funktion nicht stören.]=],
 		["OptionsBlankLine"] = "Leerzeile vor Wertungen",
 		["OptionsBlankLineTooltip"] = "Halte die Tooltips übersichtlich, in dem du eine extra Leerzeile vor den Pawn-Wertungen einführst.",
 		["OptionsButtonHidden"] = "verstecken",
@@ -406,7 +401,9 @@ If unchecked, WoW will mark items with a higher item level than what you're curr
 		["OptionsColorBorder"] = "Tooltip-Rand bei Verbesserungen einfärben",
 		["OptionsColorBorderTooltip"] = "Aktiviere diese Option um den Tooltip-Rand in Grün anzuzeigen, wenn der Gegenstand eine Verbesserung darstellt. Deaktiviere diese Option wenn Probleme mit anderen Addons auftreten sollten. ",
 		["OptionsCurrentValue"] = "Zeige beide Werte (Aktuell und Basis)",
-		["OptionsCurrentValueTooltip"] = "Aktiviere diese Option um mit Pawn zwei Werte anzuzeigen: Der aktuelle Wert des Gegenstands mit allen aktuellen Edelsteinen, Verzauberungen und Umschmiedungen, die zur Zeit aktiv sind. Leere Sockel erhöhen die Wertung nicht. Zusätzlich wird der Basiswert angezeigt, den Pawn normalerweiser anzeigt. Der aktuelle Wert wird vor dem Basiswert angezeigt. Diese Option hat keinen Effekt solange nicht die Option \"Zeige Verbesserungen im Tooltip\" aktiviert ist.",
+		["OptionsCurrentValueTooltip"] = [=[Aktiviere diese Option, wenn Pawn zwei Werte für Gegenstände zeigen soll: der aktuelle Wert, der den aktuellen Zustand mit den tatsächlichen Edelsteinen und Verzauberungen des Gegenstandes im Moment widerspiegelt, mit leeren Sockeln, die keinen Nutzen bringen, und dem Grundwert, Das ist, was Pawn normalerweise anzeigt. Diese Option hat keine Auswirkungen, es sei denn, du aktivierst die Objektwertanzeige in QuickInfos.
+
+Du solltest immer noch den Basiswert verwenden, um zwischen zwei Gegenständen im Endeffekt zu unterscheiden, aber der aktuelle Wert kann beim Leveln hilfreich sein und es leichter machen zu entscheiden, ob es sich lohnt, einen neuen Gegenstand sofort zu besetzen, bevor er Edelsteine oder Verzauberungen hat.]=],
 		["OptionsDebug"] = "Zeige Debug-Info",
 		["OptionsDebugTooltip"] = [=[Wenn du nicht sicher bist, wie Pawn seine Werte ermittelt aktiviere diese Option, damit Pawn alle Arten von nützlichen Informationen in der Konsole ausgibt sobald du mit der Maus über einem Gegenstand bist. Diese Information enthält die Werte, die der Gegenstand hat, die Wertungen, die Pawn nicht versteht und wie alles bewertet wird.
 
@@ -416,22 +413,19 @@ Shortcuts:
 /pawn debug on
 /pawn debug off]=],
 		["OptionsHeader"] = "Verändere Pawn Optionen",
-		["OptionsIgnoreGemsWhileLevelingCheck"] = "Sockets auf Low-Level-Elemente zu ignorieren",
-		--Translation missing 
-		["OptionsIgnoreGemsWhileLevelingCheckTooltip"] = [=[Enable this option to have Pawn ignore sockets on low-level items when calculating item values, since most people do not go to the effort or expense of socketing items while still leveling.  A "low-level" item is one weaker than what can be obtained in a heroic dungeon at the level cap.
+		["OptionsIgnoreGemsWhileLevelingCheck"] = "Ignoriert Sockel auf Niedrigstufige Gegenstände",
+		["OptionsIgnoreGemsWhileLevelingCheckTooltip"] = [=[Aktiviere diese Option, damit Pawn bei der Berechnung von Sockeln auf Niedrigstufigen Gegenständen ignoriert, da die meisten Leute nicht den Aufwand oder die Kosten für Edelsteine während des Levelns nutzen. Ein "Niedrigstufiger" Gegenstand ist schwächer als der, der von einem heroischen Dungeon auf dem Höchstlevel erreicht werden kann.
 
-If checked, Pawn's socketing advisor will still suggest appropriate gems for low-level items, but sockets will be ignored in calculations and socketed items will not show up as upgrades as often.
+Wenn diese Option aktiviert ist, schlägt Pawn immer noch passende Edelsteine für Gegenstände niedriger Stufe vor. Sockel werden bei der Berechnung ignoriert und gesockelte Gegenstände werden nicht so häufig als Verbesserung angezeigt.
 
-If unchecked, Pawn will calculate values for items as if they were socketed in the way that maximizes the item's value, regardless of the item's level.]=],
-		--Translation missing 
-		["OptionsIgnoreItemUpgradesCheck"] = "Ignore valor and baleful upgrades",
-		--Translation missing 
-		["OptionsIgnoreItemUpgradesCheckTooltip"] = [=[Enable this option to have Pawn ignore the potential for Valor upgrades and Empowered Baleful items when calculating item values.
+Wenn diese Option deaktiviert ist, berechnet Pawn die Werte für Gegenstände so, als ob sie gesockelt wären, die den Wert des Gegenstandes maximiert, unabhängig von der Stufe des Gegenstandes.]=],
+		["OptionsIgnoreItemUpgradesCheck"] = "Ignoriere Tapferkeit und Bedrohliche Verbesserungen",
+		["OptionsIgnoreItemUpgradesCheckTooltip"] = [=[Aktiviere diese Option, wenn Pawn bei der Berechnung von Gegenstandswerten das Potenzial für Tapferkeits Verbesserungen und Machtvolle Gegenstände ignorieren soll.
 
-If checked, Pawn will treat upgradeable items as they are and will not assume that you would use Valor and Empowered Apexis Fragments to improve the item when determining whether an item is better than what you currently have.
+Wenn diese Option aktiviert ist, wird Pawn nachrüstbare Gegenstände so behandeln, wie sie sind und nicht davon ausgehen, dass Tapferkeits- und Apexis-Fragmenten verwendet werden um den Gegenstand zu verbessern. Falls festgestellt wird, ob ein Gegenstand besser ist als das, was du gerade hast.
 
-If unchecked, Pawn will treat those items assuming that you would maximize their potential with Valor and Empowered Apexis Fragments.  This could cause a level 650 baleful item to appear as a significant upgrade over a level 670 item from Blackrock Foundry, since the baleful item could potentially be improved to level 705 through valor and Apexis.]=],
-		["OptionsInventoryIcon"] = "Inventar-Icons anzeigen",
+Wenn diese Option nicht aktiviert ist, wird Pawn diese Gegenstände behandeln als ob ihr maximales Potential mit Tapferkeits- und Apexis-Fragmenten aufgewertet wurde. Dies könnte dazu führen, dass ein machtvoller Gegenstand der Stufe 650 eine signifikante Verbesserung gegenüber einem Gegenstand der Stufe 670 aus der Schwarzfels-Gießerei erscheint, da der machtvolle Gegenstand möglicherweise durch Tapferkeit und Apexis auf Stufe 705 verbessert werden könnte.]=],
+		["OptionsInventoryIcon"] = "Zeige Symbole neben Tooltips",
 		["OptionsInventoryIconTooltip"] = "Aktiviere diese Option um Inventar-Icons neben Gegenstandsfenstern anzuzeigen.",
 		["OptionsItemIDs"] = "Gegenstands-ID anzeigen",
 		["OptionsItemIDsTooltip"] = [=[Aktiviere diese Option um die Item-ID im Gegenstandstooltip anzuzeigen.
@@ -446,6 +440,8 @@ Jeder Gegenstand in World of Warcraft hat eine eindeutige ID. Diese Information 
 		["OptionsResetUpgradesTooltip"] = [=[Pawn wird alles vergessen, was es über die besten Gegenstände, die du je angelegt hattest, wusste und dein aktuelles Set erneut scannen um die bessere Upgradeinformationen in der Zukunft zu liefern.
 
 Benutze dieses Feature wenn du denkst, dass Pawn schlechte Verbesserungsvorschläge aufgrund von Gegenständen macht, die du verkauft oder zerstört hast, bzw. nicht mehr benutzt.  Dies wird alle deine Charakter betreffen die Pawn benutzen.]=],
+		["OptionsShowItemLevelUpgrades"] = "Zeige Gegenstandsstufenverbesserungen",
+		["OptionsShowItemLevelUpgradesTooltip"] = "Pawn zeigt dir Gegenstände, die eine höhere Gegenstandsstufe haben als das, was du zuvor in diesem Platz ausgerüstet hast, zusätzlich zu normalen Verbesserungen.",
 		["OptionsShowRelicUpgrades"] = "Zeige Berater für Relikte",
 		["OptionsShowRelicUpgradesTooltip"] = "Pawn wird dir zeigen, wenn ein ein Relikt das Itemlevel einer deiner Artefaktwaffen erhöhen würde. (Dies funktioniert anders als die anderen Verbesserungsoptionen, da es auf dem Itemlevel und nicht den auf den Werten basiert.)",
 		["OptionsSocketingAdvisor"] = "Zeige den Edelstein-Ratgeber",
@@ -493,10 +489,9 @@ Deaktiviere die Option, wenn nur Verbesserungen für die aktuell getragene Waffe
 		["ScaleAutoOn"] = "Automatisch",
 		["ScaleAutoOn2"] = "Zeige nur meine aktuelle Spezialisierung.",
 		["ScaleAutoOnTooltip"] = "Pawn wird automatisch deine aktuelle Spezialiserung in Gegenstandstooltips anzeigen und diese verwenden, um Empfehlungen zu machen und Verbesserungen vorzuschlagen.",
-		--Translation missing 
-		["ScaleAutoWelcome"] = [=[Pawn will show suggestions for your current specialization.
+		["ScaleAutoWelcome"] = [=[Pawn wird Vorschläge für deine aktuelle Spezialisierung zeigen.
 
-If you'd rather manage things on your own, just click Manual below.]=],
+Wenn Du die Dinge lieber selbst verwalten möchtest, klicke einfach unten auf Manuell.]=],
 		["ScaleChangeColor"] = "Farbe ändern",
 		["ScaleChangeColorTooltip"] = "Ändert die Schriftfarbe der Wertungsinformationen im Gegenstandstooltip.",
 		["ScaleCopy"] = "Kopieren",
@@ -529,14 +524,14 @@ Shortcut: Shift+click auf ein Bewertungsprofil]=],
 		["ScaleWelcome"] = "Bewertungsprofile sind Wertegruppen die benutzt werden um Gegenständen Punkte zuzuweisen. Du kannst außerdem fremderstellte Bewertungsprofile importieren oder dein eigenes leeres oder auf Standardwerten basierendes Bewertungsprofil erstellen.",
 		["SocketingAdvisorButtonTooltip"] = "Klicken um Pawn's \"Edelsteine\" Reiter zu öffnen, wo du mehr Informationen über Edelsteine, die Pawn empfiehlt, bekommst.",
 		["SocketingAdvisorHeader"] = "Pawn's Edelstein-Ratgeber empfiehlt:",
-		["SocketingAdvisorIgnoreThisItem"] = "Kümmern Sie sich nicht Hinzufügen von Edelsteinen zu Low-Level. Aber wenn Sie dies tun, verwenden Sie diese:",
-		["StarterProvider"] = "Starter",
+		["SocketingAdvisorIgnoreThisItem"] = "Mach dir keine Mühe, Edelsteine zu diesem Niedrigstufigen Gegenstand hinzuzufügen. Aber wenn du das tust, benutze diese:",
+		["StarterProvider"] = "Starter Waage",
 		["ValuesDoNotShowUpgradesFor1H"] = "Verbesserungen für 1Hand ausblenden",
 		["ValuesDoNotShowUpgradesFor2H"] = "Verbesserungen für 2Hand ausblenden",
 		["ValuesDoNotShowUpgradesTooltip"] = "Aktiviere diese Option um Verbesserungen für die gewählten Gegenstände auszublenden. Obwohl Tank-Paladine Zweihandwaffen verwenden können sind diese niemals eine Verbesserung, also sollte keine Verbesserung angezeigt werden. Ähnlich ist es für Vergelter-Paladine, bei denen eine Einhandwaffe niemals eine Verbesserung darstellt.",
 		["ValuesFollowSpecialization"] = "Zeige nur Upgrades für meinen besten Rüstungstyp ab Level 50",
 		["ValuesFollowSpecializationTooltip"] = "Aktiviere diese Option um Rüstungsupgrades zu verstecken für die deine Klasse nicht spezialisiert ist (ab Level 50).  Zum Beispiel lernt ein Heilig-Paladin ab Level 50 Plattenspezialisierung, die seine Intelligenz um 5% erhöht wenn er nur Plattenrüstung trägt.  Wenn diese Option ausgewählt ist wird Pawn keine Stoff, Leder oder Kettenrüstung als Upgrades für Level 50+ Heilig-Paladine berücksichtigen.",
-		["ValuesHeader"] = "Werte für Profil %s",
+		["ValuesHeader"] = "Werte Gewichtung für %s",
 		["ValuesIgnoreStat"] = "Unbenutzbar-Markierung für Gegenstände",
 		["ValuesIgnoreStatTooltip"] = "Aktiviere diese Option um zu verhindern das unbenutzbare Gegenstände eine Wertung erhalten.  Schamanen können zum Beispiel keine Plattenrüstung tragen. Einen Schamanen-Profil kann Plattenrüstung als unbenutzbar markieren, so dass Plattenrüstung keine Wertung für dieses Profil erhält.",
 		["ValuesNormalize"] = "Werte normalisieren (ähnlich Wowhead)",
@@ -545,10 +540,10 @@ Shortcut: Shift+click auf ein Bewertungsprofil]=],
 Für weitere Informationen hierzu siehe readme.htm.]=],
 		["ValuesRemove"] = "Entfernen",
 		["ValuesRemoveTooltip"] = "Entferne diese Wertung aus dem Bewertungsprofil.",
-		["ValuesTab"] = "Werte",
-		["ValuesWelcome"] = "Du kannst die Wertungen in den Bewertungsprofilen anpassen. Um die Bewertungsprofile zu verwalten oder neue hinzuzufügen, benutze den \"Bewertungsprofile\" Reiter.",
+		["ValuesTab"] = "Gewichtung",
+		["ValuesWelcome"] = "Du kannst die Gewichtungen anpassen, die jedem Wert für diesen Maßstab zugewiesen sind. Um deine Bewertung zu verwalten und neue hinzuzufügen, verwende den manuellen Modus auf dem \"Bewertungsprofile\" Reiter.",
 		["ValuesWelcomeNoScales"] = "Es wurde kein Bewertungsprofil ausgewählt. Wähle ein Bewertungsprofil im Reiter \"Bewertungsprofile\" aus oder kopiere Werte aus dem Internet.",
-		["ValuesWelcomeReadOnly"] = "Das ausgewählte Bewertungsprofil ist nicht editierbar. Erstelle im Reiter \"Bewertungsprofile\" ein neues Profil oder erstelle eine Kopie des gewählten Profils.",
+		["ValuesWelcomeReadOnly"] = "Das ausgewählte Bewertungsprofil kann nicht geändert werden. Erstelle im Reiter \"Bewertungsprofile\" ein neues Profil oder erstelle eine Kopie des gewählten Profils.",
 	}
 }
 end

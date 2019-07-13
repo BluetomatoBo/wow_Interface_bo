@@ -34,7 +34,7 @@ PawnLocal =
 	["ImportScaleMessage"] = "Нажмите Ctrl+V чтобы вставить шкалу скопированную из других источников сюда:",
 	["ImportScaleTagErrorMessage"] = "Pawn не распознал структуру шкалы. Вы уверены что скопировали полную структуру? Попробуйте снова:",
 	["ItemIDTooltipLine"] = "ID вещи",
-	["ItemLevelTooltipLine"] = "Уровень вещи",
+	["ItemLevelTooltipLine"] = "Уровень предмета",
 	["LootUpgradeAdvisorHeader"] = "Нажмите для сравнения с вашими вещами.|n",
 	["LootUpgradeAdvisorHeaderMany"] = "|TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t Улучшение %d пунктов.  Нажмите для сравнения.",
 	["MissocketWorthwhileMessage"] = "   -- Но лучше использовать только %s камень:",
@@ -50,7 +50,7 @@ PawnLocal =
 	["RenameScaleEnterName"] = "Введите новое имя шкалы %s:",
 	["SocketBonusValueCalculationMessage"] = "   -- Гнездо оценивается как: %g",
 	["StatNameText"] = "1 |cffffffff%s|r цениться:",
-	["ThousandsSeparator"] = " ",
+	["ThousandsSeparator"] = "",
 	["TooltipBestAnnotation"] = "%s  |cff8ec3e6(лучшая)|r",
 	["TooltipBestAnnotationSimple"] = "%s  ваша лучшая",
 	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 улучшение%s|r",
@@ -444,6 +444,8 @@ Every item in World of Warcraft has an ID number associated with it.  This infor
 		["OptionsResetUpgradesTooltip"] = [=[Pawn will forget what it knows about the best items you've ever equipped and re-scan your gear in order to provide more up-to-date upgrade information in the future.
 
 Use this feature if you find that Pawn is making poor upgrade suggestions as a result of items that you've vendored, destroyed, or otherwise do not use anymore.  This will affect all of your characters that use Pawn.]=],
+		["OptionsShowItemLevelUpgrades"] = "Show item level upgrades",
+		["OptionsShowItemLevelUpgradesTooltip"] = "Pawn will show you items that are of a higher item level than what you've previously equipped in that slot in addition to normal upgrades.",
 		["OptionsShowRelicUpgrades"] = "Отображать улучшения для реликвий",
 		["OptionsShowRelicUpgradesTooltip"] = "Pawn будет показывать вам если реликвия улучшит уровень одного из ваших артефактов. (работает несколько иначе чем другие советы по улучшения, т.к. основано только на уровне вещи, а не на статах)",
 		["OptionsSocketingAdvisor"] = "Отображать советы по камням",

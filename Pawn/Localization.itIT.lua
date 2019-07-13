@@ -442,6 +442,8 @@ Ogni oggetto in World of Warcraft ha un numero ID associato ad esso. Questa info
 		["OptionsResetUpgradesTooltip"] = [=[Pawn dimenticherà ciò che sa sui migliori oggetti che tu abbia mai equipaggiato, e scansionerà nuovamente il tuo equipaggiamento per fornire informazioni maggiormente aggiornate in futuro.
 
 Usa questa funzionalità se pensi che Pawn stia fornendo degli scarsi suggerimenti di miglioramento come risultato di un oggetto che hai venduto, distrutto o che non usi più. Questo avrà effetto su tutti i tuoi personaggi che usano Pawn.]=],
+		["OptionsShowItemLevelUpgrades"] = "Show item level upgrades",
+		["OptionsShowItemLevelUpgradesTooltip"] = "Pawn will show you items that are of a higher item level than what you've previously equipped in that slot in addition to normal upgrades.",
 		["OptionsShowRelicUpgrades"] = "Mostra i miglioramenti delle reliquie",
 		["OptionsShowRelicUpgradesTooltip"] = "Pawn ti mostrerà quando una reliquia aumenta il livello dell'oggetto di una delle tue armi artefatto. (Funziona diversamente dalle altre funzionalità di miglioramento, visto che è basato sul livello dell'oggetto e non sulle caratteristiche)",
 		["OptionsSocketingAdvisor"] = "Mostra l'avviso per gli incavi",

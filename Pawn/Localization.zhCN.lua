@@ -439,6 +439,8 @@ Pawn插件默认已经参考AskMrRobot给所有职业的专精建立了标准评
 		["OptionsResetUpgradesTooltip"] = [=[Pawn会清除本身记录的曾经见装备过的最好的装备（哪怕在背包里、银行里甚至摧毁贩卖了），所有评分从你角色现在已装备的为标准来比较。
 
 当你因某种原因某件装备丢失或者不再使用的时候，插件默认还是以那件装备计算，引起的不便。或者装备数据紊乱的时候，可以使用此功能。]=],
+		["OptionsShowItemLevelUpgrades"] = "Show item level upgrades",
+		["OptionsShowItemLevelUpgradesTooltip"] = "Pawn will show you items that are of a higher item level than what you've previously equipped in that slot in addition to normal upgrades.",
 		["OptionsShowRelicUpgrades"] = "显示神器圣物的提升",
 		["OptionsShowRelicUpgradesTooltip"] = "Pawn将在背包里，装备等级对神器有提升的圣物上，标记一个提升标记。",
 		["OptionsSocketingAdvisor"] = "显示插槽建议",
