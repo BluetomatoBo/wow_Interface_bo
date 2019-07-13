@@ -1,12 +1,12 @@
-tag 826ef95bc715501187095332f4d05e215a48897b v1.9.16
+tag 0c0ca7755596ec9b4f6d39ed0e15a65129604c93 v1.9.17
 Author:	Talyrius <contact@talyrius.net>
-Date:	Tue Jun 25 18:20:08 2019 -0700
+Date:	Tue Jul 9 11:24:31 2019 -0700
 
-Tagging as v1.9.16.
+Tagging as v1.9.17.
 
-commit 41c6603e92ba243d2ba87a777892d4756b025009
+commit b2f75413d47b21a53ea6fa2e0995760a1b0803af
 Author: Talyrius <contact@talyrius.net>
-Date:   Tue Jun 25 18:14:05 2019 -0700
+Date:   Tue Jul 9 11:22:10 2019 -0700
 
-    Updated for Patch 8.2: Rise of Azshara.
+    ItemLevel: Updated item level ranges for Season 3.
 
