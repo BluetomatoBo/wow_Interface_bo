@@ -198,12 +198,12 @@ function private.MailInboxUpdateDelayed()
 		for j = 1, ATTACHMENTS_MAX do
 			local itemString = TSMAPI_FOUR.Item.ToBaseItemString(GetInboxItemLink(i, j))
 			local _, _, _, quantity = GetInboxItem(i, j)
-			if itemString and quantity then
+			if itemString and quantity and quantity > 0 then
 				TSM.Inventory.ChangeMailQuantity(itemString, quantity)
 			end
 
 			local itemLink = private.GetInboxItemLink(i, j)
-			if itemLink and quantity then
+			if itemLink and quantity and quantity > 0 then
 				private.itemDB:BulkInsertNewRow(i, j, itemLink, quantity)
 			end
 		end

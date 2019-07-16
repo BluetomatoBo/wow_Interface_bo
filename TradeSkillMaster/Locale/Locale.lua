@@ -2876,8 +2876,7 @@ TSM.L["Empty price string."] = "Cadena de precio vacía."
 --[[Translation missing --]]
 TSM.L["Enable automatic stack combination"] = "Enable automatic stack combination"
 TSM.L["Enable buying?"] = "¿Habilitar la compra?"
---[[Translation missing --]]
-TSM.L["Enable inbox chat messages"] = "Enable inbox chat messages"
+TSM.L["Enable inbox chat messages"] = "Habilitar los mensajes de chat de la bandeja de entrada"
 TSM.L["Enable restock?"] = "¿Habilitar el reponer?"
 TSM.L["Enable selling?"] = "¿Habilitar venta?"
 --[[Translation missing --]]
@@ -3084,8 +3083,7 @@ TSM.L["IMPORT"] = "IMPORTAR"
 TSM.L["Import %d Items and %s Operations?"] = "Importar %d Artículos y %s Operaciones"
 TSM.L["Import Groups & Operations"] = "Importar Grupos y Operaciones"
 TSM.L["Imported Items"] = "Importar Artículos"
---[[Translation missing --]]
-TSM.L["Inbox Settings"] = "Inbox Settings"
+TSM.L["Inbox Settings"] = "Configuración de la bandeja de entrada"
 --[[Translation missing --]]
 TSM.L["Include Attached Operations"] = "Include Attached Operations"
 --[[Translation missing --]]
@@ -3718,8 +3716,7 @@ TSM.L["Search"] = "Search"
 TSM.L["Search Bags"] = "Search Bags"
 --[[Translation missing --]]
 TSM.L["Search Groups"] = "Search Groups"
---[[Translation missing --]]
-TSM.L["Search Inbox"] = "Search Inbox"
+TSM.L["Search Inbox"] = "Buscar en la bandeja de entrada"
 --[[Translation missing --]]
 TSM.L["Search Operations"] = "Search Operations"
 --[[Translation missing --]]
