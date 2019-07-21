@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(2352, "DBM-EternalPalace", nil, 1179)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("2019071111642")
+mod:SetRevision("20190719221715")
 mod:SetCreatureID(151881)
 mod:SetEncounterID(2298)
 mod:SetZone()
 mod:SetUsedIcons(4, 6)
---mod:SetHotfixNoticeRev(16950)
+mod:SetHotfixNoticeRev(20190716000000)--2019, 7, 16
 --mod:SetMinSyncRevision(16950)
 --mod.respawnTime = 29
 
@@ -17,14 +17,14 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 295346 295332 295791",
 	"SPELL_AURA_APPLIED 294711 294715 300701 300705 295348 300961 300962 300882 300883",
 	"SPELL_AURA_APPLIED_DOSE 294711 294715 300701 300705",
-	"SPELL_AURA_REMOVED 294711 294715 295348 300882 300883",
+	"SPELL_AURA_REFRESH 300701 300705",
+	"SPELL_AURA_REMOVED 294711 294715 295348 300882 300883 300701 300705",
 --	"SPELL_PERIODIC_DAMAGE",
 --	"SPELL_PERIODIC_MISSED"
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
---TODO, request voice pack authors add "frost mark" and "toxic mark"
 --TODO, fix tank swap code when a strategy consensus is reached
 --TODO, improve DBM when strats formulate for boss on how to handle tank stacks
 --TODO, if inversion sickness is a LOT of people (or everyone) ono mythic, disable target warning on mythic
@@ -40,6 +40,8 @@ local warnOverflowingChill				= mod:NewTargetNoFilterAnnounce(295348, 3)
 local warnOverflowingVenom				= mod:NewTargetNoFilterAnnounce(295421, 3)
 local warnInversionSickness				= mod:NewTargetNoFilterAnnounce(300882, 4)
 
+local yellRimefrostFades				= mod:NewIconFadesYell(300701)
+local yellSepticTaintFades				= mod:NewIconFadesYell(300705)
 local specWarnFrostMark					= mod:NewSpecialWarningYouPos(294711, nil, nil, nil, 1, 9)--voice 9
 local specWarnToxicMark					= mod:NewSpecialWarningYouPos(294715, nil, nil, nil, 1, 9)--voice 9
 local yellMark							= mod:NewPosYell(294726, DBM_CORE_AUTO_YELL_CUSTOM_POSITION, true, 2)
@@ -72,7 +74,7 @@ local timerInversionCD					= mod:NewCDTimer(72.9, 295791, nil, nil, nil, 2, nil,
 local timerfrostshockboltsCD			= mod:NewCDTimer(60.8, 295601, nil, nil, nil, 3)
 local timerChimericMarksCD				= mod:NewCDTimer(22.8, 294726, nil, nil, nil, 2, nil, DBM_CORE_MYTHIC_ICON)--Mythic
 
---local berserkTimer					= mod:NewBerserkTimer(600)
+local berserkTimer						= mod:NewBerserkTimer(600)
 
 mod:AddSetIconOption("SetIconOnMarks", 294726, true, false, {4, 6})
 mod:AddInfoFrameOption(294726, true)
@@ -83,18 +85,21 @@ local playerMark = 0--1 Toxic, 2 Frost
 function mod:OnCombatStart(delay)
 	table.wipe(MarksStacks)
 	playerMark = 0--1 Toxic, 2 Frost
-	timerCrushingReverbCD:Start(10.6-delay)
+	timerCrushingReverbCD:Start(10.6-delay)--START
 	timerOverflowCD:Start(15.7-delay)
-	timerOverwhelmingBarrageCD:Start(40.2-delay)
+	timerOverwhelmingBarrageCD:Start(40.1-delay)
 	timerfrostshockboltsCD:Start(50.8-delay)
-	if self:IsHard() then
-		if self:IsMythic() then
-			timerChimericMarksCD:Start(9.9-delay)
-		end
+	if not self:IsLFR() then
 		timerInversionCD:Start(70-delay)
-		self:RegisterShortTermEvents(
-			"UNIT_POWER_FREQUENT player"
-		)
+		if self:IsHard() then
+			berserkTimer:Start(360-delay)
+			if self:IsMythic() then
+				timerChimericMarksCD:Start(23-delay)
+			end
+			self:RegisterShortTermEvents(
+				"UNIT_POWER_FREQUENT player"
+			)
+		end
 	end
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:SetHeader(DBM:GetSpellInfo(294726))
@@ -143,7 +148,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if spellId == 295346 then
 		DBM:AddMsg("blizzard added overflow to combat log, tell DBM author")
 	elseif spellId == 295332 then--Has to be in success, can stutter cast
-		timerCrushingReverbCD:Start()
+		timerCrushingReverbCD:Start()--START
 	elseif spellId == 295791 then
 		timerInversionCD:Start(90)
 	end
@@ -154,13 +159,19 @@ local function debuffSwapAggregation(self, spellId)
 	if spellId == 294711 then--Frost
 		specWarnFrostMark:Show(self:IconNumToTexture(6))
 		specWarnFrostMark:Play("frost")
-		yellMark:Yell(6, "")--Square
 		playerMark = 2--1 Toxic, 2 Frost
 	else--Toxic
 		specWarnToxicMark:Show(self:IconNumToTexture(4))
 		specWarnToxicMark:Play("toxic")
-		yellMark:Yell(4, "")--Triangle
 		playerMark = 1--1 Toxic, 2 Frost
+	end
+end
+
+local function debuffSwapAggregationTwo(self, spellId)
+	if spellId == 294711 then--Frost
+		yellMark:Yell(6, "")--Square
+	else--Toxic
+		yellMark:Yell(4, "")--Triangle
 	end
 end
 
@@ -174,7 +185,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if args:IsPlayer() and amount == 1 then
 			self:Unschedule(debuffSwapAggregation)
-			self:Schedule(1, debuffSwapAggregation, self, spellId)
+			self:Unschedule(debuffSwapAggregationTwo)
+			self:Schedule(1.5, debuffSwapAggregation, self, spellId)--Aggregate special warnings into a 1.5 second space
+			self:Schedule(2.5, debuffSwapAggregationTwo, self, spellId)--Aggregate yells even further than personal warnings
 		end
 		local uId = DBM:GetRaidUnitId(args.destName)
 		if self.Options.SetIconOnMarks and self:IsTanking(uId) then
@@ -186,14 +199,18 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 300701 then--Rimefrost
 		local amount = args.amount or 1
-		--if amount % 3 == 0 then
-			warnRimefrost:Show(args.destName, amount)
-		--end
+		warnRimefrost:Show(args.destName, amount)
+		if args:IsPlayer() then
+			yellRimefrostFades:Cancel()
+			yellRimefrostFades:Countdown(spellId, 3, 6)
+		end
 	elseif spellId == 300705 then--Septic Taint
 		local amount = args.amount or 1
-		--if amount % 3 == 0 then
-			warnSepticTaint:Show(args.destName, amount)
-		--end
+		warnSepticTaint:Show(args.destName, amount)
+		if args:IsPlayer() then
+			yellSepticTaintFades:Cancel()
+			yellSepticTaintFades:Countdown(spellId, 3, 4)
+		end
 	elseif spellId == 295348 then
 		warnOverflowingChill:CombinedShow(0.3, args.destName)
 		if args:IsPlayer() then
@@ -230,6 +247,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
+mod.SPELL_AURA_REFRESH = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
@@ -249,6 +267,14 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif (spellId == 300882 or spellId == 300883) then
 		if args:IsPlayer() then
 			yellInversionSicknessFades:Cancel()
+		end
+	elseif spellId == 300701 then--Rimefrost
+		if args:IsPlayer() then
+			yellRimefrostFades:Cancel()
+		end
+	elseif spellId == 300705 then--Septic Taint
+		if args:IsPlayer() then
+			yellSepticTaintFades:Cancel()
 		end
 	end
 end
