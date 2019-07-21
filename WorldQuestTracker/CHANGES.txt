@@ -1,10 +1,13 @@
-lightweight tag c0260ff821dbc31f3d6f9561239d48899b0f1cdd v8.2.0.376
+lightweight tag d82afc48f3c46e1d63547f2e1a2ae33ee9b94f27 v8.2.0.377
 Author:	Tercioo <terciob19@hotmail.com>
-Date:	Thu Jul 4 14:55:57 2019 -0300
+Date:	Sat Jul 20 15:13:06 2019 -0300
 
-commit c0260ff821dbc31f3d6f9561239d48899b0f1cdd
+commit d82afc48f3c46e1d63547f2e1a2ae33ee9b94f27
 Author: Tercioo <terciob19@hotmail.com>
-Date:   Thu Jul 4 14:55:57 2019 -0300
+Date:   Sat Jul 20 15:13:06 2019 -0300
 
-    Machagon added to zone list
+    Fixed some panels and Hide emissary quest info
+    
+    - Fixed some panels which was giving errors at opening.
+    - Added option to show/hide emissary quest info above their circles.
 
