@@ -1,18 +1,12 @@
-tag 66f5ead355abf32c8f304fe1ec62625428b91237 v80000-1.0.0
+tag 0f764a12ecbb5a4cc213a28651e7c2e4777a3c9e v80200-1.0.1
 Author:	Jim Whitehead <jnwhiteh@gmail.com>
-Date:	Mon Jul 16 22:39:25 2018 +0200
+Date:	Tue Jul 23 21:47:26 2019 +0200
 
-Tagging v80000-1.0.0
+Tagging v80200-1.0.1
 
-commit df0343b4264ad303d8fc3899a7ff3052de60bc78
+commit 6b77821321290bd18ca9b9070d5e6d03d5fdb0eb
 Author: Jim Whitehead <jnwhiteh@gmail.com>
-Date:   Sun Jul 15 11:29:44 2018 +0200
+Date:   Tue Jul 23 21:47:14 2019 +0200
 
-    Update TOC for BfA
-
-commit 9da260085dce8d6c124c716d22c745509600faad
-Author: Jim Whitehead <jnwhiteh@gmail.com>
-Date:   Sun Jul 15 11:29:25 2018 +0200
-
-    Fix option panel initialization
+    Fixing a duplicate event registration issue
 

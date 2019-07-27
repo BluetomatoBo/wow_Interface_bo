@@ -822,9 +822,13 @@ end
 
 function addon:UpdateCombatWatch()
     if self.settings.fastooc then
-        self:RegisterEvent("UNIT_FLAGS", "CheckPartyCombat")
+        if not self.registeredUnitFlags then
+            self:RegisterEvent("UNIT_FLAGS", "CheckPartyCombat")
+            self.registeredUnitFlags = true
+        end
     else
         self:UnregisterEvent("UNIT_FLAGS")
+        self.registeredUnitFlags = false
     end
 end
 
