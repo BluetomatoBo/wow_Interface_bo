@@ -167,6 +167,7 @@ function M:Initialize()
 
 		self:SecureHookScript(WorldMapFrame, 'OnShow', function()
 			if WorldMapFrame:IsMaximized() then
+				WorldMapFrame:UpdateMaximizedSize()
 				self:SetLargeWorldMap()
 			else
 				self:SetSmallWorldMap()
@@ -184,8 +185,4 @@ function M:Initialize()
 	SetCVar("mapFade", (E.global.general.fadeMapWhenMoving == true and 1 or 0))
 end
 
-local function InitializeCallback()
-	M:Initialize()
-end
-
-E:RegisterInitialModule(M:GetName(), InitializeCallback)
+E:RegisterInitialModule(M:GetName())

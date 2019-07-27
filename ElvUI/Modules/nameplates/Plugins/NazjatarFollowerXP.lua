@@ -3,6 +3,7 @@ local oUF = E.oUF
 
 local strmatch, tonumber = strmatch, tonumber
 local UnitIsOwnerOrControllerOfUnit = UnitIsOwnerOrControllerOfUnit
+local IsQuestFlaggedCompleted = IsQuestFlaggedCompleted
 local C_UIWidgetManager_GetStatusBarWidgetVisualizationInfo = C_UIWidgetManager.GetStatusBarWidgetVisualizationInfo
 
 local NPCIDToWidgetIDMap = {
@@ -23,9 +24,18 @@ local CampfireNPCIDToWidgetIDMap = {
 	[149906] = 1920 -- Vim Brineheart
 }
 
+local NeededQuestIDs = {
+	["Horde"] = 55500,
+	["Alliance"] = 56156
+}
+
+local MAX_RANK = 30
+
 local function GetBodyguardXP(widgetID)
 	local widget = widgetID and C_UIWidgetManager_GetStatusBarWidgetVisualizationInfo(widgetID)
-	if not widget then return end
+	if not widget then
+		return
+	end
 
 	local rank = strmatch(widget.overrideBarText, "%d+")
 	local cur = widget.barValue - widget.barMin
@@ -36,13 +46,14 @@ end
 
 local function Update(self)
 	local element = self.NazjatarFollowerXP
-	if not element then return end
+	if not element then
+		return
+	end
 
-	local npcID = tonumber(self.npcID)
-	local shouldDisplay =
-		npcID and (NPCIDToWidgetIDMap[npcID] and self.unit and UnitIsOwnerOrControllerOfUnit("player", self.unit)) or
-		CampfireNPCIDToWidgetIDMap[npcID]
-	if (not shouldDisplay) then
+	local npcID, questID = tonumber(self.npcID), NeededQuestIDs[E.myfaction]
+	local hasQuestCompleted = questID and IsQuestFlaggedCompleted(questID)
+	local isProperNPC = npcID and (NPCIDToWidgetIDMap[npcID] and self.unit and UnitIsOwnerOrControllerOfUnit("player", self.unit)) or CampfireNPCIDToWidgetIDMap[npcID]
+	if (not hasQuestCompleted or not isProperNPC) then
 		element:Hide()
 		if element.Rank then
 			element.Rank:Hide()
@@ -71,18 +82,28 @@ local function Update(self)
 	end
 
 	local rank, cur, next, total = GetBodyguardXP(widgetID)
-	if not rank then return end
+	if not rank then
+		return
+	end
 
-	element:SetMinMaxValues(0, next)
-	element:SetValue(cur)
+	local nrank = tonumber(rank)
+	if nrank == MAX_RANK then
+		element:SetMinMaxValues(0, 1)
+	else
+		element:SetMinMaxValues(0, next)
+	end
+	element:SetValue(nrank == MAX_RANK and 1 or cur)
 
 	if (element.Rank) then
 		element.Rank:SetText(rank)
-		element.Rank:Show()
 	end
 
 	if element.ProgressText then
-		element.ProgressText:SetText(("%d / %d"):format(cur, next))
+		if nrank == MAX_RANK then
+			element.ProgressText:SetText(L["Max Rank"])
+		else
+			element.ProgressText:SetText(("%d / %d"):format(cur, next))
+		end
 		element.ProgressText:Show()
 	end
 
@@ -108,6 +129,7 @@ local function Enable(self)
 		element.ForceUpdate = ForceUpdate
 
 		self:RegisterEvent("UPDATE_UI_WIDGET", Path, true)
+		self:RegisterEvent("QUEST_LOG_UPDATE", Path, true)
 		return true
 	end
 end
@@ -124,6 +146,7 @@ local function Disable(self)
 		end
 
 		self:UnregisterEvent("UPDATE_UI_WIDGET", Path)
+		self:UnregisterEvent("QUEST_LOG_UPDATE", Path)
 	end
 end
 

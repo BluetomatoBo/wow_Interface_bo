@@ -1222,7 +1222,19 @@ local function UpdateFilterGroup()
 									name = L["Unit is Not Tap Denied"],
 									desc = L["If enabled then the filter will only activate when the unit is not tap denied."],
 									order = 21
-								}
+								},
+								playerCanAttack = {
+									type = "toggle",
+									name = L["Player Can Attack"],
+									desc = L["If enabled then the filter will only activate when the unit can be atacked by the active player."],
+									order = 22
+								},
+								playerCanNotAttack = {
+									type = "toggle",
+									name = L["Player Can Not Attack"],
+									desc = L["If enabled then the filter will only activate when the unit can not be atacked by the active player."],
+									order = 23
+								},
 							}
 						}
 					}
@@ -2441,6 +2453,16 @@ local function UpdateFilterGroup()
 				}
 			}
 		}
+
+		if NP.StyleFilterCustomChecks then
+			E.Options.args.nameplate.args.filters.args.triggers.args.combat.args.types.args.pluginSpacer = {
+				type = "description",
+				name = " ",
+				width = "full",
+				order = 49
+			}
+		end
+
 		E.Options.args.nameplate.args.filters.args.actions = {
 			type = "group",
 			name = L["Actions"],

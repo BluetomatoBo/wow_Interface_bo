@@ -297,7 +297,7 @@ function NP:UpdatePlate(nameplate)
 		NP:Update_Power(nameplate)
 		NP:Update_Castbar(nameplate)
 		NP:Update_ClassPower(nameplate)
-		NP:Update_Auras(nameplate)
+		NP:Update_Auras(nameplate, true)
 		NP:Update_ClassificationIndicator(nameplate)
 		NP:Update_QuestIcons(nameplate)
 		NP:Update_Portrait(nameplate)
@@ -832,8 +832,4 @@ function NP:Initialize()
 	NP:ConfigureAll()
 end
 
-local function InitializeCallback()
-	NP:Initialize()
-end
-
-E:RegisterModule(NP:GetName(), InitializeCallback)
+E:RegisterModule(NP:GetName())

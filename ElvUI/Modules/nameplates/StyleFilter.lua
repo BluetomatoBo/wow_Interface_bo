@@ -31,6 +31,7 @@ local UnitLevel = UnitLevel
 local UnitPower = UnitPower
 local UnitPowerMax = UnitPowerMax
 local UnitThreatSituation = UnitThreatSituation
+local UnitCanAttack = UnitCanAttack
 
 local hooksecurefunc = hooksecurefunc
 local C_Timer_NewTimer = C_Timer.NewTimer
@@ -514,8 +515,10 @@ function mod:StyleFilterClearChanges(frame, HealthColorChanged, PowerColorChange
 	end
 	if HealthColorChanged then
 		frame.HealthColorChanged = nil
-		frame.Health:SetStatusBarColor(frame.Health.r, frame.Health.g, frame.Health.b)
-		frame.Cutaway.Health:SetStatusBarColor(frame.Health.r * 1.5, frame.Health.g * 1.5, frame.Health.b * 1.5, 1)
+		if frame.Health.r and frame.Health.g and frame.Health.b then
+			frame.Health:SetStatusBarColor(frame.Health.r, frame.Health.g, frame.Health.b)
+			frame.Cutaway.Health:SetStatusBarColor(frame.Health.r * 1.5, frame.Health.g * 1.5, frame.Health.b * 1.5, 1)
+		end
 	end
 	if PowerColorChanged then
 		frame.PowerColorChanged = nil
@@ -697,6 +700,12 @@ function mod:StyleFilterConditionCheck(frame, filter, trigger)
 		if (trigger.inVehicleUnit and frame.inVehicle) or (trigger.outOfVehicleUnit and not frame.inVehicle) then passed = true else return end
 	end
 
+	-- Player Can Attack
+	if trigger.playerCanAttack or trigger.playerCanNotAttack then
+		local canAttack = UnitCanAttack("player", frame.unit)
+		if (trigger.playerCanAttack and canAttack) or (trigger.playerCanNotAttack and not canAttack) then passed = true else return end
+	end
+
 	-- Classification
 	if trigger.classification.worldboss or trigger.classification.rareelite or trigger.classification.elite or trigger.classification.rare or trigger.classification.normal or trigger.classification.trivial or trigger.classification.minus then
 		if trigger.classification[frame.classification] then passed = true else return end
@@ -870,10 +879,12 @@ function mod:StyleFilterConditionCheck(frame, filter, trigger)
 	end
 
 	-- Plugin Callback
-	if mod.StyleFilterCustomCheck then
-		local custom = mod:StyleFilterCustomCheck(frame, filter, trigger)
-		if custom ~= nil then -- ignore if nil return
-			if custom then passed = true else return end
+	if mod.StyleFilterCustomChecks then
+		for _, customCheck in pairs(mod.StyleFilterCustomChecks) do
+			local custom = customCheck(frame, filter, trigger)
+			if custom ~= nil then -- ignore if nil return
+				if custom then passed = true else return end
+			end
 		end
 	end
 
@@ -915,7 +926,7 @@ function mod:StyleFilterSort(place)
 	end
 end
 
-function mod:VehicleFunction(_, unit)
+function mod:StyleFilterVehicleFunction(_, unit)
 	unit = unit or self.unit
 	self.inVehicle = UnitInVehicle(unit) or nil
 end
@@ -934,9 +945,9 @@ mod.StyleFilterEventFunctions = { -- a prefunction to the injected ouf watch
 		unit = unit or self.unit
 		self.isTargetingMe = UnitIsUnit(unit..'target', 'player') or nil
 	end,
-	['UNIT_ENTERED_VEHICLE'] = mod.VehicleFunction,
-	['UNIT_EXITED_VEHICLE'] = mod.VehicleFunction,
-	['VEHICLE_UPDATE'] = mod.VehicleFunction
+	['UNIT_ENTERED_VEHICLE'] = mod.StyleFilterVehicleFunction,
+	['UNIT_EXITED_VEHICLE'] = mod.StyleFilterVehicleFunction,
+	['VEHICLE_UPDATE'] = mod.StyleFilterVehicleFunction
 }
 
 function mod:StyleFilterSetVariables(nameplate)
@@ -1235,6 +1246,22 @@ function mod:StyleFilterEvents(nameplate)
 	mod:StyleFilterRegister(nameplate,'VEHICLE_UPDATE', true)
 
 	mod:StyleFilterEventWatch(nameplate)
+end
+
+function mod:StyleFilterAddCustomCheck(name, func)
+	if not mod.StyleFilterCustomChecks then
+		mod.StyleFilterCustomChecks = {}
+	end
+
+	mod.StyleFilterCustomChecks[name] = func
+end
+
+function mod:StyleFilterRemoveCustomCheck(name)
+	if not mod.StyleFilterCustomChecks then
+		return
+	end
+
+	mod.StyleFilterCustomChecks[name] = nil
 end
 
 -- Shamelessy taken from AceDB-3.0 and stripped down by Simpy

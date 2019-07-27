@@ -40,13 +40,13 @@ local InCombatLockdown = InCombatLockdown
 
 local Widget_IDs = {
 	["Alliance"] = {
-		57006, -- A Worthy Ally
+		56156, -- A Tempered Blade
 		{L["Farseer Ori"], 1940},
 		{L["Hunter Akana"], 1613},
 		{L["Bladesman Inowari"], 1966}
 	},
 	["Horde"] = {
-		57005, -- Becoming a Friend
+		55500, -- Save a Friend
 		{L["Neri Sharpfin"], 1621},
 		{L["Poen Gillbrack"], 1622},
 		{L["Vim Brineheart"], 1920}
@@ -57,6 +57,7 @@ local WARRESOURCES_CURRENCY = 1560
 local WARRESOURCES_ICON = format("|T%s:16:16:0:0:64:64:4:60:4:60|t", select(3, GetCurrencyInfo(WARRESOURCES_CURRENCY)))
 local BODYGUARD_LEVEL_XP_FORMAT = L["Rank"] .. " %d (%d/%d)"
 local NAZJATAR_MAP_ID = 1355
+local NAZJATAR_BODYGUARD_MAX_RANK = 30
 
 local lastPanel
 
@@ -205,7 +206,11 @@ local function OnEnter(self, _, noUpdate)
 			local npcName, widgetID = unpack(widgetGroup[i])
 			local rank, cur, next = GetBodyguardXP(widgetID)
 			if npcName and rank then
-				DT.tooltip:AddDoubleLine(npcName, BODYGUARD_LEVEL_XP_FORMAT:format(rank, cur, next), 1, 1, 1)
+				if tonumber(rank) == NAZJATAR_BODYGUARD_MAX_RANK then
+					DT.tooltip:AddDoubleLine(npcName, L["Max Rank"], 1, 1, 1)
+				else
+					DT.tooltip:AddDoubleLine(npcName, BODYGUARD_LEVEL_XP_FORMAT:format(rank, cur, next), 1, 1, 1)
+				end
 			end
 		end
 		hasNazjatarBodyguardXP = true
@@ -219,7 +224,10 @@ local function OnEnter(self, _, noUpdate)
 end
 
 local function OnClick()
-	if InCombatLockdown() then _G.UIErrorsFrame:AddMessage(E.InfoColor.._G.ERR_NOT_IN_COMBAT) return end
+	if InCombatLockdown() then
+		_G.UIErrorsFrame:AddMessage(E.InfoColor .. _G.ERR_NOT_IN_COMBAT)
+		return
+	end
 
 	if not (C_Garrison_HasGarrison(LE_GARRISON_TYPE_8_0)) then
 		return
