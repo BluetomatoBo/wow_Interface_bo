@@ -1,134 +1,22 @@
-lightweight tag 02545ae0f3fa8f1f82ec244d400e93d1c20a00ea 8.2.7
+lightweight tag 195b08135afa6cfe4e3dfd4313bf53d5c851a9b7 8.2.9
 Author:	MysticalOS <mysticalosx@gmail.com>
-Date:	Fri Jul 19 18:42:20 2019 -0400
+Date:	Wed Jul 24 23:54:49 2019 -0400
 
-commit 02545ae0f3fa8f1f82ec244d400e93d1c20a00ea
+commit 195b08135afa6cfe4e3dfd4313bf53d5c851a9b7
 Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Fri Jul 19 18:42:20 2019 -0400
+Date:   Wed Jul 24 23:54:49 2019 -0400
 
-    Prepare to release. There may (and probably are) bugs in this release, but the scope of what needs testing needs more than just one person using the mod, so an open beta is a must and the testing is time constrained too (heroic warfronts alliance side)
+    Fix some briny bubble bugs which caused warnings to be missing or late in some difficulties and prep for another tag (using same release revision as 8.2.8)
 
-commit c25efeff1d8348f0e955bf272d4a7c433632c856
-Author: Elnarfim <37562642+Elnarfim@users.noreply.github.com>
-Date:   Sat Jul 20 07:24:47 2019 +0900
+commit 9993e3287d311ea258daa2ac2ee1d648e6955ac6
+Author: MysticalOS <mysticalosx@gmail.com>
+Date:   Wed Jul 24 23:14:58 2019 -0400
 
-    KR Update (#44)
+    Reworked tanking code on Orgozoa to be smarter.
+    If you are 3 tanking, the taunt warning for boss will be muted if you are > 8 yards away from the tank that should be taunted off of (ie you are probably add tank)
+    if 2 tanking, then the taunt warning will always show as usual if other tank has too high of stacks
     
-    * KR Update
+    In addition, added a new special warning option for tanks for call tender that will show only if you are NOT tanking boss, unless you're only tank left alive then it'll show you warning beause who else is gonna do it. :)
     
-    * KR Update
-    
-    * KR Update
-    
-    * KR Update
-    
-    * KR Update
-    
-    * KR Update
-    
-    * KR Update
-    
-    * KR Update
-    
-    * KR Update
-
-commit a673ab9ea50bddd1d269f87440762febff03b31e
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Fri Jul 19 18:17:15 2019 -0400
-
-    Added berserk timers to most bosses
-
-commit 0d5da779a63a1df88715af9a98a9fd5be00040a2
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Fri Jul 19 17:21:57 2019 -0400
-
-    These should accept file ID now
-
-commit eb403d63426e5fedb432a46e52d782223988aca7
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 23:44:50 2019 -0400
-
-    Add notes
-
-commit dbde2b29177906216b6302a4ae76fdb7ece66aed
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 23:40:20 2019 -0400
-
-    Add warfront info to the difficulty handling
-    Fixed countdown voice 3 option so all the variables match in name, as well as revert to original name instead of making it V3
-
-commit 819c867edeacef7445e4e95002f29872986c08e3
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 22:38:25 2019 -0400
-
-    If I find one more problem with this mod, I'm scrapping the whole thing
-
-commit ad9623f36e15f6c63f2f1a9b2e8547382b09eec7
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 22:34:29 2019 -0400
-
-    fix another stupid mistake
-
-commit 6e4235660f84b24a9acf2aa8d67617f837c6bf58
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 22:30:51 2019 -0400
-
-    Another fix, what good is travis if it doesn't find anything
-
-commit 5e72cca03223c4e33606c626fc2047ac8da424cc
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 22:26:48 2019 -0400
-
-    .
-
-commit 778a08a88e093f148a414d3b9235031152f8aa8b
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 22:24:05 2019 -0400
-
-    focus stealing apps are garbage, that text wasn't even meant for that app
-
-commit bd6f32e3d0784151defc403e3d5254e64abdb5a7
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 22:19:21 2019 -0400
-
-    Heroic warfront support has begun
-
-commit 61116360051e8341b4b72c545420d2a88421c566
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 19:03:09 2019 -0400
-
-    How were these left behind. remove so they stop causing problems
-
-commit 6e153d5eedb841cd65bd3481814ea218bef5428a
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 18:38:21 2019 -0400
-
-    **THIS UPDATE REQUIRES A CLIENT RESTART
-    *Added countdown yells for tank debuffs on Sivara
-    *Updated audio countdown object in timers to support custom countdowns for everything (just like special warnings). This means that you are no longer limited to 3 voices, you can actually have unlimitted voices during an encounter via the mod dropdowns. There are still 3 core voice options which will be used as defaults, exactly like special warnings work, and just like special warnings, you can define those default voices in core spoken alert setup.
-    *Oh and one more surprise, A new built in countdown option has been added. SmoothMcGroove!
-
-commit ab5a3eb2bf61ce98d66ecd474776b5919fe6c8fe
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 13:54:01 2019 -0400
-
-    At mythic court berserk
-
-commit dcecbb68fded6f5d817a69d8b269d3b332510ed1
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 12:42:22 2019 -0400
-
-    Couple minor tweaks to Orgozoa timers and fixes mythic arcing lightning cast detection
-
-commit 84f11b9a1f596163d2badcc585a4d1468a6a628f
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 12:06:37 2019 -0400
-
-    Another attempt at fixing decree aggregation
-
-commit f63de188d4e6d17dfd253dd5a4f59f06ac236cec
-Author: MysticalOS <mysticalosx@gmail.com>
-Date:   Thu Jul 18 00:39:05 2019 -0400
-
-    Fix iconSet variable, it's supposed to be a table not a number
+    Changed ichor warning from a switch warning to just a count. it's technically not where adds spawn (especially on mythic).
 
