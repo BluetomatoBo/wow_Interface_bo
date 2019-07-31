@@ -1,13 +1,10 @@
-lightweight tag d82afc48f3c46e1d63547f2e1a2ae33ee9b94f27 v8.2.0.377
+lightweight tag 878c77460ea49835369db4d0bd6aaa447eca3147 v8.2.0.378
 Author:	Tercioo <terciob19@hotmail.com>
-Date:	Sat Jul 20 15:13:06 2019 -0300
+Date:	Sat Jul 27 09:48:22 2019 -0300
 
-commit d82afc48f3c46e1d63547f2e1a2ae33ee9b94f27
+commit 878c77460ea49835369db4d0bd6aaa447eca3147
 Author: Tercioo <terciob19@hotmail.com>
-Date:   Sat Jul 20 15:13:06 2019 -0300
+Date:   Sat Jul 27 09:48:22 2019 -0300
 
-    Fixed some panels and Hide emissary quest info
-    
-    - Fixed some panels which was giving errors at opening.
-    - Added option to show/hide emissary quest info above their circles.
+    Fixed an issue with the Quest Blacklist panel not opening and giving an error instead
 
