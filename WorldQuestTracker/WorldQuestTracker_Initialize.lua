@@ -45,6 +45,7 @@ do
 	QUESTTYPE_RESOURCE = 0x2
 	QUESTTYPE_ITEM = 0x4
 	QUESTTYPE_ARTIFACTPOWER = 0x8
+	QUESTTYPE_PET = 0x16
 	
 	--todo: rename or put these into a table
 	FILTER_TYPE_PET_BATTLES = "pet_battles"
@@ -125,6 +126,8 @@ do
 				autosearch_cooldown = 600,
 				autosearch_share = false,
 			},
+			
+			raredetected = {},
 
 			world_map_config = {
 				onmap_show = true,
