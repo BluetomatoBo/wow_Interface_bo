@@ -1,20 +1,12 @@
-tag 2086c9c0da18b4aa108002c60724170ae7490a3f v8.2.0.190628
+tag 62ba28a38e7f2a38275accf99386253524483e92 v8.2.0.190810
 Author:	Vlad <vladix@gmail.com>
-Date:	Fri Jun 28 20:54:54 2019 +0200
+Date:	Sat Aug 10 11:07:55 2019 +0200
 
-v8.2.0.190628
+v8.2.0.190810
 
-commit 3d99e6889fd70c1e3b17f81a4a283f74360f77a1
+commit b92015f6bae2a63493809d2673367788ce3380df
 Author: Vlad <vladix@gmail.com>
-Date:   Fri Jun 28 20:52:03 2019 +0200
+Date:   Sat Aug 10 11:07:11 2019 +0200
 
-    Fixed bugs introduced in 8.2
-
-commit 46c8255cdd2a5725055bf0eb093e75a54d2b8714
-Author: Vlad <vladix@gmail.com>
-Date:   Fri Oct 12 09:32:30 2018 +0200
-
-    - Added a confirmation when deleting a team. Not sure why I didn't do this much earlier.
-    
-    - Made it possible to load teams that are stored in the bank in case you quickly want to load one that is less used for some specific purpose.
+    Removed obsolete code that did more harm than good.
 
