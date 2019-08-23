@@ -1,5 +1,11 @@
 Changes since tag 4.24
 
+commit f54fe47203351d4072dace142271bd6d64b2721b
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Thu Aug 22 16:18:48 2019 -0500
+
+    adjust pkgmeta
+
 commit 8a89ef6841800fba001bf205e2577a54fb6a56bc
 Author: Azilroka <darktemplar9900@yahoo.com>
 Date:   Mon Aug 12 19:09:09 2019 -0500
