@@ -179,11 +179,21 @@ function ItemInfo.OnDisable()
 		names[i] = name
 		itemStrings[i] = itemString
 		dataParts[i] = strchar(itemLevel % 256, itemLevel / 256, minLevel, maxStack % 256, maxStack / 256, vendorSell % 256, (vendorSell % 65536) / 256, (vendorSell % 16777216) / 65536, vendorSell / 16777216, bitfield, invSlotId, texture % 256, (texture % 65536) / 256, (texture % 16777216) / 65536, texture / 16777216, classId, subClassId)
+
+		if #dataParts[i] ~= RECORD_DATA_LENGTH then
+			names[i] = nil
+			itemStrings[i] = nil
+			dataParts[i] = nil
+		end
 	end
 	TSMItemInfoDB.names = #names > 0 and table.concat(names, SEP_CHAR) or nil
 	TSMItemInfoDB.itemStrings = #itemStrings > 0 and table.concat(itemStrings, SEP_CHAR) or nil
 	TSMItemInfoDB.data = table.concat(dataParts)
-	assert(#TSMItemInfoDB.data % RECORD_DATA_LENGTH == 0)
+
+	if #TSMItemInfoDB.data % RECORD_DATA_LENGTH ~= 0 then
+		TSMItemInfoDB = nil
+		return
+	end
 
 	local build, revision = GetBuildInfo()
 	TSMItemInfoDB.version = DB_VERSION
@@ -686,9 +696,11 @@ function private.ProcessItemInfo()
 		if (private.numRequests[itemString] or 0) > MAX_REQUESTS_PER_ITEM then
 			-- give up on this item
 			if private.numRequests[itemString] ~= math.huge then
-				TSM:LOG_ERR("Giving up on item info for %s", itemString)
 				private.numRequests[itemString] = math.huge
 				local itemId = TSMAPI_FOUR.Item.ToItemID(itemString)
+				if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+					TSM:LOG_ERR("Giving up on item info for %s", itemString)
+				end
 				if itemId then
 					private.numRequests[itemId] = math.huge
 				end
@@ -835,6 +847,9 @@ function private.StoreGetItemInfoInstant(itemString)
 			private.SetItemInfoInstantFields(baseItemString, texture, classId, subClassId, invSlotId)
 		end
 	elseif itemStringType == "p" then
+		if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+			return
+		end
 		local name, texture, petTypeId = C_PetJournal.GetPetInfoBySpeciesID(id)
 		if not texture then
 			return

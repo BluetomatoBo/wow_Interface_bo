@@ -42,19 +42,23 @@ end
 function private.CreateFSM()
 	TSMAPI_FOUR.Event.Register("TRADE_SKILL_SHOW", function()
 		private.fsm:ProcessEvent("EV_TRADE_SKILL_SHOW")
+		private.fsm:ProcessEvent("EV_TRADE_SKILL_DATA_SOURCE_CHANGING")
+		private.fsm:ProcessEvent("EV_TRADE_SKILL_DATA_SOURCE_CHANGED")
 	end)
 	TSMAPI_FOUR.Event.Register("TRADE_SKILL_CLOSE", function()
 		private.fsm:ProcessEvent("EV_TRADE_SKILL_CLOSE")
 	end)
-	TSMAPI_FOUR.Event.Register("GARRISON_TRADESKILL_NPC_CLOSED", function()
-		private.fsm:ProcessEvent("EV_TRADE_SKILL_CLOSE")
-	end)
-	TSMAPI_FOUR.Event.Register("TRADE_SKILL_DATA_SOURCE_CHANGED", function()
-		private.fsm:ProcessEvent("EV_TRADE_SKILL_DATA_SOURCE_CHANGED")
-	end)
-	TSMAPI_FOUR.Event.Register("TRADE_SKILL_DATA_SOURCE_CHANGING", function()
-		private.fsm:ProcessEvent("EV_TRADE_SKILL_DATA_SOURCE_CHANGING")
-	end)
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		TSMAPI_FOUR.Event.Register("GARRISON_TRADESKILL_NPC_CLOSED", function()
+			private.fsm:ProcessEvent("EV_TRADE_SKILL_CLOSE")
+		end)
+		TSMAPI_FOUR.Event.Register("TRADE_SKILL_DATA_SOURCE_CHANGED", function()
+			private.fsm:ProcessEvent("EV_TRADE_SKILL_DATA_SOURCE_CHANGED")
+		end)
+		TSMAPI_FOUR.Event.Register("TRADE_SKILL_DATA_SOURCE_CHANGING", function()
+			private.fsm:ProcessEvent("EV_TRADE_SKILL_DATA_SOURCE_CHANGING")
+		end)
+	end
 	local function FrameDelayCallback()
 		private.fsm:ProcessEvent("EV_FRAME_DELAY")
 	end
@@ -88,7 +92,7 @@ function private.CreateFSM()
 			:AddTransition("ST_DATA_CHANGING")
 			:AddTransition("ST_CLOSED")
 			:AddEvent("EV_FRAME_DELAY", function()
-				if C_TradeSkillUI.IsTradeSkillReady() and not C_TradeSkillUI.IsDataSourceChanging() then
+				if TSM.Crafting.ProfessionUtil.IsDataStable() then
 					return "ST_SHOWN"
 				end
 			end)

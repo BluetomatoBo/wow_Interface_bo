@@ -1843,6 +1843,7 @@ function private.GetBagQuantity(itemString)
 end
 
 function private.MaxNumBtnOnClick(button)
+	button:GetElement("__parent.__parent.quantity.stackSize"):SetFocused(false)
 	local itemString = button:GetElement("__parent.__parent.confirmBtn"):GetContext()
 	local stackSize = tonumber(button:GetElement("__parent.__parent.quantity.stackSize"):GetText())
 	local num = floor(private.GetBagQuantity(itemString) / stackSize)
@@ -1855,6 +1856,7 @@ function private.MaxNumBtnOnClick(button)
 end
 
 function private.MaxStackSizeBtnOnClick(button)
+	button:GetElement("__parent.__parent.quantity.num"):SetFocused(false)
 	local itemString = button:GetElement("__parent.__parent.confirmBtn"):GetContext()
 	local numHave = private.GetBagQuantity(itemString)
 	local stackSize = min(TSMAPI_FOUR.Item.GetMaxStack(itemString), numHave)
@@ -1862,7 +1864,7 @@ function private.MaxStackSizeBtnOnClick(button)
 	button:GetElement("__parent.__parent.quantity.stackSize")
 		:SetText(stackSize)
 		:Draw()
-	local numStacks = tonumber(button:GetElement("__parent.__parent.quantity.num"):GetText()) or 1
+	local numStacks = tonumber(button:GetElement("__parent.__parent.quantity.num"):GetText())
 	local newStackSize = floor(numHave / stackSize)
 	if numStacks > newStackSize then
 		button:GetElement("__parent.__parent.quantity.num")

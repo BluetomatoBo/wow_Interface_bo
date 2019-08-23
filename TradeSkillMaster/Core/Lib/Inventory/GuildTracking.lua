@@ -39,11 +39,13 @@ function GuildTracking.OnEnable()
 		:AddIndex("itemString")
 		:AddIndex("autoBaseItemString")
 		:Commit()
-	TSMAPI_FOUR.Event.Register("GUILDBANKFRAME_OPENED", private.GuildBankFrameOpenedHandler)
-	TSMAPI_FOUR.Event.Register("GUILDBANKFRAME_CLOSED", private.GuildBankFrameClosedHandler)
-	TSMAPI_FOUR.Event.Register("GUILDBANKBAGSLOTS_CHANGED", private.GuildBankBagSlotsChangedHandler)
-	TSMAPI_FOUR.Delay.AfterFrame(1, private.GetGuildName)
-	TSMAPI_FOUR.Event.Register("PLAYER_GUILD_UPDATE", private.GetGuildName)
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		TSMAPI_FOUR.Event.Register("GUILDBANKFRAME_OPENED", private.GuildBankFrameOpenedHandler)
+		TSMAPI_FOUR.Event.Register("GUILDBANKFRAME_CLOSED", private.GuildBankFrameClosedHandler)
+		TSMAPI_FOUR.Event.Register("GUILDBANKBAGSLOTS_CHANGED", private.GuildBankBagSlotsChangedHandler)
+		TSMAPI_FOUR.Delay.AfterFrame(1, private.GetGuildName)
+		TSMAPI_FOUR.Event.Register("PLAYER_GUILD_UPDATE", private.GetGuildName)
+	end
 end
 
 function GuildTracking.CreateQuery()

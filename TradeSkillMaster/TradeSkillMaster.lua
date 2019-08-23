@@ -18,7 +18,7 @@ local APP_INFO_REQUIRED_KEYS = { "version", "lastSync", "addonVersions", "messag
 local LOGOUT_TIME_WARNING_THRESHOLD_MS = 20
 do
 	-- show a message if we were updated
-	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.7.16" then
+	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.8.1" then
 		message("TSM was just updated and may not work properly until you restart WoW.")
 	end
 end
@@ -604,8 +604,10 @@ function TSM.OnInitialize()
 	LibDBIcon:Register("TradeSkillMaster", dataObj, TSM.db.global.coreOptions.minimapIcon)
 
 	-- cache battle pet names
-	for i = 1, C_PetJournal.GetNumPets() do
-		C_PetJournal.GetPetInfoByIndex(i)
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		for i = 1, C_PetJournal.GetNumPets() do
+			C_PetJournal.GetPetInfoByIndex(i)
+		end
 	end
 
 	-- force a garbage collection

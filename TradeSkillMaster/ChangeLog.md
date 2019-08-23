@@ -1,6 +1,5 @@
-## v4.7.16 Changes
+## v4.8.1 Changes
 
-* Initial item bonus id update for 8.2.0.
-* Fixed an issue when interacting with the mailbox that contains expired items.
+* Fixed issues with account syncing.
 
 [Known Issues](http://support.tradeskillmaster.com/display/KB/TSM4+Currently+Known+Issues)

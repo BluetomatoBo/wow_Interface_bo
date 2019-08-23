@@ -186,16 +186,16 @@ end
 
 function private.PrepareFriendsInfo()
 	-- wait for friend info to populate
-	ShowFriends()
+	C_FriendList.ShowFriends()
 	local isValid
-	local num = GetNumFriends()
+	local num = C_FriendList.GetNumFriends()
 	if not num then
 		isValid = false
 	else
 		isValid = true
 	end
 	for i = 1, num or 0 do
-		if not GetFriendInfo(i) then
+		if not C_FriendList.GetFriendInfoByIndex(i) then
 			isValid = false
 			break
 		end

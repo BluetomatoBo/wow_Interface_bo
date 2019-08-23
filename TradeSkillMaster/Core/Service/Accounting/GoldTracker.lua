@@ -28,8 +28,10 @@ local ERRONEOUS_ZERO_THRESHOLD = 5 * 1000 * COPPER_PER_GOLD
 -- ============================================================================
 
 function GoldTracker.OnInitialize()
-	TSMAPI_FOUR.Event.Register("GUILDBANKFRAME_OPENED", private.GuildLogGold)
-	TSMAPI_FOUR.Event.Register("GUILDBANK_UPDATE_MONEY", private.GuildLogGold)
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		TSMAPI_FOUR.Event.Register("GUILDBANKFRAME_OPENED", private.GuildLogGold)
+		TSMAPI_FOUR.Event.Register("GUILDBANK_UPDATE_MONEY", private.GuildLogGold)
+	end
 	TSMAPI_FOUR.Event.Register("PLAYER_MONEY", private.PlayerLogGold)
 
 	-- load the gold log data

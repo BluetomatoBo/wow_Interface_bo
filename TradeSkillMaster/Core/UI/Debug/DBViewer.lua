@@ -253,6 +253,7 @@ end
 
 function private.FrameOnHide(frame)
 	assert(frame == private.frame)
+	private.frame:Release()
 	private.frame = nil
 end
 

@@ -273,13 +273,8 @@ function ScrollingTable.Draw(self)
 
 	while #self._rows < numVisibleRows do
 		local row = self:_GetTableRow(false)
-		if #self._rows == 0 then
-			row._frame:SetPoint("TOPLEFT", self._content)
-			row._frame:SetPoint("TOPRIGHT", self._content)
-		else
-			row._frame:SetPoint("TOPLEFT", self._rows[#self._rows]._frame, "BOTTOMLEFT")
-			row._frame:SetPoint("TOPRIGHT", self._rows[#self._rows]._frame, "BOTTOMRIGHT")
-		end
+		row._frame:SetPoint("TOPLEFT", 0, -rowHeight * #self._rows)
+		row._frame:SetPoint("TOPRIGHT", 0, -rowHeight * #self._rows)
 		tinsert(self._rows, row)
 	end
 

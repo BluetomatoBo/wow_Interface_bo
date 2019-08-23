@@ -42,7 +42,7 @@ function Buy.NeedsRepair()
 end
 
 function Buy.CanGuildRepair()
-	return Buy.NeedsRepair() and CanGuildBankRepair()
+	return Buy.NeedsRepair() and WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and CanGuildBankRepair()
 end
 
 function Buy.DoGuildRepair()

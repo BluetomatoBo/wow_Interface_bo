@@ -29,9 +29,11 @@ function Banking.OnInitialize()
 	private.moveThread = TSMAPI_FOUR.Thread.New("BANKING_MOVE", private.MoveThread)
 
 	TSMAPI_FOUR.Event.Register("BANKFRAME_OPENED", private.BankOpened)
-	TSMAPI_FOUR.Event.Register("GUILDBANKFRAME_OPENED", private.GuildBankOpened)
 	TSMAPI_FOUR.Event.Register("BANKFRAME_CLOSED", private.BankClosed)
-	TSMAPI_FOUR.Event.Register("GUILDBANKFRAME_CLOSED", private.GuildBankClosed)
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		TSMAPI_FOUR.Event.Register("GUILDBANKFRAME_OPENED", private.GuildBankOpened)
+		TSMAPI_FOUR.Event.Register("GUILDBANKFRAME_CLOSED", private.GuildBankClosed)
+	end
 end
 
 function Banking.RegisterFrameCallback(callback)

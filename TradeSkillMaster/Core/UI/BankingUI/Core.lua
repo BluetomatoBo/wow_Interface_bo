@@ -156,7 +156,9 @@ function private.GroupTreeGetList(groups, headerNameLookup)
 end
 
 function private.UpdateCurrentModule(frame)
-	ReagentBankFrame_OnShow(ReagentBankFrame)
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		ReagentBankFrame_OnShow(ReagentBankFrame)
+	end
 	-- update nav buttons
 	local navButtonsFrame = frame:GetElement("content.navButtons")
 	for _, module in ipairs(MODULE_LIST) do

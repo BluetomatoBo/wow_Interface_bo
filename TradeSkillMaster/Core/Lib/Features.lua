@@ -56,7 +56,9 @@ function Features.OnEnable()
 		end)
 	end
 	-- setup BMAH scanning
-	TSMAPI_FOUR.Event.Register("BLACK_MARKET_ITEM_UPDATE", private.ScanBMAH)
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		TSMAPI_FOUR.Event.Register("BLACK_MARKET_ITEM_UPDATE", private.ScanBMAH)
+	end
 	-- setup auction created / cancelled filtering
 	local ElvUIChat, ElvUIChatIsEnabled = nil, nil
 	if IsAddOnLoaded("ElvUI") and ElvUI then

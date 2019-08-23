@@ -414,9 +414,11 @@ function TSM.UI.HideTooltip()
 	GameTooltip:ClearAllPoints()
 	GameTooltip:SetPoint("CENTER")
 	GameTooltip:Hide()
-	BattlePetTooltip:ClearAllPoints()
-	BattlePetTooltip:SetPoint("CENTER")
-	BattlePetTooltip:Hide()
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		BattlePetTooltip:ClearAllPoints()
+		BattlePetTooltip:SetPoint("CENTER")
+		BattlePetTooltip:Hide()
+	end
 end
 
 function TSM.UI.AnalyticsRecordPathChange(uiName, ...)

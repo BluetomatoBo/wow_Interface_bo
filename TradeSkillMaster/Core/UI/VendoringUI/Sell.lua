@@ -152,7 +152,6 @@ function private.GetFrame()
 			)
 		)
 		:SetScript("OnUpdate", private.FrameOnUpdate)
-		:SetScript("OnHide", private.FrameOnHide)
 end
 
 function private.GetItemText(itemString)
@@ -172,10 +171,6 @@ end
 function private.FrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)
 	frame:GetBaseElement():SetBottomPadding(32)
-end
-
-function private.FrameOnHide(frame)
-	StackSplitFrame:Hide()
 end
 
 function private.SearchInputOnTextChanged(input)

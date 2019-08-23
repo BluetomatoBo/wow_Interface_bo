@@ -24,6 +24,9 @@ local private = {
 
 function AuctionDB.OnEnable()
 	private.region = TSM.GetRegion()
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		return
+	end
 
 	local realmAppData = nil
 	local appData = TSMAPI.AppHelper and TSMAPI.AppHelper:FetchData("AUCTIONDB_MARKET_DATA") -- get app data from TSM_AppHelper if it's installed

@@ -103,7 +103,7 @@ end
 function TSMAPI_FOUR.Item.ToWowItemString(itemString)
 	local _, itemId, rand, numBonus = (":"):split(itemString)
 	local level = UnitLevel("player")
-	local spec = GetSpecialization()
+	local spec = WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and GetSpecialization() or nil
 	spec = spec and GetSpecializationInfo(spec) or ""
 	local upgradeValue = private.GetUpgradeValue(itemString)
 	local bonusIds = upgradeValue and numBonus and strmatch(itemString, "i:[0-9]+:[0-9%-]*:[0-9]+:(.+):"..upgradeValue.."$")

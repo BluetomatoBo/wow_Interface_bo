@@ -45,7 +45,9 @@ function BagTracking.OnInitialize()
 	TSMAPI_FOUR.Event.Register("BANKFRAME_OPENED", private.BankOpenedHandler)
 	TSMAPI_FOUR.Event.Register("BANKFRAME_CLOSED", private.BankClosedHandler)
 	TSMAPI_FOUR.Event.Register("PLAYERBANKSLOTS_CHANGED", private.BankSlotChangedHandler)
-	TSMAPI_FOUR.Event.Register("PLAYERREAGENTBANKSLOTS_CHANGED", private.ReagentBankSlotChangedHandler)
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		TSMAPI_FOUR.Event.Register("PLAYERREAGENTBANKSLOTS_CHANGED", private.ReagentBankSlotChangedHandler)
+	end
 	TSMAPI_FOUR.Event.Register("ITEM_LOCKED", private.ItemLockedHandler)
 	TSMAPI_FOUR.Event.Register("ITEM_UNLOCKED", private.ItemUnlockedHandler)
 	private.db = TSMAPI_FOUR.Database.NewSchema("BAG_TRACKING")
@@ -84,8 +86,10 @@ function BagTracking.OnEnable()
 	for slot = 1, GetContainerNumSlots(BANK_CONTAINER) do
 		private.BankSlotChangedHandler(nil, slot)
 	end
-	for slot = 1, GetContainerNumSlots(REAGENTBANK_CONTAINER) do
-		private.ReagentBankSlotChangedHandler(nil, slot)
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		for slot = 1, GetContainerNumSlots(REAGENTBANK_CONTAINER) do
+			private.ReagentBankSlotChangedHandler(nil, slot)
+		end
 	end
 end
 

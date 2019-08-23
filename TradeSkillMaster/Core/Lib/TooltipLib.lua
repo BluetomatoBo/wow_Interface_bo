@@ -20,8 +20,10 @@ function TooltipLib:Initialize(callback)
 	private.callback = callback
 	private.RegisterTooltip(GameTooltip)
 	private.RegisterTooltip(ItemRefTooltip)
-	private.RegisterTooltip(BattlePetTooltip)
-	private.RegisterTooltip(FloatingBattlePetTooltip)
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		private.RegisterTooltip(BattlePetTooltip)
+		private.RegisterTooltip(FloatingBattlePetTooltip)
+	end
 end
 
 function TooltipLib:AddLine(tooltip, text, r, g, b)
@@ -84,7 +86,7 @@ function private.RegisterTooltip(tooltip)
 end
 
 function private.IsBattlePetTooltip(tooltip)
-	return tooltip == BattlePetTooltip or tooltip == FloatingBattlePetTooltip
+	return WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and (tooltip == BattlePetTooltip or tooltip == FloatingBattlePetTooltip)
 end
 
 function private.GetLibExtraTipFrame(tooltip, ...)

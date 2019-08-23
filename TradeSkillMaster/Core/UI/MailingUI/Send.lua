@@ -896,10 +896,10 @@ function private.GenerateListElements(category, filterText)
 			end
 		end
 	elseif category == L["Friends"] then
-		for i = 1, GetNumFriends() do
-			local name = GetFriendInfo(i)
-			if name ~= PLAYER_NAME_REALM then
-				local character = Ambiguate(name, "none")
+		for i = 1, C_FriendList.GetNumFriends() do
+			local info = C_FriendList.GetFriendInfoByIndex(i)
+			if info.name ~= PLAYER_NAME_REALM then
+				local character = Ambiguate(info.name, "none")
 				if filterText and filterText ~= "" then
 					if strfind(strlower(character), filterText) then
 						tinsert(private.listElements, character)

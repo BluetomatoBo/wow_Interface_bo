@@ -672,7 +672,7 @@ function private.RecipeListOnSelectionChanged(list)
 
 	private.fsm:ProcessEvent("EV_RECIPE_SELECTION_CHANGED", selection)
 	if IsShiftKeyDown() then
-		local item = C_TradeSkillUI.GetRecipeLink(selection)
+		local item = TSM.Crafting.ProfessionUtil.GetRecipeInfo(selection)
 		ChatEdit_InsertLink(item)
 	end
 end
@@ -849,13 +849,14 @@ function private.FSMCreate()
 		wipe(private.professions)
 		wipe(private.professionsOrder)
 		if currentProfession and not isCurrentProfessionPlayer then
+			assert(WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC)
 			local playerName = nil
-			local linked, linkedName = C_TradeSkillUI.IsTradeSkillLinked()
+			local linked, linkedName = TSM.Crafting.ProfessionUtil.IsLinkedProfession()
 			if linked then
 				playerName = linkedName or "?"
-			elseif C_TradeSkillUI.IsNPCCrafting() then
+			elseif TSM.Crafting.ProfessionUtil.IsNPCProfession() then
 				playerName = L["NPC"]
-			elseif C_TradeSkillUI.IsTradeSkillGuild() then
+			elseif TSM.Crafting.ProfessionUtil.IsGuildProfession() then
 				playerName = L["Guild"]
 			end
 			assert(playerName)
@@ -895,13 +896,14 @@ function private.FSMCreate()
 		wipe(private.professions)
 		wipe(private.professionsOrder)
 		if currentProfession and not isCurrentProfessionPlayer then
+			assert(WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC)
 			local playerName = nil
-			local linked, linkedName = C_TradeSkillUI.IsTradeSkillLinked()
+			local linked, linkedName = TSM.Crafting.ProfessionUtil.IsLinkedProfession()
 			if linked then
 				playerName = linkedName or "?"
-			elseif C_TradeSkillUI.IsNPCCrafting() then
+			elseif TSM.Crafting.ProfessionUtil.IsNPCProfession() then
 				playerName = L["NPC"]
-			elseif C_TradeSkillUI.IsTradeSkillGuild() then
+			elseif TSM.Crafting.ProfessionUtil.IsGuildProfession() then
 				playerName = L["Guild"]
 			end
 			assert(playerName)
@@ -986,7 +988,7 @@ function private.FSMCreate()
 			:SetTooltip(resultItemString or tostring(context.selectedRecipeSpellId))
 		detailsFrame:GetElement("left.num")
 			:SetFormattedText(L["Crafts %d"], TSM.Crafting.GetNumResult(context.selectedRecipeSpellId))
-		local toolsStr, hasTools = C_TradeSkillUI.GetRecipeTools(context.selectedRecipeSpellId)
+		local _, _, _, toolsStr, hasTools = TSM.Crafting.ProfessionUtil.GetRecipeInfo(context.selectedRecipeSpellId)
 		local errorText = detailsFrame:GetElement("left.error")
 		local canCraft = false
 		if toolsStr and not hasTools then
@@ -1038,7 +1040,7 @@ function private.FSMCreate()
 	end
 	function fsmPrivate.UpdateCraftButtons(context)
 		if context.page == "profession" and private.IsProfessionLoaded() then
-			local toolsStr, hasTools = C_TradeSkillUI.GetRecipeTools(context.selectedRecipeSpellId)
+			local _, _, _, toolsStr, hasTools = TSM.Crafting.ProfessionUtil.GetRecipeInfo(context.selectedRecipeSpellId)
 			local detailsFrame = context.frame:GetElement("left.viewContainer.main.content.profession.recipeContent.details")
 			local errorText = detailsFrame:GetElement("left.error")
 			local canCraft = false
@@ -1270,7 +1272,7 @@ function private.IsProfessionLoaded()
 end
 
 function private.IsPlayerProfession()
-	return not C_TradeSkillUI.IsNPCCrafting() and not C_TradeSkillUI.IsTradeSkillLinked() and not C_TradeSkillUI.IsTradeSkillGuild()
+	return not (TSM.Crafting.ProfessionUtil.IsNPCProfession() or TSM.Crafting.ProfessionUtil.IsLinkedProfession() or TSM.Crafting.ProfessionUtil.IsGuildProfession())
 end
 
 function private.HaveMaterialsFilterHelper(row)

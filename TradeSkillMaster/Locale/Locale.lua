@@ -10224,42 +10224,27 @@ TSM.L["You've been phased which has caused the AH to stop working due to a bug o
 TSM.L["You've been undercut."] = "You've been undercut."
 	elseif locale == "koKR" then
 TSM.L = TSM.L or {}
---[[Translation missing --]]
-TSM.L["%d |4Group:Groups; Selected (%d |4Item:Items;)"] = "%d |4Group:Groups; Selected (%d |4Item:Items;)"
---[[Translation missing --]]
-TSM.L["%d auctions"] = "%d auctions"
---[[Translation missing --]]
-TSM.L["%d Groups"] = "%d Groups"
---[[Translation missing --]]
-TSM.L["%d Items"] = "%d Items"
---[[Translation missing --]]
-TSM.L["%d of %d"] = "%d of %d"
---[[Translation missing --]]
-TSM.L["%d Operations"] = "%d Operations"
---[[Translation missing --]]
-TSM.L["%d Posted Auctions"] = "%d Posted Auctions"
---[[Translation missing --]]
-TSM.L["%d Sold Auctions"] = "%d Sold Auctions"
+TSM.L["%d |4Group:Groups; Selected (%d |4Item:Items;)"] = "%d |4그룹:Groups; 선택됨 (%d |4아이템:Items;)"
+TSM.L["%d auctions"] = "%d 경매"
+TSM.L["%d Groups"] = "%d 그룹"
+TSM.L["%d Items"] = "%d 아이템"
+TSM.L["%d of %d"] = "%d 의 %d"
+TSM.L["%d Operations"] = "%d 작업"
+TSM.L["%d Posted Auctions"] = "%d 등록중인 경매"
+TSM.L["%d Sold Auctions"] = "%d 판매된 경매"
 TSM.L["%s (%s bags, %s bank, %s AH, %s mail)"] = "%s (%s 가방, %s 은행, %s 경매장, %s 우편) "
-TSM.L["%s (%s player, %s alts, %s guild, %s AH)"] = "알트가 도대체 뭐지"
---[[Translation missing --]]
-TSM.L["%s (%s profit)"] = "%s (%s profit)"
---[[Translation missing --]]
-TSM.L["%s |4operation:operations;"] = "%s |4operation:operations;"
---[[Translation missing --]]
-TSM.L["%s ago"] = "%s ago"
---[[Translation missing --]]
-TSM.L["%s Crafts"] = "%s Crafts"
---[[Translation missing --]]
-TSM.L["%s group updated with %d items and %d materials."] = "%s group updated with %d items and %d materials."
+TSM.L["%s (%s player, %s alts, %s guild, %s AH)"] = "%s (%s 플레이어, %s 부캐, %s 길드, %s 경매장)"
+TSM.L["%s (%s profit)"] = "%s (%s 이익)"
+TSM.L["%s |4operation:operations;"] = "%s |4작업:operations;"
+TSM.L["%s ago"] = "%s 이전"
+TSM.L["%s Crafts"] = "%s 제작"
+TSM.L["%s group updated with %d items and %d materials."] = "%d 아이템과 %d 재료가 %s 그룹에 업데이트 되었습니다."
 TSM.L["%s in guild vault"] = "%s 길드창고 "
 TSM.L["%s is a valid custom price but %s is an invalid item."] = "%s은(는) 유효한 사용자 가격이지만 %s은(는) 유효하지 않은 아이템입니다."
 TSM.L["%s is a valid custom price but did not give a value for %s."] = "%s은(는) 유효한 사용자 가격이지만 %s에 대한 가격은 없습니다."
---[[Translation missing --]]
-TSM.L["'%s' is an invalid operation! Min restock of %d is higher than max restock of %d."] = "'%s' is an invalid operation! Min restock of %d is higher than max restock of %d."
+TSM.L["'%s' is an invalid operation! Min restock of %d is higher than max restock of %d."] = "'%s' 은(는) 잘못된 작업입니다! 최소 보충 수량(%d)이 최대 보충 수량(%d)보다 큽니다."
 TSM.L["%s is not a valid custom price and gave the following error: %s"] = "%s은(는) 유효하지 않은 사용자 가격이므로 에러가 발생하였습니다. %s"
---[[Translation missing --]]
-TSM.L["%s Operations"] = "%s Operations"
+TSM.L["%s Operations"] = "%s 작업"
 --[[Translation missing --]]
 TSM.L["%s previously had the max number of operations, so removed %s."] = "%s previously had the max number of operations, so removed %s."
 TSM.L["%s removed."] = "%s 삭제됨"
@@ -10274,56 +10259,33 @@ TSM.L["%s sent you a message: %s"] = "%s sent you a message: %s"
 TSM.L["%s total"] = "총 %s  "
 TSM.L["%sDrag%s to move this button"] = "%s드레그%s : 미니맵 아이콘 이동"
 TSM.L["%sLeft-Click%s to open the main window"] = "%s좌클릭%s : 설정창 열기"
---[[Translation missing --]]
-TSM.L["(%d/500 Characters)"] = "(%d/500 Characters)"
---[[Translation missing --]]
-TSM.L["(max %d)"] = "(max %d)"
---[[Translation missing --]]
-TSM.L["(max 5000)"] = "(max 5000)"
---[[Translation missing --]]
-TSM.L["(min %d - max %d)"] = "(min %d - max %d)"
---[[Translation missing --]]
-TSM.L["(min 0 - max 10000)"] = "(min 0 - max 10000)"
---[[Translation missing --]]
-TSM.L["(minimum 0 - maximum 20)"] = "(minimum 0 - maximum 20)"
---[[Translation missing --]]
-TSM.L["(minimum 0 - maximum 2000)"] = "(minimum 0 - maximum 2000)"
---[[Translation missing --]]
-TSM.L["(minimum 0 - maximum 905)"] = "(minimum 0 - maximum 905)"
---[[Translation missing --]]
-TSM.L["(minimum 0.5 - maximum 10)"] = "(minimum 0.5 - maximum 10)"
+TSM.L["(%d/500 Characters)"] = "(%d/500 캐릭터)"
+TSM.L["(max %d)"] = "(최대 %d)"
+TSM.L["(max 5000)"] = "(최대 5000)"
+TSM.L["(min %d - max %d)"] = "(최소 %d - 최대 %d)"
+TSM.L["(min 0 - max 10000)"] = "(최소 0 - 최대 10000)"
+TSM.L["(minimum 0 - maximum 20)"] = "(최소 0 - 최대 20)"
+TSM.L["(minimum 0 - maximum 2000)"] = "(최소 0 - 최대 2000)"
+TSM.L["(minimum 0 - maximum 905)"] = "(최소 0 - 최대 905)"
+TSM.L["(minimum 0.5 - maximum 10)"] = "(최소 0.5 - 최대 10)"
 TSM.L["/tsm help|r - Shows this help listing"] = "/tsm help|r - 도움말 목록을 보여줍니다."
 TSM.L["/tsm|r - opens the main TSM window."] = "/tsm|r - TSM 창을 엽니다."
---[[Translation missing --]]
-TSM.L["|cffff0000IMPORTANT:|r When TSM_Accounting last saved data for this realm, it was too big for WoW to handle, so old data was automatically trimmed in order to avoid corruption of the saved variables. The last %s of purchase data has been preserved."] = "|cffff0000IMPORTANT:|r When TSM_Accounting last saved data for this realm, it was too big for WoW to handle, so old data was automatically trimmed in order to avoid corruption of the saved variables. The last %s of purchase data has been preserved."
---[[Translation missing --]]
-TSM.L["|cffff0000IMPORTANT:|r When TSM_Accounting last saved data for this realm, it was too big for WoW to handle, so old data was automatically trimmed in order to avoid corruption of the saved variables. The last %s of sale data has been preserved."] = "|cffff0000IMPORTANT:|r When TSM_Accounting last saved data for this realm, it was too big for WoW to handle, so old data was automatically trimmed in order to avoid corruption of the saved variables. The last %s of sale data has been preserved."
---[[Translation missing --]]
-TSM.L["|cffffd839Left-Click|r to ignore an item for this session. Hold |cffffd839Shift|r to ignore permanently. You can remove items from permanent ignore in the Vendoring settings."] = "|cffffd839Left-Click|r to ignore an item for this session. Hold |cffffd839Shift|r to ignore permanently. You can remove items from permanent ignore in the Vendoring settings."
---[[Translation missing --]]
-TSM.L["|cffffd839Left-Click|r to ignore an item this session."] = "|cffffd839Left-Click|r to ignore an item this session."
---[[Translation missing --]]
-TSM.L["|cffffd839Shift-Left-Click|r to ignore it permanently."] = "|cffffd839Shift-Left-Click|r to ignore it permanently."
---[[Translation missing --]]
-TSM.L["1 Group"] = "1 Group"
---[[Translation missing --]]
-TSM.L["1 Item"] = "1 Item"
---[[Translation missing --]]
-TSM.L["12 hr"] = "12 hr"
---[[Translation missing --]]
-TSM.L["24 hr"] = "24 hr"
---[[Translation missing --]]
-TSM.L["48 hr"] = "48 hr"
+TSM.L["|cffff0000IMPORTANT:|r When TSM_Accounting last saved data for this realm, it was too big for WoW to handle, so old data was automatically trimmed in order to avoid corruption of the saved variables. The last %s of purchase data has been preserved."] = "|cffff0000중요:|r TSM_회계 영역의 데이터를 저장합니다. 저장된 변수의 손상을 막기위해 기존 자료가 자동으로 제거되었습니다. 구매 데이터의 마지막 %s 이(가) 보존되었습니다."
+TSM.L["|cffff0000IMPORTANT:|r When TSM_Accounting last saved data for this realm, it was too big for WoW to handle, so old data was automatically trimmed in order to avoid corruption of the saved variables. The last %s of sale data has been preserved."] = "|cffff0000중요:|r TSM_회계 영역의 데이터를 저장합니다. 저장된 변수의 손상을 막기위해 기존 자료가 자동으로 제거되었습니다. 판매 데이터의 마지막 %s 이(가) 보존되었습니다."
+TSM.L["|cffffd839Left-Click|r to ignore an item for this session. Hold |cffffd839Shift|r to ignore permanently. You can remove items from permanent ignore in the Vendoring settings."] = "|cffffd839좌클릭|r 이 세션의 항목을 무시. Hold |cffffd839쉬프트|r 영구적으로 무시. Vendoring 설정에서 영구 무시 항목을 제거 할 수 있습니다."
+TSM.L["|cffffd839Left-Click|r to ignore an item this session."] = "|cffffd839좌클릭|r 이 세션의 항목을 무시."
+TSM.L["|cffffd839Shift-Left-Click|r to ignore it permanently."] = "|cffffd839쉬프트+좌클릭|r 영구적으로 무시."
+TSM.L["1 Group"] = "1 그룹"
+TSM.L["1 Item"] = "1 아이템"
+TSM.L["12 hr"] = "12 시간"
+TSM.L["24 hr"] = "24 시간"
+TSM.L["48 hr"] = "48 시간"
 TSM.L["A custom price of %s for %s evaluates to %s."] = "사용자 가격 %s인 %s의 평가 가치는 %s입니다."
 TSM.L["A maximum of 1 convert() function is allowed."] = "convert() 함수가 허용하는 최대치는 1입니다."
---[[Translation missing --]]
-TSM.L["A profile with that name already exists on the target account. Rename it first and try again."] = "A profile with that name already exists on the target account. Rename it first and try again."
---[[Translation missing --]]
-TSM.L["A profile with this name already exists."] = "A profile with this name already exists."
---[[Translation missing --]]
-TSM.L["A scan is already in progress. Please stop that scan before starting another one."] = "A scan is already in progress. Please stop that scan before starting another one."
---[[Translation missing --]]
-TSM.L["Above max expires."] = "Above max expires."
+TSM.L["A profile with that name already exists on the target account. Rename it first and try again."] = "해당 이름의 프로필이 대상 계정에 이미 있습니다. 먼저 이름을 변경하고 다시 시도하십시오."
+TSM.L["A profile with this name already exists."] = "해당 이름의 프로필이 대상 계정에 이미 있습니다."
+TSM.L["A scan is already in progress. Please stop that scan before starting another one."] = "검사가 이미 진행 중입니다. 다른 검사를 시작하려면 기존 검사를 중지하십시오."
+TSM.L["Above max expires."] = "유효 기간 초과."
 --[[Translation missing --]]
 TSM.L["Above max price. Not posting."] = "Above max price. Not posting."
 --[[Translation missing --]]
@@ -10339,53 +10301,37 @@ TSM.L["Accepting this item will cost"] = "Accepting this item will cost"
 --[[Translation missing --]]
 TSM.L["Account sync removed. Please delete the account sync from the other account as well."] = "Account sync removed. Please delete the account sync from the other account as well."
 TSM.L["Account Syncing"] = "계정 동기화 "
---[[Translation missing --]]
-TSM.L["Accounting"] = "Accounting"
---[[Translation missing --]]
-TSM.L["Accounting Tooltips"] = "Accounting Tooltips"
---[[Translation missing --]]
-TSM.L["Activity Type"] = "Activity Type"
---[[Translation missing --]]
-TSM.L["ADD %d ITEMS"] = "ADD %d ITEMS"
---[[Translation missing --]]
-TSM.L["Add / Remove Items"] = "Add / Remove Items"
---[[Translation missing --]]
-TSM.L["ADD NEW CUSTOM PRICE SOURCE"] = "ADD NEW CUSTOM PRICE SOURCE"
---[[Translation missing --]]
-TSM.L["ADD OPERATION"] = "ADD OPERATION"
+TSM.L["Accounting"] = "회계"
+TSM.L["Accounting Tooltips"] = "회계 툴팁"
+TSM.L["Activity Type"] = "활동 유형"
+TSM.L["ADD %d ITEMS"] = "%d 아이템 추가"
+TSM.L["Add / Remove Items"] = "아이템 추가/삭제"
+TSM.L["ADD NEW CUSTOM PRICE SOURCE"] = "임의 가격 추가"
+TSM.L["ADD OPERATION"] = "작업 추가"
 TSM.L["Add Player"] = "플레이어 추가"
---[[Translation missing --]]
-TSM.L["Add Subject / Description"] = "Add Subject / Description"
---[[Translation missing --]]
-TSM.L["Add Subject / Description (Optional)"] = "Add Subject / Description (Optional)"
---[[Translation missing --]]
-TSM.L["ADD TO MAIL"] = "ADD TO MAIL"
---[[Translation missing --]]
-TSM.L["Added '%s' profile which was received from %s."] = "Added '%s' profile which was received from %s."
+TSM.L["Add Subject / Description"] = "제목 / 설명 추가"
+TSM.L["Add Subject / Description (Optional)"] = "제목 / 설명 (부가) 추가"
+TSM.L["ADD TO MAIL"] = "메일 추가"
+TSM.L["Added '%s' profile which was received from %s."] = "%s 에게 받은 '%s' 프로필이 추가되었습니다."
 --[[Translation missing --]]
 TSM.L["Added %s to %s."] = "Added %s to %s."
 TSM.L["Additional error suppressed"] = "추가적인 오류 표시 안 함"
---[[Translation missing --]]
-TSM.L["Adjust the settings below to set how groups attached to this operation will be auctioned."] = "Adjust the settings below to set how groups attached to this operation will be auctioned."
+TSM.L["Adjust the settings below to set how groups attached to this operation will be auctioned."] = [=[경매 방식을 설정하려면 아래 설정을 조정하십시오.
+]=]
 --[[Translation missing --]]
 TSM.L["Adjust the settings below to set how groups attached to this operation will be cancelled."] = "Adjust the settings below to set how groups attached to this operation will be cancelled."
 --[[Translation missing --]]
 TSM.L["Adjust the settings below to set how groups attached to this operation will be priced."] = "Adjust the settings below to set how groups attached to this operation will be priced."
---[[Translation missing --]]
-TSM.L["Advanced Item Search"] = "Advanced Item Search"
+TSM.L["Advanced Item Search"] = "고급 아이템 검색"
 TSM.L["Advanced Options"] = "고급 옵션"
 TSM.L["AH"] = "경매장 "
---[[Translation missing --]]
-TSM.L["AH (Crafting)"] = "AH (Crafting)"
---[[Translation missing --]]
-TSM.L["AH (Disenchanting)"] = "AH (Disenchanting)"
+TSM.L["AH (Crafting)"] = "경매 (제작)"
+TSM.L["AH (Disenchanting)"] = "경매 (마력추출)"
 --[[Translation missing --]]
 TSM.L["AH BUSY"] = "AH BUSY"
---[[Translation missing --]]
-TSM.L["AH Frame Options"] = "AH Frame Options"
+TSM.L["AH Frame Options"] = "경매 프레임 옵션"
 TSM.L["Alarm Clock"] = "알람 시계"
---[[Translation missing --]]
-TSM.L["All Auctions"] = "All Auctions"
+TSM.L["All Auctions"] = "전체 경매"
 TSM.L["All Characters and Guilds"] = "모든 캐릭터와 길드"
 --[[Translation missing --]]
 TSM.L["All Item Classes"] = "All Item Classes"
@@ -10397,21 +10343,14 @@ TSM.L["All Subclasses"] = "All Subclasses"
 TSM.L["Allow partial stack?"] = "Allow partial stack?"
 --[[Translation missing --]]
 TSM.L["Alt Guild Bank"] = "Alt Guild Bank"
---[[Translation missing --]]
-TSM.L["Alts"] = "Alts"
---[[Translation missing --]]
-TSM.L["Alts AH"] = "Alts AH"
---[[Translation missing --]]
-TSM.L["Amount"] = "Amount"
---[[Translation missing --]]
-TSM.L["AMOUNT"] = "AMOUNT"
---[[Translation missing --]]
-TSM.L["Amount of Bag Space to Keep Free"] = "Amount of Bag Space to Keep Free"
---[[Translation missing --]]
-TSM.L["APPLY FILTERS"] = "APPLY FILTERS"
+TSM.L["Alts"] = "부캐"
+TSM.L["Alts AH"] = "부캐 경매장"
+TSM.L["Amount"] = "양"
+TSM.L["AMOUNT"] = "양"
+TSM.L["Amount of Bag Space to Keep Free"] = "남겨둘 가방 공간"
+TSM.L["APPLY FILTERS"] = "필터 적용"
 TSM.L["Apply operation to group:"] = "작업을 그룹에 적용:"
---[[Translation missing --]]
-TSM.L["Are you sure you want to clear old accounting data?"] = "Are you sure you want to clear old accounting data?"
+TSM.L["Are you sure you want to clear old accounting data?"] = "오래된 회계 데이타를 삭제하시겠습니까?"
 TSM.L["Are you sure you want to delete this group?"] = "정말로 선택된 그룹을 지우시겠습니까?"
 TSM.L["Are you sure you want to delete this operation?"] = "정말로 선택된 작업을 지우시겠습니까?"
 --[[Translation missing --]]
@@ -14482,7 +14421,7 @@ TSM.L["%d |4Group:Groups; Selected (%d |4Item:Items;)"] = "％d | 4Group：群�
 TSM.L["%d auctions"] = "%d拍卖"
 TSM.L["%d Groups"] = "%d分组"
 TSM.L["%d Items"] = "%d物品"
-TSM.L["%d of %d"] = "发布%d堆  每堆%d个"
+TSM.L["%d of %d"] = "发布%d堆，每堆%d个"
 TSM.L["%d Operations"] = "%d操作"
 TSM.L["%d Posted Auctions"] = "已发布%d个拍卖"
 TSM.L["%d Sold Auctions"] = "%d已卖出的拍卖"
@@ -14499,8 +14438,7 @@ TSM.L["%s is a valid custom price but %s is an invalid item."] = "%s 是一个�
 TSM.L["%s is a valid custom price but did not give a value for %s."] = "%s 是一个有效的自定义价格但没有为 %s 给出一个值。"
 TSM.L["'%s' is an invalid operation! Min restock of %d is higher than max restock of %d."] = "'%s'是一个无效的操作! 因为最小补货数量%d超过最高补货数量%d。"
 TSM.L["%s is not a valid custom price and gave the following error: %s"] = "%s 不是一个有效的自定义价格,错误信息: %s"
---[[Translation missing --]]
-TSM.L["%s Operations"] = "%s Operations"
+TSM.L["%s Operations"] = "%s操作"
 --[[Translation missing --]]
 TSM.L["%s previously had the max number of operations, so removed %s."] = "%s previously had the max number of operations, so removed %s."
 TSM.L["%s removed."] = "移除 %s 。"
@@ -14534,10 +14472,8 @@ TSM.L["24 hr"] = "24 小时"
 TSM.L["48 hr"] = "48 小时"
 TSM.L["A custom price of %s for %s evaluates to %s."] = "%s的自定义价格为%s到%s。"
 TSM.L["A maximum of 1 convert() function is allowed."] = "最多允许1兑换函数。"
---[[Translation missing --]]
-TSM.L["A profile with that name already exists on the target account. Rename it first and try again."] = "A profile with that name already exists on the target account. Rename it first and try again."
---[[Translation missing --]]
-TSM.L["A profile with this name already exists."] = "A profile with this name already exists."
+TSM.L["A profile with that name already exists on the target account. Rename it first and try again."] = "目标账号上已存在同名档案。请在重新命名后重试。"
+TSM.L["A profile with this name already exists."] = "已存在同名档案。"
 TSM.L["A scan is already in progress. Please stop that scan before starting another one."] = "一项扫描正在进行中。在开始新的扫描之前请停止前一项扫描。"
 TSM.L["Above max expires."] = "超过最大流拍次数。"
 TSM.L["Above max price. Not posting."] = "超出最高价。不发布。"
@@ -14561,8 +14497,7 @@ TSM.L["Add Subject / Description (Optional)"] = "添加主题/描述（可选）
 TSM.L["ADD TO MAIL"] = "添加至邮件"
 --[[Translation missing --]]
 TSM.L["Added '%s' profile which was received from %s."] = "Added '%s' profile which was received from %s."
---[[Translation missing --]]
-TSM.L["Added %s to %s."] = "Added %s to %s."
+TSM.L["Added %s to %s."] = "已将%s添加至%s。"
 TSM.L["Additional error suppressed"] = "已阻止的其他错误"
 TSM.L["Adjust the settings below to set how groups attached to this operation will be auctioned."] = "调整下面的设置以应用到该操作的拍卖分组"
 TSM.L["Adjust the settings below to set how groups attached to this operation will be cancelled."] = "调整下面的设置以应用到该操作的取消分组"
@@ -14577,11 +14512,9 @@ TSM.L["AH Frame Options"] = "拍卖行框体选项"
 TSM.L["Alarm Clock"] = "闹钟"
 TSM.L["All Auctions"] = "所有拍卖"
 TSM.L["All Characters and Guilds"] = "所有角色和专精"
---[[Translation missing --]]
-TSM.L["All Item Classes"] = "All Item Classes"
+TSM.L["All Item Classes"] = "所有物品类别"
 TSM.L["All Professions"] = "所有专业"
---[[Translation missing --]]
-TSM.L["All Subclasses"] = "All Subclasses"
+TSM.L["All Subclasses"] = "所有子类别"
 TSM.L["Allow partial stack?"] = "允许部分堆叠"
 TSM.L["Alt Guild Bank"] = "小号工会银行"
 TSM.L["Alts"] = "小号"
@@ -14722,8 +14655,7 @@ TSM.L["Clear Queue"] = "清除队列"
 TSM.L["Clear Selection"] = "取消选择"
 TSM.L["COD"] = "付费邮件"
 TSM.L["Coins (%s)"] = "(%s) 金币"
---[[Translation missing --]]
-TSM.L["Collapse All Groups"] = "Collapse All Groups"
+TSM.L["Collapse All Groups"] = "折叠所有群组"
 TSM.L["Combine Partial Stacks"] = "合并堆叠"
 TSM.L["Combining..."] = "合并中..."
 TSM.L["Configuration Scroll Wheel"] = "配置滚轮"
@@ -14780,8 +14712,7 @@ TSM.L["Default Price Configuration"] = "默认价格配置"
 --[[Translation missing --]]
 TSM.L["Define what priority Gathering gives certain sources."] = "Define what priority Gathering gives certain sources."
 TSM.L["Delete Profile Confirmation"] = "删除配置档确认"
---[[Translation missing --]]
-TSM.L["Delete this record?"] = "Delete this record?"
+TSM.L["Delete this record?"] = "删除此记录？"
 --[[Translation missing --]]
 TSM.L["Deposit"] = "Deposit"
 --[[Translation missing --]]
@@ -14893,8 +14824,7 @@ TSM.L["Estimated deliver time"] = "Estimated deliver time"
 TSM.L["Estimated Profit:"] = "预计利润："
 TSM.L["Exact Match Only?"] = "完全匹配?"
 TSM.L["Exclude crafts with cooldowns"] = "忽略CD中的制造"
---[[Translation missing --]]
-TSM.L["Expand All Groups"] = "Expand All Groups"
+TSM.L["Expand All Groups"] = "展开所有群组"
 TSM.L["Expenses"] = "支出"
 TSM.L["EXPENSES"] = "支出"
 --[[Translation missing --]]
@@ -15031,8 +14961,7 @@ TSM.L["Inventory / Gold Graph"] = "Inventory / Gold Graph"
 TSM.L["Inventory / Mailing"] = "库存/邮寄"
 TSM.L["Inventory Options"] = "库存设置"
 TSM.L["Inventory Tooltip Format"] = "库存工具提示格式"
---[[Translation missing --]]
-TSM.L["It appears that you've manually copied your saved variables between accounts which will cause TSM's automatic sync'ing to not work. You'll need to undo this, and/or delete the TradeSkillMaster saved variables files on both accounts (with WoW closed) in order to fix this."] = "It appears that you've manually copied your saved variables between accounts which will cause TSM's automatic sync'ing to not work. You'll need to undo this, and/or delete the TradeSkillMaster saved variables files on both accounts (with WoW closed) in order to fix this."
+TSM.L["It appears that you've manually copied your saved variables between accounts which will cause TSM's automatic sync'ing to not work. You'll need to undo this, and/or delete the TradeSkillMaster saved variables files on both accounts (with WoW closed) in order to fix this."] = "你似乎在账号间手动复制了SavedVariables，导致TSM的自动同步无法工作。你需要撤销此更改，并且/或者关闭魔兽世界后删除这些账号的TSM SavedVariables来修复此问题。"
 TSM.L["Item"] = "物品"
 TSM.L["ITEM CLASS"] = "物品种类"
 TSM.L["Item Level"] = "物品等级"

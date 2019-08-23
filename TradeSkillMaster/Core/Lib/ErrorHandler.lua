@@ -260,6 +260,8 @@ function private.ErrorHandler(msg, thread)
 		private.FormatErrorMessageSection("Debug Log", errorInfo.debugLogStr, true),
 		private.FormatErrorMessageSection("Addons", errorInfo.addonsStr, true)
 	)
+	-- remove unprintable characters
+	private.errorFrame.errorStr = gsub(private.errorFrame.errorStr, "[%z\001-\008\011-\031]", "?")
 	private.errorFrame.errorInfo = errorInfo
 	private.errorFrame.isManual = isManual
 	private.errorFrame:Show()
@@ -310,9 +312,6 @@ end
 function private.IsTSMAddon(str)
 	if strfind(str, "Auc-Adcanced\\CoreScan.lua") then
 		-- ignore auctioneer errors
-		return nil
-	elseif strfind(str, "Core\\Lib\\TooltipLib%.lua") then
-		-- ignore tooltip lib errors
 		return nil
 	elseif strfind(str, "Master\\Libs\\") then
 		-- ignore errors from libraries

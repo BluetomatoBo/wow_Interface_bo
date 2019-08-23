@@ -42,6 +42,17 @@ function CraftingUI.Toggle()
 end
 
 function CraftingUI.IsProfessionIgnored(name)
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		if name == GetSpellInfo(7620) then
+			return true
+		elseif name == GetSpellInfo(2575) then
+			return true
+		elseif name == GetSpellInfo(2366) then
+			return true
+		elseif name == GetSpellInfo(8613) then
+			return true
+		end
+	end
 	for i in pairs(TSM.CONST.IGNORED_PROFESSIONS) do
 		local ignoredName = GetSpellInfo(i)
 		if ignoredName == name then
@@ -166,10 +177,12 @@ function private.FSMCreate()
 					private.defaultUISwitchBtn:Draw()
 				end
 				TradeSkillFrame:SetScript("OnHide", DefaultFrameOnHide)
-				local linked, linkedName = C_TradeSkillUI.IsTradeSkillLinked()
-				if C_TradeSkillUI.IsTradeSkillReady() and not C_TradeSkillUI.IsTradeSkillGuild() and not C_TradeSkillUI.IsTradeSkillGuildMember() and (not linked or (linked and linkedName == UnitName("player"))) then
-					TradeSkillFrame:OnEvent("TRADE_SKILL_DATA_SOURCE_CHANGED")
-					TradeSkillFrame:OnEvent("TRADE_SKILL_LIST_UPDATE")
+				if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+					local linked, linkedName = TSM.Crafting.ProfessionUtil.IsLinkedProfession()
+					if TSM.Crafting.ProfessionUtil.IsDataStable() and not TSM.Crafting.ProfessionUtil.IsGuildProfession() and (not linked or (linked and linkedName == UnitName("player"))) then
+						TradeSkillFrame:OnEvent("TRADE_SKILL_DATA_SOURCE_CHANGED")
+						TradeSkillFrame:OnEvent("TRADE_SKILL_LIST_UPDATE")
+					end
 				end
 			end)
 			:SetOnExit(function(context)
@@ -179,8 +192,7 @@ function private.FSMCreate()
 			:AddTransition("ST_CLOSED")
 			:AddTransition("ST_FRAME_OPEN")
 			:AddEvent("EV_FRAME_HIDE", function(context)
-				C_TradeSkillUI.CloseTradeSkill()
-				C_Garrison.CloseGarrisonTradeskillNPC()
+				TSM.Crafting.ProfessionUtil.CloseTradeSkill()
 				return "ST_CLOSED"
 			end)
 			:AddEvent("EV_TRADE_SKILL_CLOSED", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_CLOSED"))
@@ -211,8 +223,7 @@ function private.FSMCreate()
 			:AddTransition("ST_CLOSED")
 			:AddTransition("ST_DEFAULT_OPEN")
 			:AddEvent("EV_FRAME_HIDE", function(context)
-				C_TradeSkillUI.CloseTradeSkill()
-				C_Garrison.CloseGarrisonTradeskillNPC()
+				TSM.Crafting.ProfessionUtil.CloseTradeSkill()
 				return "ST_CLOSED"
 			end)
 			:AddEvent("EV_TRADE_SKILL_SHOW", function(context)

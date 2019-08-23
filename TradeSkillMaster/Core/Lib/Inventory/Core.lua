@@ -105,7 +105,11 @@ function Inventory.OnGuildLoaded()
 	local guildName = GetGuildInfo("player")
 	private.WipeQuantity("guildQuantity")
 	for itemString, quantity in pairs(TSM.db.factionrealm.internalData.guildVaults[guildName]) do
-		private.UpdateQuantity(itemString, "guildQuantity", quantity)
+		if quantity > 0 then
+			private.UpdateQuantity(itemString, "guildQuantity", quantity)
+		else
+			TSM.db.factionrealm.internalData.guildVaults[guildName][itemString] = nil
+		end
 	end
 end
 

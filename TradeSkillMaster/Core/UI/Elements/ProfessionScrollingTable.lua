@@ -18,7 +18,6 @@ TSM.UI.ProfessionScrollingTable = ProfessionScrollingTable
 local private = {
 	rowFrameLookup = {},
 	queryProfessionScrollingTableLookup = {},
-	categoryInfoTemp = {},
 	categoryInfoCache = {
 		parent = {},
 		numIndents = {},
@@ -294,12 +293,10 @@ end
 function private.PopulateCategoryInfoCache(categoryId)
 	-- numIndents always gets set, so use that to know whether or not this category is already cached
 	if not private.categoryInfoCache.numIndents[categoryId] then
-		C_TradeSkillUI.GetCategoryInfo(categoryId, private.categoryInfoTemp)
-		private.categoryInfoCache.parent[categoryId] = private.categoryInfoTemp.numIndents ~= 0 and private.categoryInfoTemp.parentCategoryID or nil
-		private.categoryInfoCache.numIndents[categoryId] = private.categoryInfoTemp.numIndents
-		private.categoryInfoCache.name[categoryId] = private.categoryInfoTemp.name
-		assert(private.categoryInfoCache.numIndents[categoryId])
-		wipe(private.categoryInfoTemp)
+		local name, numIndents, parentCategoryId = TSM.Crafting.ProfessionUtil.GetCategoryInfo(categoryId)
+		private.categoryInfoCache.name[categoryId] = name
+		private.categoryInfoCache.numIndents[categoryId] = numIndents
+		private.categoryInfoCache.parent[categoryId] = parentCategoryId
 	end
 end
 
@@ -326,9 +323,9 @@ function private.GetNameCellText(self, data)
 	if self._isSpellId[data] then
 		local name = TSM.Crafting.ProfessionScanner.GetNameBySpellId(data)
 		local color = nil
-		if C_TradeSkillUI.IsTradeSkillGuild() then
+		if TSM.Crafting.ProfessionUtil.IsGuildProfession() then
 			color = RECIPE_COLORS.easy
-		elseif C_TradeSkillUI.IsNPCCrafting() then
+		elseif TSM.Crafting.ProfessionUtil.IsNPCProfession() then
 			color = RECIPE_COLORS.nodifficulty
 		else
 			local difficulty = TSM.Crafting.ProfessionScanner.GetDifficultyBySpellId(data)

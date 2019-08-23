@@ -176,7 +176,11 @@ function private.FrameOnUpdate(frame)
 end
 
 function private.FrameOnHide(frame)
-	StackSplitFrame:Hide()
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		StackSplitFrame:Hide()
+	else
+		OpenStackSplitFrame()
+	end
 end
 
 function private.SearchInputOnTextChanged(input)
@@ -200,7 +204,11 @@ function private.RowOnClick(table, row, mouseButton)
 		private.splitFrame:SetParent(table:_GetBaseFrame())
 		private.splitFrame:SetAllPoints(table:_GetBaseFrame())
 		private.splitFrame.item = row:GetField("index")
-		StackSplitFrame:OpenStackSplitFrame(math.huge, private.splitFrame, "TOPLEFT", "TOPRIGHT", IsAltKeyDown() and row:GetField("stackSize") or nil)
+		if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+			StackSplitFrame:OpenStackSplitFrame(math.huge, private.splitFrame, "TOPLEFT", "TOPRIGHT", IsAltKeyDown() and row:GetField("stackSize") or nil)
+		else
+			OpenStackSplitFrame(math.huge, private.splitFrame, "TOPLEFT", "TOPRIGHT", IsAltKeyDown() and row:GetField("stackSize") or nil)
+		end
 	elseif mouseButton == "RightButton" then
 		TSM.Vendoring.Buy.BuyItemIndex(row:GetFields("index", "stackSize"))
 	end
