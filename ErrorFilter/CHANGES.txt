@@ -1,12 +1,12 @@
-tag 426d105002c48ffc44fb756c045972dbd5ec68a1 v3.6
+tag 0766721d4ec295a64fc3228e5b298b46474fba77 v3.7
 Author:	iceeagle <ciprianmihai.coman@gmail.com>
-Date:	Sat Aug 11 12:46:12 2018 +0300
+Date:	Sun Sep 8 11:01:20 2019 +0300
 
-repackage with latest libs
+tag v3.7
 
-commit f72653014c0e9acc19052aa6b86c2dbdb85e58b6
+commit 29036266d46089ff2bef231e0f3cecd510b61b5e
 Author: iceeagle <ciprianmihai.coman@gmail.com>
-Date:   Thu Aug 2 19:40:26 2018 +0300
+Date:   Sun Sep 8 11:00:56 2019 +0300
 
-    update for patch 8.0
+    update for patch 8.2
 
