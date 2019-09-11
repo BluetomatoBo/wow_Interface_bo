@@ -22,5 +22,10 @@ function TSMAPI.AppHelper:FetchData(tag)
 end
 
 function TSMAPI.AppHelper:IsCurrentRealm(realm)
-	return strlower(gsub(realm, "\226", "'")) == strlower(gsub(GetRealmName(), "\226", "'"))
+	realm = gsub(realm, "\226", "'")
+	local currentRealmName = gsub(GetRealmName(), "\226", "'")
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		currentRealmName = currentRealmName.."-"..UnitFactionGroup("player")
+	end
+	return strlower(realm) == strlower(currentRealmName)
 end
