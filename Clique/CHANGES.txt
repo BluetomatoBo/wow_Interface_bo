@@ -1,12 +1,18 @@
-tag 0f764a12ecbb5a4cc213a28651e7c2e4777a3c9e v80200-1.0.1
+tag 9f3e610b7b87fc485cec4e6b84943464d39c8f15 v80200-1.2.2
 Author:	Jim Whitehead <jnwhiteh@gmail.com>
-Date:	Tue Jul 23 21:47:26 2019 +0200
+Date:	Tue Sep 3 07:46:43 2019 +0200
 
-Tagging v80200-1.0.1
+Tagging v80200-1.2.2
 
-commit 6b77821321290bd18ca9b9070d5e6d03d5fdb0eb
+commit 296b4074fc42df01e8a874f802a7a45b9917b748
 Author: Jim Whitehead <jnwhiteh@gmail.com>
-Date:   Tue Jul 23 21:47:14 2019 +0200
+Date:   Tue Sep 3 07:46:01 2019 +0200
 
-    Fixing a duplicate event registration issue
+    Fix issue with talent spec bindings
+
+commit 98e3d16d42ad45bfb8a529a06607219ca2a5a03c
+Author: Jim Whitehead <jnwhiteh@gmail.com>
+Date:   Thu Aug 29 07:30:14 2019 +0200
+
+    Shuffle some talent code
 
