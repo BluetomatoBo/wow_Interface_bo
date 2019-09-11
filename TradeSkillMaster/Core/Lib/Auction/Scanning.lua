@@ -12,7 +12,7 @@ local L = TSM.L
 local private = {
 	recycledFilters = {},
 	recycledScans = {},
-	nextFilterId = 0,
+	filterId = 1,
 	queryUtilContext = { self = nil, maxItemQuantity = nil, targetItem = nil },
 }
 -- some constants
@@ -52,6 +52,7 @@ function AuctionFilter.__init(self)
 	self._maxPrice = nil
 	self._generalMaxQuantity = nil
 	self._targetItem = nil
+	self._getAll = nil
 	self._items = {}
 	self._itemMaxQuantities = {}
 	self._resultIncludesRow = {}
@@ -83,6 +84,7 @@ function AuctionFilter._Release(self)
 	self._maxPrice = nil
 	self._generalMaxQuantity = nil
 	self._targetItem = nil
+	self._getAll = nil
 	wipe(self._items)
 	wipe(self._itemMaxQuantities)
 	wipe(self._resultIncludesRow)
@@ -192,14 +194,41 @@ function AuctionFilter.SetItemMaxQuantity(self, itemString, maxQuantity)
 end
 
 function AuctionFilter.SetSniper(self, isLastPage)
+	assert(not self._getAll)
 	assert(type(isLastPage) == "boolean")
 	self._sniperLastPage = isLastPage
 	return self
 end
 
 function AuctionFilter.SetTargetItem(self, itemString)
+	assert(not self._getAll)
 	self._targetItem = itemString
 	return self
+end
+
+function AuctionFilter.SetGetAll(self)
+	assert(self._name == nil)
+	assert(self._minLevel == nil)
+	assert(self._maxLevel == nil)
+	assert(self._quality == nil)
+	assert(self._class == nil)
+	assert(self._subClass == nil)
+	assert(self._invType == nil)
+	assert(self._usable == nil)
+	assert(self._unlearned == nil)
+	assert(self._canlearn == nil)
+	assert(self._exact == nil)
+	assert(self._sniperLastPage == nil)
+	assert(self._evenOnly == nil)
+	assert(self._minItemLevel == nil)
+	assert(self._maxItemLevel == nil)
+	assert(self._minPrice == nil)
+	assert(self._maxPrice == nil)
+	assert(self._generalMaxQuantity == nil)
+	assert(self._targetItem == nil)
+	assert(#self._items == 0)
+	assert(next(self._itemMaxQuantities) == nil)
+	self._getAll = true
 end
 
 function AuctionFilter.GetItems(self)
@@ -208,6 +237,10 @@ end
 
 function AuctionFilter._IsSniper(self)
 	return self._sniperLastPage ~= nil
+end
+
+function AuctionFilter._IsGetAll(self)
+	return self._getAll ~= nil
 end
 
 function AuctionFilter._GetTargetItem(self)
@@ -235,7 +268,7 @@ function AuctionFilter._GetPageProgress(self)
 	return self._page, private.GetNumPages()
 end
 
-function AuctionFilter._IsFiltered(self, row)
+function AuctionFilter._IsFiltered(self, row, ignoreItemLevel)
 	if #self._items > 0 then
 		local found = false
 		local rowItemString = row:GetField("itemString")
@@ -254,7 +287,7 @@ function AuctionFilter._IsFiltered(self, row)
 	end
 	local itemString = row:GetField("itemString")
 	local itemLevel = TSMAPI_FOUR.Item.GetItemLevel(itemString)
-	if itemLevel < (self._minItemLevel or 0) or itemLevel > (self._maxItemLevel or math.huge) then
+	if not ignoreItemLevel and (itemLevel < (self._minItemLevel or 0) or itemLevel > (self._maxItemLevel or math.huge)) then
 		return true
 	end
 	if self._unlearned and CanIMogIt:PlayerKnowsTransmog(TSMAPI_FOUR.Item.GetLink(itemString)) then
@@ -334,6 +367,17 @@ function AuctionFilter._DoAuctionQueryThreaded(self)
 			-- wait for the update event
 			TSMAPI_FOUR.Thread.WaitForEvent("AUCTION_ITEM_LIST_UPDATE")
 		end
+	elseif self:_IsGetAll() then
+		-- wait for the AH to be ready
+		TSMAPI_FOUR.Thread.WaitForFunction(CanSendAuctionQuery)
+		if not select(2, CanSendAuctionQuery()) then
+			-- can't do a getall scan right now
+			return false
+		end
+		-- query the AH
+		QueryAuctionItems(nil, nil, nil, 0, nil, nil, true)
+		-- wait for the update event
+		TSMAPI_FOUR.Thread.WaitForEvent("AUCTION_ITEM_LIST_UPDATE")
 	else
 		-- wait for the AH to be ready
 		TSMAPI_FOUR.Thread.WaitForFunction(CanSendAuctionQuery)
@@ -469,6 +513,7 @@ function AuctionScan.__init(self)
 	self._scripts = nil
 	self._thread = nil
 	self._resolveSellers = nil
+	self._ignoreItemLevel = nil
 	self._filters = {}
 	self._db = nil
 	self._filtersScanned = 0
@@ -490,6 +535,7 @@ end
 function AuctionScan._Release(self)
 	self._thread = nil
 	self._resolveSellers = nil
+	self._ignoreItemLevel = nil
 	for _, filter in ipairs(self._filters) do
 		filter:_Release()
 		tinsert(private.recycledFilters, filter)
@@ -528,6 +574,11 @@ end
 
 function AuctionScan.SetResolveSellers(self, resolveSellers)
 	self._resolveSellers = resolveSellers
+	return self
+end
+
+function AuctionScan.SetIgnoreItemLevel(self, ignoreItemLevel)
+	self._ignoreItemLevel = ignoreItemLevel
 	return self
 end
 
@@ -707,7 +758,7 @@ function AuctionScan._GetAuctionRowHash(self, index, noSeller)
 	end
 end
 
-function AuctionScan._CreateAuctionRow(self, index, filter)
+function AuctionScan._GetAuctionRowFields(self, index, filter)
 	local rawName, texture, stackSize, _, _, _, _, minBid, minIncrement, buyout, bid, isHighBidder, _, seller, sellerFull = GetAuctionItemInfo("list", index)
 	local rawLink = GetAuctionItemLink("list", index)
 	local timeLeft = GetAuctionItemTimeLeft("list", index)
@@ -716,9 +767,25 @@ function AuctionScan._CreateAuctionRow(self, index, filter)
 	-- pet auctions don't give textures so get from our item database
 	texture = texture or TSMAPI_FOUR.Item.GetTexture(itemLink)
 	local displayedBid = bid == 0 and minBid or bid
+	local itemDisplayedBid = floor(displayedBid / stackSize)
+	local requiredBid = bid == 0 and minBid or (bid + minIncrement)
+	local itemBuyout = (buyout > 0) and floor(buyout / stackSize) or 0
 	-- this is to get around a bug in Blizzard's code where the minIncrement value will be inconsistent for auctions where the player is the highest bidder
 	minIncrement = isHighBidder and 0 or minIncrement
 	seller = TSMAPI_FOUR.Auction.FixSellerName(seller, sellerFull) or "?"
+	local hash = self:_GetAuctionRowHash(index, false)
+	local hashNoSeller = self:_GetAuctionRowHash(index, true)
+	local targetItem = filter:_GetTargetItem() or itemString
+	local targetItemRate = filter:_GetTargetItemRate(itemString)
+	return rawName, rawLink, texture, stackSize, minBid, minIncrement, buyout, bid, isHighBidder,
+		seller, timeLeft, displayedBid, itemDisplayedBid, requiredBid, itemBuyout, itemLink,
+		itemString, hash, hashNoSeller, private.filterId, targetItem, targetItemRate
+end
+
+function AuctionScan._CreateAuctionRow(self, index, filter)
+	local rawName, rawLink, texture, stackSize, minBid, minIncrement, buyout, bid, isHighBidder,
+		seller, timeLeft, displayedBid, itemDisplayedBid, requiredBid, itemBuyout, itemLink,
+		itemString, hash, hashNoSeller, filterId, targetItem, targetItemRate = self:_GetAuctionRowFields(index, filter)
 	return self._db:NewRow()
 		:SetField("rawName", rawName)
 		:SetField("rawLink", rawLink)
@@ -732,15 +799,20 @@ function AuctionScan._CreateAuctionRow(self, index, filter)
 		:SetField("seller", seller)
 		:SetField("timeLeft", timeLeft)
 		:SetField("displayedBid", displayedBid)
-		:SetField("itemDisplayedBid", floor(displayedBid / stackSize))
-		:SetField("requiredBid", bid == 0 and minBid or (bid + minIncrement))
-		:SetField("itemBuyout", (buyout > 0) and floor(buyout / stackSize) or 0)
+		:SetField("itemDisplayedBid", itemDisplayedBid)
+		:SetField("requiredBid", requiredBid)
+		:SetField("itemBuyout", itemBuyout)
 		:SetField("itemLink", itemLink)
 		:SetField("itemString", itemString)
-		:SetField("hash", self:_GetAuctionRowHash(index, false))
-		:SetField("hashNoSeller", self:_GetAuctionRowHash(index, true))
-		:SetField("targetItem", filter:_GetTargetItem() or itemString)
-		:SetField("targetItemRate", filter:_GetTargetItemRate(itemString))
+		:SetField("hash", hash)
+		:SetField("hashNoSeller", hashNoSeller)
+		:SetField("filterId", filterId)
+		:SetField("targetItem", targetItem)
+		:SetField("targetItemRate", targetItemRate)
+end
+
+function AuctionScan._BulkInsertAuctionRow(self, index, filter)
+	self._db:BulkInsertNewRow(self:_GetAuctionRowFields(index, filter))
 end
 
 function AuctionScan._NotifyFilterPartialDone(self, filter)
@@ -870,7 +942,7 @@ function private.GetNumPages()
 	return ceil(total / NUM_AUCTION_ITEMS_PER_PAGE)
 end
 
-function private.IsAuctionPageValid(resolveSellers)
+function private.IsAuctionPageValidThreaded(resolveSellers, ignoreItemLevel)
 	local numAuctions, totalAuctions = GetNumAuctionItems("list")
 	if totalAuctions <= NUM_AUCTION_ITEMS_PER_PAGE and numAuctions ~= totalAuctions then
 		-- there are cases where we get (0, 1) from the API - no idea why and it'll cause bugs later, so we should count it as invalid
@@ -888,28 +960,32 @@ function private.IsAuctionPageValid(resolveSellers)
 		local itemString = TSMAPI_FOUR.Item.ToItemString(link)
 		local name = TSMAPI_FOUR.Item.GetName(link)
 		local itemLevel = TSMAPI_FOUR.Item.GetItemLevel(link)
-		if not itemString or not buyout or not stackSize or not itemLevel or not name or not timeLeft then
+		if not itemString or not buyout or not stackSize or not name or not timeLeft then
+			return false
+		elseif not itemLevel and not ignoreItemLevel then
 			return false
 		elseif not seller and resolveSellers and buyout ~= 0 then
 			return false
 		end
+		TSMAPI_FOUR.Thread.Yield()
 	end
 
 	return true
 end
 
-function private.ValidateThreaded(auctionScan)
+function private.ValidateThreaded(auctionScan, isGetAll)
 	-- wait a bit for things to settle
-	local timeout = GetTime() + MAX_SETTLE_TIME
-	while not CanSendAuctionQuery() and GetTime() < timeout do
+	local settleStartTime = GetTime()
+	while not CanSendAuctionQuery() and GetTime() < settleStartTime + MAX_SETTLE_TIME do
 		if auctionScan:_IsCancelled() then
 			return false
 		end
 		TSMAPI_FOUR.Thread.Yield(true)
 	end
+	TSM:LOG_INFO("Took %d seconds for AH to settle", GetTime() - settleStartTime)
 	-- check the result
-	local remainingRetries = MAX_SOFT_RETRIES
-	while remainingRetries > 0 do
+	local tryNum = 0
+	while tryNum < MAX_SOFT_RETRIES do
 		if auctionScan:_IsCancelled() then
 			TSM:LOG_INFO("Stopping canelled scan")
 			return false
@@ -917,15 +993,17 @@ function private.ValidateThreaded(auctionScan)
 		-- wait a small delay and then try and get the result
 		TSMAPI_FOUR.Thread.Sleep(SCAN_RESULT_DELAY)
 		-- get result
-		if private.IsAuctionPageValid(auctionScan._resolveSellers) then
+		if private.IsAuctionPageValidThreaded(auctionScan._resolveSellers, auctionScan._ignoreItemLevel) then
 			-- result is valid, so we're done
+			TSM:LOG_INFO("Took %d soft retries", tryNum)
 			return true
 		end
-		-- only count retries if we're ready to send the next query
+		-- only count tries if we're ready to send the next query
 		if CanSendAuctionQuery() then
-			remainingRetries = remainingRetries - 1
+			tryNum = tryNum + 1
 		end
 	end
+	TSM:LOG_INFO("Exhausted soft retries")
 	return false
 end
 
@@ -934,15 +1012,15 @@ function private.DoQueryAndValidateThreaded(filter, auctionScan)
 		-- query the AH
 		filter:_DoAuctionQueryThreaded()
 		-- check the result
-		if private.ValidateThreaded(auctionScan) then
+		if private.ValidateThreaded(auctionScan, filter:_IsGetAll()) then
 			return true
 		end
 		if auctionScan:_IsCancelled() then
 			TSM:LOG_INFO("Stopping canelled scan")
 			return false
 		end
-		if filter:_IsSniper() then
-			-- don't retry sniper filters
+		if filter:_IsSniper() or filter:_IsGetAll() then
+			-- don't retry sniper or getall filters
 			return false
 		end
 	end
@@ -982,7 +1060,7 @@ function private.ScanQueryThreaded(auctionScan)
 	local allSuccess = true
 	for i, filter in ipairs(auctionScan._filters) do
 		-- update the sort for this filter
-		if filter:_IsSniper() then
+		if filter:_IsSniper() or filter:_IsGetAll() then
 			private.SetAuctionSort()
 		else
 			private.SetAuctionSort("seller", "quantity", "unitprice")
@@ -1007,46 +1085,54 @@ function private.ScanQueryThreaded(auctionScan)
 				break
 			end
 			-- we've made the query, now store the results
-			auctionScan._db:SetQueryUpdatesPaused(true)
-			local filterId = private.nextFilterId
-			private.nextFilterId = private.nextFilterId + 1
-			for j = 1, GetNumAuctionItems("list") do
-				local row = auctionScan:_CreateAuctionRow(j, filter)
-					:SetField("filterId", filterId)
-					:CreateAndClone()
-				if filter:_IsFiltered(row) or auctionScan:_IsFiltered(row) then
-					auctionScan._db:DeleteRow(row)
-				else
-					local hashNoSeller = row:GetField("hashNoSeller")
-					if filter:_IsSniper() then
-						-- remove existing duplicates from previous filters
-						local query = auctionScan._db:NewQuery()
-							:Equal("hashNoSeller", hashNoSeller)
-							:LessThan("filterId", filterId)
-						local removedOld = false
-						for _, oldRow in query:Iterator() do
-							removedOld = true
-							auctionScan:DeleteRowFromDB(oldRow, false)
-						end
-						query:Release()
-						if not removedOld then
-							local newQuery = auctionScan._db:NewQuery()
-								:Equal("hashNoSeller", hashNoSeller)
-								:Equal("filterId", filterId)
-							if newQuery:Count() == 1 then
-								numNewResults = numNewResults + 1
-							end
-							newQuery:Release()
-						end
-					else
-						numNewResults = numNewResults + 1
-					end
-					filter:_AddResultRow(row:GetUUID())
+			if filter:_IsGetAll() then
+				-- optimized bulk insert for GetAll scans as there are a ton of results
+				auctionScan._db:BulkInsertStart()
+				for j = 1, GetNumAuctionItems("list") do
+					auctionScan:_BulkInsertAuctionRow(j, filter)
+					TSMAPI_FOUR.Thread.Yield()
 				end
-				row:Release()
+				auctionScan._db:BulkInsertEnd()
+			else
+				auctionScan._db:SetQueryUpdatesPaused(true)
+				for j = 1, GetNumAuctionItems("list") do
+					local row = auctionScan:_CreateAuctionRow(j, filter)
+						:CreateAndClone()
+					if filter:_IsFiltered(row, auctionScan._ignoreItemLevel) or auctionScan:_IsFiltered(row) then
+						auctionScan._db:DeleteRow(row)
+					else
+						if filter:_IsSniper() then
+							local hashNoSeller = row:GetField("hashNoSeller")
+							-- remove existing duplicates from previous filters
+							local query = auctionScan._db:NewQuery()
+								:Equal("hashNoSeller", hashNoSeller)
+								:LessThan("filterId", private.filterId)
+							local removedOld = false
+							for _, oldRow in query:Iterator() do
+								removedOld = true
+								auctionScan:DeleteRowFromDB(oldRow, false)
+							end
+							query:Release()
+							if not removedOld then
+								local newQuery = auctionScan._db:NewQuery()
+									:Equal("hashNoSeller", hashNoSeller)
+									:Equal("filterId", private.filterId)
+								if newQuery:Count() == 1 then
+									numNewResults = numNewResults + 1
+								end
+								newQuery:Release()
+							end
+						else
+							numNewResults = numNewResults + 1
+						end
+						filter:_AddResultRow(row:GetUUID())
+					end
+					row:Release()
+				end
+				private.filterId = private.filterId + 1
+				auctionScan._db:SetQueryUpdatesPaused(false)
 			end
-			auctionScan._db:SetQueryUpdatesPaused(false)
-			if filter:_IsSniper() then
+			if filter:_IsSniper() or filter:_IsGetAll() then
 				hasMorePages = false
 			else
 				hasMorePages = filter:_NextPage()
@@ -1073,7 +1159,7 @@ function private.FindAuctionThreaded(auctionScan, row, noSeller)
 	-- make sure we're not in the middle of a query where the results are going to change on us
 	TSMAPI_FOUR.Thread.WaitForFunction(CanSendAuctionQuery)
 	local timeout = 5
-	while not private.IsAuctionPageValid(auctionScan._resolveSellers) and timeout > 0 do
+	while not private.IsAuctionPageValidThreaded(auctionScan._resolveSellers, auctionScan._ignoreItemLevel) and timeout > 0 do
 		TSMAPI_FOUR.Thread.Sleep(0.2)
 		timeout = timeout - 0.2
 	end

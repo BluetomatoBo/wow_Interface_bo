@@ -11,7 +11,7 @@ local Macros = TSM.MainUI.Settings:NewPackage("Macros")
 local L = TSM.L
 local private = {}
 local MACRO_NAME = "TSMMacro"
-local MACRO_ICON = "Achievement_Faction_GoldenLotus"
+local MACRO_ICON = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and "INV_Misc_Flower_01" or "Achievement_Faction_GoldenLotus"
 local BINDING_NAME = "MACRO "..MACRO_NAME
 local BUTTON_MAPPING = {
 	["row1.myauctionsCheckbox"] = "TSMCancelAuctionBtn",
@@ -241,7 +241,12 @@ function private.CreateButtonOnClick(button)
 		SetBinding(modifierStr.."MOUSEWHEELDOWN", nil, bindingMode)
 		SetBinding(modifierStr.."MOUSEWHEELDOWN", BINDING_NAME, bindingMode)
 	end
-	SaveBindings(CHARACTER_BINDING_SET)
+
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		AttemptToSaveBindings(CHARACTER_BINDING_SET)
+	else
+		SaveBindings(CHARACTER_BINDING_SET)
+	end
 
 	TSM:Print(L["Macro created and scroll wheel bound!"])
 	if #macroText > MAX_MACRO_LENGTH then

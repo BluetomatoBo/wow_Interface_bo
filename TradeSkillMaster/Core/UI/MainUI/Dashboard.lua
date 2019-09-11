@@ -25,6 +25,7 @@ local private = {
 }
 local TIMELIST = { halfMonth = L["Past Year"], month = L["Past Month"], sevenDays = L["Past 7 Days"], hour = L["Past Day"] }
 local TIMELISTORDER = { "halfMonth", "month", "sevenDays", "hour" }
+local GOLD_GRAPH_SUFFIX = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and "g" or "k"
 local DEFAULT_DIVIDED_CONTAINER_CONTEXT = {
 	leftWidth = 300,
 }
@@ -599,11 +600,11 @@ function private.TooltipLabel(xValue, yValue)
 		dateFormat = "%b %d "..gsub(date("%I", private.xDataValue[xValue]), "^0?", "").."%p"
 	end
 
-	return strupper(date(dateFormat, private.xDataValue[xValue])).."\n"..TSM.Money.ToString(yValue * 1000 * COPPER_PER_GOLD, nil, "OPT_TRIM")
+	return strupper(date(dateFormat, private.xDataValue[xValue])).."\n"..TSM.Money.ToString(yValue * (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and 1 or 1000) * COPPER_PER_GOLD, nil, "OPT_TRIM")
 end
 
 function private.GraphGetYLabel(_, yValue)
-	return yValue.."k"
+	return yValue..GOLD_GRAPH_SUFFIX
 end
 
 function private.PopulateData()

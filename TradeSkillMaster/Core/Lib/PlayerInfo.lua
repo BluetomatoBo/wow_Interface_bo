@@ -11,7 +11,9 @@
 
 TSMAPI_FOUR.PlayerInfo = {}
 local _, TSM = ...
-local private = {}
+local private = {
+	isPlayerCache = {},
+}
 local PLAYER_NAME = UnitName("player")
 local PLAYER_LOWER = strlower(UnitName("player"))
 local FACTION_LOWER = strlower(UnitFactionGroup("player"))
@@ -95,6 +97,24 @@ end
 -- @tparam boolean includeOtherAccounts Whether or not to include connected accounts
 -- @treturn boolean Whether or not the player belongs to the user
 function TSMAPI_FOUR.PlayerInfo.IsPlayer(target, includeAlts, includeOtherFaction, includeOtherAccounts)
+	local cacheKey = strjoin("%", target, includeAlts and "1" or "0", includeOtherFaction and "1" or "0", includeOtherAccounts and "1" or "0")
+	if private.isPlayerCache.lastUpdate ~= GetTime() then
+		wipe(private.isPlayerCache)
+		private.isPlayerCache.lastUpdate = GetTime()
+	end
+	if private.isPlayerCache[cacheKey] == nil then
+		private.isPlayerCache[cacheKey] = private.IsPlayerHelper(target, includeAlts, includeOtherFaction, includeOtherAccounts)
+	end
+	return private.isPlayerCache[cacheKey]
+end
+
+
+
+-- ============================================================================
+-- Private Helper Functions
+-- ============================================================================
+
+function private.IsPlayerHelper(target, includeAlts, includeOtherFaction, includeOtherAccounts)
 	target = strlower(target)
 	if not strfind(target, " %- ") then
 		target = gsub(target, "%-", " - ", 1)
@@ -133,13 +153,8 @@ function TSMAPI_FOUR.PlayerInfo.IsPlayer(target, includeAlts, includeOtherFactio
 			end
 		end
 	end
+	return false
 end
-
-
-
--- ============================================================================
--- Private Helper Functions
--- ============================================================================
 
 function private.GuildIterator(tbl, prevName)
 	while true do

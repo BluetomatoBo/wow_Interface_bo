@@ -14,11 +14,11 @@ local LibDBIcon = LibStub("LibDBIcon-1.0")
 local L = TSM.L
 local private = { appInfo = nil }
 TSMAPI = {Operations={}, Settings={}}
-local APP_INFO_REQUIRED_KEYS = { "version", "lastSync", "addonVersions", "message", "news" }
+local APP_INFO_REQUIRED_KEYS = { "version", "lastSync", "message", "news" }
 local LOGOUT_TIME_WARNING_THRESHOLD_MS = 20
 do
 	-- show a message if we were updated
-	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.8.1" then
+	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.8.7" then
 		message("TSM was just updated and may not work properly until you restart WoW.")
 	end
 end
@@ -68,9 +68,10 @@ end
 -- [47] added factionrealm.internalData.expiringMail and factionrealm.internalData.expiringAuction
 -- [48] added profile.internalData.exportGroupTreeContext
 -- [49] added factionrealm.internalData.{mailDisenchantablesChar,mailExcessGoldChar,mailExcessGoldLimit}
+-- [50] added factionrealm.internalData.{csvAuctionDBScan,auctionDBScanTime,auctionDBScanHash}
 
 local SETTINGS_INFO = {
-	version = 49,
+	version = 50,
 	global = {
 		debug = {
 			chatLoggingEnabled = { type = "boolean", default = false, lastModifiedVersion = 19 },
@@ -219,6 +220,9 @@ local SETTINGS_INFO = {
 			crafts = { type = "table", default = {}, lastModifiedVersion = 10 },
 			mats = { type = "table", default = {}, lastModifiedVersion = 10 },
 			guildGoldLog = { type = "table", default = {}, lastModifiedVersion = 25 },
+			csvAuctionDBScan = { type = "string", default = "", lastModifiedVersion = 50 },
+			auctionDBScanTime = { type = "number", default = 0, lastModifiedVersion = 50 },
+			auctionDBScanHash = { type = "number", default = 0, lastModifiedVersion = 50 },
 		},
 		coreOptions = {
 			ignoreGuilds = { type = "table", default = {}, lastModifiedVersion = 10 },
@@ -520,16 +524,16 @@ function TSM.OnInitialize()
 	-- Auctioneer price sources
 	if TSMAPI_FOUR.Util.IsAddonEnabled("Auc-Advanced") and AucAdvanced then
 		if AucAdvanced.Modules.Util.Appraiser and AucAdvanced.Modules.Util.Appraiser.GetPrice then
-			TSM.CustomPrice.RegisterSource("External", "AucAppraiser", L["Auctioneer - Appraiser"], AucAdvanced.Modules.Util.Appraiser.GetPrice)
+			TSM.CustomPrice.RegisterSource("External", "AucAppraiser", L["Auctioneer - Appraiser"], AucAdvanced.Modules.Util.Appraiser.GetPrice, true)
 		end
 		if AucAdvanced.Modules.Util.SimpleAuction and AucAdvanced.Modules.Util.SimpleAuction.Private.GetItems then
 			local function GetAucMinBuyout(itemLink)
 				return select(6, AucAdvanced.Modules.Util.SimpleAuction.Private.GetItems(itemLink)) or nil
 			end
-			TSM.CustomPrice.RegisterSource("External", "AucMinBuyout", L["Auctioneer - Minimum Buyout"], GetAucMinBuyout)
+			TSM.CustomPrice.RegisterSource("External", "AucMinBuyout", L["Auctioneer - Minimum Buyout"], GetAucMinBuyout, true)
 		end
 		if AucAdvanced.API.GetMarketValue then
-			TSM.CustomPrice.RegisterSource("External", "AucMarket", L["Auctioneer - Market Value"], AucAdvanced.API.GetMarketValue)
+			TSM.CustomPrice.RegisterSource("External", "AucMarket", L["Auctioneer - Market Value"], AucAdvanced.API.GetMarketValue, true)
 		end
 	end
 
@@ -548,6 +552,16 @@ function TSM.OnInitialize()
 		TSM.CustomPrice.RegisterSource("External", "TUJMarket", L["TUJ 14-Day Price"], GetTUJPrice, true, "market")
 		TSM.CustomPrice.RegisterSource("External", "TUJGlobalMean", L["TUJ Global Mean"], GetTUJPrice, true, "globalMean")
 		TSM.CustomPrice.RegisterSource("External", "TUJGlobalMedian", L["TUJ Global Median"], GetTUJPrice, true, "globalMedian")
+	end
+
+	-- AHDB price sources
+	if TSMAPI_FOUR.Util.IsAddonEnabled("AuctionDB") and AuctionDB and AuctionDB.AHGetAuctionInfoByLink then
+		local function GetAHDBPrice(itemLink, arg)
+			local info = AuctionDB:AHGetAuctionInfoByLink(itemLink)
+			return info and info[arg] or nil
+		end
+		TSM.CustomPrice.RegisterSource("External", "AHDBMinBuyout", L["AHDB Minimum Buyout"], GetAHDBPrice, true, "minBuyout")
+		TSM.CustomPrice.RegisterSource("External", "AHDBMinBid", L["AHDB Minimum Bid"], GetAHDBPrice, true, "minBid")
 	end
 
 	-- module price sources
@@ -584,6 +598,9 @@ function TSM.OnInitialize()
 	TSM.SlashCommands.Register("get", TSM.Banking.GetByFilter, L["Gets items from the bank or guild bank matching the item or partial text entered."])
 	TSM.SlashCommands.Register("put", TSM.Banking.PutByFilter, L["Puts items matching the item or partial text entered into the bank or guild bank."])
 	TSM.SlashCommands.Register("restock_help", TSM.Crafting.RestockHelp, L["Tells you why a specific item is not being restocked and added to the queue."])
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		TSM.SlashCommands.Register("scan", TSM.AuctionDB.RunScan, L["Performs a full, manual scan of the AH to populate some AuctionDB data if none is otherwise available."])
+	end
 
 	-- create / register the minimap button
 	local dataObj = LibStub("LibDataBroker-1.1"):NewDataObject("TradeSkillMaster", {
@@ -907,7 +924,11 @@ end
 
 function TSM.GetRegion()
 	local cVar = GetCVar("Portal")
-	return LibRealmInfo:GetCurrentRegion() or (cVar ~= "public-test" and cVar) or "PTR"
+	local region = WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and LibRealmInfo:GetCurrentRegion() or (cVar ~= "public-test" and cVar) or "PTR"
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		region = region.."-Classic"
+	end
+	return region
 end
 
 function TSM.GetTSMProfileIterator()

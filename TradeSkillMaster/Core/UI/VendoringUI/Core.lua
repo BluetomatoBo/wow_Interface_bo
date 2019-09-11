@@ -127,10 +127,11 @@ function private.FSMCreate()
 				if not private.defaultUISwitchBtn then
 					private.defaultUISwitchBtn = TSMAPI_FOUR.UI.NewElement("ActionButton", "switchBtn")
 						:SetStyle("width", 60)
-						:SetStyle("height", 15)
-						:SetStyle("anchors", { { "TOPRIGHT", -30, -4 } })
+						:SetStyle("height", WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and 16 or 15)
+						:SetStyle("anchors", { { "TOPRIGHT", WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and -26 or -27, WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and -3 or -4 } })
 						:SetStyle("font", TSM.UI.Fonts.MontserratBold)
 						:SetStyle("fontHeight", 12)
+						:DisableClickCooldown()
 						:SetText(L["TSM4"])
 						:SetScript("OnClick", private.SwitchBtnOnClick)
 					private.defaultUISwitchBtn:_GetBaseFrame():SetParent(MerchantFrame)
@@ -164,8 +165,9 @@ function private.FSMCreate()
 				assert(not context.frame)
 				MerchantFrame_OnEvent(MerchantFrame, "MERCHANT_SHOW")
 				if not context.defaultPoint then
-					context.defaultPoint = {MerchantFrame:GetPoint(1)}
+					context.defaultPoint = { MerchantFrame:GetPoint(1) }
 				end
+				MerchantFrame:SetClampedToScreen(false)
 				MerchantFrame:ClearAllPoints()
 				MerchantFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 100000, 100000)
 				OpenAllBags()
@@ -178,7 +180,12 @@ function private.FSMCreate()
 			:SetOnExit(function(context)
 				CloseAllBags()
 				MerchantFrame:ClearAllPoints()
-				MerchantFrame:SetPoint(unpack(context.defaultPoint))
+				local point, region, relativePoint, x, y = unpack(context.defaultPoint)
+				if point and region and relativePoint and x and y then
+					MerchantFrame:SetPoint(point, region, relativePoint, x, y)
+				else
+					MerchantFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 16, -116)
+				end
 				private.isVisible = false
 				context.frame:Hide()
 				context.frame:Release()

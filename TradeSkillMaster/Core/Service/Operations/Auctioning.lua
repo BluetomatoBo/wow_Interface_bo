@@ -25,9 +25,9 @@ local OPERATION_INFO = {
 	duration = { type = "number", default = 24 },
 	bidPercent = { type = "number", default = 1 },
 	undercut = { type = "string", default = "1c" },
-	minPrice = { type = "string", default = "max(0.25*avg(crafting,dbmarket,dbregionmarketavg),1.5*vendorsell)" },
-	maxPrice = { type = "string", default = "max(5*avg(crafting,dbmarket,dbregionmarketavg),30*vendorsell)" },
-	normalPrice = { type = "string", default = "max(2*avg(crafting,dbmarket,dbregionmarketavg),12*vendorsell)" },
+	minPrice = { type = "string", default = "check(first(crafting,dbmarket,dbregionmarketavg),max(0.25*avg(crafting,dbmarket,dbregionmarketavg),1.5*vendorsell))" },
+	maxPrice = { type = "string", default = "check(first(crafting,dbmarket,dbregionmarketavg),max(5*avg(crafting,dbmarket,dbregionmarketavg),30*vendorsell))" },
+	normalPrice = { type = "string", default = "check(first(crafting,dbmarket,dbregionmarketavg),max(2*avg(crafting,dbmarket,dbregionmarketavg),12*vendorsell))" },
 	priceReset = { type = "string", default = "none" },
 	aboveMax = { type = "string", default = "normalPrice" },
 	-- cancel

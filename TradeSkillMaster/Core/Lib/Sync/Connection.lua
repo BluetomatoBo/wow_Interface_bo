@@ -236,7 +236,6 @@ function private.ConnectionThreadInner(account, targetPlayer)
 			if GetTime() > timeout then
 				-- timed out on the connection - don't try again for a bit
 				TSM:LOG_WARN("Timed out")
-				private.suppressThreadTime[account] = time() + RECEIVE_TIMEOUT * 3
 				return
 			end
 			TSMAPI_FOUR.Thread.Yield(true)

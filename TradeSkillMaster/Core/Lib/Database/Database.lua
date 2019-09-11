@@ -385,7 +385,7 @@ end
 --- Inserts a new row as part of the on-going bulk insert.
 -- @tparam Database self The database object
 -- @param ... The fields which make up this new row (in `schema.fieldOrder` order)
-function Database.BulkInsertNewRow(self, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, extraValue)
+function Database.BulkInsertNewRow(self, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, extraValue)
 	if not self._bulkInsertContext then
 		error("Bulk insert hasn't been started")
 	elseif extraValue ~= nil then
@@ -414,6 +414,12 @@ function Database.BulkInsertNewRow(self, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10
 	tempTbl[14] = v14
 	tempTbl[15] = v15
 	tempTbl[16] = v16
+	tempTbl[17] = v17
+	tempTbl[18] = v18
+	tempTbl[19] = v19
+	tempTbl[20] = v20
+	tempTbl[21] = v21
+	tempTbl[22] = v22
 	local numFields = #tempTbl
 	if numFields ~= self._numStoredFields then
 		error("Invalid number of values")

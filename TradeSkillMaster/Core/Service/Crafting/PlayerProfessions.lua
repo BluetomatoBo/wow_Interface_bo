@@ -77,7 +77,11 @@ function private.PlayerProfessionsSkillUpdate()
 		local _, _, offset, numSpells = GetSpellTabInfo(1)
 		for i = offset + 1, offset + numSpells do
 			local name, subName = GetSpellBookItemName(i, BOOKTYPE_SPELL)
-			if TSMAPI_FOUR.Util.In(subName, APPRENTICE, JOURNEYMAN, EXPERT, ARTISAN) and not TSM.UI.CraftingUI.IsProfessionIgnored(name) then
+			if not subName then
+				TSMAPI_FOUR.Delay.AfterTime(0.05, private.PlayerProfessionsSkillUpdate)
+				return
+			end
+			if name and subName and TSMAPI_FOUR.Util.In(strtrim(subName, " "), APPRENTICE, JOURNEYMAN, EXPERT, ARTISAN) and not TSM.UI.CraftingUI.IsProfessionIgnored(name) then
 				local level, maxLevel = nil, nil
 				for j = 1, GetNumSkillLines() do
 					local skillName, _, _, skillRank, _, _, skillMaxRank = GetSkillLineInfo(j)
@@ -121,7 +125,7 @@ end
 function private.PlayerProfessionsThread()
 	-- get the player's tradeskills
 	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
-		SpellBook_UpdatePlayerTab()
+		SpellBookFrame_UpdateSkillLineTabs()
 	else
 		SpellBook_UpdateProfTab()
 	end
@@ -133,7 +137,7 @@ function private.PlayerProfessionsThread()
 		local _, _, offset, numSpells = GetSpellTabInfo(1)
 		for i = offset + 1, offset + numSpells do
 			local name, subName = GetSpellBookItemName(i, BOOKTYPE_SPELL)
-			if TSMAPI_FOUR.Util.In(subName, APPRENTICE, JOURNEYMAN, EXPERT, ARTISAN) and not TSM.UI.CraftingUI.IsProfessionIgnored(name) then
+			if name and subName and TSMAPI_FOUR.Util.In(strtrim(subName, " "), APPRENTICE, JOURNEYMAN, EXPERT, ARTISAN) and not TSM.UI.CraftingUI.IsProfessionIgnored(name) then
 				local level, maxLevel = nil, nil
 				for j = 1, GetNumSkillLines() do
 					local skillName, _, _, skillRank, _, _, skillMaxRank = GetSkillLineInfo(j)

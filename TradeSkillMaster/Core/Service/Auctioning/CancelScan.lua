@@ -239,6 +239,7 @@ function private.IsOperationValid(itemString, operationName, operationSettings)
 end
 
 function private.AuctionScanOnFilterDone(_, filter)
+	TSM.Auctioning.Log.SetQueryUpdatesPaused(true)
 	for _, itemString in ipairs(filter:GetItems()) do
 		local isBaseItemString = itemString == TSMAPI_FOUR.Item.ToBaseItemString(itemString)
 		local query = private.auctionScanDB:NewQuery()
@@ -259,6 +260,7 @@ function private.AuctionScanOnFilterDone(_, filter)
 		end
 		query:Release()
 	end
+	TSM.Auctioning.Log.SetQueryUpdatesPaused(false)
 end
 
 function private.GenerateCancels(auctionsDBRow, itemString, query, groupPath)

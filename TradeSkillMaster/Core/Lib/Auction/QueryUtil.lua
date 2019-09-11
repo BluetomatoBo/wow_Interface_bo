@@ -201,13 +201,16 @@ function private.GenerateQueriesThread(itemList, callback)
 		return
 	end
 
-	local dbComplete = private.db:PopulateDataThreaded()
-	TSMAPI_FOUR.Thread.Yield()
-	if not dbComplete then
-		TSM:LOG_ERR("Auction count database not complete")
+	local dbComplete = false
+	if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+		dbComplete = private.db:PopulateDataThreaded()
+		TSMAPI_FOUR.Thread.Yield()
+		if not dbComplete then
+			TSM:LOG_ERR("Auction count database not complete")
+		end
 	end
 
-	-- if the DB is not fully populated, we don't have all the item info, just do individual scans
+	-- if the DB is not fully populated (or we're on classic), we don't have all the item info, just do individual scans
 	if not dbComplete then
 		for _, itemString in ipairs(itemList) do
 			callback(itemString, private.GetItemQueryInfo(itemString))

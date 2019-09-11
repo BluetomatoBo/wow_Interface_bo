@@ -730,13 +730,15 @@ end
 
 function private.ConnectedRealmIterator(self, prevScopeKey)
 	if not private.cachedConnectedRealms then
-		local realmId, _, _, _, _, _, _, _, connectedRealmIds = LibRealmInfo:GetRealmInfo(REALM)
 		local connectedRealms = {}
-		if connectedRealmIds then
-			for _, id in ipairs(connectedRealmIds) do
-				if id ~= realmId then
-					local _, connectedRealmName = LibRealmInfo:GetRealmInfoByID(id)
-					tinsert(connectedRealms, connectedRealmName)
+		if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+			local realmId, _, _, _, _, _, _, _, connectedRealmIds = LibRealmInfo:GetRealmInfo(REALM)
+			if connectedRealmIds then
+				for _, id in ipairs(connectedRealmIds) do
+					if id ~= realmId then
+						local _, connectedRealmName = LibRealmInfo:GetRealmInfoByID(id)
+						tinsert(connectedRealms, connectedRealmName)
+					end
 				end
 			end
 		end

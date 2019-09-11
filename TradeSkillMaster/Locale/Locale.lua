@@ -76,6 +76,8 @@ do
 		TSM.L["AH (Disenchanting)"] = "AH (Disenchanting)"
 		TSM.L["AH BUSY"] = "AH BUSY"
 		TSM.L["AH Frame Options"] = "AH Frame Options"
+		TSM.L["AHDB Minimum Bid"] = "AHDB Minimum Bid"
+		TSM.L["AHDB Minimum Buyout"] = "AHDB Minimum Buyout"
 		TSM.L["AMOUNT"] = "AMOUNT"
 		TSM.L["APPLY FILTERS"] = "APPLY FILTERS"
 		TSM.L["AUCTION DETAILS"] = "AUCTION DETAILS"
@@ -131,7 +133,6 @@ do
 		TSM.L["Auction Window Close"] = "Auction Window Close"
 		TSM.L["Auction Window Open"] = "Auction Window Open"
 		TSM.L["Auction has been bid on."] = "Auction has been bid on."
-		TSM.L["AuctionDB - Market Value"] = "AuctionDB - Market Value"
 		TSM.L["Auctionator - Auction Value"] = "Auctionator - Auction Value"
 		TSM.L["Auctioneer - Appraiser"] = "Auctioneer - Appraiser"
 		TSM.L["Auctioneer - Market Value"] = "Auctioneer - Market Value"
@@ -247,6 +248,7 @@ do
 		TSM.L["Collapse All Groups"] = "Collapse All Groups"
 		TSM.L["Combine Partial Stacks"] = "Combine Partial Stacks"
 		TSM.L["Combining..."] = "Combining..."
+		TSM.L["Completed full AH scan (%d auctions)!"] = "Completed full AH scan (%d auctions)!"
 		TSM.L["Configuration Scroll Wheel"] = "Configuration Scroll Wheel"
 		TSM.L["Confirm"] = "Confirm"
 		TSM.L["Confirm Complete Sound"] = "Confirm Complete Sound"
@@ -367,6 +369,10 @@ do
 		TSM.L["Duplicate Profile Confirmation"] = "Duplicate Profile Confirmation"
 		TSM.L["Dust"] = "Dust"
 		TSM.L["EMPTY BAGS"] = "EMPTY BAGS"
+		TSM.L["ERROR: A full AH scan has recently been performed and is on cooldown. Log out to reset this cooldown."] = "ERROR: A full AH scan has recently been performed and is on cooldown. Log out to reset this cooldown."
+		TSM.L["ERROR: Realm data is already available from the TSM Desktop App."] = "ERROR: Realm data is already available from the TSM Desktop App."
+		TSM.L["ERROR: The AH is currently busy with another scan. Please try again once that scan has completed."] = "ERROR: The AH is currently busy with another scan. Please try again once that scan has completed."
+		TSM.L["ERROR: The auction house must be open in order to do a scan."] = "ERROR: The auction house must be open in order to do a scan."
 		TSM.L["EXPENSES"] = "EXPENSES"
 		TSM.L["EXPIRES"] = "EXPIRES"
 		TSM.L["Elevate your gold-making!"] = "Elevate your gold-making!"
@@ -402,7 +408,6 @@ do
 		TSM.L["Expired Auctions"] = "Expired Auctions"
 		TSM.L["Expired Since Last Sale"] = "Expired Since Last Sale"
 		TSM.L["Expires"] = "Expires"
-		TSM.L["Expires Since Last Sale"] = "Expires Since Last Sale"
 		TSM.L["Expiring Mails"] = "Expiring Mails"
 		TSM.L["Exploration"] = "Exploration"
 		TSM.L["Export"] = "Export"
@@ -416,6 +421,7 @@ do
 		TSM.L["Failed to buy auction of %s."] = "Failed to buy auction of %s."
 		TSM.L["Failed to find auction for %s, so removing it from the results."] = "Failed to find auction for %s, so removing it from the results."
 		TSM.L["Failed to post %sx%d as the item no longer exists in your bags."] = "Failed to post %sx%d as the item no longer exists in your bags."
+		TSM.L["Failed to scan the AH. Please try again."] = "Failed to scan the AH. Please try again."
 		TSM.L["Failed to send profile."] = "Failed to send profile."
 		TSM.L["Failed to send profile. Ensure both characters are online and try again."] = "Failed to send profile. Ensure both characters are online and try again."
 		TSM.L["Favorite Scans"] = "Favorite Scans"
@@ -722,6 +728,7 @@ do
 		TSM.L["Price Variables"] = "Price Variables"
 		TSM.L["Price Variables allow you to create more advanced custom prices for use throughout the addon. You'll be able to use these new variables in the same way you can use the built-in price sources such as 'vendorsell' and 'vendorbuy'."] = "Price Variables allow you to create more advanced custom prices for use throughout the addon. You'll be able to use these new variables in the same way you can use the built-in price sources such as 'vendorsell' and 'vendorbuy'."
 		TSM.L["Price source with name '%s' already exists."] = "Price source with name '%s' already exists."
+		TSM.L["Processing scan results..."] = "Processing scan results..."
 		TSM.L["Profession Filters"] = "Profession Filters"
 		TSM.L["Profession Info"] = "Profession Info"
 		TSM.L["Profession loading..."] = "Profession loading..."
@@ -832,6 +839,7 @@ do
 		TSM.L["Sales Summary"] = "Sales Summary"
 		TSM.L["Scan Complete Sound"] = "Scan Complete Sound"
 		TSM.L["Scan Paused"] = "Scan Paused"
+		TSM.L["Scan progress: %d%%"] = "Scan progress: %d%%"
 		TSM.L["Scanning %d / %d (Page %d / %d)"] = "Scanning %d / %d (Page %d / %d)"
 		TSM.L["Scroll wheel direction:"] = "Scroll wheel direction:"
 		TSM.L["Search"] = "Search"
@@ -935,6 +943,7 @@ do
 		TSM.L["Stack size multiple:"] = "Stack size multiple:"
 		TSM.L["Start either a 'Buyout' or 'Bid' sniper using the buttons above."] = "Start either a 'Buyout' or 'Bid' sniper using the buttons above."
 		TSM.L["Starting Scan..."] = "Starting Scan..."
+		TSM.L["Starting full AH scan. Please note that this scan may cause your game client to lag or crash."] = "Starting full AH scan. Please note that this scan may cause your game client to lag or crash."
 		TSM.L["Stop Scan"] = "Stop Scan"
 		TSM.L["Store operations globally"] = "Store operations globally"
 		TSM.L["Subject"] = "Subject"
@@ -957,6 +966,7 @@ do
 		TSM.L["TSM Vendoring"] = "TSM Vendoring"
 		TSM.L["TSM Version Info:"] = "TSM Version Info:"
 		TSM.L["TSM can sync data automatically between multiple accounts. Also, you can also send your currently active profile to connected accounts to quickly send your groups and operations to other accounts."] = "TSM can sync data automatically between multiple accounts. Also, you can also send your currently active profile to connected accounts to quickly send your groups and operations to other accounts."
+		TSM.L["TSM does not have recent AuctionDB data. You can run '/tsm scan' to manually scan the AH."] = "TSM does not have recent AuctionDB data. You can run '/tsm scan' to manually scan the AH."
 		TSM.L["TSM doesn't currently have any AuctionDB pricing data for your realm. We recommend you download the TSM Desktop Application from |cff99ffffhttp://tradeskillmaster.com|r to automatically update your AuctionDB data (and auto-backup your TSM settings)."] = "TSM doesn't currently have any AuctionDB pricing data for your realm. We recommend you download the TSM Desktop Application from |cff99ffffhttp://tradeskillmaster.com|r to automatically update your AuctionDB data (and auto-backup your TSM settings)."
 		TSM.L["TSM failed to scan some auctions. Please rerun the scan."] = "TSM failed to scan some auctions. Please rerun the scan."
 		TSM.L["TSM is currently rebuilding its item cache which may cause FPS drops and result in TSM not being fully functional until this process is complete. This is normal and typically takes less than a minute."] = "TSM is currently rebuilding its item cache which may cause FPS drops and result in TSM not being fully functional until this process is complete. This is normal and typically takes less than a minute."
@@ -6187,8 +6197,7 @@ TSM.L["You've been phased which has caused the AH to stop working due to a bug o
 TSM.L["You've been undercut."] = "You've been undercut."
 	elseif locale == "frFR" then
 TSM.L = TSM.L or {}
---[[Translation missing --]]
-TSM.L["%d |4Group:Groups; Selected (%d |4Item:Items;)"] = "%d |4Group:Groups; Selected (%d |4Item:Items;)"
+TSM.L["%d |4Group:Groups; Selected (%d |4Item:Items;)"] = "%d |4Group:Groups; Sélectionné (%d |4Item:Items;)"
 TSM.L["%d auctions"] = "%d enchères"
 TSM.L["%d Groups"] = "%d Groupes"
 TSM.L["%d Items"] = "%d Objets"
@@ -6258,18 +6267,13 @@ TSM.L["|cffffd839Left-Click|r to ignore an item this session."] = "|cffffd839Lef
 TSM.L["|cffffd839Shift-Left-Click|r to ignore it permanently."] = "|cffffd839Shift-Left-Click|r to ignore it permanently."
 TSM.L["1 Group"] = "1 Groupe"
 TSM.L["1 Item"] = "1 Objet"
---[[Translation missing --]]
-TSM.L["12 hr"] = "12 hr"
---[[Translation missing --]]
-TSM.L["24 hr"] = "24 hr"
---[[Translation missing --]]
-TSM.L["48 hr"] = "48 hr"
+TSM.L["12 hr"] = "12 h"
+TSM.L["24 hr"] = "24 h"
+TSM.L["48 hr"] = "48 h"
 TSM.L["A custom price of %s for %s evaluates to %s."] = "Un prix personnalisé de %s pour %s évalué à %s."
 TSM.L["A maximum of 1 convert() function is allowed."] = "Un maximum d'une fonction convert() est autorisé."
---[[Translation missing --]]
-TSM.L["A profile with that name already exists on the target account. Rename it first and try again."] = "A profile with that name already exists on the target account. Rename it first and try again."
---[[Translation missing --]]
-TSM.L["A profile with this name already exists."] = "A profile with this name already exists."
+TSM.L["A profile with that name already exists on the target account. Rename it first and try again."] = "Un profil portant ce nom existe déjà sur le compte cible. Renommez-le d'abord et réessayez."
+TSM.L["A profile with this name already exists."] = "Un profil portant ce nom existe déjà."
 TSM.L["A scan is already in progress. Please stop that scan before starting another one."] = "Un scan est en cours actuellement. Arrêtez le scan avant d'en démarrer un nouveau."
 --[[Translation missing --]]
 TSM.L["Above max expires."] = "Above max expires."
@@ -6294,21 +6298,15 @@ TSM.L["Accounting"] = "Accounting"
 TSM.L["Accounting Tooltips"] = "Accounting Tooltips"
 --[[Translation missing --]]
 TSM.L["Activity Type"] = "Activity Type"
---[[Translation missing --]]
-TSM.L["ADD %d ITEMS"] = "ADD %d ITEMS"
---[[Translation missing --]]
-TSM.L["Add / Remove Items"] = "Add / Remove Items"
---[[Translation missing --]]
-TSM.L["ADD NEW CUSTOM PRICE SOURCE"] = "ADD NEW CUSTOM PRICE SOURCE"
+TSM.L["ADD %d ITEMS"] = "AJOUTER %d ARTICLES"
+TSM.L["Add / Remove Items"] = "Ajouter / Supprimer des articles"
+TSM.L["ADD NEW CUSTOM PRICE SOURCE"] = "AJOUTER UNE NOUVELLE SOURCE DE PRIX PERSONNALISÉS"
 TSM.L["ADD OPERATION"] = "AJOUTER L'OPÉRATION"
---[[Translation missing --]]
-TSM.L["Add Player"] = "Add Player"
---[[Translation missing --]]
-TSM.L["Add Subject / Description"] = "Add Subject / Description"
+TSM.L["Add Player"] = "Ajouter un joueur"
+TSM.L["Add Subject / Description"] = "Ajouter un sujet / Description"
 --[[Translation missing --]]
 TSM.L["Add Subject / Description (Optional)"] = "Add Subject / Description (Optional)"
---[[Translation missing --]]
-TSM.L["ADD TO MAIL"] = "ADD TO MAIL"
+TSM.L["ADD TO MAIL"] = "AJOUTER AU MAIL"
 --[[Translation missing --]]
 TSM.L["Added '%s' profile which was received from %s."] = "Added '%s' profile which was received from %s."
 --[[Translation missing --]]
@@ -13257,8 +13255,7 @@ TSM.L["%d Sold Auctions"] = "Проданные лоты: %d"
 TSM.L["%s (%s bags, %s bank, %s AH, %s mail)"] = "%s (%s сумки, %s банк, %s аукцион, %s почта)"
 TSM.L["%s (%s player, %s alts, %s guild, %s AH)"] = "%s (%s игрок, %s альты, %s гильдия, %s аукцион)"
 TSM.L["%s (%s profit)"] = "%s (%s прибыль)"
---[[Translation missing --]]
-TSM.L["%s |4operation:operations;"] = "%s |4operation:operations;"
+TSM.L["%s |4operation:operations;"] = "%s |4действие:действия;"
 TSM.L["%s ago"] = "%s назад"
 TSM.L["%s Crafts"] = "%s Создать"
 --[[Translation missing --]]

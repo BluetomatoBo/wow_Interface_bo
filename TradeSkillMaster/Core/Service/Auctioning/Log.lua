@@ -83,6 +83,10 @@ function Log.CreateQuery()
 		:OrderBy("index", true)
 end
 
+function Log.SetQueryUpdatesPaused(paused)
+	private.db:SetQueryUpdatesPaused(paused)
+end
+
 function Log.AddEntry(itemString, operationName, reasonKey, seller, buyout, index)
 	local reasonStr = REASON_STRINGS[reasonKey]
 	assert(reasonStr)

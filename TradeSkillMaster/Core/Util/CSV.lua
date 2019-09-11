@@ -19,9 +19,7 @@ local private = {}
 -- ============================================================================
 
 function TSMAPI_FOUR.CSV.EncodeStart(keys)
-	local context = { keys = keys, lines = {}, lineParts = {} }
-	tinsert(context.lines, table.concat(keys, ","))
-	return context
+	return { keys = keys, lines = {}, lineParts = {} }
 end
 
 function TSMAPI_FOUR.CSV.EncodeAddRowData(context, data)
@@ -36,8 +34,16 @@ function TSMAPI_FOUR.CSV.EncodeAddRowDataRaw(context, ...)
 	tinsert(context.lines, strjoin(",", ...))
 end
 
+function TSMAPI_FOUR.CSV.EncodeSortLines(context)
+	return sort(context.lines)
+end
+
 function TSMAPI_FOUR.CSV.EncodeEnd(context)
-	return table.concat(context.lines, "\n")
+	local result = table.concat(context.keys, ",")
+	if #context.lines > 0 then
+		result = result.."\n"..table.concat(context.lines, "\n")
+	end
+	return result
 end
 
 function TSMAPI_FOUR.CSV.Encode(keys, data)
