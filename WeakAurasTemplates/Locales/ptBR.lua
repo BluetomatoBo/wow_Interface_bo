@@ -1,3 +1,5 @@
+if not WeakAuras.IsCorrectVersion() then return end
+
 if not(GetLocale() == "ptBR") then
   return
 end
@@ -5,8 +7,7 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras/Templates
-	--[[Translation missing --]]
-	L["Abilities"] = "Abilities"
+	L["Abilities"] = "Habilidades"
 	L["Ability Charges"] = "Cargas da habilidade"
 	L["Add Triggers"] = "Adicionar gatilhos"
 	L["Always Active"] = "Sempre ativo"
@@ -55,8 +56,7 @@ local L = WeakAuras.L
 	L["buff"] = "buff"
 	--[[Translation missing --]]
 	L["Buffs"] = "Buffs"
-	--[[Translation missing --]]
-	L["Cancel"] = "Cancel"
+	L["Cancel"] = "Cancelar"
 	--[[Translation missing --]]
 	L["Cast"] = "Cast"
 	--[[Translation missing --]]
@@ -67,18 +67,15 @@ local L = WeakAuras.L
 	L["Charge and Duration Tracking"] = "Charge and Duration Tracking"
 	--[[Translation missing --]]
 	L["Charge Tracking"] = "Charge Tracking"
-	--[[Translation missing --]]
-	L["cooldown"] = "cooldown"
+	L["cooldown"] = "tempo de recarga"
 	--[[Translation missing --]]
 	L["Cooldown Tracking"] = "Cooldown Tracking"
 	--[[Translation missing --]]
 	L["Create Auras"] = "Create Auras"
 	--[[Translation missing --]]
 	L["Debuffs"] = "Debuffs"
-	--[[Translation missing --]]
-	L["Enchants"] = "Enchants"
-	--[[Translation missing --]]
-	L["General"] = "General"
+	L["Enchants"] = "Encantamentos"
+	L["General"] = "Geral"
 	--[[Translation missing --]]
 	L["General Azerite Traits"] = "General Azerite Traits"
 	--[[Translation missing --]]
@@ -191,6 +188,8 @@ local L = WeakAuras.L
 	L["Show Totem and Charge Information"] = "Show Totem and Charge Information"
 	--[[Translation missing --]]
 	L["Specific Azerite Traits"] = "Specific Azerite Traits"
+	--[[Translation missing --]]
+	L["Stance"] = "Stance"
 	--[[Translation missing --]]
 	L["Track the charge and proc, highlight while proc is active, turns red when out of range, blue on insufficient resources."] = "Track the charge and proc, highlight while proc is active, turns red when out of range, blue on insufficient resources."
 	--[[Translation missing --]]
