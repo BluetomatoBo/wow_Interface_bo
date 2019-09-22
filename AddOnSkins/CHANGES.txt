@@ -1,14 +1,28 @@
-Changes since tag 4.24
+Changes since tag 4.31
 
-commit f54fe47203351d4072dace142271bd6d64b2721b
+commit 3b88a1befd0392b0e60885aa0362892960bbe626
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Thu Aug 22 16:18:48 2019 -0500
+Date:   Fri Sep 20 16:47:13 2019 -0500
 
-    adjust pkgmeta
+    AuctionHoude / DCS
 
-commit 8a89ef6841800fba001bf205e2577a54fb6a56bc
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Aug 12 19:09:09 2019 -0500
+commit 73fe082a2246c7647ce6ac32128579f63286d51a
+Author: Franz Strassmayr <q3fuba@gmail.com>
+Date:   Wed Sep 18 19:36:57 2019 +0000
 
-    @Kringel
+    fixed "Search Editbox" Skin for ArkInventory
+    the "Search EditBox Border Color" matches now with the "MainFrame Bar Border Color" for better look&feel
+    changes korks in both Classic and BfA
+
+commit 7c9d2f5b4171e73ebf41500fb46cefbc8f1555d8
+Author: Merathilis <neo0608@gmail.com>
+Date:   Wed Sep 18 11:13:05 2019 +0200
+
+    Additional change for the previous commit.
+
+commit a5bf3602ee3ffdcfe8a34628e922b0534d7a2e13
+Author: Merathilis <neo0608@gmail.com>
+Date:   Wed Sep 18 09:45:53 2019 +0200
+
+    Change AS:SkinTooltip
 
