@@ -1,7 +1,5 @@
-﻿-- English localization file for enUS
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
-local L = AceLocale:NewLocale("ElvUI", "enUS");
-if not L then return; end
+﻿local L = ElvUI[1].Libs.ACL:NewLocale("ElvUI", "enUS", true, true)
+if not L then return; end -- We only need this check in the main locale file, which is enUS, cause we set it in the check above, 1st true (default)
 
 L["Adds 2 digits in the coords"] = true
 L["Adds 6 pixels at the Main Location Panel height."] = true
