@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("DKP", "RaidLeadTools")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190917190757")
+mod:SetRevision("20190926152843")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 local GetRaidList
@@ -186,15 +186,15 @@ do
 		end
 	end, "General")
 end
-mod:AddBool("Enable_5ppl_tracking", false, "General")
---mod:AddBool("Enable_SB_Users", true, "General")
-mod:AddBool("Enable_StartEvent", true, "General")
+mod:AddBoolOption("Enable_5ppl_tracking", false, "General")
+--mod:AddBoolOption("Enable_SB_Users", true, "General")
+mod:AddBoolOption("Enable_StartEvent", true, "General")
 mod:AddSliderOption("StartPoints", 0, 100, 5, 10, "General")
 mod:AddEditboxOption("StartDescription", "Raid Start", "General")
-mod:AddBool("Enable_BossEvents", true, "General")
+mod:AddBoolOption("Enable_BossEvents", true, "General")
 mod:AddSliderOption("BossPoints", 0, 100, 5, 10, "General")
 mod:AddEditboxOption("BossDescription", "%s", "General")
-mod:AddBool("Enable_TimeEvents", false, "General")
+mod:AddBoolOption("Enable_TimeEvents", false, "General")
 mod:AddSliderOption("TimePoints", 0, 100, 5, 10, "General")
 mod:AddSliderOption("TimeToCount", 1, 300, 5, 60, "General")
 mod:AddEditboxOption("TimeDescription", "Raid Attendance", "General")
@@ -203,7 +203,7 @@ do
 	local type, tonumber, pairs, strsplit, date = type, tonumber, pairs, strsplit, date
 	local GameFontNormalSmall = GameFontNormalSmall
 
-	mod:RegisterOnGuiLoadCallback(function()
+	DBM:RegisterOnGuiLoadCallback(function()
 		local historypanel = mod.panel:CreateNewPanel(L.TabCategory_History, "option")
 		local area = historypanel:CreateArea(L.AreaHistory, nil, 360, true)
 		local button = area:CreateButton(L.ResetHistory, 100, 16)

@@ -22,7 +22,7 @@
 ## X-DBM-Mod-Name: RaidLeadTools
 ## X-DBM-Mod-Sort: 1500
 ## X-Curse-Project-ID: 21364
-## Version: r123
+## Version: r124
 
 localization.en.lua
 localization.ru.lua

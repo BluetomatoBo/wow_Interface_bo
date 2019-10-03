@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("StandByBot", "RaidLeadTools")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190925154224")
+mod:SetRevision("20190926152843")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:AddBoolOption("Enabled", false, "General")
@@ -9,7 +9,7 @@ mod:AddBoolOption("SendWhispers", false, "General")
 do
 	local GameFontHighlightSmall = GameFontHighlightSmall
 
-	mod:RegisterOnGuiLoadCallback(function()
+	DBM:RegisterOnGuiLoadCallback(function()
 		mod.panel.areas[1]:CreateText(L.SB_Documentation, nil, nil, GameFontHighlightSmall, "LEFT")
 	end)
 end
@@ -18,7 +18,7 @@ do
 	local pairs = pairs
 	local GameFontNormalSmall, GameFontHighlightSmall = GameFontNormalSmall, GameFontHighlightSmall
 
-	mod:RegisterOnGuiLoadCallback(function()
+	DBM:RegisterOnGuiLoadCallback(function()
 		local historypanel = mod.panel:CreateNewPanel(L.TabCategory_History, "option")
 		local area = historypanel:CreateArea(L.AreaStandbyHistory, nil, 260, true)
 		local resetdkphistory = area:CreateButton(L.Button_ResetHistory, 100, 16)
