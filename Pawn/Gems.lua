@@ -328,7 +328,7 @@ local PawnGemData120Uncommon =
 
 
 --========================================
--- Level 110 crafted rare prismatic gems
+-- Level 120 crafted rare prismatic gems
 --========================================
 local PawnGemData120Rare =
 {
@@ -342,15 +342,15 @@ local PawnGemData120Rare =
 
 
 --========================================
--- Level 110 crafted epic prismatic gems
+-- Level 120 crafted epic prismatic gems
 --========================================
 local PawnGemData120Epic =
 {
 
-{ 168639, "CritRating", 60 }, -- Deadly Lava Lazuli
-{ 168641, "HasteRating", 60 }, -- Quick Sand Spinel
-{ 168642, "Versatility", 60 }, -- Versatile Dark Opal
-{ 168640, "MasteryRating", 60 }, -- Masterful Sea Currant
+{ 168639, "CritRating", 50 }, -- Deadly Lava Lazuli
+{ 168641, "HasteRating", 50 }, -- Quick Sand Spinel
+{ 168642, "Versatility", 50 }, -- Versatile Dark Opal
+{ 168640, "MasteryRating", 50 }, -- Masterful Sea Currant
 
 }
 

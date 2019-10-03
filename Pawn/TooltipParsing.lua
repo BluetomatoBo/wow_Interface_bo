@@ -2,7 +2,6 @@
 -- www.vgermods.com
 -- © 2006-2019 Green Eclipse.  This mod is released under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 license.
 -- See Readme.htm for more information.
-
 -- 
 -- Tooltip parsing strings
 ------------------------------------------------------------
@@ -10,6 +9,11 @@
 -- For conciseness
 local L = PawnLocal.TooltipParsing
 
+if PawnLocal.ThousandsSeparator == "NBSP" then PawnLocal.ThousandsSeparator = "\194\160" end
+local Key, Value
+for Key, Value in pairs(L) do
+	L[Key] = gsub(gsub(Value, "#", "(-?[%%d%%.,\194\160 ]+)"), "NBSP", "\194\160")
+end
 
 ------------------------------------------------------------
 -- Tooltip parsing expressions
@@ -134,9 +138,6 @@ PawnRegexes =
 	{PawnGameConstant(INVTYPE_LEGS)}, -- Legs
 	{PawnGameConstant(INVTYPE_FINGER)}, -- Finger
 	{PawnGameConstant(INVTYPE_TRINKET)}, -- Trinket
-	{PawnGameConstant(MAJOR_GLYPH)}, -- Major Glyph
-	{PawnGameConstant(MINOR_GLYPH)}, -- Minor Glyph
-	{PawnGameConstant(PRIME_GLYPH)}, -- Prime Glyph
 	{PawnGameConstant(MOUNT)}, -- Cenarion War Hippogryph
 	{PawnGameConstantIgnoredPlaceholder(ITEM_CLASSES_ALLOWED)}, -- Classes:
 	{PawnGameConstantIgnoredPlaceholder(ITEM_RACES_ALLOWED)}, -- Races:
@@ -180,29 +181,41 @@ PawnRegexes =
 	{L.WeaponDamageEnchantment, "MinDamage", 1, PawnMultipleStatsExtract, "MaxDamage", 1, PawnMultipleStatsExtract}, -- Weapon enchantments
 	{L.WeaponDamageEquip, "MinDamage", 1, PawnMultipleStatsExtract, "MaxDamage", 1, PawnMultipleStatsExtract}, -- Braided Eternium Chain (it's an item, not an enchantment)
 	{L.Scope, "MinDamage", 1, PawnMultipleStatsExtract, "MaxDamage", 1, PawnMultipleStatsExtract}, -- Ranged weapon scopes
-	{L.AllStats, "Strength", 1, PawnMultipleStatsExtract, "Agility", 1, PawnMultipleStatsExtract, "Stamina", 1, PawnMultipleStatsExtract, "Intellect", 1, PawnMultipleStatsExtract}, -- Enchanted Pearl, Enchanted Tear, chest enchantments
+	{L.AllStats, "Strength", 1, PawnMultipleStatsExtract, "Agility", 1, PawnMultipleStatsExtract, "Stamina", 1, PawnMultipleStatsExtract, "Intellect", 1, PawnMultipleStatsExtract, "Spirit", 1, PawnMultipleStatsExtract}, -- Enchanted Pearl, Enchanted Tear, chest enchantments
 	{L.Strength, "Strength"},
 	{L.Agility, "Agility"},
 	{L.Stamina, "Stamina"},
 	{L.Intellect, "Intellect"}, -- negative Intellect: Kreeg's Mug
+	{L.Spirit, "Spirit"},
 	{L.EnchantmentTitaniumWeaponChain, "HasteRating", 28, PawnMultipleStatsFixed}, -- Weapon enchantment; also reduces disarm duration (may be obsolete?)
 	{L.EnchantmentPyriumWeaponChain, "HasteRating", 8, PawnMultipleStatsFixed}, -- Weapon enchantment; also reduces disarm duration
 	{L.EnchantmentLivingSteelWeaponChain, "CritRating", 13, PawnMultipleStatsFixed}, -- Weapon enchantment; also reduces disarm duration
-	{L.Dodge, "Stamina", 0.75, PawnSingleStatMultiplier}, -- Uppercase: Subtle Alicite, Arctic Ring of Eluding, Cata head enchantment for tanks
-	{L.Dodge2, "Stamina", 0.75, PawnSingleStatMultiplier}, -- unused in English
-	{L.Parry, "Stamina", 0.75, PawnSingleStatMultiplier},
-	{L.Parry2, "Stamina", 0.75, PawnSingleStatMultiplier}, -- unused in English
+	{L.Dodge, "DodgeRating"}, -- /pawn compare item:789::::::1754
+	{L.Dodge2, "DodgeRating"}, -- unused in English
+	{L.DodgePercent, "DodgeRating"}, -- /pawn compare 11755
+	{L.Parry, "ParryRating"},
+	{L.Parry2, "ParryRating"}, -- unused in English
+	{L.DefenseSkill, "DefenseRating"}, -- /pawn compare 19867
+	{L.DefenseSkillSimple, "DefenseRating"}, -- /pawn compare item:789::::::89
+	{L.BlockPercent, "BlockRating"}, -- /pawn compare 18499
+	{L.Block, "BlockValue"}, -- /pawn compare 18499
+	{L.BlockValue, "BlockValue"}, -- /pawn compare 18499
 	{L.Dps}, -- Ignore this; DPS is calculated manually
 	{L.DpsAdd, "Dps"},
 	{L.EnchantmentFieryWeapon, "Dps", 4, PawnMultipleStatsFixed}, -- weapon enchantment
 	{L.Crit, "CritRating"},
-	{L.Crit2, "CritRating"}, -- unused in English
+	{L.Crit2, "CritRating"},
+	{L.CritPercent, "CritRating"}, -- /pawn compare 15062
 	{L.ScopeCrit, "CritRating"},
 	{L.ScopeRangedCrit, "CritRating"}, -- Heartseeker Scope
+	{L.SpellCrit, "SpellCritRating"}, -- /pawn compare 16947
+	{L.Hit, "HitRating"}, -- /pawn compare 16947
+	{L.Hit2, "HitRating"}, -- unused in English
+	{L.SpellHit, "SpellHitRating"}, -- /pawn compare 16795
 	{L.Resilience, "Stamina"}, -- Mystic Dawnstone
 	{L.Resilience2, "Stamina"}, -- unused in English
 	{L.PvPPower, "Stamina"}, -- Stormy Chalcedony
-	{L.EnchantmentCounterweight, "HasteRating"},
+	{L.EnchantmentCounterweight, "HasteRating"}, -- won't work on classic since the live string includes the word "haste" and it's worded differently in classic
 	{L.Haste, "HasteRating"}, -- Leggings of the Betrayed
 	{L.Haste2, "HasteRating"}, -- unused in English
 	{L.Mastery, "MasteryRating"}, -- Zen Dream Emerald
@@ -212,29 +225,50 @@ PawnRegexes =
 	{L.Avoidance, "Avoidance"}, -- http://wod.wowhead.com/item=100945
 	{PawnGameConstant(STAT_STURDINESS), "Indestructible", 1, PawnMultipleStatsFixed}, -- http://wod.wowhead.com/item=100945
 	{L.MovementSpeed, "MovementSpeed"}, -- http://wod.wowhead.com/item=100945
-	{L.Ap, "Ap"}, -- http://legion.wowhead.com/item=50035/black-bruise
-	{L.Hp5, "Stamina", 3, PawnSingleStatMultiplier}, -- (counting 1 HP5 = 3 Stamina)
-	{L.Hp52, "Stamina", 3, PawnSingleStatMultiplier}, -- Demon's Blood (counting 1 HP5 = 3 Stamina)
-	{L.Hp53, "Stamina", 3, PawnSingleStatMultiplier}, -- Aquamarine Signet of Regeneration
-	{L.Hp54, "Stamina", 3, PawnSingleStatMultiplier}, -- Lifestone
+	{L.Ap, "Ap"}, -- /pawn compare item:789::::::1547
+	{L.Ap2, "Ap"}, -- /pawn compare 15062
+	{L.Rap, "Rap"}, -- /pawn compare 18473
+	{L.FeralAp, "FeralAp"}, -- /pawn compare 22988
+	{L.Mp5, "Mp5"}, -- /pawn compare 22988
+	{L.Mp52, "Mp5"}, -- /pawn compare item:789::::::2074
+	{L.Hp5, "Hp5"}, -- (on live, we used to count 1 HP5 = 3 Stamina)
+	{L.Hp52, "Hp5"}, -- Demon's Blood
+	{L.Hp53, "Hp5"}, -- Aquamarine Signet of Regeneration
+	{L.Hp54, "Hp5"}, -- Lifestone
 	{L.EnchantmentHealth, "Stamina", 1/12.5, PawnSingleStatMultiplier}, -- +100 health head/leg enchantment (counting 1 HP = 1/12.5 Stamina)
-	{L.EnchantmentHealth2, "Stamina", 1/12.5, PawnSingleStatMultiplier}, -- +150 health enchantment (counting 1 HP = 1/12.5 Stamin)
+	{L.EnchantmentHealth2, "Stamina", 1/12.5, PawnSingleStatMultiplier}, -- +150 health enchantment (counting 1 HP = 1/12.5 Stamina)
 	{L.Armor, "Armor"}, -- normal armor and cloak armor enchantments
 	{L.Armor2, "Armor"}, -- unused in English
 	{L.EnchantmentArmorKit, "Armor"}, -- armor kits
-	{L.SpellPower, "SpellPower"}, -- enchantments... removed in 7.0?
+	{L.FireResist, "FireResist"}, -- /pawn compare 12609
+	{L.NatureResist, "NatureResist"}, -- /pawn compare 12609
+	{L.FrostResist, "FrostResist"}, -- /pawn compare 12609
+	{L.ShadowResist, "ShadowResist"}, -- /pawn compare 12609
+	{L.ArcaneResist, "ArcaneResist"}, -- /pawn compare 12609
+	{L.SpellDamage, "SpellDamage", 1, PawnMultipleStatsExtract, "Healing", 1, PawnMultipleStatsExtract},
+	{L.SpellDamage2, "SpellDamage", 1, PawnMultipleStatsExtract, "Healing", 1, PawnMultipleStatsExtract}, -- /pawn compare 16947
+	{L.FireSpellDamage, "FireSpellDamage"}, -- /pawn compare item:789::::::1878
+	{L.FireSpellDamage2, "FireSpellDamage"}, -- /pawn compare 944
+	{L.ShadowSpellDamage, "ShadowSpellDamage"}, -- /pawn compare item:789::::::1841
+	{L.ShadowSpellDamage2, "ShadowSpellDamage"}, -- /pawn compare 1980
+	{L.NatureSpellDamage, "NatureSpellDamage"}, -- /pawn compare item:789::::::1997
+	{L.NatureSpellDamage2, "NatureSpellDamage"}, -- /pawn compare 18829
+	{L.ArcaneSpellDamage, "ArcaneSpellDamage"}, -- /pawn compare item:789::::::1801
+	{L.ArcaneSpellDamage2, "ArcaneSpellDamage"}, -- /pawn compare 19308
+	{L.FrostSpellDamage, "FrostSpellDamage"}, -- /pawn compare item:789::::::1954
+	{L.FrostSpellDamage2, "FrostSpellDamage"}, -- /pawn compare 944
+	{L.HolySpellDamage, "HolySpellDamage"},
+	{L.HolySpellDamage2, "HolySpellDamage"}, -- /pawn compare 20504
+	{L.Healing, "Healing"}, -- /pawn compare item:789::::::2028
+	{L.Healing2, "Healing"}, -- /pawn compare 16947
+	{L.SpellPower, "SpellDamage", 1, PawnMultipleStatsExtract, "Healing", 1, PawnMultipleStatsExtract}, -- enchantments
 	{PawnGameConstant(EMPTY_SOCKET_PRISMATIC), "PrismaticSocket", 1, PawnMultipleStatsFixed},
-	--{L.RelicArcane, "IsArcaneRelic", 1, PawnMultipleStatsFixed},
-	--{L.RelicBlood, "IsBloodRelic", 1, PawnMultipleStatsFixed},
-	--{L.RelicFel, "IsFelRelic", 1, PawnMultipleStatsFixed},
-	--{L.RelicFire, "IsFireRelic", 1, PawnMultipleStatsFixed},
-	--{L.RelicFrost, "IsFrostRelic", 1, PawnMultipleStatsFixed},
-	--{L.RelicHoly, "IsHolyRelic", 1, PawnMultipleStatsFixed},
-	--{L.RelicIron, "IsIronRelic", 1, PawnMultipleStatsFixed},
-	--{L.RelicLife, "IsLifeRelic", 1, PawnMultipleStatsFixed},
-	--{L.RelicShadow, "IsShadowRelic", 1, PawnMultipleStatsFixed},
-	--{L.RelicStorm, "IsStormRelic", 1, PawnMultipleStatsFixed},
-	--{L.RelicWater, "IsWaterRelic", 1, PawnMultipleStatsFixed},
+
+	-- In WoW Classic, crossbows, guns, and wands don't show "Ranged" and instead show the weapon type on the left.
+	{L.Bow, "IsBow", 1, PawnMultipleStatsFixed, "IsRanged", 1, PawnMultipleStatsFixed},
+	{L.Crossbow, "IsCrossbow", 1, PawnMultipleStatsFixed, "IsRanged", 1, PawnMultipleStatsFixed},
+	{L.Gun, "IsGun", 1, PawnMultipleStatsFixed, "IsRanged", 1, PawnMultipleStatsFixed},
+	{L.Wand, "IsWand", 1, PawnMultipleStatsFixed, "IsRanged", 1, PawnMultipleStatsFixed},
 
 	-- ========================================
 	-- Rare strings that are ignored (common ones are at the top of the file)

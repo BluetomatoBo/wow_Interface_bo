@@ -532,191 +532,98 @@ and Pawn.</p>
 	leveling a new character (with no stats) get upgrade arrows.</li>
 	<li>A summary (just in chat) that shows you what changed when you import a 
 	scale that overwrote an existing one.</li>
+	<li>The Gems tab is pretty empty these days now that gem colors aren't a 
+	thing anymore.&nbsp; I could maybe turn it into a Buffs tab that suggests 
+	gems, enchantments, food, and so on, sort of like a quick and dirty version 
+	of a class guide.&nbsp; And then it'd be useful for Classic too.</li>
 </ul>
 
 <h2>Updates</h2>
-<h3>Version 2.2.46</h3>
+<h3>Version 2.3.7</h3>
 <ul>
-	<li>If you've used an addon to hide item levels from your items, but still 
-	have Pawn's "show item level upgrades" option turned on (that's the 
-	default), Pawn will now show the item level increase at the bottom of the 
-	tooltip instead. </li>
-	<li>Fixed a problem where Pawn could forget your best items after logging 
-	out, if using the "track for each scale (advanced)" feature.</li>
+	<li>WoW Classic: Now supports Spanish and German.</li>
 </ul>
-<h3>Version 2.2.45</h3>
+<h3>Version 2.3.6</h3>
 <ul>
-	<li>Includes updated stat weights from Ask Mr. Robot for all classes and 
-	specs.</li>
+	<li>WoW Classic: the Compare tab will now refresh itself after a moment to 
+	make sure it has the latest stats from your items.</li>
 </ul>
-<h3>Version 2.2.44</h3>
+<h3>Version 2.3.5</h3>
 <ul>
-	<li>Pawn will now show equippable items that are a higher item level than 
-	what you currently have as upgrades too, even if they aren't stat upgrades.&nbsp; 
-	(You can turn this new behavior off on Pawn's Options tab.)<ul>
-		<li>This feature currently doesn't take Unique-Equipped rings into 
-		account.&nbsp; If you happen to equip two different item level copies of 
-		the same ring, Pawn could consider both of them your best two rings and 
-		thus "forget" about your previous second-best ring.</li>
+	<li>/pawn compare can now compare two items at once: /pawn compare left 
+	12345 right 67890</li>
+	<li>Fixed a bug introduced in Pawn 2.3.0 that made it impossible to import a 
+	scale with a class and spec specified the first time you tried.</li>
+	<li>Fixed problems with baguette damage in French WoW.</li>
+</ul>
+<h3>Version 2.3.4</h3>
+<ul>
+	<li>WoW Classic: Now supports French in addition to English.</li>
+	<li>Fixed a problem introduced in WoW 8.2.5 where Pawn wouldn't recognize 
+	numbers 1,000 or larger in the Russian version of WoW—not the same one as 
+	for French and Spanish!</li>
+</ul>
+<h3>Version 2.3.3</h3>
+<ul>
+	<li>Added a new Pawn slash command: /pawn compare.&nbsp; You can use this as 
+	an alternate way to put items into Pawn's Compare UI.&nbsp; For example, 
+	"/pawn compare left 16795" puts Arcanist's Crown into the left slot of 
+	Pawn's Compare tab.<ul>
+		<li>The compare command accepts item IDs, "item:12345:0:0" strings, or 
+		full shift+clicked item links ("/pawn compare [Arcanist's Crown]").</li>
+		<li>If your PC hasn't downloaded the stats for an item yet, the command 
+		might not do anything the first time.&nbsp; Try it again (Enter, 
+		Shift+Up, Enter) after a second and it should work the second time.</li>
+		<li>Addon authors can use "PawnUI_SetCompareItemAndShow(1, 16795)" to 
+		accomplish the same thing.&nbsp; (1 for left, 2 for right.)</li>
 	</ul>
 	</li>
-	<li>Some minor performance improvements when logging in.</li>
-	<li>Fixed a problem where characters with artifacts equipped could get 
-	upgrade recommendations for types of items they can't equip, such as wands 
-	for death knights.</li>
-	<li>Fixed a harmless error that appeared when logging in on a Russian 
-	client.</li>
-	<li>Lots of updated German translations, courtesy of SunnySunflow.</li>
+	<li>Fixed a problem where armor was being ignored in French WoW.</li>
+	<li>WoW Classic: Worked around a problem where Pawn would sometimes not see 
+	all of the stats on an item (typically, the "green stats").<ul>
+		<li>This workaround will result in slightly lower performance on WoW 
+		Classic.&nbsp; I'm still investigating a better long-term solution.</li>
+		<li>For the curious, it's because the game client would get a partial 
+		list of stats for the item, then Pawn would do its calculations on that, 
+		and then shortly afterward the game would get the rest of the stats for 
+		the item, but at that point Pawn didn't know that it needed to re-scan 
+		the item, so it was evaluating the item based on just the first batch of 
+		stats it got.</li>
+	</ul>
+	</li>
+	<li>WoW Classic: Removed "All Resistances", which does not appear to exist 
+	on any items in Classic.</li>
+	<li>WoW Classic: Added support for "of Concentration" items.</li>
+	<li>Russian and Chinese: For consistency, Pawn's "debug" and "backup" slash 
+	commands are now always in English like they are for all other languages.</li>
 </ul>
-<h3>Version 2.2.43</h3>
+<h3>Version 2.3.2</h3>
 <ul>
-	<li>Removed a harmless error that would occur when shift-right-clicking 
-	Pocket-Sized Computation Device.</li>
+	<li>Fixed a problem introduced in WoW 8.2.5 where Pawn wouldn't recognize 
+	numbers 1,000 or larger in the French and European Spanish versions of WoW.</li>
+	<li>I introduced a system that will make Pawn a little easier to translate 
+	in the future, and make it more resilient to changes in the way that 
+	non-English versions of WoW display numbers.</li>
+	<li>WoW Classic: Added support for ranged weapon DPS, "of Defense" items, 
+	and probably more stuff I forgot about.</li>
 </ul>
-<h3>Version 2.2.42</h3>
+<h3>Version 2.3.1</h3>
 <ul>
-	<li>Added support for the new 60-stat epic gems from Nazjatar.</li>
+	<li>WoW Classic: Added support for "of Eluding" items.</li>
 </ul>
-<h3>Version 2.2.41</h3>
+<h3>Version 2.3</h3>
+<p>Consider this version a full release for Battle for Azeroth and a beta for 
+WoW Classic.&nbsp; WoW Classic is supported for English only in this version.&nbsp; 
+Pawn does not include any built-in scales for WoW Classic, so you'll need to 
+create your own scales from scratch, or import them.&nbsp; Not all Pawn features 
+exist on WoW Classic, and some features are incomplete.</p>
 <ul>
-	<li>Some minor changes to try to work around a problem where Pawn tries to 
-	compare a new item versus an old item but it doesn't know the stats of the 
-	old item, and it causes an error.</li>
-</ul>
-<h3>Version 2.2.40</h3>
-<ul>
-	<li>Removed some old code that isn't necessary anymore in 8.1.5.</li>
-</ul>
-<h3>Version 2.2.39</h3>
-<ul>
-	<li>Fixed an additional problem with an "ItemButtonTemplate" error that 
-	would appear if you have the "/console scriptErrors 1" setting on.</li>
-	<li>Fixed a problem where Pawn would show an unnecessary error message to 
-	French players.&nbsp; You know, the one I said I fixed in 2.2.37.</li>
-</ul>
-<h3>Version 2.2.38</h3>
-<ul>
-	<li>Fixed some problems with the Compare tab's visuals introduced by patch 
-	8.1.5.</li>
-</ul>
-<h3>Version 2.2.37</h3>
-<ul>
-	<li>Fixed a problem where Pawn would show an unnecessary error message to 
-	French players.</li>
-</ul>
-<h3>Version 2.2.36</h3>
-<ul>
-	<li>New stat weights from Mr. Robot for all classes and specs!</li>
-</ul>
-<h3>Version 2.2.35</h3>
-<ul>
-	<li>Increased the item level threshold at which Pawn will start suggesting 
-	BfA rare-quality gems.</li>
-	<li>Added a warning Pawn detects that you're using an addon like Combat 
-	Numbers Separator that might cause it to give bad advice.&nbsp; (Let me know 
-	if you see this with only Pawn active!)</li>
-</ul>
-<h3>Version 2.2.34</h3>
-<ul>
-	<li>Fixes to prevent errors involving "WorldMapTooltip" from occurring on 
-	WoW 8.1.5.</li>
-</ul>
-<h3>Version 2.2.33</h3>
-<ul>
-	<li>Better compatibility with DejaCharacterStats.</li>
-</ul>
-<h3>Version 2.2.32</h3>
-<ul>
-	<li>A debug-only option that I added long ago will now automatically turn 
-	itself off if you turned it on and then forgot about it.&nbsp; ("Not caching 
-	because the item didn't have any stats" and other similar messages.)</li>
-</ul>
-<h3>Version 2.2.31</h3>
-<ul>
-	<li>Fixed a problem that occurred on the Spanish (EU) version of WoW (not 
-	the Mexico version or other languages) where items with 1,000 or more of a 
-	stat were being evaluated incorrectly.</li>
-</ul>
-<h3>Version 2.2.30</h3>
-<ul>
-	<li>Includes new, updated stat weights for all classes and specs from Ask Mr. Robot's 
-	simulations to give you better, more accurate advice in raids.</li>
-</ul>
-<h3>Version 2.2.29</h3>
-<ul>
-	<li>Fixes for Brazilian Portuguese.</li>
-</ul>
-<h3>Version 2.2.28</h3>
-<ul>
-	<li>Pawn will no longer suggest weapon upgrades for mistweaver monks as if 
-	they could dual-wield.</li>
-	<li>Adjusted gem recommendations.</li>
-</ul>
-<h3>Version 2.2.27</h3>
-<ul>
-	<li>Pawn's relic upgrade features are now disabled by default, and I plan to 
-	remove them entirely in a future version.</li>
-</ul>
-<h3>Version 2.2.26</h3>
-<ul>
-	<li>Items with sockets will now be valued somewhat higher than before, to 
-	account for the new gems in Battle for Azeroth jewelcrafting.</li>
-	<li>Fixed a problem where sometimes you'd get an error when looking at items 
-	that your PC hadn't downloaded the stats for yet.</li>
-</ul>
-<h3>Version 2.2.25</h3>
-<ul>
-	<li>Fixed some more issues with artifact weapon level comparisons (notably, 
-	comparing versus the surprisingly crappy weapons you get during the Battle 
-	for Lordaeron questline).</li>
-	<li>Fixed the average item level display on the Inspect window when hovering 
-	over the Pawn button.</li>
-</ul>
-<h3>Version 2.2.24</h3>
-<ul>
-	<li>When comparing an artifact weapon with a non-artifact weapon, Pawn now 
-	just shows upgrade arrows based on the item's level.&nbsp; Artifact weapons are 
-	complicated, and this seemed like the most helpful and least confusing way 
-	to provide guidance.</li>
-</ul>
-<h3>Version 2.2.23</h3>
-<ul>
-	<li>Fixed a bug where Pawn could skip one of your equipment sets when 
-	looking for your best-in-slot gear when the "upgrade comparisons: track for 
-	each scale" option was enabled.</li>
-	<li>Updated artwork.</li>
-</ul>
-<h3>Version 2.2.22</h3>
-<ul>
-	<li>Pawn will no longer tell you that it's probably not worth your time 
-	putting gems in anything below ilvl 800.&nbsp; (I changed the threshold to 
-	153, and I'll change it again when BfA launches.)</li>
-	<li>Pawn will now show upgrades for your artifact weapons (and off-hands) on 
-	all level 110+ characters.</li>
-	<li>More gem updates in preparation for the Battle for Azeroth jewelcrafting 
-	recipes.</li>
-</ul>
-<h3>Version 2.2.21</h3>
-<ul>
-	<li>New default stat weights for the Battle for Azeroth pre-patch 8.0 for 
-	all classes and specs!</li>
-	<li>Fixed some problems that occurred when the "Upgrade comparisons: Track 
-	for each scale" option was selected.</li>
-</ul>
-<h3>Version 2.2.20</h3>
-<ul>
-	<li>More gem updates for the Battle for Azeroth item level squish.</li>
-</ul>
-<h3>Version 2.2.19</h3>
-<ul>
-	<li>Updated for WoW 8.0 and the Battle for Azeroth item level squish.&nbsp; 
-	Due to item level changes, gem recommendations may be a little strange at 
-	lower levels; let me know if you see something that seems very wrong, and 
-	let me know which item and gem and the item levels of each.</li>
-	<li>Stat weights have not been updated since WoW 7.x.&nbsp; They're still 
-	the latest from Ask Mr. Robot; most likely it will take a couple of months 
-	to account for all of the expansion changes and produce reliable new stat 
-	weights.</li>
+	<li>There are no new features for Battle for Azeroth in this version.&nbsp; 
+	If you run into any issues on the live/retail realms, you can return to 
+	2.2.x and shouldn't miss out on anything.</li>
+	<li>The "show item level upgrades" feature will default to OFF in Classic.&nbsp; 
+	(But, if you've already used one of the earlier versions of Pawn on Classic, 
+	that option may already be on, so turn it off manually if you don't want it.)</li>
 </ul>
 <h3>Older versions and future improvements</h3>
 <p>See the <a href="Version%20history.htm">version history</a> document for 

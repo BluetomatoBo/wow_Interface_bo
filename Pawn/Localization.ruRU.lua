@@ -34,7 +34,7 @@ PawnLocal =
 	["ImportScaleMessage"] = "Нажмите Ctrl+V чтобы вставить шкалу скопированную из других источников сюда:",
 	["ImportScaleTagErrorMessage"] = "Pawn не распознал структуру шкалы. Вы уверены что скопировали полную структуру? Попробуйте снова:",
 	["ItemIDTooltipLine"] = "ID вещи",
-	["ItemLevelTooltipLine"] = "Уровень предмета",
+	["ItemLevelTooltipLine"] = "Уровень вещи",
 	["LootUpgradeAdvisorHeader"] = "Нажмите для сравнения с вашими вещами.|n",
 	["LootUpgradeAdvisorHeaderMany"] = "|TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t Улучшение %d пунктов.  Нажмите для сравнения.",
 	["MissocketWorthwhileMessage"] = "   -- Но лучше использовать только %s камень:",
@@ -50,7 +50,7 @@ PawnLocal =
 	["RenameScaleEnterName"] = "Введите новое имя шкалы %s:",
 	["SocketBonusValueCalculationMessage"] = "   -- Гнездо оценивается как: %g",
 	["StatNameText"] = "1 |cffffffff%s|r цениться:",
-	["ThousandsSeparator"] = "",
+	["ThousandsSeparator"] = " ",
 	["TooltipBestAnnotation"] = "%s  |cff8ec3e6(лучшая)|r",
 	["TooltipBestAnnotationSimple"] = "%s  ваша лучшая",
 	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 улучшение%s|r",
@@ -80,15 +80,57 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 	["VisibleScalesHeader"] = "Шкалы %s",
 	["Stats"] = {
 		["AgilityInfo"] = "Ловкость. Увеличивает силу атаки для некоторых классов.",
+		--[[Translation missing --]]
+		["ApInfo"] = "Attack Power.  Increases the damage of physical attacks.  Does not include attack power gained from strength and agility.",
+		--[[Translation missing --]]
+		["ArcaneResistInfo"] = "Arcane Resistance.  Reduces the damage taken from arcane-based attacks.",
+		--[[Translation missing --]]
+		["ArcaneSpellDamage"] = "Arcane Damage",
+		--[[Translation missing --]]
+		["ArcaneSpellDamageInfo"] = "Arcane damage.  Increases the damage dealt by your arcane spells.",
 		["ArmorInfo"] = "Броня. Не включает в себя бонусную броню на танковских вещах.",
 		["ArmorTypes"] = "Типы брони",
 		["AvoidanceInfo"] = "Избегание. Уменьшение получаемого урона от заклинаний действующих по области (AOE)",
+		--[[Translation missing --]]
+		["BlockRatingInfo"] = "Block chance.  Increases the chances of a successful shield block.",
+		--[[Translation missing --]]
+		["BlockValueInfo"] = "Shield block value.  Increases the damage that a shield absorbs when it successfully blocks.",
 		["Cloth"] = "Ткань",
 		["ClothInfo"] = "Значения для вещей из ткани",
 		["Crit"] = "Критический удар",
 		["CritInfo"] = "Критический удар. Увеличивает шанс что ваши атакующие и исцеляющие заклинания ударят с увеличенной силой.",
+		--[[Translation missing --]]
+		["DefenseInfo"] = "Defense skill.  Decreases the chance that you'll be hit by boss attacks.",
+		--[[Translation missing --]]
+		["DodgeInfo"] = "Dodge.  Increases the chance that you'll dodge attacks entirely.",
 		["DpsInfo"] = "Урон от оружия в секунду",
+		--[[Translation missing --]]
+		["FeralApInfo"] = "Feral Attack Power.  Increases the damage of druid attacks when in feral forms.  Does not include attack power gained from strength and agility.",
+		--[[Translation missing --]]
+		["FireResistInfo"] = "Fire Resistance.  Reduces the damage taken from fire-based attacks.",
+		--[[Translation missing --]]
+		["FireSpellDamage"] = "Fire Damage",
+		--[[Translation missing --]]
+		["FireSpellDamageInfo"] = "Fire damage.  Increases the damage dealt by your fire spells.",
+		--[[Translation missing --]]
+		["FrostResistInfo"] = "Frost Resistance.  Reduces the damage taken from frost-based attacks.",
+		--[[Translation missing --]]
+		["FrostSpellDamage"] = "Frost Damage",
+		--[[Translation missing --]]
+		["FrostSpellDamageInfo"] = "Frost damage.  Increases the damage dealt by your frost spells.",
 		["HasteInfo"] = "Скорость. Увеличивает скорость произнесения заклинаний и регенерации ресурсов.",
+		--[[Translation missing --]]
+		["Healing"] = "Spell Healing",
+		--[[Translation missing --]]
+		["HealingInfo"] = "Spell healing.  Increases the power of your healing spells.",
+		--[[Translation missing --]]
+		["HitInfo"] = "Hit.  Increases the chance that your physical attacks hit the target, especially bosses.",
+		--[[Translation missing --]]
+		["HolySpellDamage"] = "Holy Damage",
+		--[[Translation missing --]]
+		["HolySpellDamageInfo"] = "Holy damage.  Increases the damage dealt by your holy spells.",
+		--[[Translation missing --]]
+		["Hp5Info"] = "Health regeneration per 5 seconds.  Increases the rate at which you regenerate health.",
 		["IndestructibleInfo"] = "Неразрушимость. Защищает ваши предметы от потери прочности.",
 		["IndestructibleIs"] = "Будучи |cffffffffнеразрушимым|r стоит:",
 		["IntellectInfo"] = "Интеллект. Увеличивает силу заклинаний для некоторых классов.",
@@ -100,8 +142,28 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 		["MasteryInfo"] = "Искусность.  Улучшает уникальный бонус дерева талантов.",
 		["MinorStats"] = "Незначительные характеристики",
 		["MovementSpeedInfo"] = "Скорость передвижения. Увеличивает скорость передвижения вашего персонажа.",
+		--[[Translation missing --]]
+		["Mp5"] = "Mana per 5",
+		--[[Translation missing --]]
+		["Mp5Info"] = "Mana regeneration per 5 seconds.  Affects your mana regeneration even when in combat.",
+		--[[Translation missing --]]
+		["NatureResistInfo"] = "Nature Resistance.  Reduces the damage taken from nature-based attacks.",
+		--[[Translation missing --]]
+		["NatureSpellDamage"] = "Nature Damage",
+		--[[Translation missing --]]
+		["NatureSpellDamageInfo"] = "Nature damage.  Increases the damage dealt by your nature spells.",
+		--[[Translation missing --]]
+		["ParryInfo"] = "Parry.  Increases the chance that you'll parry enemy attacks.",
 		["Plate"] = "Латы",
 		["PlateInfo"] = "Очки присваиваются только если вещь - латные доспехи.",
+		--[[Translation missing --]]
+		["RapInfo"] = "Ranged Attack Power.  Increases the damage of ranged physical attacks.  Does not include attack power gained from agility.",
+		--[[Translation missing --]]
+		["ShadowResistInfo"] = "Shadow Resistance.  Reduces the damage taken from shadow-based attacks.",
+		--[[Translation missing --]]
+		["ShadowSpellDamage"] = "Shadow Damage",
+		--[[Translation missing --]]
+		["ShadowSpellDamageInfo"] = "Shadow damage.  Increases the damage dealt by your shadow spells.",
 		["Shield"] = "Щит",
 		["ShieldInfo"] = "Очки присваиваются только если вещь - щит.",
 		["Sockets"] = "Гнезда",
@@ -111,6 +173,16 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 		["SpeedBaselineIs"] = "|cffffffffБазовая скорость|r:",
 		["SpeedInfo"] = "Скорость оружия (в секундах за удар).",
 		["SpeedIs"] = "1 секунда |cffffffffскорость удара|r ценится:",
+		--[[Translation missing --]]
+		["SpellCritInfo"] = "Spell critical strike.  Increases the chance that your spells will hit with increased potency.",
+		--[[Translation missing --]]
+		["SpellDamage"] = "Spell Damage",
+		--[[Translation missing --]]
+		["SpellDamageInfo"] = "Spell damage.  Increases the damage dealt by your offensive spells.",
+		--[[Translation missing --]]
+		["SpellHitInfo"] = "Spell Hit.  Increases the chance that your damaging spells hit the target, especially bosses.",
+		--[[Translation missing --]]
+		["SpiritInfo"] = "Spirit.  Affects your out-of-combat mana regeneration.",
 		["StaminaInfo"] = "Выносливость. Увеличивает количество жизни. ",
 		["StrengthInfo"] = "Сила. Увеличивает силу атаки для некоторых классов.",
 		["VersatilityInfo"] = "Универсальность. Увеличивает наносимый урон, способность к исцелению и поглощению урона. Уменьшает получаемый урон.",
@@ -201,48 +273,87 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 		["WeaponTypeWand"] = "Жезл",
 		["WeaponTypeWandInfo"] = "Очки присваиваются только если вещь - жезл.",
 		["WeaponTypeWarglaive"] = "Боевые клинки",
-		["WeaponTypeWarglaiveInfo"] = "Очки будут начислятся, если вещь Боевые клинки"
+		["WeaponTypeWarglaiveInfo"] = "Очки будут начислятся, если вещь Боевые клинки",
 	},
 	["TooltipParsing"] = {
-		["Agility"] = "^%+?([-%d%., ]+) к ловкости$",
-		["AllStats"] = "^%+?([%d%., ]+) ко всем характеристикам$",
-		["Ap"] = "^%+?([%d%., ]+) к силе атаки$",
-		["Armor"] = "^Броня: %+?([%d%., ]+)$",
-		["Armor2"] = "^%+?([%d%., ]+) к броне$",
-		["Avoidance"] = "^%+([%d%., ]+) к избеганию$",
+		["Agility"] = "^%+?# к ловкости$",
+		["AllStats"] = "^%+?# ко всем характеристикам$",
+		["Ap"] = "^%+?# к силе атаки$",
+		--[[Translation missing --]]
+		["Ap2"] = "^Equip: %+# Attack Power%.$",
+		--[[Translation missing --]]
+		["ArcaneResist"] = "^%+?# Arcane Resistance$",
+		--[[Translation missing --]]
+		["ArcaneSpellDamage"] = "^%+# Arcane Spell Damage$",
+		--[[Translation missing --]]
+		["ArcaneSpellDamage2"] = "^Equip: Increases damage done by Arcane spells and effects by up to #%.$",
+		["Armor"] = "^Броня: %+?#$",
+		["Armor2"] = "^%+?# к броне$",
+		["Avoidance"] = "^%+# к избеганию$",
 		["Axe"] = "^Топор$",
 		["BagSlots"] = "^%d+ [Яя]чеек .+$",
+		--[[Translation missing --]]
+		["Block"] = "^%+?([-%d%.,]+) Block$",
+		--[[Translation missing --]]
+		["BlockPercent"] = "^Equip: Increases your chance to block attacks with a shield by #%%%.$",
+		--[[Translation missing --]]
+		["BlockValue"] = "^Equip: Increases the block value of your shield by #%.$",
 		["Bow"] = "^Лук$",
 		["ChanceOnHit"] = "Возможно при попадании:",
 		["Charges"] = "^.+ зарядов?$",
 		["Cloth"] = "^Ткань$",
 		["CooldownRemaining"] = "^Времени до восстановления:",
-		["Crit"] = "^%+?([%d%., ]+) к критическому удару$",
-		["Crit2"] = "^%+?([%d%., ]+) к показателю критического удара$",
+		["Crit"] = "^%+?# к критическому удару$",
+		["Crit2"] = "^%+?# к показателю критического удара$",
+		--[[Translation missing --]]
+		["CritPercent"] = "^Equip: Improves your chance to get a critical strike by #%%%.$",
 		["Crossbow"] = "^Арбалет$",
 		["Dagger"] = "^Кинжал$",
+		--[[Translation missing --]]
+		["DefenseSkill"] = "^Equip: Increased Defense %+#%.$",
+		["DefenseSkillSimple"] = "^%+?# Defense$",
 		["DisenchantingRequires"] = "^Требуется",
-		["Dodge"] = "^%+?([%d%., ]+) к уклонению$",
-		["Dodge2"] = "^%+?([%d%., ]+) к показателю уклонения$",
-		["Dps"] = "^%(([%d%., ]+) ед%. урона в секунду%)$",
-		["DpsAdd"] = "^Добавляет ([%d%., ]+) ед%. урона в секунду$",
+		["Dodge"] = "^%+?#%%? к уклонению$",
+		["Dodge2"] = "^%+?#%%? к показателю уклонения$",
+		--[[Translation missing --]]
+		["DodgePercent"] = "^Equip: Increases your chance to dodge an attack by #%%%.$",
+		["Dps"] = "^%(# ед%. урона в секунду%)$",
+		["DpsAdd"] = "^Добавляет # ед%. урона в секунду$",
 		["Duration"] = "^Срок действия:",
 		["Elite"] = "^Элитный$",
-		["EnchantmentArmorKit"] = "^Доспех усилен %(%+([%d%., ]+) к броне%)$",
-		["EnchantmentCounterweight"] = "^Железный противовес %(%+([%d%., ]+) к скорости%)$",
+		["EnchantmentArmorKit"] = "^Доспех усилен %(%+# к броне%)$",
+		["EnchantmentCounterweight"] = "^Железный противовес %(%+# к скорости%)$",
 		["EnchantmentFieryWeapon"] = "^Огненное оружие$",
-		["EnchantmentHealth"] = "^%+([%d%., ]+) к здоровью$",
-		["EnchantmentHealth2"] = "^%+([%d%., ]+) к здоровью$",
+		["EnchantmentHealth"] = "^%+# к здоровью$",
+		["EnchantmentHealth2"] = "^%+# к здоровью$",
 		["EnchantmentLivingSteelWeaponChain"] = "^Цепь для оружия из живой стали$",
 		["EnchantmentPyriumWeaponChain"] = "^Колчедановая цепь для оружия$",
 		["EnchantmentTitaniumWeaponChain"] = "^Титановая цепь для оружия$",
 		["Equip"] = "Если на персонаже:",
+		--[[Translation missing --]]
+		["FeralAp"] = "^Equip: %+# Attack Power in Cat, Bear, and Dire Bear forms only%.$",
+		--[[Translation missing --]]
+		["FireResist"] = "^%+?# Fire Resistance$",
+		--[[Translation missing --]]
+		["FireSpellDamage"] = "^%+# Fire Spell Damage$",
+		--[[Translation missing --]]
+		["FireSpellDamage2"] = "^Equip: Increases damage done by Fire spells and effects by up to #%.$",
 		["FistWeapon"] = "^Кистевое$",
 		["Flexible"] = "^Гибкий$",
+		--[[Translation missing --]]
+		["FrostResist"] = "^%+?# Frost Resistance$",
+		--[[Translation missing --]]
+		["FrostSpellDamage"] = "^%+# Frost Spell Damage$",
+		--[[Translation missing --]]
+		["FrostSpellDamage2"] = "^Equip: Increases damage done by Frost spells and effects by up to #%.$",
 		["Gun"] = "^Огнестрельное$",
-		["Haste"] = "^%+?([%d%., ]+) к скорости$",
-		["Haste2"] = "^%+?([%d%., ]+) к показателю скорости$",
+		["Haste"] = "^%+?# к скорости$",
+		["Haste2"] = "^%+?# к показателю скорости$",
 		["HaventCollectedAppearance"] = "^У вас еще нет такой модели.$",
+		--[[Translation missing --]]
+		["Healing"] = "^%+# Healing Spells$",
+		--[[Translation missing --]]
+		["Healing2"] = "^Equip: Increases healing done by spells and effects by up to #%.$",
 		["HeirloomLevelRange"] = "^Требуется уровень %d+ - (%d+)",
 		["HeirloomXpBoost"] = "^Если на персонаже: Увеличивает количество получаемого опыта на",
 		["HeirloomXpBoost2"] = "^Если на персонаже: Количество опыта, получаемого за убийства монстров и выполнение заданий, увеличено на",
@@ -250,44 +361,77 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 		["HeroicElite"] = "^Героический %(элитный%)$",
 		["HeroicThunderforged"] = "^Создано в Кузне Грома %(героич%.%)$",
 		["HeroicWarforged"] = "^Предмет закален в бою %(героич%.%)$",
-		["Hp5"] = "^Восстанавливает ([%d%., ]+) здоровья каждые 5 сек%.$",
-		["Hp52"] = "^Восстанавливает ([%d%., ]+) здоровья за 5 сек%.$",
-		["Hp53"] = "^%+?([%d%., ]+) [зЗ]доровья [кК]аждые 5 [сС]ек%.?$",
-		["Hp54"] = "^%+?([%d%., ]+) [зЗ]здоровья [зЗ]а 5 [сС]ек%.?$",
-		["Intellect"] = "^%+?([-%d%., ]+) к интеллекту$",
+		--[[Translation missing --]]
+		["Hit"] = "^Equip: Improves your chance to hit by #%%%.$",
+		--[[Translation missing --]]
+		["Hit2"] = "^UNUSED$",
+		--[[Translation missing --]]
+		["HolySpellDamage"] = "^%+# Holy Spell Damage$",
+		--[[Translation missing --]]
+		["HolySpellDamage2"] = "^Equip: Increases damage done by Holy spells and effects by up to #%.$",
+		["Hp5"] = "^Восстанавливает # здоровья каждые 5 сек%.$",
+		["Hp52"] = "^Восстанавливает # здоровья за 5 сек%.$",
+		["Hp53"] = "^%+?# [зЗ]доровья [кК]аждые 5 [сС]ек%.?$",
+		["Hp54"] = "^%+?# [зЗ]здоровья [зЗ]а 5 [сС]ек%.?$",
+		["Intellect"] = "^%+?# к интеллекту$",
 		["Leather"] = "^Кожа$",
-		["Leech"] = "^%+([%d%., ]+) к самоисцелению$",
+		["Leech"] = "^%+# к самоисцелению$",
 		["Mace"] = "^Дробящее$",
 		["Mail"] = "^Кольчуга$",
-		["Mastery"] = "^%+?([%d%., ]+) к искусности$",
-		["Mastery2"] = "^%+?([%d%., ]+) к показателю искусности$",
+		["Mastery"] = "^%+?# к искусности$",
+		["Mastery2"] = "^%+?# к показателю искусности$",
 		["MetaGemRequirements"] = "|cff%x%x%x%x%x%xТребуется",
-		["MovementSpeed"] = "^%+([%d%., ]+) к скорости передвижения$",
+		["MovementSpeed"] = "^%+# к скорости передвижения$",
+		--[[Translation missing --]]
+		["Mp5"] = "^Equip: Restores # mana per 5 sec%.$",
+		["Mp52"] = "^%+?# mana every 5 sec%.$",
 		["MultiStatHeading"] = "^Различные характеристики$",
 		["MultiStatSeparator1"] = "и",
-		["Multistrike"] = "^%+([%d%., ]+) к многократной атаке$",
+		["Multistrike"] = "^%+# к многократной атаке$",
+		--[[Translation missing --]]
+		["NatureResist"] = "^%+?# Nature Resistance$",
+		--[[Translation missing --]]
+		["NatureSpellDamage"] = "^%+# Nature Spell Damage$",
+		--[[Translation missing --]]
+		["NatureSpellDamage2"] = "^Equip: Increases damage done by Nature spells and effects by up to #%.$",
 		["NormalizationEnchant"] = "^Чары: (.*)$",
-		["Parry"] = "^%+?([%d%., ]+) к парированию$",
-		["Parry2"] = "^%+?([%d%., ]+) к показателю парирования$",
+		["Parry"] = "^%+?# к парированию$",
+		["Parry2"] = "^%+?# к показателю парирования$",
 		["Plate"] = "^Латы$",
 		["Polearm"] = "^Древковое$",
-		["PvPPower"] = "^%+?([%d%.,]+) к PvP%-силе$",
+		["PvPPower"] = "^%+?# к PvP%-силе$",
 		["RaidFinder"] = "^Поиск рейда$",
+		--[[Translation missing --]]
+		["Rap"] = "^Equip: %+# ranged Attack Power%.$",
 		["Requires2"] = "^Требуемый уровень",
-		["Resilience"] = "^%+?([%d%., ]+) к PvP%-устойчивости$",
+		["Resilience"] = "^%+?# к PvP%-устойчивости$",
 		["Resilience2"] = "^UNUSED$",
-		["Scope"] = "^Scope %(%+([%d%.,]+) Damage%)$",
-		["ScopeCrit"] = "^Scope %(%+([%d%.,]+) Critical Strike%)$",
-		["ScopeRangedCrit"] = "^%+?([%d%.,]+) Ranged Critical Strike$",
+		["Scope"] = "^Scope %(%+# Damage%)$",
+		["ScopeCrit"] = "^Scope %(%+# Critical Strike%)$",
+		["ScopeRangedCrit"] = "^%+?# Ranged Critical Strike$",
+		--[[Translation missing --]]
+		["ShadowResist"] = "^%+?# Shadow Resistance$",
+		--[[Translation missing --]]
+		["ShadowSpellDamage"] = "^%+# Shadow Spell Damage$",
+		--[[Translation missing --]]
+		["ShadowSpellDamage2"] = "^Equip: Increases damage done by Shadow spells and effects by up to #%.$",
 		["Shield"] = "^Щит$",
 		["SocketBonusPrefix"] = "При соответствии цвета:",
-		["Speed"] = "^Скорость ([%d%., ]+)$",
+		["Speed"] = "^Скорость #$",
 		["Speed2"] = "^UNUSED$",
-		["SpellPower"] = "^%+?([%d%., ]+) к силе заклинаний$",
-		["Spirit"] = "^%+?([-%d%., ]+) к духу$",
+		--[[Translation missing --]]
+		["SpellCrit"] = "^Equip: Improves your chance to get a critical strike with spells by ([-%d%.,]+)%%%.$",
+		--[[Translation missing --]]
+		["SpellDamage"] = "^%+# Spell Damage$",
+		--[[Translation missing --]]
+		["SpellDamage2"] = "^Equip: Increases damage and healing done by magical spells and effects by up to ([-%d%.,]+)%.$",
+		--[[Translation missing --]]
+		["SpellHit"] = "^Equip: Improves your chance to hit with spells by #%%%.$",
+		["SpellPower"] = "^%+?# к силе заклинаний$",
+		["Spirit"] = "^%+?# к духу$",
 		["Staff"] = "^Посох$",
-		["Stamina"] = "^%+?([-%d%., ]+) к выносливости$",
-		["Strength"] = "^%+?([-%d%., ]+) к силе$",
+		["Stamina"] = "^%+?# к выносливости$",
+		["Strength"] = "^%+?# к силе$",
 		["Sword"] = "^Меч$",
 		["TemporaryBuffMinutes"] = "^.+%(%d+ мин%)$",
 		["TemporaryBuffSeconds"] = "^.+%(%d+ сек%)$",
@@ -296,26 +440,26 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 		["Titanforged"] = "^Кованый титанами$",
 		["UpgradeLevel"] = "^Уровень улучшения:",
 		["Use"] = "Используется:",
-		["Versatility"] = "^%+([%d%., ]+) к [показателю ]-универсальности$",
+		["Versatility"] = "^%+# к [показателю ]-универсальности$",
 		["Wand"] = "^Жезл$",
 		["Warforged"] = "^Предмет закален в бою$",
 		["Warglaives"] = "^Боевые клинки$",
-		["WeaponDamage"] = "^Урон: ([%d%., ]+) %- ([%d%., ]+)$",
-		["WeaponDamageArcane"] = "^%+?([%d%., ]+) %- ([%d%., ]+) ед%. урона от тайной магии$",
-		["WeaponDamageArcaneExact"] = "^%+?([%d%., ]+) ед%. урона от тайной магии$",
-		["WeaponDamageEnchantment"] = "^%+?([%d%., ]+) к урону оружием$",
-		["WeaponDamageEquip"] = "^%+?([%d%., ]+) к урону от оружия%.$",
-		["WeaponDamageExact"] = "^Урон: %+?([%d%., ]+)$",
-		["WeaponDamageFire"] = "^%+?([%d%., ]+) %- ([%d%., ]+) ед%. урона от огня$",
-		["WeaponDamageFireExact"] = "^%+?([%d%., ]+) ед%. урона от огня$",
-		["WeaponDamageFrost"] = "^%+?([%d%., ]+) %- ([%d%., ]+) ед%. урона от магии льда$",
-		["WeaponDamageFrostExact"] = "^%+?([%d%., ]+) ед%. урона от магии льда$",
-		["WeaponDamageHoly"] = "^%+?([%d%., ]+) %- ([%d%., ]+) ед%. урона от магии света$",
-		["WeaponDamageHolyExact"] = "^%+?([%d%., ]+) ед%. урона от магии света$",
-		["WeaponDamageNature"] = "^%+?([%d%., ]+) %- ([%d%., ]+) ед%. урона от сил природы$",
-		["WeaponDamageNatureExact"] = "^%+?([%d%., ]+) ед%. урона от сил природы$",
-		["WeaponDamageShadow"] = "^%+?([%d%., ]+) %- ([%d%., ]+) ед%. урона от темной магии$",
-		["WeaponDamageShadowExact"] = "^%+?([%d%., ]+) ед%. урона от темной магии$"
+		["WeaponDamage"] = "^Урон: # %- #$",
+		["WeaponDamageArcane"] = "^%+?# %- # ед%. урона от тайной магии$",
+		["WeaponDamageArcaneExact"] = "^%+?# ед%. урона от тайной магии$",
+		["WeaponDamageEnchantment"] = "^%+?# к урону оружием$",
+		["WeaponDamageEquip"] = "^%+?# к урону от оружия%.$",
+		["WeaponDamageExact"] = "^Урон: %+?#$",
+		["WeaponDamageFire"] = "^%+?# %- # ед%. урона от огня$",
+		["WeaponDamageFireExact"] = "^%+?# ед%. урона от огня$",
+		["WeaponDamageFrost"] = "^%+?# %- # ед%. урона от магии льда$",
+		["WeaponDamageFrostExact"] = "^%+?# ед%. урона от магии льда$",
+		["WeaponDamageHoly"] = "^%+?# %- # ед%. урона от магии света$",
+		["WeaponDamageHolyExact"] = "^%+?# ед%. урона от магии света$",
+		["WeaponDamageNature"] = "^%+?# %- # ед%. урона от сил природы$",
+		["WeaponDamageNatureExact"] = "^%+?# ед%. урона от сил природы$",
+		["WeaponDamageShadow"] = "^%+?# %- # ед%. урона от темной магии$",
+		["WeaponDamageShadowExact"] = "^%+?# ед%. урона от темной магии$",
 	},
 	["UI"] = {
 		["AboutHeader"] = "О Pawn",
@@ -444,7 +588,9 @@ Every item in World of Warcraft has an ID number associated with it.  This infor
 		["OptionsResetUpgradesTooltip"] = [=[Pawn will forget what it knows about the best items you've ever equipped and re-scan your gear in order to provide more up-to-date upgrade information in the future.
 
 Use this feature if you find that Pawn is making poor upgrade suggestions as a result of items that you've vendored, destroyed, or otherwise do not use anymore.  This will affect all of your characters that use Pawn.]=],
+		--[[Translation missing --]]
 		["OptionsShowItemLevelUpgrades"] = "Show item level upgrades",
+		--[[Translation missing --]]
 		["OptionsShowItemLevelUpgradesTooltip"] = "Pawn will show you items that are of a higher item level than what you've previously equipped in that slot in addition to normal upgrades.",
 		["OptionsShowRelicUpgrades"] = "Отображать улучшения для реликвий",
 		["OptionsShowRelicUpgradesTooltip"] = "Pawn будет показывать вам если реликвия улучшит уровень одного из ваших артефактов. (работает несколько иначе чем другие советы по улучшения, т.к. основано только на уровне вещи, а не на статах)",
@@ -546,7 +692,7 @@ For more information on this setting, see the readme file.]=],
 		["ValuesTab"] = "Значения",
 		["ValuesWelcome"] = "Вы можете изменять веса параметров для шкалы.  Для управления шкалами перейдите на закладку Шкалы.",
 		["ValuesWelcomeNoScales"] = "Шкала не выбрана.  Для начала создайте шкалу.",
-		["ValuesWelcomeReadOnly"] = "Выбранная шкала не может быть изменена.  Если вы хотите поменять значения, сделайте копию текущей шкалы."
+		["ValuesWelcomeReadOnly"] = "Выбранная шкала не может быть изменена.  Если вы хотите поменять значения, сделайте копию текущей шкалы.",
 	}
 }
 end

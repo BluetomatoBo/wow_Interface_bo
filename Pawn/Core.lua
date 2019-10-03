@@ -21,12 +21,15 @@ PawnSingleStatMultiplier = "_SingleMultiplier"
 PawnMultipleStatsFixed = "_MultipleFixed"
 PawnMultipleStatsExtract = "_MultipleExtract"
 
+local IsClassic = VgerCore.IsClassic
+
 ------------------------------------------------------------
 -- Localization
 ------------------------------------------------------------
 
 -- The languages that Pawn is currently translated into (http://www.wowpedia.org/API_GetLocale)
 PawnLocalizedLanguages = { "deDE", "enUS", "enGB", "esES", "esMX", "frFR", "itIT", "koKR", "ptBR", "ruRU", "zhCN", "zhTW" }
+PawnLocalizedLanguagesClassic = { "deDE", "enUS", "enGB", "esES", "esMX", "frFR" }
 
 -- NOTE: These functions are not super-flexible for general purpose; they don't properly handle all sorts of Lua pattern matching syntax
 -- that could be in strings, like "." and so on.  But they've been sufficient so far.
@@ -38,7 +41,9 @@ end
 
 -- Turns a game constant into a regular expression but without the ^ and $ on the ends.
 function PawnGameConstantUnwrapped(Text)
-	-- REVIEW: This function seems like it might be pretty inefficient...
+	-- Some of these constants don't exist on Classic, so skip them: but not on live, where we would want this to error out.
+	if Text == nil and IsClassic then return "^UNUSED$" end
+
 	local Ret1 = gsub(Text, "%%", "%%%%")
 	return gsub(Ret1, "%-", "%%-")
 end

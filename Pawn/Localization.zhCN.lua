@@ -55,8 +55,7 @@ PawnLocal =
 	["TooltipBestAnnotationSimple"] = "%s  插槽最佳",
 	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 提升%s|r",
 	["TooltipDowngradeAnnotation"] = "%s  |TInterface\\\\AddOns\\\\Pawn\\\\Textures\\\\UpgradeArrow:0|t|cff00ff00-%.0f%% 将会降低%s|r",
-	--Translation missing 
-	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d |4level:levels;%s|r",
+	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d |4物品等级:物品等级;%s|r",
 	["TooltipSecondBestAnnotation"] = "%s  |cff8ec3e6(次佳)|r",
 	["TooltipSecondBestAnnotationSimple"] = "%s  次佳",
 	["TooltipUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% 提升%s|r",
@@ -80,15 +79,57 @@ PawnLocal =
 	["VisibleScalesHeader"] = "%s的属性权重",
 	["Stats"] = {
 		["AgilityInfo"] = "敏捷，为敏捷型职业增加攻击强度。",
+		--[[Translation missing --]]
+		["ApInfo"] = "Attack Power.  Increases the damage of physical attacks.  Does not include attack power gained from strength and agility.",
+		--[[Translation missing --]]
+		["ArcaneResistInfo"] = "Arcane Resistance.  Reduces the damage taken from arcane-based attacks.",
+		--[[Translation missing --]]
+		["ArcaneSpellDamage"] = "Arcane Damage",
+		--[[Translation missing --]]
+		["ArcaneSpellDamageInfo"] = "Arcane damage.  Increases the damage dealt by your arcane spells.",
 		["ArmorInfo"] = "基础护甲值。 不包含额外护甲（一般是绿色文字颜色）和部分职业使用技能等增加的额外护甲。",
 		["ArmorTypes"] = "护甲类型",
 		["AvoidanceInfo"] = "闪避，范围效果法术的伤害降低。",
+		--[[Translation missing --]]
+		["BlockRatingInfo"] = "Block chance.  Increases the chances of a successful shield block.",
+		--[[Translation missing --]]
+		["BlockValueInfo"] = "Shield block value.  Increases the damage that a shield absorbs when it successfully blocks.",
 		["Cloth"] = "布甲",
 		["ClothInfo"] = "物品类型为布甲。",
 		["Crit"] = "爆击",
 		["CritInfo"] = "爆击等级，影响近战、远程和法术的爆击几率。",
+		--[[Translation missing --]]
+		["DefenseInfo"] = "Defense skill.  Decreases the chance that you'll be hit by boss attacks.",
+		--[[Translation missing --]]
+		["DodgeInfo"] = "Dodge.  Increases the chance that you'll dodge attacks entirely.",
 		["DpsInfo"] = "武器的每秒伤害。(如果你想要给不同类型的武器估分，前往 \"特殊武器属性\" 部分。)",
+		--[[Translation missing --]]
+		["FeralApInfo"] = "Feral Attack Power.  Increases the damage of druid attacks when in feral forms.  Does not include attack power gained from strength and agility.",
+		--[[Translation missing --]]
+		["FireResistInfo"] = "Fire Resistance.  Reduces the damage taken from fire-based attacks.",
+		--[[Translation missing --]]
+		["FireSpellDamage"] = "Fire Damage",
+		--[[Translation missing --]]
+		["FireSpellDamageInfo"] = "Fire damage.  Increases the damage dealt by your fire spells.",
+		--[[Translation missing --]]
+		["FrostResistInfo"] = "Frost Resistance.  Reduces the damage taken from frost-based attacks.",
+		--[[Translation missing --]]
+		["FrostSpellDamage"] = "Frost Damage",
+		--[[Translation missing --]]
+		["FrostSpellDamageInfo"] = "Frost damage.  Increases the damage dealt by your frost spells.",
 		["HasteInfo"] = "急速等级，影响近战、远程和法术的攻击速度",
+		--[[Translation missing --]]
+		["Healing"] = "Spell Healing",
+		--[[Translation missing --]]
+		["HealingInfo"] = "Spell healing.  Increases the power of your healing spells.",
+		--[[Translation missing --]]
+		["HitInfo"] = "Hit.  Increases the chance that your physical attacks hit the target, especially bosses.",
+		--[[Translation missing --]]
+		["HolySpellDamage"] = "Holy Damage",
+		--[[Translation missing --]]
+		["HolySpellDamageInfo"] = "Holy damage.  Increases the damage dealt by your holy spells.",
+		--[[Translation missing --]]
+		["Hp5Info"] = "Health regeneration per 5 seconds.  Increases the rate at which you regenerate health.",
 		["IndestructibleInfo"] = "永不磨损，你的装备不会有耐久度的损耗。",
 		["IndestructibleIs"] = "|cffffffff坚不可摧|r 价值:",
 		["IntellectInfo"] = "智力，为法术型职业增加法术强度。",
@@ -100,8 +141,28 @@ PawnLocal =
 		["MasteryInfo"] = "精通等级，从你投入点数最多的天赋树中获得的奖励。",
 		["MinorStats"] = "副属性",
 		["MovementSpeedInfo"] = "移动速度，使你的角色跑得更快。",
+		--[[Translation missing --]]
+		["Mp5"] = "Mana per 5",
+		--[[Translation missing --]]
+		["Mp5Info"] = "Mana regeneration per 5 seconds.  Affects your mana regeneration even when in combat.",
+		--[[Translation missing --]]
+		["NatureResistInfo"] = "Nature Resistance.  Reduces the damage taken from nature-based attacks.",
+		--[[Translation missing --]]
+		["NatureSpellDamage"] = "Nature Damage",
+		--[[Translation missing --]]
+		["NatureSpellDamageInfo"] = "Nature damage.  Increases the damage dealt by your nature spells.",
+		--[[Translation missing --]]
+		["ParryInfo"] = "Parry.  Increases the chance that you'll parry enemy attacks.",
 		["Plate"] = "板甲",
 		["PlateInfo"] = "物品类型为板甲。",
+		--[[Translation missing --]]
+		["RapInfo"] = "Ranged Attack Power.  Increases the damage of ranged physical attacks.  Does not include attack power gained from agility.",
+		--[[Translation missing --]]
+		["ShadowResistInfo"] = "Shadow Resistance.  Reduces the damage taken from shadow-based attacks.",
+		--[[Translation missing --]]
+		["ShadowSpellDamage"] = "Shadow Damage",
+		--[[Translation missing --]]
+		["ShadowSpellDamageInfo"] = "Shadow damage.  Increases the damage dealt by your shadow spells.",
 		["Shield"] = "盾牌",
 		["ShieldInfo"] = "物品类型为盾牌。",
 		["Sockets"] = "插槽",
@@ -111,6 +172,16 @@ PawnLocal =
 		["SpeedBaselineIs"] = "|cffffffff速度基线|r:",
 		["SpeedInfo"] = "武器攻击速度，武器挥动时间间隔。(如果你喜欢快速武器，此数字应该为负数。前往 \"特殊武器属性\" 中的 \"速度基线\" 部分。)",
 		["SpeedIs"] = "1 |cffffffff攻击速度|r 价值：",
+		--[[Translation missing --]]
+		["SpellCritInfo"] = "Spell critical strike.  Increases the chance that your spells will hit with increased potency.",
+		--[[Translation missing --]]
+		["SpellDamage"] = "Spell Damage",
+		--[[Translation missing --]]
+		["SpellDamageInfo"] = "Spell damage.  Increases the damage dealt by your offensive spells.",
+		--[[Translation missing --]]
+		["SpellHitInfo"] = "Spell Hit.  Increases the chance that your damaging spells hit the target, especially bosses.",
+		--[[Translation missing --]]
+		["SpiritInfo"] = "Spirit.  Affects your out-of-combat mana regeneration.",
 		["StaminaInfo"] = "耐力，增加你的生命值上限。",
 		["StrengthInfo"] = "力量，为力量型职业增加攻击强度。",
 		["VersatilityInfo"] = "全能，造成的伤害和治疗提高效果，并降低收到的伤害。",
@@ -201,48 +272,87 @@ PawnLocal =
 		["WeaponTypeWand"] = "魔杖",
 		["WeaponTypeWandInfo"] = "物品类型为魔杖。",
 		["WeaponTypeWarglaive"] = "战刃",
-		["WeaponTypeWarglaiveInfo"] = "物品类型为战刃。"
+		["WeaponTypeWarglaiveInfo"] = "物品类型为战刃。",
 	},
 	["TooltipParsing"] = {
-		["Agility"] = "^%+?([-%d%.,]+) 敏捷$",
-		["AllStats"] = "^%+?([%d%.,]+) 所有属性$",
-		["Ap"] = "^%+?([%d%.,]+) 攻击强度$",
-		["Armor"] = "^([%d%.,]+)点护甲$",
+		["Agility"] = "^%+?# 敏捷$",
+		["AllStats"] = "^%+?# 所有属性$",
+		["Ap"] = "^%+?# 攻击强度$",
+		--[[Translation missing --]]
+		["Ap2"] = "^Equip: %+# Attack Power%.$",
+		--[[Translation missing --]]
+		["ArcaneResist"] = "^%+?# Arcane Resistance$",
+		--[[Translation missing --]]
+		["ArcaneSpellDamage"] = "^%+# Arcane Spell Damage$",
+		--[[Translation missing --]]
+		["ArcaneSpellDamage2"] = "^Equip: Increases damage done by Arcane spells and effects by up to #%.$",
+		["Armor"] = "^#点护甲$",
 		["Armor2"] = "^UNUSED$",
-		["Avoidance"] = "^%+([%d%.,]+) 闪避$",
+		["Avoidance"] = "^%+# 闪避$",
 		["Axe"] = "^斧$",
 		["BagSlots"] = "^%d+格容器 .+$",
+		--[[Translation missing --]]
+		["Block"] = "^%+?# Block$",
+		--[[Translation missing --]]
+		["BlockPercent"] = "^Equip: Increases your chance to block attacks with a shield by #%%%.$",
+		--[[Translation missing --]]
+		["BlockValue"] = "^Equip: Increases the block value of your shield by #%.$",
 		["Bow"] = "^弓$",
 		["ChanceOnHit"] = "击中时可能：",
 		["Charges"] = "^.+ Charges?$",
 		["Cloth"] = "^布甲$",
 		["CooldownRemaining"] = "^冷却时间剩余：",
-		["Crit"] = "^%+?([%d%.,]+) 爆击$",
+		["Crit"] = "^%+?# 爆击$",
 		["Crit2"] = "^UNUSED$",
+		--[[Translation missing --]]
+		["CritPercent"] = "^Equip: Improves your chance to get a critical strike by #%%%.$",
 		["Crossbow"] = "^弩$",
 		["Dagger"] = "^匕首$",
+		--[[Translation missing --]]
+		["DefenseSkill"] = "^Equip: Increased Defense %+#%.$",
+		["DefenseSkillSimple"] = "^%+?# Defense$",
 		["DisenchantingRequires"] = "^分解需要",
-		["Dodge"] = "^%+?([%d%.,]+) 躲闪$",
+		["Dodge"] = "^%+?#%%? 躲闪$",
 		["Dodge2"] = "^UNUSED$",
-		["Dps"] = "^%（每秒伤害([%d%.,]+)）$",
-		["DpsAdd"] = "^Adds ([%d%.,]+) damage per second$",
+		--[[Translation missing --]]
+		["DodgePercent"] = "^Equip: Increases your chance to dodge an attack by #%%%.$",
+		["Dps"] = "^%（每秒伤害#）$",
+		["DpsAdd"] = "^Adds # damage per second$",
 		["Duration"] = "^耐久度:",
 		["Elite"] = "^精锐$",
-		["EnchantmentArmorKit"] = "^%+([%d%.,]+) 护甲$",
-		["EnchantmentCounterweight"] = "^平衡锤 %(%+([%d%.,]+) 急速%",
+		["EnchantmentArmorKit"] = "^%+# 护甲$",
+		["EnchantmentCounterweight"] = "^平衡锤 %(%+# 急速%",
 		["EnchantmentFieryWeapon"] = "^灼热武器$",
-		["EnchantmentHealth"] = "^%+([%d%.,]+) 生命$",
-		["EnchantmentHealth2"] = "^%+([%d%.,]+) 生命值$",
+		["EnchantmentHealth"] = "^%+# 生命$",
+		["EnchantmentHealth2"] = "^%+# 生命值$",
 		["EnchantmentLivingSteelWeaponChain"] = "^活化钢武器链$",
 		["EnchantmentPyriumWeaponChain"] = "^燃钢武器链$",
 		["EnchantmentTitaniumWeaponChain"] = "^泰坦神铁武器链$",
 		["Equip"] = "装备：",
+		--[[Translation missing --]]
+		["FeralAp"] = "^Equip: %+# Attack Power in Cat, Bear, and Dire Bear forms only%.$",
+		--[[Translation missing --]]
+		["FireResist"] = "^%+?# Fire Resistance$",
+		--[[Translation missing --]]
+		["FireSpellDamage"] = "^%+# Fire Spell Damage$",
+		--[[Translation missing --]]
+		["FireSpellDamage2"] = "^Equip: Increases damage done by Fire spells and effects by up to #%.$",
 		["FistWeapon"] = "^拳套$",
 		["Flexible"] = "弹性级别",
+		--[[Translation missing --]]
+		["FrostResist"] = "^%+?# Frost Resistance$",
+		--[[Translation missing --]]
+		["FrostSpellDamage"] = "^%+# Frost Spell Damage$",
+		--[[Translation missing --]]
+		["FrostSpellDamage2"] = "^Equip: Increases damage done by Frost spells and effects by up to #%.$",
 		["Gun"] = "^枪械$",
-		["Haste"] = "^%+?([%d%.,]+) 急速$",
+		["Haste"] = "^%+?# 急速$",
 		["Haste2"] = "^UNUSED$",
 		["HaventCollectedAppearance"] = "^你尚未收藏过此外观$",
+		--[[Translation missing --]]
+		["Healing"] = "^%+# Healing Spells$",
+		--[[Translation missing --]]
+		["Healing2"] = "^Equip: Increases healing done by spells and effects by up to #%.$",
 		["HeirloomLevelRange"] = "^需要等级 %d+ 到 (%d+)",
 		["HeirloomXpBoost"] = "^装备： 获得的经验值提高",
 		["HeirloomXpBoost2"] = "^UNUSED$",
@@ -250,44 +360,77 @@ PawnLocal =
 		["HeroicElite"] = "^英雄精锐级别$",
 		["HeroicThunderforged"] = "英雄雷霆",
 		["HeroicWarforged"] = "英雄战火",
-		["Hp5"] = "^装备: 每5秒恢复([%d%.,]+)生命力。$",
-		["Hp52"] = "^装备: 每5秒恢复([%d%.,]+)生命力。$",
-		["Hp53"] = "^每5秒恢复([%d%.,]+)生命力$",
-		["Hp54"] = "^每5秒恢复([%d%.,]+)生命力。$",
-		["Intellect"] = "^%+?([-%d%.,]+) 智力$",
+		--[[Translation missing --]]
+		["Hit"] = "^Equip: Improves your chance to hit by #%%%.$",
+		--[[Translation missing --]]
+		["Hit2"] = "^UNUSED$",
+		--[[Translation missing --]]
+		["HolySpellDamage"] = "^%+# Holy Spell Damage$",
+		--[[Translation missing --]]
+		["HolySpellDamage2"] = "^Equip: Increases damage done by Holy spells and effects by up to #%.$",
+		["Hp5"] = "^装备: 每5秒恢复#生命力。$",
+		["Hp52"] = "^装备: 每5秒恢复#生命力。$",
+		["Hp53"] = "^每5秒恢复#生命力$",
+		["Hp54"] = "^每5秒恢复#生命力。$",
+		["Intellect"] = "^%+?# 智力$",
 		["Leather"] = "^皮甲$",
-		["Leech"] = "^%+([%d%.,]+) 吸血$",
+		["Leech"] = "^%+# 吸血$",
 		["Mace"] = "^锤$",
 		["Mail"] = "^锁甲$",
-		["Mastery"] = "^%+?([%d%.,]+) 精通$",
+		["Mastery"] = "^%+?# 精通$",
 		["Mastery2"] = "^UNUSED$",
 		["MetaGemRequirements"] = "|cff%x%x%x%x%x%x需要",
-		["MovementSpeed"] = "^%+([%d%.,]+) 加速$",
+		["MovementSpeed"] = "^%+# 加速$",
+		--[[Translation missing --]]
+		["Mp5"] = "^Equip: Restores # mana per 5 sec%.$",
+		["Mp52"] = "^%+?# mana every 5 sec%.$",
 		["MultiStatHeading"] = "^多项统计$",
 		["MultiStatSeparator1"] = "和",
-		["Multistrike"] = "^%+([%d%.,]+) 溅射$",
+		["Multistrike"] = "^%+# 溅射$",
+		--[[Translation missing --]]
+		["NatureResist"] = "^%+?# Nature Resistance$",
+		--[[Translation missing --]]
+		["NatureSpellDamage"] = "^%+# Nature Spell Damage$",
+		--[[Translation missing --]]
+		["NatureSpellDamage2"] = "^Equip: Increases damage done by Nature spells and effects by up to #%.$",
 		["NormalizationEnchant"] = "^附魔：(.*)$",
-		["Parry"] = "^%+?([%d%.,]+) 招架$",
+		["Parry"] = "^%+?# 招架$",
 		["Parry2"] = "^UNUSED$",
 		["Plate"] = "^板甲$",
 		["Polearm"] = "^长柄武器$",
-		["PvPPower"] = "^%+?([%d%.,]+) PvP强度$",
+		["PvPPower"] = "^%+?# PvP强度$",
 		["RaidFinder"] = "^随机团队$",
+		--[[Translation missing --]]
+		["Rap"] = "^Equip: %+# ranged Attack Power%.$",
 		["Requires2"] = "^UNUSED$",
-		["Resilience"] = "^%+?([%d%.,]+) PvP韧性$",
+		["Resilience"] = "^%+?# PvP韧性$",
 		["Resilience2"] = "^UNUSED$",
-		["Scope"] = "^瞄准镜%（%+([%d%.,]+) 伤害%）$",
-		["ScopeCrit"] = "^瞄准镜 %(%+([%d%.,]+) 爆击%)$",
-		["ScopeRangedCrit"] = "^%+?([%d%.,]+) 远程爆击$",
+		["Scope"] = "^瞄准镜%（%+# 伤害%）$",
+		["ScopeCrit"] = "^瞄准镜 %(%+# 爆击%)$",
+		["ScopeRangedCrit"] = "^%+?# 远程爆击$",
+		--[[Translation missing --]]
+		["ShadowResist"] = "^%+?# Shadow Resistance$",
+		--[[Translation missing --]]
+		["ShadowSpellDamage"] = "^%+# Shadow Spell Damage$",
+		--[[Translation missing --]]
+		["ShadowSpellDamage2"] = "^Equip: Increases damage done by Shadow spells and effects by up to #%.$",
 		["Shield"] = "^盾牌$",
 		["SocketBonusPrefix"] = "镶孔奖励：",
-		["Speed"] = "^速度 ([%d%.,]+)$",
+		["Speed"] = "^速度 #$",
 		["Speed2"] = "^UNUSED$",
-		["SpellPower"] = "^%+?([%d%.,]+) 法术强度$",
-		["Spirit"] = "^%+?([-%d%.,]+) 精神$",
+		--[[Translation missing --]]
+		["SpellCrit"] = "^Equip: Improves your chance to get a critical strike with spells by #%%%.$",
+		--[[Translation missing --]]
+		["SpellDamage"] = "^%+# Spell Damage$",
+		--[[Translation missing --]]
+		["SpellDamage2"] = "^Equip: Increases damage and healing done by magical spells and effects by up to #%.$",
+		--[[Translation missing --]]
+		["SpellHit"] = "^Equip: Improves your chance to hit with spells by #%%%.$",
+		["SpellPower"] = "^%+?# 法术强度$",
+		["Spirit"] = "^%+?# 精神$",
 		["Staff"] = "^法杖$",
-		["Stamina"] = "^%+?([-%d%.,]+) 耐力$",
-		["Strength"] = "^%+?([-%d%.,]+) 力量$",
+		["Stamina"] = "^%+?# 耐力$",
+		["Strength"] = "^%+?# 力量$",
 		["Sword"] = "^剑$",
 		["TemporaryBuffMinutes"] = "^.+%(%d+ 分钟%)$",
 		["TemporaryBuffSeconds"] = "^.+%(%d+ 秒%)$",
@@ -296,26 +439,26 @@ PawnLocal =
 		["Titanforged"] = "^泰坦造物$",
 		["UpgradeLevel"] = "^升级：",
 		["Use"] = "使用：",
-		["Versatility"] = "^%+([%d%.,]+) 全能$",
+		["Versatility"] = "^%+# 全能$",
 		["Wand"] = "^魔杖$",
 		["Warforged"] = "战火",
 		["Warglaives"] = "^战刃$",
-		["WeaponDamage"] = "^([%d%.,]+) %- ([%d%.,]+)点伤害$",
-		["WeaponDamageArcane"] = "^%+?([%d%.,]+) %- ([%d%.,]+)点奥术伤害$",
-		["WeaponDamageArcaneExact"] = "^%+?([%d%.,]+) 点奥术伤害$",
-		["WeaponDamageEnchantment"] = "^%+?([%d%.,]+) 武器伤害$",
-		["WeaponDamageEquip"] = "^装备： %+?([%d%.,]+) 武器伤害%。",
-		["WeaponDamageExact"] = "^%+?([%d%.,]+) 伤害$",
-		["WeaponDamageFire"] = "^%+?([%d%.,]+) %- ([%d%.,]+)点火焰伤害$",
-		["WeaponDamageFireExact"] = "^%+?([%d%.,]+) 点火焰伤害$",
-		["WeaponDamageFrost"] = "^%+?([%d%.,]+) %- ([%d%.,]+)点冰霜伤害$",
-		["WeaponDamageFrostExact"] = "^%+?([%d%.,]+) 点冰霜伤害$",
-		["WeaponDamageHoly"] = "^%+?([%d%.,]+) %- ([%d%.,]+)点神圣伤害$",
-		["WeaponDamageHolyExact"] = "^%+?([%d%.,]+) 点神圣伤害$",
-		["WeaponDamageNature"] = "^%+?([%d%.,]+) %- ([%d%.,]+)点自然伤害$",
-		["WeaponDamageNatureExact"] = "^%+?([%d%.,]+) 点自然伤害$",
-		["WeaponDamageShadow"] = "^%+?([%d%.,]+) %- ([%d%.,]+)点暗影伤害$",
-		["WeaponDamageShadowExact"] = "^%+?([%d%.,]+) 点暗影伤害$"
+		["WeaponDamage"] = "^# %- #点伤害$",
+		["WeaponDamageArcane"] = "^%+?# %- #点奥术伤害$",
+		["WeaponDamageArcaneExact"] = "^%+?# 点奥术伤害$",
+		["WeaponDamageEnchantment"] = "^%+?# 武器伤害$",
+		["WeaponDamageEquip"] = "^装备： %+?# 武器伤害%。",
+		["WeaponDamageExact"] = "^%+?# 伤害$",
+		["WeaponDamageFire"] = "^%+?# %- #点火焰伤害$",
+		["WeaponDamageFireExact"] = "^%+?# 点火焰伤害$",
+		["WeaponDamageFrost"] = "^%+?# %- #点冰霜伤害$",
+		["WeaponDamageFrostExact"] = "^%+?# 点冰霜伤害$",
+		["WeaponDamageHoly"] = "^%+?# %- #点神圣伤害$",
+		["WeaponDamageHolyExact"] = "^%+?# 点神圣伤害$",
+		["WeaponDamageNature"] = "^%+?# %- #点自然伤害$",
+		["WeaponDamageNatureExact"] = "^%+?# 点自然伤害$",
+		["WeaponDamageShadow"] = "^%+?# %- #点暗影伤害$",
+		["WeaponDamageShadowExact"] = "^%+?# 点暗影伤害$",
 	},
 	["UI"] = {
 		["AboutHeader"] = "关于 Pawn",
@@ -406,9 +549,11 @@ Pawn插件默认已经参考AskMrRobot给所有职业的专精建立了标准评
 		["OptionsColorBorder"] = "可升级的著色提示外框",
 		["OptionsColorBorderTooltip"] = "让属性更好的装备的信息外框变成绿色，以更直观的提醒你哪件更好。取消将不做任何改动。",
 		["OptionsCurrentValue"] = "同时显示目前与基础的数值",
-		["OptionsCurrentValueTooltip"] = [=[启用后数值将显示为“目前数值（基础数值）”，基础数值的意义是指该装备镶嵌最适合的宝石（如果有的话）+附魔+重铸+其他任何能提升装备属性的方法后，所能提升到的最佳数值。取消选择后，将只显示目前数值。
+		["OptionsCurrentValueTooltip"] = [=[启用后数值将显示为“目前数值（基础数值）”。目前数值是指装备当前经过附魔等操作后所达到的当前属性评分数值（不包含类似“厚皮之印”这种无法量化的数值评分）。基础数值的是指该装备不包含附魔等操作原本的属性评分（如果有孔的话，默认会算进去镶嵌最适合属性的宝石）。
 
-该功能的作用是，当你获得一件新装备的时候，能直观的看到这件装备所能达到的最佳评分，你不用镶嵌宝石+附魔等操作后，才能比较这件装备跟你现在所使用的哪件比较好。]=],
+该功能的作用是，当你获得一件新装备的时候，能直观的看到这件装备所能达到的最佳评分，你不用镶嵌宝石+附魔等操作后，才能比较这件装备跟你现在所使用的哪件比较好。
+
+取消选择后，将只显示目前数值。]=],
 		["OptionsDebug"] = "显示侦错讯息",
 		["OptionsDebugTooltip"] = [=[如果你不知道Pawn如何去计算一件装备的评分，可以启用以详细查看。
 
@@ -439,10 +584,10 @@ Pawn插件默认已经参考AskMrRobot给所有职业的专精建立了标准评
 		["OptionsResetUpgradesTooltip"] = [=[Pawn会清除本身记录的曾经见装备过的最好的装备（哪怕在背包里、银行里甚至摧毁贩卖了），所有评分从你角色现在已装备的为标准来比较。
 
 当你因某种原因某件装备丢失或者不再使用的时候，插件默认还是以那件装备计算，引起的不便。或者装备数据紊乱的时候，可以使用此功能。]=],
-		["OptionsShowItemLevelUpgrades"] = "Show item level upgrades",
-		["OptionsShowItemLevelUpgradesTooltip"] = "Pawn will show you items that are of a higher item level than what you've previously equipped in that slot in addition to normal upgrades.",
+		["OptionsShowItemLevelUpgrades"] = "显示装等的提升",
+		["OptionsShowItemLevelUpgradesTooltip"] = "根据插件记录，如果同部位[未穿戴过]的装备装等高于[已装备过]的（非正在装备），Pawn将提示关于这单个部位装等的提升。",
 		["OptionsShowRelicUpgrades"] = "显示神器圣物的提升",
-		["OptionsShowRelicUpgradesTooltip"] = "Pawn将在背包里，装备等级对神器有提升的圣物上，标记一个提升标记。",
+		["OptionsShowRelicUpgradesTooltip"] = "Pawn将在背包里，对神器有装等提升的圣物上，标记一个提升标记。",
 		["OptionsSocketingAdvisor"] = "显示插槽建议",
 		["OptionsSocketingAdvisorTooltip"] = "当你打开宝石镶嵌窗口的时候，根据你设置里选择的方式，在窗口下方提示你，插什么宝石是最适合你的属性权重。",
 		["OptionsTab"] = "设置",
@@ -537,7 +682,7 @@ Pawn插件默认已经参考AskMrRobot给所有职业的专精建立了标准评
 		["ValuesTab"] = "数值",
 		["ValuesWelcome"] = "你可以为该属性权重自定义每项属性的数值.  若要管理你的自定义项目和增加新的项目,请用属性权重页面.",
 		["ValuesWelcomeNoScales"] = "你还未选择属性权重. 若要启用,请去属性权重页面并启动一个新属性权重或者从网上粘贴一个.",
-		["ValuesWelcomeReadOnly"] = "已被选择的该属性权重不能被更改.若你想改变这些数值,请去属性权重页面生成一份备份或者启用一个新的属性权重."
+		["ValuesWelcomeReadOnly"] = "已被选择的该属性权重不能被更改.若你想改变这些数值,请去属性权重页面生成一份备份或者启用一个新的属性权重.",
 	}
 }
 end
