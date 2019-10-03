@@ -68,7 +68,7 @@ end
 
 local points = {
     -- [mapfile] = { [coord] = { [achievement_id], [criteria_index] } }
-    ["KunLaiSummit"] = {
+    [379] = { -- Kun Lai Summit
         [71726302] = {6847, 3}, -- The Song of the Yaungol, Yaungoil
         [40904250] = {6855, 7}, -- The Seven Burdens of Shaohao, The Emperor's Burden - Part 7
         [77559533] = {6716, 2}, -- Between a Saurok and a Hard Place, The Defiant
@@ -82,12 +82,12 @@ local points = {
         [45766190] = {6850, 4}, -- Hozen in the Mist, The Hozen Ravage
         -- [53004650] = {6754, 1, "Entrance"}, -- The Dark Heart of the Mogu, Valley of the Emperors
     },
-    ["TownlongWastes"] = {
+    [388] = { -- Townlong Steppes
         [84087286] = {6847, 4}, -- The Song of the Yaungol, Trapped in a Strange Land
         [37746291] = {6855, 5}, -- The Seven Burdens of Shaohao, The Emperor's Burden - Part 5
         [65505010] = {6847, 2}, -- The Song of the Yaungol, Dominance
     },
-    ["ValleyoftheFourWinds"] = {
+    [376] = { -- Valley of the Four Winds
         [34576387] = {6856, 3}, -- Ballad of Liu Lang, The Wandering Widow
         [20255586] = {6856, 1}, -- Ballad of Liu Lang, The Birthplace of Liu Lang
         [83192118] = {6850, 3}, -- Hozen in the Mist, Embracing the Passions
@@ -95,7 +95,7 @@ local points = {
         [61223469] = {6846, 2}, -- Fish Tails, Waterspeakers
         [55094713] = {6856, 2}, -- Ballad of Liu Lang, A Most Famous Bill of Sale
     },
-    ["DreadWastes"] = {
+    [422] = { -- Dread Wastes
         [67506090] = {6716, 3}, -- Between a Saurok and a Hard Place, The Deserters
         [35533261] = {6857, 4}, -- Heart of the Mantid Swarm, The Empress
         -- [53611548] = {6857, 3, "Entrance"}, -- Heart of the Mantid Swarm, Amber
@@ -103,7 +103,7 @@ local points = {
         [48383285] = {6857, 1}, -- Heart of the Mantid Swarm, Cycle of the Mantid
         [59905470] = {6857, 2}, -- Heart of the Mantid Swarm, Mantid Society
     },
-    ["Krasarang"] = {
+    [418] = { -- Krasarang Wilds
         [50943169] = {6754, 2}, -- The Dark Heart of the Mogu, The Lost Dynasty
         [32782941] = {6716, 4}, -- Between a Saurok and a Hard Place, The Last Stand
         [40505662] = {6855, 4}, -- The Seven Burdens of Shaohao, The Emperor's Burden - Part 4
@@ -112,13 +112,13 @@ local points = {
         [72213101] = {6856, 4}, -- Ballad of Liu Lang, Waiting for the Turtle
         [81431145] = {7230, 1}, -- Legend of the Brewfathers, Quan Tou Kou the Two Fisted
     },
-    ["ValeofEternalBlossoms"] = {
+    [390] = { -- Vale of Eternal Blossoms
         [26622149] = {6858, 4}, -- What is Worth Fighting For, Together, We Are Strong
         [40247748] = {6754, 4}, -- The Dark Heart of the Mogu, The Thunder King
         [52936865] = {6858, 2}, -- What is Worth Fighting For, Always Remember
         [68804422] = {6855, 8}, -- The Seven Burdens of Shaohao, The Emperor's Burden - Part 8
     },
-    ["TheJadeForest"] = {
+    [371] = { -- The Jade Forest
         [35743046] = {6858, 3}, -- What is Worth Fighting For, The First Monks
         [47084514] = {6855, 1}, -- The Seven Burdens of Shaohao, The Emperor's Burden - Part 1
         [26382833] = {6850, 1}, -- Hozen in the Mist, Hozen Speech
@@ -128,7 +128,7 @@ local points = {
         [66018756] = {6846, 1}, -- Fish Tails, Watersmithing
         [55885685] = {6855, 2}, -- The Seven Burdens of Shaohao, The Emperor's Burden - Part 3
     },
-    ["IsleoftheThunderKing"] = {
+    [504] = { -- Isle of the Thunder King
         [35107010] = {8049, 1}, -- Zandalari Prophecy, Coming of Age
         [68704580] = {8049, 2}, -- Zandalari Prophecy, For Council and King
         [36307040] = {8049, 3}, -- Zandalari Prophecy, Shadows of the Loa
@@ -144,9 +144,8 @@ local points = {
     },
 }
 
-local info_from_coord = function(mapFile, coord)
-    mapFile = string.gsub(mapFile, "_terrain%d+$", "")
-    local point = points[mapFile] and points[mapFile][coord]
+local info_from_coord = function(uiMapId, coord)
+    local point = points[uiMapId] and points[uiMapId][coord]
     if point then
         local _, achievement = GetAchievementInfo(point[1])
         local criteria = GetAchievementCriteriaInfo(point[1], point[2])
@@ -159,24 +158,23 @@ end
 local HLHandler = {}
 local info = {}
 
-function HLHandler:OnEnter(mapFile, coord)
+function HLHandler:OnEnter(uiMapId, coord)
     local tooltip = GameTooltip
     if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
         tooltip:SetOwner(self, "ANCHOR_LEFT")
     else
         tooltip:SetOwner(self, "ANCHOR_RIGHT")
     end
-    local achievement, criteria = info_from_coord(mapFile, coord)
+    local achievement, criteria = info_from_coord(uiMapId, coord)
     if achievement then
         tooltip:SetText(("%s (%s)"):format(achievement, criteria))
         tooltip:Show()
     end
 end
 
-local function createWaypoint(button, mapFile, coord)
-    local c, z = HandyNotes:GetCZ(mapFile)
+local function createWaypoint(button, uiMapId, coord)
     local x, y = HandyNotes:getXY(coord)
-    local achievement, criteria = info_from_coord(mapFile, coord)
+    local achievement, criteria = info_from_coord(uiMapId, coord)
     if TomTom then
         local persistent, minimap, world
         if temporary then
@@ -184,9 +182,12 @@ local function createWaypoint(button, mapFile, coord)
             minimap = false
             world = false
         end
-        TomTom:AddZWaypoint(c, z, x*100, y*100, achievement, persistent, minimap, world)
-    elseif Cartographer_Waypoints then
-        Cartographer_Waypoints:AddWaypoint(NotePoint:new(HandyNotes:GetCZToZone(c, z), x, y, achievement))
+        TomTom:AddWaypoint(uiMapId, x, y, {
+            title=achievement,
+            persistent=persistent,
+            minimap=minimap,
+            world=world
+        })
     end
 end
 
@@ -228,16 +229,15 @@ do
     HL_Dropdown.displayMode = "MENU"
     HL_Dropdown.initialize = generateMenu
 
-    function HLHandler:OnClick(button, down, mapFile, coord)
+    function HLHandler:OnClick(button, down, uiMapId, coord)
         if button == "RightButton" and not down then
-            currentZone = string.gsub(mapFile, "_terrain%d+$", "")
             currentCoord = coord
             ToggleDropDownMenu(1, nil, HL_Dropdown, self, 0, 0)
         end
     end
 end
 
-function HLHandler:OnLeave(mapFile, coord)
+function HLHandler:OnLeave(uiMapId, coord)
     GameTooltip:Hide()
 end
 
@@ -256,9 +256,8 @@ do
         end
         return nil, nil, nil, nil
     end
-    function HLHandler:GetNodes(mapFile)
-        mapFile = string.gsub(mapFile, "_terrain%d+$", "")
-        return iter, points[mapFile], nil
+    function HLHandler:GetNodes2(uiMapId, minimap)
+        return iter, points[uiMapId], nil
     end
 end
 
