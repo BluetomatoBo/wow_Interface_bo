@@ -1,5 +1,5 @@
-## v4.0.4 Changes
+## v4.0.5 Changes
 
-* Added support for WoW Classic
+* Updated TOC for WoW 8.2.5.
 
 [Known Issues](http://support.tradeskillmaster.com/display/KB/TSM4+Currently+Known+Issues)
