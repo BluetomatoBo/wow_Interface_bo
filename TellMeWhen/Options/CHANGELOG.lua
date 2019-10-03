@@ -3,6 +3,15 @@ if not TMW then return end
 TMW.CHANGELOG_LASTVER="7.4.0"
 
 TMW.CHANGELOG = [==[
+## v8.7.2
+### Bug Fixes
+* Fixed handling of spell names in French that have a space before a colon.
+* More fixes for Blizzard's weird change in 8.2.5 that prevented UnitAura from defaulting to buffs unless explicitly told to.
+
+## v8.7.1
+### Bug Fixes
+* Fixed the buff/debuff "Either" setting for WoW 8.2.5.
+
 ## v8.7.0
 * The Missing Buffs/Debuffs icon type now sorts by lowest duration first.
 * Switched to DRList-1.0 (from DRData-1.0) for DR category data.

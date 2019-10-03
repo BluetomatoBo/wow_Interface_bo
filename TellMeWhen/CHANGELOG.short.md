@@ -1,10 +1,6 @@
 
-## v8.7.0
-* The Missing Buffs/Debuffs icon type now sorts by lowest duration first.
-* Switched to DRList-1.0 (from DRData-1.0) for DR category data.
-* Added events to the Combat Event icon type for swing & spell dodges/blocks/parries.
-* Added an option to Spell Cooldown icons and Cooldown conditions to prevent the GCD from being ignored.
-
+## v8.7.2
 ### Bug Fixes
-* Fixed an uncommon issue that could cause some event-driven icons to not update correctly after one of the units being tracked by an icon stops existing.
+* Fixed handling of spell names in French that have a space before a colon.
+* More fixes for Blizzard's weird change in 8.2.5 that prevented UnitAura from defaulting to buffs unless explicitly told to.
 
