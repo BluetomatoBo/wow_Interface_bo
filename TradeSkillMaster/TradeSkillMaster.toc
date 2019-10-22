@@ -1,23 +1,28 @@
 ## Interface: 80205
 ## Title: |cff00fe00TradeSkillMaster|r
 ## Notes: Auction house and gold making addon.
-## Author: TSM Team
-## Version: v4.8.14
-## SavedVariables: TradeSkillMasterDB, TSMItemCacheDB, TSMItemInfoDB, TradeSkillMasterModulesDB
-## OptionalDeps: CostBasis, Auc-Advanced, Auctionator, TheUndermineJournal
+## Author: TradeSkillMaster Team
+## Version: v4.8.17
+## SavedVariables: TradeSkillMasterDB, TSMItemInfoDB, TradeSkillMasterModulesDB
+## OptionalDeps: Auc-Advanced, Auctionator, TheUndermineJournal, BootyBayGazette, AuctionDB
 ## X-Embeds: AccurateTime, Ace3, LibDataBroker-1.1, LibDBIcon-1.0, LibCompress, LibRealmInfo
 
-# External libraries included by the packager
-Libs\LibStub\LibStub.lua
-Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
-Libs\AceHook-3.0\AceHook-3.0.xml
-Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
-Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
-Libs\AceComm-3.0\AceComm-3.0.xml
-Libs\AceSerializer-3.0\AceSerializer-3.0.xml
-Libs\LibCompress\lib.xml
-Libs\AccurateTime\AccurateTime.lua
-Libs\LibRealmInfo\LibRealmInfo.lua
+# External libraries
+External\EmbeddedLibs\LibStub\LibStub.lua
+External\EmbeddedLibs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+External\EmbeddedLibs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+External\EmbeddedLibs\LibDBIcon-1.0\LibDBIcon-1.0.lua
+External\EmbeddedLibs\AceComm-3.0\AceComm-3.0.xml
+External\EmbeddedLibs\AceSerializer-3.0\AceSerializer-3.0.xml
+External\EmbeddedLibs\LibCompress\lib.xml
+External\EmbeddedLibs\LibRealmInfo\LibRealmInfo.lua
+
+# Our core init file
+Core\__init.lua
+
+# 1st-party libraries
+External\AccurateTime\AccurateTime.lua
+External\LibTSMClass\LibTSMClass.lua
 
 # Locale file
 Locale\Locale.lua
@@ -27,6 +32,7 @@ Core\UI\Fonts.xml
 
 # Constant data files (no dependencies)
 Core\Const\__init.lua
+Core\Const\ClassicRealms.lua
 Core\Const\BonusIdMap.lua
 Core\Const\Conversions.lua
 Core\Const\DisenchantInfo.lua
@@ -36,11 +42,15 @@ Core\Const\SoulboundMats.lua
 Core\Const\VendorSellPrices.lua
 
 # Utility files (no dependencies)
-Core\__init.lua
 Core\API.lua
+Core\Util\Math.lua
+Core\Util\String.lua
+Core\Util\Table.lua
+Core\Util\SlotId.lua
+Core\Util\Wow.lua
+Core\Util\TempTable.lua
+Core\Util\Vararg.lua
 Core\Util\SmartMap.lua
-Core\Util\Core.lua
-Core\Util\Class.lua
 Core\Util\CSV.lua
 Core\Util\Debug.lua
 Core\Util\Event.lua
@@ -50,7 +60,6 @@ Core\Util\Item\ItemClass.lua
 Core\Util\Item\ItemString.lua
 Core\Util\Money.lua
 Core\Util\Sound.lua
-Core\Util\Util.lua
 
 # Lib files which only depend on Util files
 Core\Lib\ObjectPool.lua
@@ -107,8 +116,8 @@ Core\UI\UI.lua
 Core\UI\Util\__init.lua
 Core\UI\Util\Stylesheet.lua
 Core\UI\Util\TableRow.lua
-Core\UI\Util\QueryScrollingTableInfo.lua
 Core\UI\Util\ScrollingTableInfo.lua
+Core\UI\Util\QueryScrollingTableInfo.lua
 
 Core\UI\Elements\Element.lua
 Core\UI\Elements\Button.lua
