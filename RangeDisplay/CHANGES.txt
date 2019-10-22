@@ -1,8 +1,9 @@
 ------------------------------------------------------------------------
-r392 | mitch0 | 2019-09-03 05:59:19 +0000 (Tue, 03 Sep 2019) | 1 line
+r394 | mitch0 | 2019-10-05 13:19:14 +0000 (Sat, 05 Oct 2019) | 1 line
 Changed paths:
-   M /trunk/RangeDisplay.lua
+   M /trunk/RangeDisplay.toc
+   M /trunk/RangeDisplay_Options/RangeDisplay_Options.toc
 
-disable arean and focus units in classic
+toc bump
 ------------------------------------------------------------------------
 
