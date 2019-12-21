@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0311
+PawnVersion = 2.0312
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.11
@@ -705,7 +705,7 @@ end
 function PawnGetEmptyScale()
 	return
 	{
-		["UpgradesFollowSpecialization"] = true,
+		["UpgradesFollowSpecialization"] = not VgerCore.IsClassic,
 		["PerCharacterOptions"] = { },
 		["Values"] = { },
 	}
@@ -714,8 +714,12 @@ end
 -- Returns the default Pawn scale table, either for the current player's spec, or for the supplied class and spec if non-nil.
 function PawnGetDefaultScale(ClassID, SpecID, NoStats)
 	local _
-	if ClassID == nil or SpecID == nil then
+	if ClassID == nil then
 		_, _, ClassID = UnitClass("player")
+	end
+	if VgerCore.IsClassic then
+		SpecID = nil
+	elseif SpecID == nil then
 		SpecID = GetSpecialization()
 	end
 	local Template = PawnFindScaleTemplate(ClassID, SpecID)
@@ -724,7 +728,7 @@ function PawnGetDefaultScale(ClassID, SpecID, NoStats)
 	{
 		["ClassID"] = ClassID,
 		["SpecID"] = SpecID,
-		["UpgradesFollowSpecialization"] = true,
+		["UpgradesFollowSpecialization"] = not VgerCore.IsClassic,
 		["PerCharacterOptions"] = { },
 		["Values"] = ScaleValues,
 	}
@@ -2584,6 +2588,8 @@ function PawnParseScaleTag(ScaleTag)
 			Value = PawnGetClassIDFromName(Value)
 		elseif Stat == "Spec" then
 			SpecID = Value -- processed later, in case they list Spec before Class
+		elseif Value == "X" or Value == "x" then
+			Value = PawnIgnoreStatValue
 		else
 			Value = tonumber(Value)
 		end
@@ -2698,7 +2704,7 @@ function PawnCorrectScaleErrors(ScaleName)
 	end
 	
 	-- Pawn 1.5.5 adds an option to follow specialization when upgrading.
-	if ThisScaleOptions.UpgradesFollowSpecialization == nil then ThisScaleOptions.UpgradesFollowSpecialization = true end
+	if ThisScaleOptions.UpgradesFollowSpecialization == nil then ThisScaleOptions.UpgradesFollowSpecialization = not VgerCore.IsClassic end
 	
 	-- Pawn 1.3 adds per-character options to each scale.
 	if ThisScaleOptions.PerCharacterOptions == nil then ThisScaleOptions.PerCharacterOptions = {} end
@@ -3056,7 +3062,7 @@ function PawnIsItemAnUpgrade(Item, DoNotRescan)
 			if PawnIsScaleVisible(ScaleName) and not
 				(Scale.DoNotShow1HUpgrades and (InvType == "INVTYPE_WEAPON" or InvType == "INVTYPE_WEAPONMAINHAND" or InvType == "INVTYPE_WEAPONOFFHAND" or InvType == "INVTYPE_SHIELD" or InvType == "INVTYPE_HOLDABLE")) and not
 				(Scale.DoNotShow2HUpgrades and InvType == "INVTYPE_2HWEAPON") and
-				((not Scale.UpgradesFollowSpecialization) or PawnIsArmorBestTypeForPlayer(Item))
+				(VgerCore.IsClassic or (not Scale.UpgradesFollowSpecialization) or PawnIsArmorBestTypeForPlayer(Item))
 			then
 				-- Find the best item for that slot.  Or, if a second-best item is available, compare versus that.
 				local CharacterOptions = Scale.PerCharacterOptions[PawnPlayerFullName]
@@ -4396,6 +4402,19 @@ function PawnSetStatValue(ScaleName, StatName, Value)
 	return true
 end
 
+-- Returns the number of visible scales for the current character.
+function PawnGetVisibleScaleCount()
+	local Count = 0
+	local ScaleName, Scale
+	for ScaleName, Scale in pairs(PawnCommon.Scales) do
+		if PawnIsScaleVisible(ScaleName) and ((not Scale.Provider) or (Scale.ProviderActive)) then
+			Count = Count + 1
+		end
+	end
+
+	return Count
+end
+
 -- Returns a table of all Pawn scale names.  Returns all custom scales not from scale providers, whether visible or not.
 -- For more information in one big table, use PawnGetAllScalesEx.  This method is provided here for backwards compatibility.
 -- DEPRECATED
@@ -4506,7 +4525,7 @@ end
 --	Parameters: ScaleName
 --		ScaleName: The name of a Pawn scale.
 --	Return value: ScaleTag, or nil if unsuccessful.
---		ScaleTag: A Pawn scale tag.  Example:  '( Pawn: v1: "Healbot": Stamina=1, Intellect=1.24 )'
+--		ScaleTag: A Pawn scale tag.  Example:  '( Pawn: v1: "Healbot": Stamina=1, Intellect=1.24, IsSword=X )'
 function PawnGetScaleTag(ScaleName)
 	if not PawnIsInitialized then VgerCore.Fail("Can't export scales until Pawn is initialized") return end
 
@@ -4540,7 +4559,13 @@ function PawnGetScaleTag(ScaleName)
 		end
 		if IncludeThis then
 			if AddComma then ScaleTag = ScaleTag .. ", " end
-			ScaleTag = ScaleTag .. StatName .. "=" .. tostring(Value)
+			local ValueAsString
+			if Value == PawnIgnoreStatValue then
+				ValueAsString = "X"
+			else
+				ValueAsString = tostring(Value)
+			end
+			ScaleTag = ScaleTag .. StatName .. "=" .. ValueAsString
 			AddComma = true
 		end
 	end
@@ -4682,14 +4707,14 @@ function PawnSetScaleVisible(ScaleName, Visible)
 	end
 	
 	local Scale = PawnCommon.Scales[ScaleName]
+	if Scale.PerCharacterOptions == nil then Scale.PerCharacterOptions = {} end
+	if Scale.PerCharacterOptions[PawnPlayerFullName] == nil then Scale.PerCharacterOptions[PawnPlayerFullName] = {} end
 	if Scale.PerCharacterOptions[PawnPlayerFullName].Visible ~= Visible then
 		Scale.PerCharacterOptions[PawnPlayerFullName].Visible = Visible
 		PawnResetTooltips()
 	end
 	return true
 end
-
-local TEMP_PawnDebugPerCharacterOptionsFailure
 
 -- Returns true if a given scale is visible in tooltips.
 function PawnIsScaleVisible(ScaleName)
@@ -4708,16 +4733,7 @@ function PawnIsScaleVisible(ScaleName)
 		VgerCore.Fail("All per-character options for " .. ScaleName .. " were missing.")
 		return false
 	end
-	if Scale.PerCharacterOptions[PawnPlayerFullName] == nil then
-		if TEMP_PawnDebugPerCharacterOptionsFailure == nil then
-			TEMP_PawnDebugPerCharacterOptionsFailure = true
-			VgerCore.Fail("Per-character options for this character (" .. PawnPlayerFullName .. ") and scale (" .. ScaleName .. ") were missing.")
-		end
-		if PawnCommon.DebugPerCharacterOptionsFailure then
-			VgerCore.Fail(debugstack())
-		end
-		return false
-	end
+	if Scale.PerCharacterOptions[PawnPlayerFullName] == nil then return false end
 	return Scale.PerCharacterOptions[PawnPlayerFullName].Visible
 end
 
@@ -5023,8 +5039,11 @@ function PawnAddPluginScaleFromTemplate(ProviderInternalName, ClassID, SpecID, S
 
 	if not PawnCommon then VgerCore.Fail("Can't add plugin scales until Pawn starts to initialize.") return end
 
-	local LocalizedClassName, UnlocalizedClassName = GetClassInfo(ClassID)
-	local _, LocalizedSpecName, _, IconTexturePath, Role = GetSpecializationInfoForClassID(ClassID, SpecID)
+	local LocalizedClassName, UnlocalizedClassName = PawnGetClassInfo(ClassID)
+	local _, LocalizedSpecName, IconTexturePath, Role
+	if SpecID then
+		_, LocalizedSpecName, _, IconTexturePath, Role = GetSpecializationInfoForClassID(ClassID, SpecID)
+	end
 
 	local Template = PawnFindScaleTemplate(ClassID, SpecID)
 	if not Template then VgerCore.Fail("Can't add this plugin scale because the class" .. tostring(LocalizedClassName) .. " ID " .. tostring(ClassID) .. " and/or spec " .. tostring(LocalizedSpecName) .. " ID " .. tostring(SpecID) .. " wasn't found.") return end
@@ -5043,11 +5062,12 @@ function PawnAddPluginScaleFromTemplate(ProviderInternalName, ClassID, SpecID, S
 	if ClassID == 6 then Color = "ff4d6b" end
 
 	-- Then, transfer control to the regular plugin scale codepath.
-	local ScaleInternalName = UnlocalizedClassName .. SpecID
+	local ScaleInternalName = UnlocalizedClassName .. (SpecID or "")
+	local LocalizedScaleName = LocalizedSpecName and (LocalizedClassName .. ": " .. LocalizedSpecName) or LocalizedClassName
 	PawnAddPluginScale(
 		ProviderInternalName,
 		ScaleInternalName,
-		LocalizedClassName .. ": " .. LocalizedSpecName, -- LocalizedScaleName
+		LocalizedScaleName,
 		Color,
 		ScaleValues,
 		NormalizationFactor,
@@ -5062,6 +5082,37 @@ function PawnAddPluginScaleFromTemplate(ProviderInternalName, ClassID, SpecID, S
 	NewScale.SpecID = SpecID
 	NewScale.IconTexturePath = IconTexturePath
 	NewScale.Role = Role
+end
+
+-- Wraps the GetClassInfo function so that it can be called on WoW Classic.
+-- (On WoW Classic, returns something like "Druid", "DRUID".)
+function PawnGetClassInfo(ClassID)
+	if GetClassInfo then return GetClassInfo(ClassID) end
+
+	local UnlocalizedClassName
+	if ClassID == 1 then
+		UnlocalizedClassName = "WARRIOR"
+	elseif ClassID == 2 then
+		UnlocalizedClassName = "PALADIN"
+	elseif ClassID == 3 then
+		UnlocalizedClassName = "HUNTER"
+	elseif ClassID == 4 then
+		UnlocalizedClassName = "ROGUE"
+	elseif ClassID == 5 then
+		UnlocalizedClassName = "PRIEST"
+	elseif ClassID == 7 then
+		UnlocalizedClassName = "SHAMAN"
+	elseif ClassID == 8 then
+		UnlocalizedClassName = "MAGE"
+	elseif ClassID == 9 then
+		UnlocalizedClassName = "WARLOCK"
+	elseif ClassID == 11 then
+		UnlocalizedClassName = "DRUID"
+	else
+		VgerCore.Fail("Unknown class ID: " .. tostring(ClassID))
+	end
+
+	return LOCALIZED_CLASS_NAMES_MALE[UnlocalizedClassName], UnlocalizedClassName
 end
 
 -- Returns the unenchanted item link of the best item that a user has for a particular scale and inventory type.

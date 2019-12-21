@@ -567,9 +567,8 @@ end
 
 function PawnUI_ScalesTab_SelectFrame()
 	if VgerCore.IsClassic then
-		PawnUIFrame_AutoManualDivider:Hide()
 		PawnUIFrame_AutoSelectScalesOnButton:Hide()
-		PawnUIFrame_AutoSelectScalesOffButton:Hide()
+		PawnUIFrame_AutoSelectScalesOffButton.SelectedTexture:Show()
 		PawnUIScalesTab_AutoFrame:Hide()
 		PawnUIScalesTab_ManualFrame:Show()
 	elseif PawnOptions.AutoSelectScales then
@@ -783,7 +782,7 @@ function PawnUIFrame_StatsList_SelectStat(Index)
 		else
 			PawnUIFrame_NoUpgradesCheck:Show()
 		end
-		if ThisStat == "IsCloth" or ThisStat == "IsLeather" or ThisStat == "IsMail" or ThisStat == "IsPlate" then
+		if (not VgerCore.IsClassic) and ThisStat == "IsCloth" or ThisStat == "IsLeather" or ThisStat == "IsMail" or ThisStat == "IsPlate" then
 			PawnUIFrame_FollowSpecializationCheck:Show()
 		else
 			PawnUIFrame_FollowSpecializationCheck:Hide()
@@ -2411,8 +2410,6 @@ function PawnUI_EnsureLoaded()
 			PawnUIFrame_IgnoreGemsWhileLevelingCheck:Hide()
 			PawnUIFrame_ShowSocketingAdvisorCheck:Hide()
 
-			PawnUIFrame_NewScaleFromDefaultsButton:Hide()
-			PawnUIFrame_NewScaleFromDefaultsButton_Label:Hide()
 			PawnUIFrame_ShowSpecIconsCheck:Hide()
 		end
 		if not PawnCommon then
